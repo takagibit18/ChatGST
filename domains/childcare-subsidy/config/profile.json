@@ -1,0 +1,15 @@
+{
+  "id": "childcare-subsidy",
+  "display_name": "北京 + 河北育儿补贴政策助手",
+  "supported_regions": ["北京市", "河北省"],
+  "max_user_turns": 2,
+  "max_clarifications": 1,
+  "allowed_tools": [
+    "search_policy",
+    "get_policy_source",
+    "get_policy_metadata",
+    "resolve_policy_version",
+    "calculate_date_interval"
+  ]
+}
+

@@ -12,22 +12,20 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
     "paths": {
-      "@policy/shared/*": ["packages/shared/src/*"],
-      "@policy/schemas/*": ["packages/schemas/src/*"],
-      "@policy/model-provider/*": ["packages/model-provider/src/*"],
-      "@policy/rag/*": ["packages/policy-rag-adapter/src/*"],
-      "@policy/tools/*": ["packages/tools/src/*"],
-      "@policy/session/*": ["packages/session/src/*"],
-      "@policy/validators/*": ["packages/validators/src/*"],
-      "@policy/tracing/*": ["packages/raindrop-adapter/src/*"],
-      "@policy/runtime/*": ["packages/pi-runtime-adapter/src/*"],
-      "@policy/web-adapter/*": ["packages/policy-web-ui-adapter/src/*"],
-      "@/*": ["apps/policy-web/src/*"]
+      "@policy/shared/*": ["./packages/shared/src/*"],
+      "@policy/schemas/*": ["./packages/schemas/src/*"],
+      "@policy/model-provider/*": ["./packages/model-provider/src/*"],
+      "@policy/rag/*": ["./packages/policy-rag-adapter/src/*"],
+      "@policy/tools/*": ["./packages/tools/src/*"],
+      "@policy/session/*": ["./packages/session/src/*"],
+      "@policy/validators/*": ["./packages/validators/src/*"],
+      "@policy/tracing/*": ["./packages/raindrop-adapter/src/*"],
+      "@policy/runtime/*": ["./packages/pi-runtime-adapter/src/*"],
+      "@policy/web-adapter/*": ["./packages/policy-web-ui-adapter/src/*"],
+      "@/*": ["./apps/policy-web/src/*"]
     },
     "types": ["node", "vitest/globals"]
   },
   "include": ["apps", "packages", "scripts", "tests", "vitest.config.ts"]
 }
-

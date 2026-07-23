@@ -1,0 +1,15 @@
+node_modules/
+.npm-cache/
+.pnpm-store/
+.upstream/
+.env
+dist/
+coverage/
+output/
+knowledge/index/*
+!knowledge/index/.gitkeep
+*.log
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+

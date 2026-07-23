@@ -1,0 +1,15 @@
+[
+  { "id": "beijing-amount", "question": "北京育儿补贴每年多少钱？", "expected_region": "北京市", "expected_intent": "amount", "relevant_documents": ["national-childcare-subsidy-faq-2025"], "expected_terms": ["3600", "300"] },
+  { "id": "hebei-eligibility", "question": "河北哪些孩子有育儿补贴申请资格？", "expected_region": "河北省", "expected_intent": "eligibility", "relevant_documents": ["hebei-implementation-rules-2026", "hebei-policy-explanation-2026"], "expected_terms": ["3周岁"] },
+  { "id": "hebei-claimant", "question": "河北育儿补贴由谁申领？", "expected_region": "河北省", "expected_intent": "claimant", "relevant_documents": ["hebei-implementation-rules-2026"], "expected_terms": ["父母"] },
+  { "id": "beijing-materials", "question": "北京申请育儿补贴要哪些关键材料？", "expected_region": "北京市", "expected_intent": "materials", "relevant_documents": ["beijing-implementation-rules-2025", "national-childcare-subsidy-faq-2025"], "expected_terms": ["出生医学证明", "户口簿"] },
+  { "id": "hebei-channel", "question": "河北育儿补贴线上和现场在哪里申请？", "expected_region": "河北省", "expected_intent": "channel", "relevant_documents": ["hebei-implementation-rules-2026"], "expected_terms": ["小程序", "街道"] },
+  { "id": "beijing-deadline", "question": "北京2022年至2024年出生孩子首次申请截止到什么时候？", "expected_region": "北京市", "expected_intent": "deadline", "relevant_documents": ["beijing-deadline-update-2026"], "expected_terms": ["2026年12月31日"] },
+  { "id": "hebei-payment", "question": "河北育儿补贴通常什么时候发放？", "expected_region": "河北省", "expected_intent": "payment", "relevant_documents": ["hebei-implementation-rules-2026"], "expected_terms": ["2月", "5月", "8月", "11月"] },
+  { "id": "regional-comparison", "question": "北京和河北育儿补贴政策有什么不同？", "expected_region": "对比", "expected_intent": "comparison", "relevant_documents": ["beijing-implementation-rules-2025", "hebei-implementation-rules-2026"], "expected_terms": ["北京", "河北"] },
+  { "id": "hebei-migration", "question": "孩子户口迁到河北后还能申请吗？", "expected_region": "河北省", "expected_intent": "migration", "relevant_documents": ["hebei-implementation-rules-2026"], "expected_terms": ["重复", "申请"] },
+  { "id": "benefit-distinction", "question": "育儿补贴和生育津贴有什么区别？", "expected_region": "对比", "expected_intent": "distinction", "relevant_documents": ["national-maternity-allowance-faq-2024"], "expected_terms": ["生育保险", "不是同一制度"] },
+  { "id": "missing-region", "question": "我想了解育儿补贴", "expected_region": null, "expected_intent": "overview", "relevant_documents": [], "expected_terms": [] },
+  { "id": "unsupported-region", "question": "上海育儿补贴多少钱？", "expected_region": null, "expected_intent": "amount", "relevant_documents": [], "expected_terms": [] },
+  { "id": "retrieval-empty", "question": "北京量子火箭许可证ZKXQ999？", "expected_region": "北京市", "expected_intent": "unknown", "relevant_documents": [], "expected_terms": [] }
+]

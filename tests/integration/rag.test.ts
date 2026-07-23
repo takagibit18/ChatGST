@@ -9,10 +9,11 @@ import {
   SemanticPolicyChunker,
 } from "@policy/rag/index";
 import { createPolicyToolRegistry, type RuntimeUsage } from "@policy/tools/index";
+import { hasLocalPolicyIndex } from "../helpers.js";
 
 const provider = new PiLocalRagRetrievalProvider(resolve("knowledge/index"));
 
-describe("pi-local-rag pure BM25 policy adapter", () => {
+describe.skipIf(!hasLocalPolicyIndex())("pi-local-rag pure BM25 policy adapter", () => {
   it("has indexed real Beijing/Hebei Markdown without vectors", () => {
     const stats = provider.getStats();
     expect(stats.documents).toBe(6);

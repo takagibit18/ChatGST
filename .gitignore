@@ -7,6 +7,16 @@ node_modules/
 dist/
 coverage/
 output/
+.publish-check/
+
+# Policy corpora and evidence-bearing generated artifacts are local-only.
+knowledge/raw/**
+knowledge/curated/**
+knowledge/fixtures/**
+knowledge/metadata/**
+!knowledge/metadata/overrides.example.json
+domains/childcare-subsidy/evals/goldens.generated.json
+
 domains/childcare-subsidy/evals/latest-report.json
 knowledge/index/*
 !knowledge/index/.gitkeep

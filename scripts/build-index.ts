@@ -8,6 +8,9 @@ import {
 } from "@policy/rag/index";
 
 const documents = await loadPolicyDocuments(defaultKnowledgeLocations());
+if (documents.length === 0) {
+  throw new Error("No local policy Markdown found. See knowledge/README.md before building the index.");
+}
 const report = await buildPolicyIndex({
   indexDir: resolve("knowledge/index"),
   documents,
@@ -17,4 +20,3 @@ const report = await buildPolicyIndex({
 });
 
 console.log(JSON.stringify(report, null, 2));
-

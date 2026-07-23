@@ -4,6 +4,9 @@ const documents = await loadPolicyDocuments(defaultKnowledgeLocations());
 const chunker = new SemanticPolicyChunker();
 const errors: string[] = [];
 const warnings: string[] = [];
+if (documents.length === 0) {
+  errors.push("No local policy Markdown found. See knowledge/README.md before building the index.");
+}
 for (const document of documents) {
   if (document.raw.includes("\uFFFD") || /锟斤拷|Ã\w|å\w/u.test(document.raw)) {
     errors.push(`${document.fileName}: possible mojibake`);
@@ -21,4 +24,3 @@ for (const document of documents) {
 const result = { valid: errors.length === 0, documents: documents.length, errors, warnings };
 console.log(JSON.stringify(result, null, 2));
 if (!result.valid) process.exitCode = 1;
-

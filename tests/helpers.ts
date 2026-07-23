@@ -1,5 +1,26 @@
+import { existsSync, readdirSync } from "node:fs";
+import { resolve } from "node:path";
 import type { EvidencePack, PolicyResponse } from "@policy/schemas/index";
 import { loadRuntimeConfig } from "@policy/shared/index";
+
+function hasMarkdown(root: string): boolean {
+  if (!existsSync(root)) return false;
+  const pending = [root];
+  while (pending.length > 0) {
+    const directory = pending.pop()!;
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const path = resolve(directory, entry.name);
+      if (entry.isDirectory()) pending.push(path);
+      else if (entry.isFile() && entry.name.toLowerCase().endsWith(".md")) return true;
+    }
+  }
+  return false;
+}
+
+export function hasLocalPolicyIndex(): boolean {
+  return existsSync(resolve("knowledge/index/rag.db"))
+    && (hasMarkdown(resolve("knowledge/raw")) || hasMarkdown(resolve("knowledge/curated")));
+}
 
 export function testConfig(overrides: NodeJS.ProcessEnv = {}) {
   return loadRuntimeConfig({

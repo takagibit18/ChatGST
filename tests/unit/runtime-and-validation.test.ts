@@ -3,9 +3,9 @@ import { buildEvidencePack, createDefaultPolicyRuntime, createDeterministicTestR
 import { InMemorySessionStore } from "@policy/session/index";
 import { PolicyAssistantError, withTimeout } from "@policy/shared/index";
 import { deterministicSafeResponse, validateModelOutput } from "@policy/validators/index";
-import { evidencePack, testConfig, validResponse } from "../helpers.js";
+import { evidencePack, hasLocalPolicyIndex, testConfig, validResponse } from "../helpers.js";
 
-describe("restricted Pi runtime", () => {
+describe.skipIf(!hasLocalPolicyIndex())("restricted Pi runtime", () => {
   it("answers with validated evidence, bounded calls, and all public stages", async () => {
     const { runtime, registry } = createDefaultPolicyRuntime(testConfig());
     const stages: string[] = [];

@@ -2,7 +2,7 @@ import { createServer } from "node:http";
 import { mkdtemp, readFile, rm } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { createRaindropPiAgent } from "@raindrop-ai/pi-agent";
-import { initSchema, openDb, sha256 } from "pi-local-rag";
+import { initPiLocalRagSchema, openPiLocalRagDb, piLocalRagSha256 } from "@policy/rag/index";
 
 type PackageManifest = {
   name: string;
@@ -26,9 +26,9 @@ async function manifest(name: string): Promise<PackageManifest> {
 
 async function verifyRag(): Promise<Record<string, unknown>> {
   const temp = await mkdtemp(join(process.cwd(), ".extension-smoke-rag-"));
-  const database = openDb(temp);
+  const database = openPiLocalRagDb(temp);
   try {
-    initSchema(database);
+    initPiLocalRagSchema(database);
     const content = "北京市 北京 育儿补贴 育儿 补贴 金额 3600 元";
     database
       .prepare(`
@@ -37,7 +37,7 @@ async function verifyRag(): Promise<Record<string, unknown>> {
           chunk_hash, indexed_at, tokens
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       `)
-      .run("smoke-chunk", "registered://smoke.md", content, 1, 1, sha256(content), new Date().toISOString(), 8);
+      .run("smoke-chunk", "registered://smoke.md", content, 1, 1, piLocalRagSha256(content), new Date().toISOString(), 8);
     const hit = database
       .prepare(`
         SELECT c.chunk_content AS content, bm25(chunks_fts) AS score
@@ -49,7 +49,7 @@ async function verifyRag(): Promise<Record<string, unknown>> {
       `)
       .get("北京市 AND 育儿补贴") as { content?: string; score?: number } | undefined;
     const vectorRows = database.prepare("SELECT COUNT(*) AS count FROM chunks_vec").get() as { count: number };
-    if (!hit?.content.includes("3600") || vectorRows.count !== 0) {
+    if (!hit?.content?.includes("3600") || vectorRows.count !== 0) {
       throw new Error("pi-local-rag FTS5 smoke query did not return the expected pure-BM25 row");
     }
     return { fts5_hit: true, vector_rows: vectorRows.count, bm25_score: hit.score };
@@ -138,4 +138,3 @@ const result = {
 };
 
 console.log(JSON.stringify(result, null, 2));
-

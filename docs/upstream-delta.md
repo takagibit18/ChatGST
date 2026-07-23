@@ -10,6 +10,7 @@ Integration type: Adapter, no fork.
 - Insert policy chunks into upstream `chunks`/`chunks_fts`; keep `chunks_vec` empty; query `chunks_fts` with SQLite `bm25()`.
 - Do not load the default Pi Coding Agent extension, auto-injection hooks, or runtime index-management tools.
 - Add an explicit `@sinclair/typebox` dependency because the 0.4.1 root entry imports it without declaring it in the package manifest; no upstream source is modified.
+- Load the public root through a typed dynamic Adapter because 0.4.1 publishes raw `.ts`; this prevents the application's strict compiler from re-checking upstream sources while preserving the real runtime package API.
 
 ## @raindrop-ai/pi-agent
 

@@ -1,0 +1,2 @@
+# Preserve user-supplied immutable policy source bytes across Git checkouts.
+knowledge/raw/** -text

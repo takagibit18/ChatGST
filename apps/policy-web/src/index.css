@@ -1,0 +1,100 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@source "../../../node_modules/streamdown/dist/*.js";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-danger: var(--danger);
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1rem;
+}
+
+:root {
+  color-scheme: light;
+  --background: #f4f7f5;
+  --foreground: #17221e;
+  --surface: #fbfdfc;
+  --surface-strong: #ffffff;
+  --primary: #17664f;
+  --primary-foreground: #f8fffc;
+  --secondary: #e2ece7;
+  --secondary-foreground: #23473a;
+  --muted: #e9efec;
+  --muted-foreground: #5b6b65;
+  --border: #cdd9d3;
+  --input: #bdcbc4;
+  --ring: #17664f;
+  --danger: #a23b3b;
+  font-family: "Noto Sans SC", "Microsoft YaHei UI", "PingFang SC", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: #111916;
+    --foreground: #e7efeb;
+    --surface: #17221e;
+    --surface-strong: #1c2924;
+    --primary: #71c9a8;
+    --primary-foreground: #0e211a;
+    --secondary: #253b32;
+    --secondary-foreground: #d8ebe3;
+    --muted: #223029;
+    --muted-foreground: #aebdb6;
+    --border: #34483f;
+    --input: #486057;
+    --ring: #71c9a8;
+    --danger: #f09a9a;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html,
+  body,
+  #root {
+    @apply min-h-full;
+  }
+
+  body {
+    @apply m-0 bg-background text-foreground antialiased;
+  }
+
+  button,
+  textarea {
+    font: inherit;
+  }
+
+  a {
+    @apply text-primary underline-offset-4 hover:underline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

@@ -54,6 +54,7 @@ describe("Raindrop observability privacy boundary", () => {
       conversation_id: "real-conversation-id",
       timestamp: "2026-07-23T00:00:00.000Z",
     });
+    expect(track).toHaveBeenCalledWith(expect.objectContaining({ eventId: "request-3", request_id: "request-3" }));
     expect(JSON.stringify(track.mock.calls)).not.toContain("real-conversation-id");
     await recorder.shutdown();
     expect(unsubscribe).toHaveBeenCalledOnce();

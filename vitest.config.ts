@@ -10,6 +10,7 @@ export default defineConfig({
       "@policy/schemas": `${root}packages/schemas/src`,
       "@policy/model-provider": `${root}packages/model-provider/src`,
       "@policy/rag": `${root}packages/policy-rag-adapter/src`,
+      "@policy/ontology": `${root}packages/ontology/src`,
       "@policy/tools": `${root}packages/tools/src`,
       "@policy/session": `${root}packages/session/src`,
       "@policy/validators": `${root}packages/validators/src`,
@@ -26,4 +27,3 @@ export default defineConfig({
     coverage: { reporter: ["text", "json-summary"] },
   },
 });
-

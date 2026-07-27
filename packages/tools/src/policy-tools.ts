@@ -1,7 +1,8 @@
 import { Type } from "@earendil-works/pi-ai";
 import { z } from "zod";
+import { hasRuleEngineConfig, queryPolicy } from "@policy/ontology/index";
 import { evidenceItemSchema, policyMetadataSchema } from "@policy/schemas/index";
-import { PolicyAssistantError } from "@policy/shared/index";
+import { PolicyAssistantError, type RuntimeConfig } from "@policy/shared/index";
 import type { RetrievalProvider } from "@policy/rag/index";
 import { RestrictedToolRegistry } from "./registry.js";
 import type { AgentTool } from "./types.js";
@@ -19,7 +20,7 @@ function fullMonthsBetween(start: Date, end: Date): number {
   return months;
 }
 
-export function createPolicyToolRegistry(retrieval: RetrievalProvider): RestrictedToolRegistry {
+export function createPolicyToolRegistry(retrieval: RetrievalProvider, config?: RuntimeConfig): RestrictedToolRegistry {
   const searchInput = z
     .object({
       query: z.string().min(1).max(1000),
@@ -169,12 +170,68 @@ export function createPolicyToolRegistry(retrieval: RetrievalProvider): Restrict
     },
   };
 
-  return new RestrictedToolRegistry([
+  const tools: Array<AgentTool<never, unknown>> = [
     searchTool,
     sourceTool,
     metadataTool,
     versionTool,
     intervalTool,
-  ] as never);
-}
+  ];
 
+  if (config?.ontology.ruleEngineToolEnabled && hasRuleEngineConfig()) {
+    const ruleEngineInput = z
+      .object({
+        region: z.string().min(1).max(80),
+        policyType: z.string().min(1).max(80),
+        userConditions: z.string().min(1).max(1500),
+        question: z.string().max(500).optional(),
+      })
+      .strict();
+    const ruleEngineOutput = z.object({
+      decision: z.enum(["allow", "missing", "deny"]),
+      message: z.string(),
+      missing_fields: z.array(z.object({ op: z.string(), zh: z.string().optional(), hint: z.string().optional() })),
+      region: z.string(),
+      conclusions: z.array(z.unknown()).optional(),
+    });
+    const ruleEngineTool: AgentTool<z.infer<typeof ruleEngineInput>, z.infer<typeof ruleEngineOutput>> = {
+      name: "policy_rule_engine",
+      description: "Query the ontology-backed policy rule engine for eligibility decisions; use RAG tools as fallback when unavailable.",
+      inputSchema: ruleEngineInput,
+      outputSchema: ruleEngineOutput,
+      piParameters: Type.Object(
+        {
+          region: Type.String({ minLength: 1, maxLength: 80 }),
+          policyType: Type.String({ minLength: 1, maxLength: 80 }),
+          userConditions: Type.String({ minLength: 1, maxLength: 1500 }),
+          question: Type.Optional(Type.String({ maxLength: 500 })),
+        },
+        { additionalProperties: false },
+      ),
+      permission: "read",
+      riskLevel: "low",
+      timeoutMs: 10_000,
+      sideEffect: false,
+      execute: async (input) => {
+        const response = await queryPolicy({
+          region: input.region,
+          text: input.userConditions,
+          ...(input.question ? { question: input.question } : {}),
+          ...(config.ontology.ruleEnginePolicyId ? { policy_id: config.ontology.ruleEnginePolicyId } : {}),
+        });
+        const decision = response.verdict === "eligible" ? "allow" : response.verdict === "missing_info" ? "missing" : "deny";
+        const missingFields = response.missing ?? [];
+        const message =
+          decision === "allow"
+            ? "符合条件。"
+            : decision === "missing"
+              ? `需要补充：${missingFields.map((field) => field.zh || field.op).join("、")}`
+              : "不符合条件。";
+        return { decision, message, missing_fields: missingFields, region: response.region, conclusions: response.conclusions };
+      },
+    };
+    tools.push(ruleEngineTool as never);
+  }
+
+  return new RestrictedToolRegistry(tools as never);
+}

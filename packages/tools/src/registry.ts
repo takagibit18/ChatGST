@@ -15,6 +15,7 @@ export const POLICY_TOOL_ALLOWLIST = [
   "get_policy_metadata",
   "resolve_policy_version",
   "calculate_date_interval",
+  "policy_rule_engine",
 ] as const;
 
 export class RestrictedToolRegistry {
@@ -82,4 +83,3 @@ export class RestrictedToolRegistry {
     }));
   }
 }
-

@@ -12,6 +12,8 @@
     "knowledge:inspect": "tsx scripts/inspect-knowledge.ts",
     "knowledge:validate": "tsx scripts/validate-knowledge.ts",
     "rag:build": "tsx scripts/build-index.ts",
+    "onto:step2": "tsx scripts/run-step2-auto-modeling.ts",
+    "onto:finalize": "tsx scripts/finalize-step2.ts",
     "rag:smoke": "tsx scripts/retrieval-smoke.ts",
     "golden:generate": "tsx scripts/generate-golden.ts",
     "build:runtime": "tsc -p tsconfig.json --noEmit",

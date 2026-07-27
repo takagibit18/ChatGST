@@ -10,7 +10,7 @@ import { SkillLoader } from "./skill-loader.js";
 
 export function createDefaultPolicyRuntime(config: RuntimeConfig, options?: { testResponseSequence?: TestResponseSequence }) {
   const retrieval = new PiLocalRagRetrievalProvider(resolve("knowledge/index"));
-  const registry = createPolicyToolRegistry(retrieval);
+  const registry = createPolicyToolRegistry(retrieval, config);
   const session = new InMemorySessionStore(config.budget.sessionIdleTtl);
   const modelProviderFactory = (): ModelProvider => {
     if (config.model.provider === "test") return new TestModelProvider();

@@ -21,6 +21,36 @@ Browser
             -> Evidence Pack
 ```
 
+## Ontology Agent Architecture
+
+The repository now also carries the ontology-agent layer recorded in the local notes. It lives in `packages/ontology` and is intentionally separate from the read-only RAG path:
+
+```text
+Policy Markdown data
+  -> Step2 auto modeling
+       -> POST /api/onto/extract
+       -> POST /api/onto/derive
+       -> POST /api/policies/{id}/merge-all dry run
+       -> deterministic conflict resolutions
+       -> POST /api/policies/{id}/merge-all commit
+  -> review / golden run on the ontology platform
+  -> ontology.json version snapshot
+  -> rule engine /api/query
+  -> Pi tool policy_rule_engine
+  -> RAG tools as fallback evidence
+```
+
+`proxyOnto()` owns the ontology-platform login cookie, 30 minute TTL and one automatic 401 re-login. `runStep2AutoModeling()` scans Markdown data, records resumable per-file extract/derive completion in `_step2_done.json`, writes `step2_progress` into each version's `version.json`, and then performs the two-phase merge. Conflict detection remains a platform concern over structured rule fields; this repository supplies deterministic resolutions through `use_candidate`, `keep_existing` or `skip`.
+
+The rule engine integration is opt-in at runtime. When ontology credentials are configured, `createPolicyToolRegistry()` exposes `policy_rule_engine` beside the five RAG tools. The rule tool calls `/api/query` and returns `allow`, `missing` or `deny`; local retrieval remains available when the rule engine is unavailable or when the answer needs source evidence.
+
+Useful commands:
+
+```bash
+pnpm onto:step2 -- --project childcare --version v1 --policy ontology_xxx --data-root knowledge/raw
+pnpm onto:finalize -- --project childcare --version v1 --regions 北京市,河北省 --rule-count 28
+```
+
 The generic runtime does not import domain facts. `SkillLoader` supplies answer method; the retrieval adapter supplies facts; tools expose bounded operations; validators enforce deterministic output and citation rules.
 
 ## Pi Runtime

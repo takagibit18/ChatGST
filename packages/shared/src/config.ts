@@ -20,6 +20,14 @@ const envSchema = z.object({
   RAINDROP_WRITE_KEY: z.string().optional(),
   RAINDROP_PROJECT_ID: z.string().optional(),
   RAINDROP_CAPTURE_CONTENT: booleanFromEnv.default(false),
+  ONTO_PLATFORM_URL: z.url().optional(),
+  ONTO_PLATFORM_USERNAME: z.string().optional(),
+  ONTO_PLATFORM_PASSWORD: z.string().optional(),
+  RULE_ENGINE_URL: z.url().optional(),
+  RULE_ENGINE_USERNAME: z.string().optional(),
+  RULE_ENGINE_PASSWORD: z.string().optional(),
+  RULE_ENGINE_POLICY_ID: z.string().optional(),
+  POLICY_RULE_ENGINE_TOOL_ENABLED: booleanFromEnv.default(true),
   MAX_AGENT_STEPS: integer(6, 1, 20),
   MAX_MODEL_CALLS: integer(2, 1, 4),
   MAX_TOOL_CALLS: integer(4, 1, 12),
@@ -51,6 +59,16 @@ export type RuntimeConfig = {
     writeKey: string | undefined;
     projectId: string | undefined;
     captureContent: boolean;
+  };
+  ontology: {
+    platformUrl: string | undefined;
+    username: string | undefined;
+    password: string | undefined;
+    ruleEngineUrl: string | undefined;
+    ruleEngineUsername: string | undefined;
+    ruleEnginePassword: string | undefined;
+    ruleEnginePolicyId: string | undefined;
+    ruleEngineToolEnabled: boolean;
   };
   budget: RuntimeBudget;
   server: { host: "127.0.0.1" | "::1"; port: number };
@@ -100,6 +118,16 @@ export function loadRuntimeConfig(env: NodeJS.ProcessEnv = process.env): Runtime
       writeKey: value.RAINDROP_WRITE_KEY,
       projectId: value.RAINDROP_PROJECT_ID,
       captureContent: value.RAINDROP_CAPTURE_CONTENT,
+    },
+    ontology: {
+      platformUrl: value.ONTO_PLATFORM_URL,
+      username: value.ONTO_PLATFORM_USERNAME,
+      password: value.ONTO_PLATFORM_PASSWORD,
+      ruleEngineUrl: value.RULE_ENGINE_URL,
+      ruleEngineUsername: value.RULE_ENGINE_USERNAME,
+      ruleEnginePassword: value.RULE_ENGINE_PASSWORD,
+      ruleEnginePolicyId: value.RULE_ENGINE_POLICY_ID,
+      ruleEngineToolEnabled: value.POLICY_RULE_ENGINE_TOOL_ENABLED,
     },
     budget: {
       maxAgentSteps: value.MAX_AGENT_STEPS,

@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { resolve } from "node:path";
 import pino from "pino";
+import { getOntoSummary } from "@policy/ontology/index";
 import { createDefaultPolicyRuntime } from "@policy/runtime/index";
 import { loadRuntimeConfig } from "@policy/shared/index";
 import { createPolicyServer } from "@policy/web-adapter/index";
@@ -26,6 +27,7 @@ logger.info(
     rag_documents: stats.documents,
     rag_chunks: stats.chunks,
     tools: registry.names(),
+    onto_platform: getOntoSummary(),
     raindrop_enabled: config.raindrop.enabled && Boolean(config.raindrop.writeKey),
   },
   `Policy assistant is running at ${address.url}`,
@@ -40,4 +42,3 @@ async function shutdown(signal: string) {
 }
 process.once("SIGINT", () => void shutdown("SIGINT"));
 process.once("SIGTERM", () => void shutdown("SIGTERM"));
-

@@ -57,4 +57,21 @@ export class TestModelProvider implements ModelProvider {
   normalizeResponse(input: unknown): unknown {
     return extractJsonText(input);
   }
+
+  async rewriteQuery(input: { query: string; region: string; intent: string }): Promise<string> {
+    return input.query;
+  }
+
+  async rerankCandidates(input: { query: string; candidates: Array<{ index: number; content: string; title: string; section: string }> }): Promise<number[]> {
+    return input.candidates.map((_, i) => i);
+  }
+
+  async generateStructuredAnswer(_input: {
+    systemPrompt: string;
+    userQuery: string;
+    evidenceJson: string;
+    schemaDescription: string;
+  }): Promise<string> {
+    return JSON.stringify({ answer_markdown: "测试模式不通过此路径生成" });
+  }
 }

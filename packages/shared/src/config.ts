@@ -29,8 +29,8 @@ const envSchema = z.object({
   RULE_ENGINE_POLICY_ID: z.string().optional(),
   POLICY_RULE_ENGINE_TOOL_ENABLED: booleanFromEnv.default(true),
   MAX_AGENT_STEPS: integer(6, 1, 20),
-  MAX_MODEL_CALLS: integer(2, 1, 4),
-  MAX_TOOL_CALLS: integer(4, 1, 12),
+  MAX_MODEL_CALLS: integer(2, 1, 12),
+  MAX_TOOL_CALLS: integer(4, 1, 20),
   MAX_INPUT_LENGTH: integer(2000, 32, 20_000),
   MAX_INPUT_TOKENS: integer(1200, 32, 10_000),
   MAX_OUTPUT_TOKENS: integer(1400, 128, 8192),
@@ -42,6 +42,11 @@ const envSchema = z.object({
   HOST: z.string().default("127.0.0.1"),
   PORT: integer(3001, 1024, 65_535),
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]).default("info"),
+  ANSWER_MODE: z.enum(["agent", "direct"]).default("direct"),
+  RETRIEVAL_MODE: z.enum(["bm25", "milvus", "hybrid"]).default("bm25"),
+  MILVUS_ENDPOINT: z.string().default("http://localhost:19530"),
+  MILVUS_COLLECTION: z.string().default("policy_chunks"),
+  MILVUS_TOKEN: z.string().default("root:Milvus"),
 });
 
 export type RuntimeConfig = {
@@ -73,6 +78,11 @@ export type RuntimeConfig = {
   budget: RuntimeBudget;
   server: { host: "127.0.0.1" | "::1"; port: number };
   logLevel: z.infer<typeof envSchema>["LOG_LEVEL"];
+  answerMode: "agent" | "direct";
+  retrieval: {
+    mode: "bm25" | "milvus" | "hybrid";
+    milvus: { endpoint: string; collection: string; token: string };
+  };
 };
 
 export type RuntimeBudget = {
@@ -144,5 +154,14 @@ export function loadRuntimeConfig(env: NodeJS.ProcessEnv = process.env): Runtime
     },
     server: { host: value.HOST, port: value.PORT },
     logLevel: value.LOG_LEVEL,
+    answerMode: value.ANSWER_MODE,
+    retrieval: {
+      mode: value.RETRIEVAL_MODE,
+      milvus: {
+        endpoint: value.MILVUS_ENDPOINT,
+        collection: value.MILVUS_COLLECTION,
+        token: value.MILVUS_TOKEN,
+      },
+    },
   };
 }

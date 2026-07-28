@@ -24,3 +24,27 @@ knowledge/index/*
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
+
+# ── 本体智能体平台: 本地/敏感文件 ──
+
+# skill 目录是本地生成的, 不应提交
+skills/**
+
+# onto-platform 配置文件 (含凭证)
+config.json
+
+# workspaces 持久化数据 (版本进度、ontology.json)
+workspaces/
+
+# 审计日志数据库
+event-log.db
+
+# 非目标地区政策文件备份
+knowledge/raw-other/
+
+# 服务器运行日志
+server*.log
+agent*.log
+debug*.log
+*_test.log
+/tmp/*.log

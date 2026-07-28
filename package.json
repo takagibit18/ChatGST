@@ -29,6 +29,7 @@
   "dependencies": {
     "@earendil-works/pi-agent-core": "0.81.1",
     "@earendil-works/pi-ai": "0.81.1",
+    "@earendil-works/pi-coding-agent": "^0.82.1",
     "@kkkiio/pi-web-ui": "0.1.1",
     "@phosphor-icons/react": "2.1.10",
     "@raindrop-ai/pi-agent": "0.1.0",
@@ -40,11 +41,13 @@
     "clsx": "2.1.1",
     "dotenv": "17.4.2",
     "gray-matter": "4.0.3",
+    "jiti": "^2.7.0",
     "pi-local-rag": "0.4.1",
     "pino": "10.3.1",
     "radix-ui": "1.4.3",
     "react": "19.2.6",
     "react-dom": "19.2.6",
+    "sql.js": "^1.14.1",
     "streamdown": "2.5.0",
     "tailwind-merge": "3.6.0",
     "tailwindcss": "4.3.0",
@@ -70,6 +73,7 @@
       "@google/genai",
       "better-sqlite3",
       "esbuild",
+      "koffi",
       "protobufjs",
       "sharp"
     ]

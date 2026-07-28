@@ -17,5 +17,16 @@ export interface ModelProvider {
   getCapabilities(): ModelCapabilities;
   normalizeToolCall(input: unknown): unknown;
   normalizeResponse(input: unknown): unknown;
+  /** Rewrite a citizen's vague query into precise policy search keywords. Returns the original text if unsupported. */
+  rewriteQuery(input: { query: string; region: string; intent: string }): Promise<string>;
+  /** Re-rank BM25 candidates by LLM relevance scoring. Returns sorted indices (most relevant first). */
+  rerankCandidates(input: { query: string; candidates: Array<{ index: number; content: string; title: string; section: string }> }): Promise<number[]>;
+  /** Generate a structured JSON answer directly (no agent loop, no tool calling). */
+  generateStructuredAnswer(input: {
+    systemPrompt: string;
+    userQuery: string;
+    evidenceJson: string;
+    schemaDescription: string;
+  }): Promise<string>;
 }
 

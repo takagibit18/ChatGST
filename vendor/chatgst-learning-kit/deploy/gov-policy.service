@@ -1,0 +1,33 @@
+# systemd 单元:/etc/systemd/system/gov-policy.service
+# 部署根按实际路径改 WorkingDirectory / ExecStart(下例 /opt/gov-policy)。
+# 安装后:
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now gov-policy
+#   sudo systemctl status gov-policy   /   journalctl -u gov-policy -f
+[Unit]
+Description=gov-policy secure web (zhengwu_policy + KELE, hardened .so)
+After=network.target
+
+[Service]
+Type=simple
+# 建议用非 root 专用账号运行(先 useradd -r -s /usr/sbin/nologin govpolicy)
+User=govpolicy
+Group=govpolicy
+WorkingDirectory=/opt/gov-policy
+Environment=PORT=8000
+Environment=ENV_PATH=/opt/gov-policy/.env
+Environment=FRONTEND_DIR=/opt/gov-policy/frontend
+ExecStartPre=/opt/gov-policy/deploy/check_python.sh /opt/gov-policy/.venv/bin/python
+ExecStart=/opt/gov-policy/.venv/bin/python /opt/gov-policy/backend/server.py
+Restart=on-failure
+RestartSec=3
+# 加固:只读根 + 私有 tmp + 禁止提权
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+# 本体 JSON 需可写(在线编辑本体);其余目录只读
+ReadWritePaths=/opt/gov-policy/backend/zhengwu_policy/data
+
+[Install]
+WantedBy=multi-user.target

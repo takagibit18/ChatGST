@@ -98,6 +98,7 @@ RAINDROP_CAPTURE_CONTENT=false
 apps/policy-runtime            本地 HTTP + WebSocket 入口
 apps/policy-web                受控 pi-web-ui 前端
 packages/pi-runtime-adapter    统一 Pi Runtime、Profile 与 Evidence Pack
+packages/ontology              本体平台、Step2 建模、规则引擎接入
 packages/policy-rag-adapter    pi-local-rag BM25、切片、中文检索和版本过滤
 packages/model-provider        DeepSeek / Test Provider
 packages/tools                 五个白名单工具
@@ -106,6 +107,9 @@ packages/validators            Schema 与政策业务校验
 packages/raindrop-adapter      Raindrop / Local / Composite Recorder
 domains/childcare-subsidy      Profile、Skill、References 与 Evals
 knowledge                     本地语料接入说明与被忽略的本地索引
+knowledge/examples            本体骨架与 OKF 输出样例
+docs/learning                 ChatGST 技术学习笔记与 bridge 源码拆解
+vendor/chatgst-learning-kit   Python 管道、Vue 管理端和部署脚本参考源码
 ```
 
 详细数据流和可替换接口见 [architecture.md](docs/architecture.md)，评测口径和基线见 [eval-report.md](docs/eval-report.md)。

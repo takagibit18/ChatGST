@@ -31,7 +31,7 @@ const safeMessages: Record<ErrorCode, string> = {
   TOOL_ERROR: "政策查询暂时不可用，请稍后重试。",
   INVALID_MODEL_OUTPUT: "回答格式异常，系统已停止展示不完整内容。",
   VALIDATION_FAILED: "回答未通过安全校验，建议咨询当地主管部门。",
-  SESSION_TURN_LIMIT: "本次会话已完成两次输入，请新建会话后继续查询。",
+  SESSION_TURN_LIMIT: "本次会话已达到输入上限，请新建会话后继续查询。",
   RAG_NOT_READY: "政策索引尚未准备好，请先构建本地索引。",
   RAINDROP_UNAVAILABLE: "观测服务不可用，但不影响政策查询。",
   WEB_UI_ADAPTER_ERROR: "页面连接暂时异常，请刷新后重试。",

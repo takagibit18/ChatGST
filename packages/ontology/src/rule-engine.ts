@@ -1,4 +1,5 @@
 import { getRuleEngineConfig } from "./config.js";
+import { hasPublishedLocalOntology, queryLocalPolicy } from "./local-store.js";
 import type { PolicyQueryRequest, PolicyQueryResponse, RuleEngineConfig } from "./types.js";
 
 type Session = { cookie: string; loggedAt: number; key: string };
@@ -30,6 +31,17 @@ async function ensureLogin(cfg: RuleEngineConfig): Promise<string> {
 }
 
 export async function queryPolicy(req: PolicyQueryRequest): Promise<PolicyQueryResponse> {
+  const localPolicyId = req.policy_id ?? process.env.RULE_ENGINE_POLICY_ID;
+  if (localPolicyId && hasPublishedLocalOntology(localPolicyId)) {
+    return queryLocalPolicy({
+      policy_id: localPolicyId,
+      region: req.region,
+      text: req.text,
+      ...(req.question ? { question: req.question } : {}),
+      ...(req.version ? { version: req.version } : {}),
+      ...(req.facts ? { facts: req.facts } : {}),
+    });
+  }
   const cfg = getRuleEngineConfig();
   const payload = { ...req, policy_id: req.policy_id ?? cfg.policyId };
   async function doFetch(cookie: string): Promise<Response> {

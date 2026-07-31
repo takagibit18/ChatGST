@@ -38,7 +38,7 @@ export async function runMergeAllWithResolutions(
   const finished = () => new Date().toISOString();
 
   // 阶段1: preview
-  writeStep2Progress(projectKey, versionId, { phase: "merge", merge_stage: "preview", conflict_count: undefined });
+  writeStep2Progress(projectKey, versionId, { phase: "merge", merge_stage: "preview" });
   const preview = await proxyOnto<MergeAllResponse>("POST", `/api/policies/${policyId}/merge-all`, {
     dry_run: true, max_workers: 4,
   });

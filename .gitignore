@@ -4,6 +4,7 @@ node_modules/
 .upstream/
 .playwright-cli/
 .env
+.local/
 dist/
 coverage/
 output/
@@ -13,6 +14,8 @@ output/
 knowledge/raw/**
 knowledge/curated/**
 knowledge/fixtures/**
+!knowledge/samples/
+!knowledge/samples/**
 knowledge/metadata/**
 !knowledge/metadata/overrides.example.json
 domains/childcare-subsidy/evals/goldens.generated.json

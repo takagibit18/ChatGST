@@ -14,6 +14,12 @@
     "rag:build": "tsx scripts/build-index.ts",
     "onto:step2": "tsx scripts/run-step2-auto-modeling.ts",
     "onto:finalize": "tsx scripts/finalize-step2.ts",
+    "onto:inspect": "tsx scripts/inspect-ontology.ts",
+    "onto:publish": "tsx scripts/publish-ontology.ts",
+    "onto:query": "tsx scripts/query-ontology.ts",
+    "runtime:query": "tsx scripts/query-runtime.ts",
+    "mvp:check": "tsx scripts/mvp-check.ts",
+    "mvp:dev": "pnpm run mvp:check && pnpm run dev",
     "rag:smoke": "tsx scripts/retrieval-smoke.ts",
     "golden:generate": "tsx scripts/generate-golden.ts",
     "build:runtime": "tsc -p tsconfig.json --noEmit",
@@ -67,15 +73,5 @@
     "typescript": "6.0.3",
     "vite": "8.0.14",
     "vitest": "4.1.10"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@google/genai",
-      "better-sqlite3",
-      "esbuild",
-      "koffi",
-      "protobufjs",
-      "sharp"
-    ]
   }
 }

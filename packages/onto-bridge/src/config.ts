@@ -27,6 +27,7 @@ interface ConfigFile {
 }
 
 let rawCache: ConfigFile | null = null;
+const MOCK_MODE = process.env.MOCK_ONTO === "1" || process.env.MOCK_ONTO === "true";
 function readRaw(): ConfigFile {
   if (rawCache) return rawCache;
   if (!existsSync(CONFIG_PATH)) {

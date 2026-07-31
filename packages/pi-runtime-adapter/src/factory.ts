@@ -44,11 +44,15 @@ function createRetrievalProvider(config: RuntimeConfig): RetrievalProvider {
   }
 }
 
-export function createDefaultPolicyRuntime(config: RuntimeConfig, options?: { testResponseSequence?: TestResponseSequence }) {
-  const retrieval = createRetrievalProvider(config);
+export function createDefaultPolicyRuntime(config: RuntimeConfig, options?: {
+  testResponseSequence?: TestResponseSequence;
+  modelProviderFactory?: () => ModelProvider;
+  retrievalProvider?: RetrievalProvider;
+}) {
+  const retrieval = options?.retrievalProvider ?? createRetrievalProvider(config);
   const registry = createPolicyToolRegistry(retrieval, config);
   const session = new InMemorySessionStore(config.budget.sessionIdleTtl);
-  const modelProviderFactory = (): ModelProvider => {
+  const modelProviderFactory = options?.modelProviderFactory ?? ((): ModelProvider => {
     if (config.model.provider === "test") return new TestModelProvider();
     return new DeepSeekModelProvider({
       apiKey: config.model.apiKey as string,
@@ -58,7 +62,7 @@ export function createDefaultPolicyRuntime(config: RuntimeConfig, options?: { te
       maxOutputTokens: config.model.maxOutputTokens,
       timeoutMs: config.model.timeoutMs,
     });
-  };
+  });
   return {
     runtime: new PolicyAgentRuntime({
       config,

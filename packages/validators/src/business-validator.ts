@@ -78,8 +78,8 @@ export function validatePolicyBusiness(response: PolicyResponse, pack: EvidenceP
     if (!response.clarification) {
       issues.push({ code: "missing_clarification", path: "clarification", message: "Clarification payload is required" });
     }
-    if (response.actions.length < 2 || response.actions.length > 4) {
-      issues.push({ code: "clarification_actions", path: "actions", message: "Clarification requires two to four actions" });
+    if (response.actions.length > 4) {
+      issues.push({ code: "clarification_actions", path: "actions", message: "Clarification supports at most four actions" });
     }
   } else if (response.clarification) {
     issues.push({ code: "unexpected_clarification", path: "clarification", message: "Clarification must be null for this status" });

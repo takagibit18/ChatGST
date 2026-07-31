@@ -5,7 +5,6 @@
  *   https://milvus.io/api-reference/restful/v2.4.x/About.md
  */
 import type { EvidenceItem, PolicyMetadata } from "@policy/schemas/index";
-import type { PolicySearchResult, RetrievalProvider, SearchPolicyInput } from "../types.js";
 
 export type MilvusConfig = {
   endpoint: string;       // http://localhost:19530

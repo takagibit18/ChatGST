@@ -165,7 +165,7 @@ function mockMergeAll(dryRun: boolean, planId?: string): MockMergeResult {
   return {
     ok: true,
     dry_run: dryRun,
-    plan_id,
+    ...(plan_id ? { plan_id } : {}),
     merged: dryRun ? 0 : 2,
     failed: 0,
     conflict_items: [],

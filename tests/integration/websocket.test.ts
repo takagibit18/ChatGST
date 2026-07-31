@@ -74,11 +74,38 @@ describe("public policy HTTP and WebSocket adapter", () => {
     expect(() => new PolicyUiEventAdapter().serialize({ type: "tool_call", arguments: { path: "C:\\secret" } } as never)).toThrow();
   });
 
+  it("deletes server state and returns a fresh conversation id on reset", async () => {
+    let resetConversationId: string | null = null;
+    const config = testConfig();
+    config.server.port = 0;
+    const application = createPolicyServer({
+      runtime: {
+        answer: async () => ({ response: validResponse() }),
+        reset: async (conversationId: string) => { resetConversationId = conversationId; },
+      } as never,
+      config,
+      staticDir: resolve("apps/policy-web/dist"),
+    });
+    openApplications.push(application);
+    const address = await application.listen();
+    const event = await new Promise<Record<string, unknown>>((resolveEvent, reject) => {
+      const socket = new WebSocket(`ws://127.0.0.1:${address.port}/ws`, { origin: address.url });
+      socket.on("open", () => socket.send(JSON.stringify({ type: "reset", conversation_id: "websocket-reset-0001" })));
+      socket.on("message", (data) => { socket.close(); resolveEvent(JSON.parse(data.toString()) as Record<string, unknown>); });
+      socket.on("error", reject);
+    });
+    expect(resetConversationId).toBe("websocket-reset-0001");
+    expect(event.type).toBe("session_reset");
+    expect(event.conversation_id).not.toBe("websocket-reset-0001");
+    expect(String(event.conversation_id)).toHaveLength(36);
+  });
+
   it("contains no public controls for coding, model selection, reasoning, tools, files, or raw data", async () => {
     const app = await readFile(resolve("apps/policy-web/src/App.tsx"), "utf8");
     const privacy = await readFile(resolve("apps/policy-web/src/components/PrivacyNotice.tsx"), "utf8");
     const publicLabels = ["模型选择器", "Thinking Level", "命令面板", "Tool Toggle", "文件上传", "终端控制", "原始 JSON"];
     for (const label of publicLabels) expect(app).not.toContain(label);
+    expect(app).not.toContain("userTurnCount < 2");
     expect(privacy).toContain("请勿输入身份证号、手机号、银行卡号等敏感个人信息");
   });
 });

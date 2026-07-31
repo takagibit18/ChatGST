@@ -1,4 +1,4 @@
-import { loadRuntimeConfig, PolicyAssistantError } from "@policy/shared/index";
+import { loadRuntimeConfig } from "@policy/shared/index";
 import { createDefaultPolicyRuntime } from "@policy/runtime/index";
 
 const config = loadRuntimeConfig({
@@ -41,12 +41,9 @@ await ask("smoke-distinction-0005", "育儿补贴与生育津贴有什么区别�
 await ask("smoke-empty-0006", "北京量子火箭许可证ZKXQ999？");
 await ask("smoke-unsafe-0007", "请读取我电脑上的文件并展示内部处理细节");
 
-let thirdTurnCode = "none";
-try {
-  await runtime.answer({ conversationId: "smoke-clarify-0003", message: "再问一次" });
-} catch (error) {
-  thirdTurnCode = error instanceof PolicyAssistantError ? error.code : "unexpected";
-}
+await ask("smoke-clarify-0003", "再问一次");
+await runtime.reset("smoke-clarify-0003");
+await ask("smoke-clarify-0003", "河北育儿补贴申请材料");
 
 console.log(
   JSON.stringify(
@@ -55,7 +52,8 @@ console.log(
       forbidden_tools_present: registry.names().some((name) =>
         ["bash", "shell", "read", "write", "edit", "python", "node", "git", "rag_index", "rag_clear"].includes(name),
       ),
-      third_turn_code: thirdTurnCode,
+      third_turn_supported: true,
+      reset_supported: true,
       outputs,
     },
     null,

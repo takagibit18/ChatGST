@@ -8,8 +8,24 @@ import {
 } from "@earendil-works/pi-ai";
 import type { StreamFn } from "@earendil-works/pi-agent-core";
 import { stream, streamSimple } from "@earendil-works/pi-ai/api/openai-completions";
-import { extractJsonText, normalizeToolArguments } from "./normalization.js";
-import type { ModelCapabilities, ModelProvider } from "./types.js";
+import { policyIntentSchema, type PolicyIntent } from "@policy/schemas/index";
+import { z } from "zod";
+import { extractJsonText, normalizeToolArguments, parseJsonWithSingleRepair } from "./normalization.js";
+import type { ModelCapabilities, ModelProvider, QueryRewriteResult } from "./types.js";
+
+const queryRewriteSchema = z.object({
+  query: z.string().trim().min(1).max(200),
+  intent: policyIntentSchema,
+}).strict();
+
+export function parseQueryRewriteResult(input: unknown, fallback: QueryRewriteResult): QueryRewriteResult {
+  try {
+    const parsed = queryRewriteSchema.safeParse(parseJsonWithSingleRepair(input).value);
+    return parsed.success ? parsed.data : fallback;
+  } catch {
+    return fallback;
+  }
+}
 
 export type DeepSeekProviderOptions = {
   apiKey: string;
@@ -65,7 +81,6 @@ export class DeepSeekModelProvider implements ModelProvider {
         maxRetries: 1,
         // DeepSeek V4 Flash defaults to reasoning mode; explicitly disable it
         // so the model writes answers to content instead of reasoning_content.
-        reasoning: "off",
       });
   }
 
@@ -122,12 +137,14 @@ export class DeepSeekModelProvider implements ModelProvider {
     return { content: "", reasoning: "", status: 0, ms: 0 };
   }
 
-  async rewriteQuery(input: { query: string; region: string; intent: string }): Promise<string> {
+  async rewriteQuery(input: { query: string; region: string; intent: PolicyIntent }): Promise<QueryRewriteResult> {
     const result = await this.chatCompletion("rewrite", {
       model: this.options.modelName,
       messages: [{ role: "user", content: [
-        "Rewrite this citizen query into precise policy search keywords.",
-        "Output ONLY space-separated keywords. No sentences. Max 50 chars.",
+        "理解这条群众政策咨询，将其改写成适合检索政策原文的简短关键词，并识别咨询意图。",
+        "只输出 JSON：{\"query\":\"空格分隔的检索关键词\",\"intent\":\"意图\"}。不要输出解释。",
+        "意图只能是 amount、eligibility、claimant、materials、channel、deadline、payment、comparison、migration、distinction、overview、unknown。",
+        "不得猜测用户没有提供的地区、户籍、年龄、身份或其他资格事实。query 不超过 50 个汉字。",
         "",
         `Query: "${input.query}"`,
         `Region: ${input.region}`,
@@ -137,12 +154,15 @@ export class DeepSeekModelProvider implements ModelProvider {
       temperature: 0,
       thinking: { type: "disabled" },
     }, 20_000);
-    if (result.content) return result.content.slice(0, 200);
-    if (result.reasoning) {
+    const text = result.content || result.reasoning;
+    if (!result.content && result.reasoning) {
       process.stderr.write(`[rewrite-warn] content empty, reasoning present - V4 Flash returned reasoning instead of content\n`);
-      return result.reasoning.slice(0, 200);
     }
-    return input.query;
+    if (!text) return { query: input.query, intent: input.intent };
+    const fallback = { query: input.query, intent: input.intent };
+    const parsed = parseQueryRewriteResult(text, fallback);
+    if (parsed === fallback) process.stderr.write("[rewrite-warn] invalid structured rewrite, using original query\n");
+    return parsed;
   }
 
   async rerankCandidates(input: { query: string; candidates: Array<{ index: number; content: string; title: string; section: string }> }): Promise<number[]> {

@@ -30,7 +30,6 @@ const connectionLabels: Record<ConnectionState, string> = {
 export default function App() {
   const { ask, busy, connection, error, messages, reset, status } = usePolicySocket();
   const [draft, setDraft] = useState("");
-  const userTurnCount = messages.filter((message) => message.from === "user").length;
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -95,7 +94,7 @@ export default function App() {
                       <MessageContent>{message.text}</MessageContent>
                     ) : (
                       <PolicyAnswer
-                        actionsEnabled={userTurnCount < 2 && !busy}
+                        actionsEnabled={!busy}
                         onAction={askSuggestion}
                         response={message.response}
                       />

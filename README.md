@@ -2,7 +2,7 @@
 
 一个本地可运行的 TypeScript MVP，用统一 Pi Agent Runtime 承载 `childcare-subsidy` Profile。它只检索已登记的北京、河北和必要的全国政策资料，只开放五个低风险政策工具，并在结构化结果通过 Schema 与业务校验后才发送给浏览器。
 
-当前默认使用确定性的 `TestModelProvider`，无需密钥即可完成索引、测试、评测和页面演示。真实 DeepSeek 模型 ID 不在代码中猜测，必须通过 `MODEL_NAME` 配置。
+正式本地 MVP 默认使用 DeepSeek 完成规则提取和回答，使用 SQLite 保存本体规则，并以确定性代码完成资格判定。`TestModelProvider` 和录制提取响应只用于自动化测试。真实 DeepSeek 模型 ID 不在代码中猜测，必须通过 `MODEL_NAME` 配置。
 
 ## 已验证版本
 
@@ -33,6 +33,25 @@ pnpm dev
 ```
 
 打开 <http://127.0.0.1:3001>。`pnpm dev` 会先构建受控前端，再启动仅监听回环地址的 HTTP + WebSocket 服务。Windows PowerShell 若阻止 `pnpm.ps1`，可等价使用 `pnpm.cmd`，无需更改系统执行策略。
+
+### 本体问答闭环
+
+先将有权使用的政策 Markdown 放入 `knowledge/raw/`。`knowledge/samples/` 中包含两份明确标注为合成数据的北京、河北演示文件，可以用于验证格式，但不是正式政策。配置 `.env` 后执行：
+
+```bash
+pnpm knowledge:validate
+pnpm rag:build -- --rebuild
+pnpm onto:step2 -- --project childcare --version v1 --policy childcare-subsidy --data-root knowledge/raw
+pnpm onto:inspect -- --project childcare --version v1
+pnpm onto:finalize -- --project childcare --version v1
+pnpm onto:publish -- --project childcare --version v1
+pnpm onto:query -- --policy childcare-subsidy --version v1 --region 北京市 --text "孩子5个月，北京户籍"
+pnpm mvp:dev
+```
+
+`onto:step2` 对未变化文件采用内容哈希断点续跑。`onto:publish` 会拒绝零规则、提取错误或规则冲突，并将版本标记为不可修改。网页查询优先读取已发布的本地规则判定，再使用 BM25 政策证据补充回答；规则库异常时降级为纯证据检索并记录 `ontology_fallback`。
+
+本地数据库默认位于 `.local/ontology.db`，可通过 `LOCAL_ONTOLOGY_DB` 修改。`mvp:check` 会检查模型配置、语料、BM25 索引和已发布规则版本。
 
 额外命令：
 
@@ -81,7 +100,7 @@ Agent 可见工具严格等于：
 
 浏览器只能发送 `ask / reset`，只能收到 `status / result / safe_error / session_reset`。原始 Agent 事件、思维过程、Tool 参数/结果、半截 JSON、Prompt、内部消息和异常栈不会进入公开协议。最终 `result` 必须经过 JSON 解析、Schema Validator 和 Policy Business Validator；第一次失败只请求修复结构，第二次失败使用确定性安全模板。
 
-Session 仅在内存保存，TTL 默认 10 分钟，最多两次用户输入和一次澄清；不跨会话记忆，也不持久化真实对话。
+Session 仅在内存保存，TTL 默认 10 分钟，用户输入上限由 `MAX_SESSION_TURNS` 控制（默认 20 次）；页面“新建会话”会清除服务端状态并生成新的会话 ID。不跨会话记忆，也不持久化真实对话。
 
 Raindrop 默认关闭且默认不采集内容：
 

@@ -7,10 +7,11 @@ import {
 } from "@earendil-works/pi-ai";
 import type { StreamFn } from "@earendil-works/pi-agent-core";
 import { extractJsonText, normalizeToolArguments } from "./normalization.js";
-import type { ModelCapabilities, ModelProvider } from "./types.js";
+import type { PolicyIntent } from "@policy/schemas/index";
+import type { ModelCapabilities, ModelProvider, QueryRewriteResult } from "./types.js";
 
 export class TestModelProvider implements ModelProvider {
-  readonly providerName = "test";
+  readonly providerName: string = "test";
   readonly modelName = "policy-test-model";
   private readonly faux = fauxProvider({
     provider: "policy-test",
@@ -58,8 +59,8 @@ export class TestModelProvider implements ModelProvider {
     return extractJsonText(input);
   }
 
-  async rewriteQuery(input: { query: string; region: string; intent: string }): Promise<string> {
-    return input.query;
+  async rewriteQuery(input: { query: string; region: string; intent: PolicyIntent }): Promise<QueryRewriteResult> {
+    return { query: input.query, intent: input.intent };
   }
 
   async rerankCandidates(input: { query: string; candidates: Array<{ index: number; content: string; title: string; section: string }> }): Promise<number[]> {

@@ -9,7 +9,7 @@ import { createPolicyServer } from "@policy/web-adapter/index";
 const config = loadRuntimeConfig();
 const logger = pino({ level: config.logLevel });
 const { runtime, retrieval, registry } = createDefaultPolicyRuntime(config);
-const stats = retrieval.getStats();
+const stats = retrieval.getStats?.() ?? { documents: 0, chunks: 0, vector_rows: 0, retrieval_mode: config.retrieval.mode };
 // BM25 invariant only applies to bm25 mode
 if (config.retrieval.mode === "bm25" && (stats.vector_rows !== 0 || stats.retrieval_mode !== "bm25-only")) {
   throw new Error("RAG index violates the pure-BM25 invariant");

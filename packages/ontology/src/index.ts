@@ -1,5 +1,6 @@
 export * from "./config.js";
 export * from "./judge-history.js";
+export * from "./local-store.js";
 export * from "./onto-platform.js";
 export * from "./rule-engine.js";
 export * from "./step2-build.js";

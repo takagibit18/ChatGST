@@ -7,7 +7,9 @@ import type { RetrievalProvider } from "@policy/rag/index";
 import { RestrictedToolRegistry } from "./registry.js";
 import type { AgentTool } from "./types.js";
 
-const safeId = z.string().min(1).max(160).regex(/^[\p{L}\p{N}:._-]+$/u);
+const safeId = z.string().min(1).max(160)
+  .regex(/^[^/\\\r\n]+$/u)
+  .refine((value) => !value.includes("://") && !/^[A-Za-z]:/u.test(value), "must be a registered identifier, not a path or URL");
 const date = z.string().regex(/^\d{4}-\d{2}-\d{2}$/u);
 
 function daysBetween(start: Date, end: Date): number {
@@ -71,8 +73,8 @@ export function createPolicyToolRegistry(retrieval: RetrievalProvider, config?: 
       .nullable(),
     piParameters: Type.Object(
       {
-        document_id: Type.String({ pattern: "^[\\p{L}\\p{N}:._-]+$" }),
-        chunk_id: Type.Optional(Type.String({ pattern: "^[\\p{L}\\p{N}:._-]+$" })),
+        document_id: Type.String({ pattern: "^[^/\\\\\\r\\n]+$" }),
+        chunk_id: Type.Optional(Type.String({ pattern: "^[^/\\\\\\r\\n]+$" })),
       },
       { additionalProperties: false },
     ),
@@ -97,8 +99,8 @@ export function createPolicyToolRegistry(retrieval: RetrievalProvider, config?: 
     outputSchema: policyMetadataSchema.nullable(),
     piParameters: Type.Object(
       {
-        document_id: Type.String({ pattern: "^[\\p{L}\\p{N}:._-]+$" }),
-        chunk_id: Type.Optional(Type.String({ pattern: "^[\\p{L}\\p{N}:._-]+$" })),
+        document_id: Type.String({ pattern: "^[^/\\\\\\r\\n]+$" }),
+        chunk_id: Type.Optional(Type.String({ pattern: "^[^/\\\\\\r\\n]+$" })),
       },
       { additionalProperties: false },
     ),

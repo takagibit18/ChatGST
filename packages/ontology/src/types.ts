@@ -105,6 +105,8 @@ export interface PolicyQueryRequest {
   text: string;
   question?: string;
   policy_id?: string;
+  version?: string;
+  facts?: Record<string, unknown>;
 }
 
 export interface MissingField {
@@ -121,5 +123,7 @@ export interface PolicyQueryResponse {
   verdict: "eligible" | "missing_info" | "ineligible";
   missing?: MissingField[];
   conclusions?: unknown[];
+  evidence?: unknown[];
+  version?: string;
 }
 

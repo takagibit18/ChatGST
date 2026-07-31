@@ -67,6 +67,7 @@ export interface RetrievalProvider {
     policy_type: string;
     reference_date: string;
   }): Promise<PolicyVersionResolution>;
+  getStats?(): { documents: number; chunks: number; vector_rows: number; retrieval_mode: string };
 }
 
 export type IndexBuildReport = {

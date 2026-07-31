@@ -106,7 +106,7 @@ export async function runStep2AutoModeling(
   const now = new Date().toISOString();
   writeStep2Progress(projectKey, versionId, {
     phase: "extract", total_files: scanned.length, processed: doneCount, started_at: now,
-    current_file: undefined, current_region: undefined, data_source_root: dataRoot,
+    data_source_root: dataRoot,
   });
 
   let processed = doneCount;

@@ -64,7 +64,6 @@ export const policyResponseSchema = z
         question: z.string().min(1).max(120),
         options: z
           .array(z.object({ label: z.string().min(1).max(16), value: z.string().min(1).max(120) }))
-          .min(2)
           .max(4),
       })
       .nullable(),

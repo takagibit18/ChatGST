@@ -98,21 +98,15 @@ export async function proxyOnto<T = unknown>(
       };
       if (body !== undefined) headers["Content-Type"] = "application/json; charset=utf-8";
 
-      let r = await fetch(url, {
-        method, headers,
-        body: body !== undefined ? JSON.stringify(body) : undefined,
-        signal: AbortSignal.timeout(timeoutMs),
-      });
+      const requestInit: RequestInit = { method, headers, signal: AbortSignal.timeout(timeoutMs) };
+      if (body !== undefined) requestInit.body = JSON.stringify(body);
+      let r = await fetch(url, requestInit);
 
       if (r.status === 401 && attempt < maxRetries) {
         await clearSession();
         cookie = await ensureLogin();
         headers.Cookie = cookie;
-        r = await fetch(url, {
-          method, headers,
-          body: body !== undefined ? JSON.stringify(body) : undefined,
-          signal: AbortSignal.timeout(timeoutMs),
-        });
+        r = await fetch(url, requestInit);
       }
 
       if (!r.ok) {

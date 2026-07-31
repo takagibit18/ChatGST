@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { finalizeStep2 } from "@policy/ontology/index";
+import { inspectLocalOntology } from "@policy/ontology/index";
 
 function arg(name: string): string | undefined {
   const index = process.argv.indexOf(`--${name}`);
@@ -8,16 +8,9 @@ function arg(name: string): string | undefined {
 
 const project = arg("project") ?? process.env.POLICY_PROJECT_KEY;
 const version = arg("version") ?? process.env.POLICY_VERSION_ID;
-const ruleCount = Number(arg("rule-count"));
-const regions = (arg("regions") ?? "")
-  .split(",")
-  .map((region) => region.trim())
-  .filter(Boolean);
-
-if (!project || !version || !Number.isInteger(ruleCount) || regions.length === 0) {
-  throw new Error("Usage: pnpm onto:finalize -- --project <key> --version <id> --regions 北京市,河北省 --rule-count 28");
+if (!project || !version) throw new Error("Usage: pnpm onto:finalize -- --project <key> --version <id>");
+const summary = inspectLocalOntology(project, version);
+if (summary.rules === 0 || summary.errors > 0 || summary.conflicts > 0) {
+  throw new Error(`建模结果未通过预发布检查: rules=${summary.rules}, errors=${summary.errors}, conflicts=${summary.conflicts}`);
 }
-
-const meta = finalizeStep2(project, version, regions, ruleCount);
-console.log(JSON.stringify(meta, null, 2));
-
+console.log(JSON.stringify({ ok: true, ready_to_publish: true, ...summary }, null, 2));

@@ -31,9 +31,12 @@ function inferLevels(relPath: string): RegionLevels {
   const levels: RegionLevels = {};
   let idx = 0;
   if (parts[idx] === "data") idx++;
-  if (parts[idx]) levels.province_level = parts[idx++];
-  if (parts[idx] && !parts[idx]!.endsWith(".md")) levels.prefecture_level = parts[idx++];
-  if (parts[idx] && !parts[idx]!.endsWith(".md")) levels.county_level = parts[idx++];
+  const province = parts[idx];
+  if (province) { levels.province_level = province; idx++; }
+  const prefecture = parts[idx];
+  if (prefecture && !prefecture.endsWith(".md")) { levels.prefecture_level = prefecture; idx++; }
+  const county = parts[idx];
+  if (county && !county.endsWith(".md")) levels.county_level = county;
   return levels;
 }
 

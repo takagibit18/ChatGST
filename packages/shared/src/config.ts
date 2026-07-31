@@ -37,6 +37,7 @@ const envSchema = z.object({
   REQUEST_TIMEOUT_MS: integer(45_000, 1000, 180_000),
   MAX_CONCURRENT_RUNS: integer(4, 1, 32),
   MAX_QUEUE_SIZE: integer(16, 0, 200),
+  MAX_SESSION_TURNS: integer(20, 1, 200),
   SESSION_IDLE_TTL: integer(600_000, 10_000, 86_400_000),
   RETRIEVAL_TOP_K: integer(5, 1, 8),
   HOST: z.string().default("127.0.0.1"),
@@ -95,6 +96,7 @@ export type RuntimeBudget = {
   requestTimeoutMs: number;
   maxConcurrentRuns: number;
   maxQueueSize: number;
+  maxSessionTurns: number;
   sessionIdleTtl: number;
   retrievalTopK: number;
 };
@@ -149,6 +151,7 @@ export function loadRuntimeConfig(env: NodeJS.ProcessEnv = process.env): Runtime
       requestTimeoutMs: value.REQUEST_TIMEOUT_MS,
       maxConcurrentRuns: value.MAX_CONCURRENT_RUNS,
       maxQueueSize: value.MAX_QUEUE_SIZE,
+      maxSessionTurns: value.MAX_SESSION_TURNS,
       sessionIdleTtl: value.SESSION_IDLE_TTL,
       retrievalTopK: value.RETRIEVAL_TOP_K,
     },

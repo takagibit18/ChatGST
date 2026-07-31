@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join, resolve } from "node:path";
 import type { MergeConflictAction, OntoPlatformConfig, RuleEngineConfig, Step2Config } from "./types.js";
+import { hasPublishedLocalOntology, localOntologyDbPath } from "./local-store.js";
 
 export const WORKSPACES_DIR = resolve(process.env.POLICY_WORKSPACES_ROOT ?? join(homedir(), ".gs_platform", "workspaces"));
 
@@ -54,6 +55,7 @@ export function hasOntoPlatformConfig(): boolean {
 }
 
 export function getOntoSummary(): string {
+  if (hasPublishedLocalOntology()) return `local-sqlite:${localOntologyDbPath()}`;
   if (!hasOntoPlatformConfig()) return "disabled";
   const cfg = getOntoPlatformConfig();
   return `${cfg.url} as ${cfg.username}`;
@@ -72,6 +74,7 @@ export function getRuleEngineConfig(): RuleEngineConfig {
 }
 
 export function hasRuleEngineConfig(): boolean {
+  if (hasPublishedLocalOntology(process.env.RULE_ENGINE_POLICY_ID)) return true;
   try {
     getRuleEngineConfig();
     return true;

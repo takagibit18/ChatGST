@@ -48,7 +48,8 @@ function buildAlias(): Record<string, string> {
   return alias;
 }
 
-let jitiInstance: Awaited<ReturnType<typeof createJitiFn>> | null = null;
+type JitiInstance = ReturnType<typeof import("jiti/static").createJiti>;
+let jitiInstance: JitiInstance | null = null;
 async function getJiti() {
   if (jitiInstance) return jitiInstance;
   await ensureJiti();

@@ -51,7 +51,7 @@ export function finalizeStep2(
     },
     file_count: progress.total_files,
     rule_count: ruleCount,
-    golden_pass_rate: progress.review?.run_pass_rate,
+    ...(progress.review?.run_pass_rate !== undefined ? { golden_pass_rate: progress.review.run_pass_rate } : {}),
   };
 
   atomicWriteJson(join(versionDir(projectKey, versionId), "ontology.json"), ontologyMeta);

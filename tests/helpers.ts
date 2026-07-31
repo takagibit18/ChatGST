@@ -28,6 +28,7 @@ export function testConfig(overrides: NodeJS.ProcessEnv = {}) {
     MODEL_PROVIDER: "test",
     RAINDROP_ENABLED: "false",
     RAINDROP_CAPTURE_CONTENT: "false",
+    POLICY_RULE_ENGINE_TOOL_ENABLED: "false",
     HOST: "127.0.0.1",
     PORT: "3001",
     ...overrides,

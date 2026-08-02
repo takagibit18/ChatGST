@@ -1,5 +1,7 @@
 # Phase 3 Eval v2.1 AI 预审记录
 
+> **已被 Gold claim-first 重建取代。** 本报告审查的是提交 `e417d00` 产生的旧标注，只保留用于解释返工原因，不应继续作为当前标注的审核结论。当前数据请使用 `HUMAN-REVIEW-CHECKLIST.md` 重新审核。
+
 > 本文件是 Codex 的 AI 预审意见，不是人工签字，也不改变任何 Gold 的权威审核状态。`annotations/*.jsonl` 与 `datasets/*.jsonl` 均未修改；所有 `source_review_status` 仍应保持 `pending_review`，直到业务责任人逐条复核并签字。
 
 ## 结论总览

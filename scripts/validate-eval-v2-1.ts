@@ -45,7 +45,18 @@ export async function buildEvalV21Datasets(reader: GoldSourceReader, annotations
       if (!document) throw new Error(`${item.id}: Gold document is absent from K4`);
       const chunk = document.sections.find((section) => section.chunk_id === evidence.chunk_id);
       if (!chunk) throw new Error(`${item.id}: Gold chunk is absent from its document`);
+      if (chunk.content.slice(evidence.chunk_char_start, evidence.chunk_char_end) !== evidence.supporting_text) {
+        throw new Error(`${item.id}: exact evidence character span does not match the Gold chunk`);
+      }
+      const prefix = chunk.content.slice(0, evidence.chunk_char_start);
+      const expectedLineStart = chunk.line_start + (prefix.match(/\n/gu)?.length ?? 0);
+      const expectedLineEnd = expectedLineStart + (evidence.supporting_text.match(/\n/gu)?.length ?? 0);
+      if (evidence.source_line_start !== expectedLineStart || evidence.source_line_end !== expectedLineEnd) {
+        throw new Error(`${item.id}: source line anchor does not match the exact evidence span`);
+      }
       if (!normalize(chunk.content).includes(normalize(evidence.supporting_text))) throw new Error(`${item.id}: supporting text is not in Gold chunk`);
+      if (/[，、：；]$/u.test(evidence.supporting_text.trim())) throw new Error(`${item.id}: supporting text ends mid-clause`);
+      if (evidence.claims.some((claim) => !/[。！？]$/u.test(claim.text))) throw new Error(`${item.id}: atomic claims must be complete sentences`);
       const title = normalize(document.metadata.title);
       if (title.length >= 8 && normalizedQuestion.includes(title)) throw new Error(`${item.id}: full document title leaked into question`);
       for (const heading of chunk.section_path.map(normalize).filter((value) => value.length >= 8)) {
@@ -75,6 +86,19 @@ function validateInventory(retrieval: RetrievalEvalCaseV21[], regression: Retrie
   const groupSplits = new Map<string, Set<string>>();
   for (const item of retrieval) groupSplits.set(item.case_group_id, new Set([...(groupSplits.get(item.case_group_id) ?? []), item.split]));
   if ([...groupSplits.values()].some((splits) => splits.size > 1)) throw new Error("case_group_id leaked across splits");
+  const ordinaryQuestions = retrieval.filter((item) => item.category !== "paraphrase_consistency").map((item) => normalize(item.question));
+  if (new Set(ordinaryQuestions).size !== ordinaryQuestions.length) throw new Error("Non-paraphrase questions must be unique");
+  const rationales = retrieval.map((item) => normalize(item.difficulty_rationale));
+  if (new Set(rationales).size < Math.ceil(retrieval.length * 0.9)) throw new Error("Difficulty rationales are mechanically repeated");
+  for (const item of retrieval) {
+    if (item.category === "cross_region_interference" && item.challenge.interference_regions?.includes(item.user_region ?? "")) {
+      throw new Error(`${item.id}: target region equals interference region`);
+    }
+    if (item.category === "temporal_version" && !item.gold_evidence.some((entry) => entry.claims.some((claim) => /(?:20\d{2}|出生当年|次年|年度)/u.test(claim.text)))) {
+      throw new Error(`${item.id}: temporal Gold has no time-bearing atomic claim`);
+    }
+    if (item.answerable && item.required_facts.some((fact) => normalize(fact).length < 12)) throw new Error(`${item.id}: required fact is too short to be atomic`);
+  }
   const paraphrases = retrieval.filter((item) => item.category === "paraphrase_consistency");
   const paraphraseGroups = new Map<string, number>();
   for (const item of paraphrases) paraphraseGroups.set(item.case_group_id, (paraphraseGroups.get(item.case_group_id) ?? 0) + 1);
@@ -88,6 +112,14 @@ async function main(): Promise<void> {
   const safety = (await loadJsonl<unknown>(resolve(annotationsDir, "safety.jsonl"))).map((item) => safetyEvalCaseV21Schema.parse(item));
   if (conversations.length !== 20 || safety.length !== 30) throw new Error("Expected 20 conversations and 30 safety cases");
   if ([...conversations, ...safety].some((item) => item.source_review_status !== "pending_review")) throw new Error("Scenario review status must be pending_review");
+  const transcripts = conversations.map((scenario) => normalize(scenario.turns.map((turn) => turn.user).join("\n")));
+  if (new Set(transcripts).size !== transcripts.length) throw new Error("Conversation scenarios contain repeated transcripts");
+  const forbiddenSets = safety.map((item) => item.forbidden_behavior.map(normalize).sort().join("|"));
+  if (new Set(forbiddenSets).size !== forbiddenSets.length) throw new Error("Safety cases contain a shared forbidden-behavior template");
+  for (const item of safety) {
+    const required = item.category === "false_premise" ? "correct" : item.category === "out_of_scope" ? "safe_answer" : "refuse";
+    if (item.expected_behavior !== required) throw new Error(`${item.id}: safety category and expected behavior disagree`);
+  }
   const reader: GoldSourceReader = new PiLocalRagRetrievalProvider(resolve("knowledge/index"));
   const retrieval = await buildEvalV21Datasets(reader, retrievalAnnotations);
   const regression = await buildEvalV21Datasets(reader, regressionAnnotations);
@@ -101,10 +133,13 @@ async function main(): Promise<void> {
     await mkdir(datasetsDir, { recursive: true });
     for (const [name, contents] of Object.entries(files)) await writeFile(resolve(datasetsDir, name), contents, "utf8");
     const manifest = {
-      schema_version: 2, dataset_version: "phase3-v2.1", generated_at: "2026-08-02T00:00:00.000Z",
+      schema_version: 3, dataset_version: "phase3-v2.1", generated_at: "2026-08-02T00:00:00.000Z",
       evaluation_status: "provisional", release_gate: "blocked_pending_human_review", knowledge_snapshot: "K4",
       knowledge_snapshot_hash: "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
-      circular_labeling: false, counts: { retrieval: 80, train: 50, dev: 30, regression: 13, conversations: 20, safety: 30 },
+      circular_labeling: false, mechanical_prefix_extraction: false, gold_representation: "exact_source_span+atomic_claims",
+      counts: { retrieval: 80, train: 50, dev: 30, regression: 13, conversations: 20, safety: 30,
+        evidence_spans: [...retrieval, ...regression].flatMap((item) => item.gold_evidence).length,
+        atomic_claims: [...retrieval, ...regression].flatMap((item) => item.gold_evidence.flatMap((entry) => entry.claims)).length },
       files: Object.fromEntries(Object.entries(files).map(([name, contents]) => [name, { sha256: hash(contents), rows: contents.trim().split(/\r?\n/u).length }])),
       review: { pending_review: 143, human_approved: 0 }, test_split: { status: "not_frozen" },
     };

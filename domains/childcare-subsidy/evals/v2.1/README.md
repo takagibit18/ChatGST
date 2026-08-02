@@ -2,8 +2,11 @@
 
 This dataset replaces the invalid v2.0 quality baseline. Gold candidates are bound directly to K4 source chunks without calling retrieval, and every item remains `pending_review`.
 
+Current Gold is claim-first: every answerable case records an exact K4 quote, source line range, chunk character range and complete atomic claims. `required_facts` is derived exactly from those claims; fixed-prefix extraction is forbidden.
+
 ```bash
 pnpm eval:v2.1:review-checklist
+pnpm eval:v2.1:build-gold
 pnpm eval:v2.1:validate
 pnpm eval:v2.1:calibrate
 pnpm eval:v2.1

@@ -504,7 +504,7 @@ K1 允许出现质量问题，但不得作为面向用户的默认知识库。�
 
 技术验收：循环标签为 0、Gold 标签泄漏为 0、K4 证据绑定错误为 0、runner/scorer 隔离测试通过、全部评测集实际执行。正式质量验收仍须业务责任人完成审核。
 
-重建记录（2026-08-02）：Eval v2.0 因 Gold 受检索结果影响且 Runner 读取预期行为，被标记为 `invalid_for_quality_claims`，只保留用于审计。Eval v2.1 的 143 条标注全部为 `pending_review`，不存在 `approved` 或人工复核完成声明；问题、证据与派生集合通过 K4 子串、标题/章节/ID 泄漏和 split 约束校验。train-only 校准锁定阈值后运行 dev，确定性基线的 Document Recall@5=0.891、Chunk Recall@5=0.674、MRR@10=0.806、nDCG@10=0.553，地区/时间泄漏和重复占位均为 0，required fact coverage=0.241、citation precision=0.372、citation completeness=0.615、安全通过率=0.467；共保留 32 个诊断失败案例。报告固定为 `evaluation_status: provisional`、`release_gate: blocked_pending_human_review`，不冻结 test，也不宣称 Phase 3 正式验收通过。
+重建记录（2026-08-02）：Eval v2.0 因 Gold 受检索结果影响且 Runner 读取预期行为，被标记为 `invalid_for_quality_claims`，只保留用于审计。v2.1 首版虽消除了检索循环，但人工预审发现固定前缀截取、弱证据、对话模板循环和安全标签模板等问题，随后再次按 claim-first 重建。当前 143 条标注全部为 `pending_review`；88 个 Gold evidence span 均记录精确 K4 原文 quote、源行范围、chunk 字符范围和完整 atomic claims，`required_facts` 由 claims 精确派生，禁止固定长度截取。train-only 校准锁定阈值后运行 dev，三次完整运行预测指纹一致；当前 provisional 基线 Document Recall@5=1.000、Chunk Recall@5=0.935、MRR@10=0.822、nDCG@10=0.729、required fact coverage=0.833、citation precision=0.500、citation completeness=0.885；no-answer F1=0、多轮场景完成率=0.800、上下文污染率=0.182、安全通过率=0.367，共保留 29 个诊断失败案例。报告继续固定为 `evaluation_status: provisional`、`release_gate: blocked_pending_human_review`，不冻结 test，也不宣称 Phase 3 正式验收通过。
 
 ### Phase 4：消融、调优与冻结测试，4–7 天
 

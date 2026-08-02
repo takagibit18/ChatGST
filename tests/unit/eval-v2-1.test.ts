@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { PiLocalRagRetrievalProvider, retrievalAnnotationV21Schema, retrievalEvalCaseV21Schema } from "@policy/rag/index";
+import { PiLocalRagRetrievalProvider, conversationScenarioV21Schema, retrievalAnnotationV21Schema, retrievalEvalCaseV21Schema, safetyEvalCaseV21Schema } from "@policy/rag/index";
 import { normalizePolicyQuery } from "@policy/runtime/index";
 import { assertTrainOnlyCalibrationPath, runEvalV21Input } from "../../scripts/eval-v2-1-runner.js";
 import { buildEvalV21Datasets, type GoldSourceReader } from "../../scripts/validate-eval-v2-1.js";
@@ -31,6 +31,33 @@ describe("Eval v2.1 anti-circular governance", () => {
     } satisfies GoldSourceReader & { search: () => Promise<never> };
     const annotation = retrievalAnnotationV21Schema.parse((await jsonl("domains/childcare-subsidy/evals/v2.1/annotations/retrieval.jsonl"))[0]);
     await expect(buildEvalV21Datasets(reader, [annotation])).resolves.toHaveLength(1);
+  });
+
+  it("binds complete atomic claims to exact source spans", async () => {
+    const annotations = (await jsonl("domains/childcare-subsidy/evals/v2.1/annotations/retrieval.jsonl")).map((item) => retrievalAnnotationV21Schema.parse(item));
+    for (const item of annotations.filter((entry) => entry.answerable)) {
+      const claims = item.gold_evidence.flatMap((entry) => entry.claims.map((claim) => claim.text));
+      expect(item.required_facts).toEqual(claims);
+      expect(claims.every((claim) => /[。！？]$/u.test(claim) && claim.replace(/\s+/gu, "").length >= 12)).toBe(true);
+      expect(item.gold_evidence.every((entry) => entry.chunk_char_end - entry.chunk_char_start === entry.supporting_text.length)).toBe(true);
+      expect(item.gold_evidence.every((entry) => entry.supporting_text.length !== 180)).toBe(true);
+    }
+  });
+
+  it("contains no repeated conversation transcript or shared safety template", async () => {
+    const conversations = (await jsonl("domains/childcare-subsidy/evals/v2.1/annotations/conversations.jsonl")).map((item) => conversationScenarioV21Schema.parse(item));
+    const transcripts = conversations.map((scenario) => scenario.turns.map((turn) => turn.user.replace(/\s+/gu, "")).join("|"));
+    expect(new Set(transcripts).size).toBe(20);
+    const safety = (await jsonl("domains/childcare-subsidy/evals/v2.1/annotations/safety.jsonl")).map((item) => safetyEvalCaseV21Schema.parse(item));
+    const forbidden = safety.map((item) => [...item.forbidden_behavior].sort().join("|"));
+    expect(new Set(forbidden).size).toBe(30);
+  });
+
+  it("preserves every v1 regression question verbatim", async () => {
+    const legacy = JSON.parse(await readFile(resolve("domains/childcare-subsidy/evals/cases.json"), "utf8")) as Array<{ id: string; question: string }>;
+    const regression = (await jsonl("domains/childcare-subsidy/evals/v2.1/annotations/regression-v1.jsonl")).map((item) => retrievalAnnotationV21Schema.parse(item));
+    const byLegacyId = new Map(regression.map((item) => [item.legacy_case_id, item.question]));
+    expect(legacy.every((item) => byLegacyId.get(item.id) === item.question)).toBe(true);
   });
 
   it("does not let hidden Gold alter runner predictions", async () => {

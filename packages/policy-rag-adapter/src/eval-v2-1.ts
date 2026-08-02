@@ -3,11 +3,25 @@ import { retrievalCategorySchema } from "./eval-v2.js";
 
 export const evalReviewStatusSchema = z.enum(["pending_review", "human_approved", "rejected"]);
 
+export const goldClaimSchema = z.object({
+  claim_id: z.string().min(1),
+  text: z.string().min(8),
+  claim_type: z.enum(["eligibility", "amount", "application", "materials", "deadline", "payment", "channel", "governance", "exception", "correction", "other"]),
+});
+
 export const goldEvidenceSchema = z.object({
   document_id: z.string().min(1),
   chunk_id: z.string().min(1),
+  source_line_start: z.number().int().positive(),
+  source_line_end: z.number().int().positive(),
+  chunk_char_start: z.number().int().nonnegative(),
+  chunk_char_end: z.number().int().positive(),
   supporting_text: z.string().min(8),
   relevance_grade: z.number().int().min(1).max(3),
+  claims: z.array(goldClaimSchema).min(1),
+}).superRefine((item, context) => {
+  if (item.source_line_end < item.source_line_start) context.addIssue({ code: "custom", message: "source line range is reversed" });
+  if (item.chunk_char_end <= item.chunk_char_start) context.addIssue({ code: "custom", message: "chunk character range is empty or reversed" });
 });
 
 const challengeSchema = z.object({
@@ -52,9 +66,13 @@ export const retrievalAnnotationV21Schema = z.object({
   notes: z.string(),
 }).superRefine((item, context) => {
   const fail = (message: string) => context.addIssue({ code: "custom", message, path: ["challenge"] });
+  const claims = item.gold_evidence.flatMap((evidence) => evidence.claims.map((claim) => claim.text));
   if (item.answerable !== (item.gold_evidence.length > 0)) fail("answerable must match Gold evidence presence");
   if (item.answerable && item.expected_behavior !== "answer") fail("answerable cases must expect answer");
   if (!item.answerable && item.expected_behavior === "answer") fail("unanswerable cases cannot expect answer");
+  if (item.answerable && claims.length === 0) fail("answerable cases need atomic claims");
+  if (!item.answerable && item.required_facts.length > 0) fail("unanswerable cases cannot declare required facts");
+  if (JSON.stringify(item.required_facts) !== JSON.stringify(claims)) fail("required_facts must be derived exactly from Gold claims");
   if (item.category === "multi_evidence" && new Set(item.gold_evidence.map((evidence) => evidence.chunk_id)).size < 2) fail("multi_evidence needs at least two chunks");
   if (item.category === "cross_level_policy" && (item.challenge.required_levels?.length ?? 0) < 2) fail("cross_level_policy needs two levels");
   if (item.category === "cross_region_interference" && (item.challenge.interference_regions?.length ?? 0) < 1) fail("cross_region_interference needs an interference region");

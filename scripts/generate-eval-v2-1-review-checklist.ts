@@ -22,7 +22,8 @@ const decision = () => [
   "- 备注/驳回原因：____________________________________________________________",
 ].join("\n");
 
-type Evidence = { document_id: string; chunk_id: string; supporting_text: string; relevance_grade: number };
+type Evidence = { document_id: string; chunk_id: string; source_line_start: number; source_line_end: number; chunk_char_start: number; chunk_char_end: number;
+  supporting_text: string; relevance_grade: number; claims: Array<{ claim_id: string; text: string; claim_type: string }> };
 type Retrieval = {
   id: string; split: string; category: string; difficulty: string; question: string; user_region: string | null;
   effective_date: string; answerable: boolean; expected_behavior: string; gold_evidence: Evidence[];
@@ -40,7 +41,9 @@ function retrievalSection(item: Retrieval, index: number): string {
         `#### 证据 ${evidenceIndex + 1}`,
         `- 文档：\`${text(entry.document_id)}\``,
         `- Chunk：\`${text(entry.chunk_id)}\``,
+        `- 原文位置：行 ${entry.source_line_start}–${entry.source_line_end}；chunk 字符 ${entry.chunk_char_start}–${entry.chunk_char_end}`,
         `- 相关等级：${entry.relevance_grade}`,
+        `- Atomic claims：${entry.claims.map((claim) => `\`${text(claim.claim_id)}\` (${text(claim.claim_type)}) ${text(claim.text)}`).join("；")}`,
         `> ${text(entry.supporting_text)}`,
       ].join("\n")).join("\n\n")
     : "_该案例应无 Gold 证据。请人工确认 K4 确实不足以回答。_";

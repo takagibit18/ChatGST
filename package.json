@@ -21,6 +21,7 @@
     "eval:v2:validate": "tsx scripts/deprecated-eval-v2.ts",
     "eval:v2": "tsx scripts/deprecated-eval-v2.ts",
     "eval:v2.1:prepare": "tsx scripts/validate-eval-v2-1.ts --write",
+    "eval:v2.1:build-gold": "tsx scripts/build-eval-v2-1-gold.ts",
     "eval:v2.1:validate": "tsx scripts/validate-eval-v2-1.ts",
     "eval:v2.1:calibrate": "tsx scripts/calibrate-eval-v2-1.ts",
     "eval:v2.1:review-checklist": "tsx scripts/generate-eval-v2-1-review-checklist.ts",

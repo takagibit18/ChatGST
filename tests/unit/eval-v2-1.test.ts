@@ -1,0 +1,69 @@
+import { readFile } from "node:fs/promises";
+import { resolve } from "node:path";
+import { describe, expect, it } from "vitest";
+import { PiLocalRagRetrievalProvider, retrievalAnnotationV21Schema, retrievalEvalCaseV21Schema } from "@policy/rag/index";
+import { normalizePolicyQuery } from "@policy/runtime/index";
+import { assertTrainOnlyCalibrationPath, runEvalV21Input } from "../../scripts/eval-v2-1-runner.js";
+import { buildEvalV21Datasets, type GoldSourceReader } from "../../scripts/validate-eval-v2-1.js";
+
+async function jsonl(path: string): Promise<unknown[]> {
+  return (await readFile(resolve(path), "utf8")).split(/\r?\n/u).filter(Boolean).map((line) => JSON.parse(line) as unknown);
+}
+
+describe("Eval v2.1 anti-circular governance", () => {
+  it("keeps the exact inventory pending review and source-first", async () => {
+    const train = (await jsonl("domains/childcare-subsidy/evals/v2.1/datasets/retrieval.train.jsonl")).map((item) => retrievalEvalCaseV21Schema.parse(item));
+    const dev = (await jsonl("domains/childcare-subsidy/evals/v2.1/datasets/retrieval.dev.jsonl")).map((item) => retrievalEvalCaseV21Schema.parse(item));
+    const regression = (await jsonl("domains/childcare-subsidy/evals/v2.1/datasets/regression-v1.jsonl")).map((item) => retrievalEvalCaseV21Schema.parse(item));
+    expect(train).toHaveLength(50); expect(dev).toHaveLength(30); expect(regression).toHaveLength(13);
+    expect([...train, ...dev, ...regression].every((item) => item.source_review_status === "pending_review")).toBe(true);
+    expect([...train, ...dev, ...regression].every((item) => item.annotation_method === "source_first" && !item.retriever_used_for_labeling)).toBe(true);
+    expect([...train, ...dev].filter((item) => item.category === "no_answer")).toHaveLength(10);
+    expect([...train, ...dev].filter((item) => item.category === "missing_region")).toHaveLength(6);
+  });
+
+  it("builds Gold while a search capability throws", async () => {
+    const provider = new PiLocalRagRetrievalProvider(resolve("knowledge/index"));
+    const reader = {
+      listKnowledgeDocuments: provider.listKnowledgeDocuments.bind(provider),
+      getKnowledgeDocument: provider.getKnowledgeDocument.bind(provider),
+      search: async () => { throw new Error("search must not be called while building Gold"); },
+    } satisfies GoldSourceReader & { search: () => Promise<never> };
+    const annotation = retrievalAnnotationV21Schema.parse((await jsonl("domains/childcare-subsidy/evals/v2.1/annotations/retrieval.jsonl"))[0]);
+    await expect(buildEvalV21Datasets(reader, [annotation])).resolves.toHaveLength(1);
+  });
+
+  it("does not let hidden Gold alter runner predictions", async () => {
+    const provider = { search: async () => { throw new Error("missing-region input must not search"); } };
+    const input = { id: "isolation", question: "育儿补贴怎么办？", user_region: null, effective_date: "2026-08-02" };
+    const left = await runEvalV21Input(provider as never, { ...input, expected_behavior: "answer", relevant_documents: ["poison"] }, 1);
+    const right = await runEvalV21Input(provider as never, { ...input, expected_behavior: "no_answer", relevant_documents: [] }, 1);
+    expect(left).toEqual(right);
+    expect(left.predicted_behavior).toBe("clarify_region");
+  });
+
+  it("rejects dev and test calibration paths", () => {
+    expect(() => assertTrainOnlyCalibrationPath("retrieval.train.jsonl")).not.toThrow();
+    expect(() => assertTrainOnlyCalibrationPath("retrieval.dev.jsonl")).toThrow(/train/u);
+    expect(() => assertTrainOnlyCalibrationPath("retrieval.test.jsonl")).toThrow(/train/u);
+  });
+
+  it("stores label-free raw predictions and a blocked provisional report", async () => {
+    const rawText = await readFile(resolve("domains/childcare-subsidy/evals/v2.1/runs/phase3-v21-raw-predictions.json"), "utf8");
+    expect(rawText).not.toContain("expected_behavior"); expect(rawText).not.toContain("relevant_documents"); expect(rawText).not.toContain("required_facts");
+    const report = JSON.parse(await readFile(resolve("domains/childcare-subsidy/evals/v2.1/reports/phase3-v21-provisional.json"), "utf8")) as { evaluation_status: string; release_gate: string; quality_claim_allowed: boolean; diagnostic_failures: string[] };
+    expect(report).toMatchObject({ evaluation_status: "provisional", release_gate: "blocked_pending_human_review", quality_claim_allowed: false });
+    expect(report.diagnostic_failures.length).toBeGreaterThan(0);
+  });
+});
+
+describe("nationwide query normalization", () => {
+  it("resolves province, prefecture, county and arbitrary comparisons", () => {
+    expect(normalizePolicyQuery("上海育儿补贴多少钱？", null)).toMatchObject({ region: "上海市", regionCode: "310000", regionResolution: "resolved" });
+    expect(normalizePolicyQuery("济南育儿补贴去哪里办？", null)).toMatchObject({ region: "济南市", regionCode: "370100" });
+    expect(normalizePolicyQuery("普陀区育儿补贴怎么办？", null)).toMatchObject({ region: "普陀区", regionCode: "310107" });
+    const comparison = normalizePolicyQuery("上海和重庆的育儿补贴有什么不同？", null);
+    expect(comparison.region).toBe("对比");
+    expect(comparison.comparisonRegions.map((item) => item.code)).toEqual(expect.arrayContaining(["310000", "500000"]));
+  });
+});

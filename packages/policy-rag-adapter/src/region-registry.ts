@@ -76,6 +76,24 @@ export function resolveAdministrativeRegion(value: unknown): RegionResolution {
   return { status: "unknown", input: value };
 }
 
+export function findAdministrativeRegionsInText(value: string): AdministrativeRegion[] {
+  const text = normalizeAlias(value);
+  const matches = administrativeRegions.flatMap((region) => {
+    const aliases = [...new Set([region.name, ...region.aliases])]
+      .map((alias) => normalizeAlias(alias))
+      .filter((alias) => alias.length >= 2 && text.includes(alias));
+    return aliases.length === 0 ? [] : [{ region, length: Math.max(...aliases.map((alias) => alias.length)) }];
+  });
+  matches.sort((left, right) => right.length - left.length || left.region.code.localeCompare(right.region.code));
+  const selected: AdministrativeRegion[] = [];
+  for (const match of matches) {
+    if (selected.some((region) => region.code === match.region.code)) continue;
+    if (selected.some((region) => isRegionAncestor(match.region.code, region.code))) continue;
+    selected.push(match.region);
+  }
+  return selected;
+}
+
 export function getAdministrativeRegion(code: string): AdministrativeRegion | null {
   return byCode.get(code) ?? null;
 }

@@ -39,7 +39,9 @@ export async function retrieveForEval(
       },
     };
   }
-  const regions: Array<"北京市" | "河北省"> = query.region === "对比" ? ["北京市", "河北省"] : [query.region];
+  const regions: string[] = query.region === "对比"
+    ? query.comparisonRegions.map((item) => item.name)
+    : [query.region];
   const combinedHits: PolicySearchResult[] = [];
   for (const region of regions) {
     combinedHits.push(...await provider.search({

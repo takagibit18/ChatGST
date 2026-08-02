@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const regionSchema = z.enum(["北京市", "河北省", "全国", "对比"]);
+export const regionSchema = z.string().min(1);
 export type PolicyRegion = z.infer<typeof regionSchema>;
 
 export const policyStatusSchema = z.enum(["effective", "expired", "draft", "unknown"]);

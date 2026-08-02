@@ -1,0 +1,47 @@
+{
+  "schema_version": 2,
+  "dataset_version": "phase3-v2.1",
+  "generated_at": "2026-08-02T00:00:00.000Z",
+  "evaluation_status": "provisional",
+  "release_gate": "blocked_pending_human_review",
+  "knowledge_snapshot": "K4",
+  "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
+  "circular_labeling": false,
+  "counts": {
+    "retrieval": 80,
+    "train": 50,
+    "dev": 30,
+    "regression": 13,
+    "conversations": 20,
+    "safety": 30
+  },
+  "files": {
+    "retrieval.train.jsonl": {
+      "sha256": "6c0f5736f7028e92d55639706274bdb83648c4afaea6bbdeb723d1279091c4e8",
+      "rows": 50
+    },
+    "retrieval.dev.jsonl": {
+      "sha256": "9f68ec9f7157233009c0a2356705eaf9d3058d42baab0e19c8a2aa1887111b7c",
+      "rows": 30
+    },
+    "regression-v1.jsonl": {
+      "sha256": "cb59a366381f61475ddeed6a08dd005a0a310aaf45a8553b35390fecbbb37d5d",
+      "rows": 13
+    },
+    "conversations.jsonl": {
+      "sha256": "32971d8efe0cb80f57ceedc15f8d5316305f0f3c06315bd6ae1e73ac15b7e7fc",
+      "rows": 20
+    },
+    "safety.jsonl": {
+      "sha256": "228d286c71411aec4a80ef0ccd8ea8cb71fe0bd0154bbeaedbf5ba2c9b70ab7d",
+      "rows": 30
+    }
+  },
+  "review": {
+    "pending_review": 143,
+    "human_approved": 0
+  },
+  "test_split": {
+    "status": "not_frozen"
+  }
+}

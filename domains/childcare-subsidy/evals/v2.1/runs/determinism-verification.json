@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "full_runs": 3,
+  "stable": true,
+  "prediction_fingerprints": [
+    "5602da9d9387f930ad8fe12d65aa05edf7c6005c8b03e1b7031609ee60b8e79c",
+    "5602da9d9387f930ad8fe12d65aa05edf7c6005c8b03e1b7031609ee60b8e79c",
+    "5602da9d9387f930ad8fe12d65aa05edf7c6005c8b03e1b7031609ee60b8e79c"
+  ],
+  "timing_fields_excluded": true,
+  "model_provider": "test",
+  "review_status": "pending_review"
+}

@@ -1,5 +1,7 @@
 {
   "schema_version": 1,
+  "invalid_for_quality_claims": true,
+  "invalidation_reason": "Circular Gold generation and expected-behavior leakage; retained for audit only.",
   "dataset_version": "phase3-v1.0",
   "generated_at": "2026-08-02T00:00:00.000Z",
   "knowledge_snapshot": "K4",

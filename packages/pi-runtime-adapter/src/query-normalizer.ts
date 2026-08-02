@@ -1,10 +1,14 @@
 import type { ConversationState } from "@policy/session/index";
 import type { PolicyIntent } from "@policy/schemas/index";
+import { findAdministrativeRegionsInText, resolveAdministrativeRegion } from "@policy/rag/index";
 
 export type NormalizedPolicyQuery = {
   original: string;
   retrievalQuery: string;
-  region: "北京市" | "河北省" | "对比" | null;
+  region: string | null;
+  regionCode: string | null;
+  comparisonRegions: Array<{ name: string; code: string }>;
+  regionResolution: "resolved" | "missing" | "unknown";
   intent: PolicyIntent;
   intentConfidence: "high" | "low";
   confirmedSlots: Record<string, unknown>;
@@ -15,7 +19,6 @@ export type NormalizedPolicyQuery = {
 };
 
 const unsafePattern = /(?:读取|打开|列出).{0,8}(?:本地|电脑|磁盘|文件)|(?:bash|shell|python|node|powershell|cmd|sql|终端|命令)|(?:系统提示|内部提示|思维过程|思维链|推理过程)|[A-Za-z]:\\|\/(?:etc|Users|home)\//iu;
-const unsupportedRegionPattern = /上海|天津|重庆|山西|山东|河南|湖南|湖北|广东|广西|海南|四川|贵州|云南|陕西|甘肃|青海|辽宁|吉林|黑龙江|江苏|浙江|安徽|福建|江西|内蒙古|西藏|宁夏|新疆|香港|澳门|台湾/u;
 const outOfScopePattern = /你是谁|你是什么|什么模型|哪个模型|模型版本|你好|您好|谢谢|再见|天气|讲个笑话|唱首歌/u;
 const contextualFollowUpPattern = /^(?:那|那么|这个|上述|刚才|继续|再问|还有|然后|北京|北京市|河北|河北省|两地)|呢[？?]?$|怎么办|怎么弄|可以吗|能吗/u;
 
@@ -55,21 +58,12 @@ function intentFrom(text: string): PolicyIntent {
   return "unknown";
 }
 
-function regionFrom(text: string): "北京市" | "河北省" | "对比" | null {
-  const beijing = /北京/u.test(text);
-  const hebei = /河北/u.test(text);
-  if (beijing && hebei && /对比|比较|区别|不同|相比/u.test(text)) return "对比";
-  if (/迁(?:入|到)河北|户籍.{0,5}河北/u.test(text)) return "河北省";
-  if (/迁(?:入|到)北京|户籍.{0,5}北京/u.test(text)) return "北京市";
-  if (beijing && hebei) return "对比";
-  if (beijing) return "北京市";
-  if (hebei) return "河北省";
-  return null;
-}
-
 export function normalizePolicyQuery(message: string, state: ConversationState | null): NormalizedPolicyQuery {
-  let region = regionFrom(message);
-  const unsupportedRegion = !region && unsupportedRegionPattern.test(message);
+  const detectedRegions = findAdministrativeRegionsInText(message);
+  const comparisonRequested = detectedRegions.length > 1 && /对比|比较|区别|不同|相比/u.test(message);
+  let comparisonRegions = comparisonRequested ? detectedRegions.map((item) => ({ name: item.name, code: item.code })) : [];
+  let region = comparisonRequested ? "对比" : detectedRegions[0]?.name ?? null;
+  let regionCode = comparisonRequested ? null : detectedRegions[0]?.code ?? null;
   let intent = intentFrom(message);
   const directlyRecognizedIntent = intent;
   const outOfScope = directlyRecognizedIntent === "unknown" && outOfScopePattern.test(message);
@@ -77,7 +71,12 @@ export function normalizePolicyQuery(message: string, state: ConversationState |
   const canInheritContext = !outOfScope && (directlyRecognizedIntent !== "unknown" || contextualFollowUp);
   const confirmedSlots = { ...(state?.confirmed_slots ?? {}) };
   if (!region && canInheritContext && typeof confirmedSlots.region === "string") {
-    region = confirmedSlots.region as NormalizedPolicyQuery["region"];
+    region = confirmedSlots.region;
+    const inherited = resolveAdministrativeRegion(region);
+    regionCode = inherited.status === "resolved" ? inherited.region.code : null;
+    comparisonRegions = Array.isArray(confirmedSlots.comparison_regions)
+      ? confirmedSlots.comparison_regions as Array<{ name: string; code: string }>
+      : [];
   }
   if (intent === "unknown" && contextualFollowUp) {
     intent = state?.intent ?? intent;
@@ -86,10 +85,14 @@ export function normalizePolicyQuery(message: string, state: ConversationState |
   const intentConfidence = intent === "unknown" || (intent === "overview" && !inheritedIntent && !/育儿补贴|补贴政策|是什么|介绍|了解/u.test(message))
     ? "low"
     : "high";
-  if ((intent === "distinction" || intent === "comparison") && !region) region = "对比";
-  if (region) confirmedSlots.region = region;
+  if ((intent === "distinction" || intent === "comparison") && comparisonRegions.length > 1) region = "对比";
+  if (region) {
+    confirmedSlots.region = region;
+    if (regionCode) confirmedSlots.region_code = regionCode;
+    if (comparisonRegions.length > 0) confirmedSlots.comparison_regions = comparisonRegions;
+  }
   const missingSlots: string[] = [];
-  if (!region && intent !== "unsafe_request" && !outOfScope && !unsupportedRegion) missingSlots.push("region");
+  if (!region && intent !== "unsafe_request" && !outOfScope) missingSlots.push("region");
   const priorUserQuestion = state?.messages.find((item) => item.role === "user")?.content;
   const contextualQuery = priorUserQuestion && state?.missing_slots.includes("region") ? `${priorUserQuestion} ${message}` : message;
   const retrievalQuery = withIntentSearchTerms(contextualQuery, intent);
@@ -97,12 +100,15 @@ export function normalizePolicyQuery(message: string, state: ConversationState |
     original: message,
     retrievalQuery,
     region,
+    regionCode,
+    comparisonRegions,
+    regionResolution: region ? "resolved" : "missing",
     intent,
     intentConfidence,
     confirmedSlots,
     missingSlots,
     unsafe: intent === "unsafe_request",
     outOfScope,
-    unsupportedRegion,
+    unsupportedRegion: false,
   };
 }

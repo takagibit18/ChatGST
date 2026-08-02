@@ -1,5 +1,7 @@
 # Eval v2
 
+> **Invalid for quality claims.** This v2.0 snapshot is retained only for audit history. Its regression Gold was derived from the retriever under test and its runner used expected behavior. Use `../v2.1/` for the corrected provisional evaluation.
+
 Phase 3 binds the nationwide evaluation suite to the immutable K4 knowledge snapshot.
 
 - `datasets/retrieval.train.jsonl`: 50 development cases.

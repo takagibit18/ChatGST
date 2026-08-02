@@ -40,12 +40,15 @@ pnpm rag:build:nationwide -- --rebuild
 
 The generated SQLite index and evidence-bearing Golden output are also local-only.
 
-Phase 3 Eval v2 artifacts are reproducible against the K4 index:
+Phase 3 Eval v2.1 artifacts are reproducible against the K4 index:
 
 ```bash
-pnpm eval:v2:write       # regenerate JSONL datasets and hashes
-pnpm eval:v2:validate    # validate schemas, counts, splits and Gold bindings
-pnpm eval:v2             # run the three-repeat BM25 baseline and persist fingerprints
+pnpm eval:v2.1:prepare     # validate source-first annotations and materialize datasets
+pnpm eval:v2.1:validate    # read-only schema, inventory, leakage and K4 binding checks
+pnpm eval:v2.1:calibrate   # calibrate no-answer threshold from train only
+pnpm eval:v2.1             # isolated runner and scorer; write the provisional report
 ```
 
-The committed train/dev datasets live in `domains/childcare-subsidy/evals/v2/`. The blind test split is intentionally not frozen until Phase 4. Review provenance is explicit in every case; legal amount, deadline, and eligibility conclusions still require the responsible domain owner's sign-off before a frozen release.
+The committed annotations, train/dev datasets, calibration record, label-free predictions and provisional report live in `domains/childcare-subsidy/evals/v2.1/`. All 143 annotations are `pending_review`; the release gate remains blocked until the responsible domain owner signs off. The blind test split is intentionally not frozen.
+
+Eval v2.0 remains under `domains/childcare-subsidy/evals/v2/` for audit only. Its Gold labels were influenced by retrieval output and its runner consumed expected behavior, so it is invalid for quality claims. The legacy `eval:v2*` commands now fail with a migration notice instead of regenerating artifacts.

@@ -69,7 +69,7 @@ export const policyResponseSchema = z
       .nullable(),
     meta: z.object({
       intent: policyIntentSchema,
-      region: z.enum(["北京市", "河北省", "对比"]).nullable(),
+      region: z.string().min(1).nullable(),
       answer_status: answerStatusSchema,
     }),
   })

@@ -493,18 +493,18 @@ K1 允许出现质量问题，但不得作为面向用户的默认知识库。�
 
 完成记录（2026-08-02）：对 47 份材料执行规范化正文 SHA-256、五字 shingle Jaccard 和文号候选检测，得到 0 组 exact、8 组 near、10 组同文号候选；确认 1 个全国政策转载组（3 份来源，组内相似度 0.976–0.995），保留 1 份 canonical。K0–K4 快照分别包含 6/47/41/39/39 份文档并具有独立 SHA-256；K4 实际构建为 39 份、380 chunks，索引绑定快照哈希。新增、正文更新、仅元数据更新、删除、幂等重建和同日版本确定性排序均有自动化测试。
 
-### Phase 3：Eval v2 数据和指标，3–5 天
+### Phase 3：Eval v2.1 规范化重建
 
-- [x] 实现 JSONL Schema 和数据校验器；
-- [x] 迁移 13 条回归案例；
-- [x] 首批标注 80 条 retrieval，其中至少 30 条 hard case；
-- [x] 建立多轮、安全和 no-answer 小集；
-- [x] 实现 chunk Recall、nDCG、地区/时间泄漏、重复占位等指标；
-- [x] 保存运行指纹和逐案例输出。
+- [x] 建立 `retrieval-v2.1` source-first Schema、只读 Gold 构建器和严格数据校验器；
+- [x] 从 K4 原文重新标注 retrieval 80 条（train 50 / dev 30）和 v1 回归 13 条；
+- [x] 扩充并实际执行多轮 20 组、安全 30 条；
+- [x] 将 Query Normalizer、Runtime、工具 Schema 与业务校验器扩展到 K4 全国地区；
+- [x] 隔离 train-only calibration、label-free runner 和 Gold-aware scorer；
+- [x] 输出检索、回答、引用、多轮、安全、性能的分子/分母、分类结果和 95% 区间。
 
-验收：每个 Gold 都绑定来源与 chunk；金额、期限、资格案例经过人工复核。
+技术验收：循环标签为 0、Gold 标签泄漏为 0、K4 证据绑定错误为 0、runner/scorer 隔离测试通过、全部评测集实际执行。正式质量验收仍须业务责任人完成审核。
 
-完成记录（2026-08-02）：落盘 retrieval 80 条（train 50 / dev 30，hard 45）、v1 回归 13 条、多轮 8 组、安全 15 条和抽取清单 47 条；所有可回答 Gold 均绑定 K4 document/chunk。K4 BM25 Top-10 基线重复运行 3 次，dev Document Recall@5=1.000、Chunk Recall@5=0.821、MRR@10=0.954、nDCG@10=0.782，地区/时间泄漏与重复占位均为 0，拒答 F1 和缺地区澄清准确率均为 1.000，Top-10 确定性为 1.000。运行指纹、逐案例输出和失败列表均已固化；金额、期限、资格的旧回归项保留人工复核字段与 K4 证据绑定，进入 Phase 4 冻结测试前仍需业务责任人签字确认法律口径。
+重建记录（2026-08-02）：Eval v2.0 因 Gold 受检索结果影响且 Runner 读取预期行为，被标记为 `invalid_for_quality_claims`，只保留用于审计。Eval v2.1 的 143 条标注全部为 `pending_review`，不存在 `approved` 或人工复核完成声明；问题、证据与派生集合通过 K4 子串、标题/章节/ID 泄漏和 split 约束校验。train-only 校准锁定阈值后运行 dev，确定性基线的 Document Recall@5=0.891、Chunk Recall@5=0.674、MRR@10=0.806、nDCG@10=0.553，地区/时间泄漏和重复占位均为 0，required fact coverage=0.241、citation precision=0.372、citation completeness=0.615、安全通过率=0.467；共保留 32 个诊断失败案例。报告固定为 `evaluation_status: provisional`、`release_gate: blocked_pending_human_review`，不冻结 test，也不宣称 Phase 3 正式验收通过。
 
 ### Phase 4：消融、调优与冻结测试，4–7 天
 

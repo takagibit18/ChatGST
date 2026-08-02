@@ -10,7 +10,7 @@ const intentKeywords: Record<string, RegExp> = {
   payment: /发放|到账|2 月|5 月|8 月|11 月/u,
   migration: /迁入|迁出|户籍|重复申领/u,
   distinction: /生育津贴|生育保险|产假工资/u,
-  comparison: /北京市|河北省|发放|审核|户籍/u,
+  comparison: /发放|审核|户籍|标准|申请/u,
   overview: /育儿补贴/u,
 };
 
@@ -20,7 +20,7 @@ function selectEvidence(pack: EvidencePack): EvidenceItem[] {
   const pool = matching.length > 0 ? matching : pack.evidence;
   if (pack.query_context.intent === "comparison") {
     const selected: EvidenceItem[] = [];
-    for (const region of ["北京市", "河北省", "全国"]) {
+    for (const region of [...new Set(pool.map((item) => item.region))]) {
       const hit = pool.find((item) => item.region === region);
       if (hit) selected.push(hit);
     }
@@ -92,19 +92,19 @@ export function createDeterministicTestResponse(pack: EvidencePack): PolicyRespo
       answer = "育儿补贴是面向符合条件的3周岁以下婴幼儿家庭的财政补贴；生育津贴属于生育保险待遇，主要补偿参保女职工产假期间的收入。两者不是同一制度。";
       break;
     case "comparison":
-      answer = "北京与河北都执行国家育儿补贴基础制度，但地方在申请审核、户籍迁移和发放批次等细节上不同。具体问题应分别按两地当前有效规则判断。";
+      answer = "所比较地区都执行国家育儿补贴基础制度，但地方在申请审核、户籍迁移和发放批次等细节上可能不同。具体问题应分别按各地当前有效规则判断。";
       actions = [
         { id: "beijing", label: "查看北京规则", value: "北京育儿补贴申请规则" },
         { id: "hebei", label: "查看河北规则", value: "河北育儿补贴申请规则" },
       ];
       break;
     default:
-      answer = "可以查询北京和河北育儿补贴的金额、资格、材料、渠道、时限与发放规则。请选择想了解的内容。";
+      answer = `可以查询${region ?? "当地"}育儿补贴的金额、资格、材料、渠道、时限与发放规则。请选择想了解的内容。`;
       actions = [
-        { id: "amount", label: "补贴金额", value: `${region === "河北省" ? "河北" : "北京"}育儿补贴金额` },
-        { id: "eligibility", label: "申请资格", value: `${region === "河北省" ? "河北" : "北京"}育儿补贴申请资格` },
-        { id: "materials", label: "关键材料", value: `${region === "河北省" ? "河北" : "北京"}育儿补贴关键材料` },
-        { id: "channel", label: "申领渠道", value: `${region === "河北省" ? "河北" : "北京"}育儿补贴申领渠道` },
+        { id: "amount", label: "补贴金额", value: `${region ?? "当地"}育儿补贴金额` },
+        { id: "eligibility", label: "申请资格", value: `${region ?? "当地"}育儿补贴申请资格` },
+        { id: "materials", label: "关键材料", value: `${region ?? "当地"}育儿补贴关键材料` },
+        { id: "channel", label: "申领渠道", value: `${region ?? "当地"}育儿补贴申领渠道` },
       ];
   }
   const sources = sourceData(selected);

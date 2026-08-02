@@ -21,7 +21,7 @@ export type ErrorCode = (typeof errorCodes)[number];
 
 const safeMessages: Record<ErrorCode, string> = {
   INVALID_INPUT: "输入内容不符合要求，请简要描述要查询的政策问题。",
-  UNSUPPORTED_REGION: "当前仅支持北京市和河北省的育儿补贴政策。",
+  UNSUPPORTED_REGION: "当前无法匹配该地区的有效育儿补贴政策证据。",
   MISSING_REQUIRED_CONTEXT: "还需要补充一项关键信息才能判断。",
   RETRIEVAL_EMPTY: "暂未检索到足够的有效政策依据，建议咨询当地主管部门。",
   POLICY_VERSION_CONFLICT: "检索到同一时期的政策版本冲突，暂不作确定结论。",

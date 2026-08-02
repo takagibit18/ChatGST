@@ -1,4 +1,5 @@
 import type { EvidencePack, PolicyResponse } from "@policy/schemas/index";
+import { getRegionPath, resolveAdministrativeRegion } from "@policy/rag/index";
 
 export type PolicyValidationIssue = {
   code: string;
@@ -36,10 +37,14 @@ export function validatePolicyBusiness(response: PolicyResponse, pack: EvidenceP
     }
   }
 
-  const allowedRegions =
-    pack.query_context.region === "对比"
-      ? new Set(["北京市", "河北省", "全国"])
-      : new Set([pack.query_context.region, "全国"]);
+  const comparison = Array.isArray(pack.query_context.confirmed_slots.comparison_regions)
+    ? pack.query_context.confirmed_slots.comparison_regions as Array<{ name: string; code: string }>
+    : [];
+  const queryRegions = pack.query_context.region === "对比" ? comparison.map((item) => item.name) : [pack.query_context.region];
+  const allowedRegions = new Set(queryRegions.flatMap((name) => {
+    const resolved = resolveAdministrativeRegion(name);
+    return resolved.status === "resolved" ? getRegionPath(resolved.region.code).map((region) => region.name) : name ? [name, "全国"] : ["全国"];
+  }));
   for (const evidence of pack.evidence) {
     if (!allowedRegions.has(evidence.region as never)) {
       issues.push({ code: "region_mismatch", path: "sources", message: `Evidence region is inconsistent: ${evidence.region}` });

@@ -23,6 +23,7 @@
     "eval:v2.1:prepare": "tsx scripts/validate-eval-v2-1.ts --write",
     "eval:v2.1:validate": "tsx scripts/validate-eval-v2-1.ts",
     "eval:v2.1:calibrate": "tsx scripts/calibrate-eval-v2-1.ts",
+    "eval:v2.1:review-checklist": "tsx scripts/generate-eval-v2-1-review-checklist.ts",
     "eval:v2.1": "tsx scripts/run-eval-v2-1.ts && tsx scripts/score-eval-v2-1.ts",
     "prerag:build": "pnpm deps:check",
     "prerag:build:nationwide": "pnpm knowledge:phase2:validate && pnpm deps:check",

@@ -120,7 +120,7 @@ export class HybridRetrievalProvider implements RetrievalProvider {
   }
 
   async resolvePolicyVersion(input: {
-    region: "北京市" | "河北省";
+    region: string;
     policy_type: string;
     reference_date: string;
   }): Promise<PolicyVersionResolution> {

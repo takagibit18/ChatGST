@@ -1,0 +1,4743 @@
+{
+  "schema_version": 1,
+  "run_id": "phase3-k4-bm25-dev",
+  "generated_at": "2026-08-02T09:48:13.635Z",
+  "fingerprint": {
+    "dataset_version": "phase3-v1.0",
+    "dataset_manifest_sha256": "f26ca7332d1776875d0cae77f2c5652cb917e83b51838051215b0181234d8d19",
+    "dev_dataset_sha256": "dc65dc52bc0067634bb5449e3282522175f6670b9f6db17f6c52c6d5fa46e06c",
+    "regression_dataset_sha256": "fc0db4990f1626fbfd5e563e46f071d74aa4b3ca07dd9598120f3109414cf494",
+    "knowledge_snapshot": "K4",
+    "knowledge_snapshot_sha256": "7635fe7d2aaa596887585ffc85a543a26dcc0ee4bd45d1b70dfa437994c6416f",
+    "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
+    "duplicate_map_sha256": "8a8e7510335f663d0ba66bf49cd51f9bcda1487a2dce833cfc3ef8143d1656ed",
+    "region_registry_sha256": "175c50081d8194882acc4c1e2409902bfb6de93bf92bfe70c36711cdfb44a143",
+    "retrieval": {
+      "provider": "pi-local-rag",
+      "mode": "bm25-only",
+      "ranking": "BM25",
+      "top_k": 10,
+      "minimum_answer_score": 1,
+      "repetitions": 3
+    },
+    "index": {
+      "documents": 39,
+      "chunks": 380,
+      "vector_rows": 0,
+      "retrieval_mode": "bm25-only",
+      "snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce"
+    },
+    "runtime": {
+      "node": "v24.12.0",
+      "platform": "win32",
+      "release": "10.0.26200"
+    }
+  },
+  "metrics": {
+    "dev": {
+      "cases": 30,
+      "document_recall_at_5": 1,
+      "chunk_recall_at_5": 0.8214285714285714,
+      "mrr_at_10": 0.9535714285714285,
+      "ndcg_at_10": 0.7817144784544618,
+      "region_leakage_rate": 0,
+      "temporal_leakage_rate": 0,
+      "duplicate_occupancy_at_5": 0,
+      "no_answer_precision": 1,
+      "no_answer_recall": 1,
+      "no_answer_f1": 1,
+      "missing_region_clarification_accuracy": 1,
+      "paraphrase_top5_jaccard": 0.8333333333333333
+    },
+    "regression": {
+      "cases": 13,
+      "document_recall_at_5": 1,
+      "chunk_recall_at_5": 1,
+      "mrr_at_10": 1,
+      "ndcg_at_10": 1,
+      "region_leakage_rate": 0,
+      "temporal_leakage_rate": 0,
+      "duplicate_occupancy_at_5": 0,
+      "no_answer_precision": 1,
+      "no_answer_recall": 1,
+      "no_answer_f1": 1,
+      "missing_region_clarification_accuracy": 1,
+      "paraphrase_top5_jaccard": 0
+    },
+    "extraction_manifest_exact_match": true,
+    "deterministic_top10_rate": 1,
+    "performance_ms": {
+      "retrieval": {
+        "p50": 28.8456,
+        "p95": 33.352,
+        "p99": 35.5888
+      },
+      "total": {
+        "p50": 28.8645,
+        "p95": 33.3787,
+        "p99": 35.6121
+      }
+    }
+  },
+  "case_results": [
+    {
+      "case_id": "k4-26-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:ca8b24c37f7535df57fc",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.30881417
+        },
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:4c92426474e05f5be5d3",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.30420218
+        },
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:01d34e4a5d0182151bde",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 4.12476593
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.61664991
+        },
+        {
+          "document_id": "贴申领专区_官方解读_育儿补贴申请“一件事”_32",
+          "chunk_id": "贴申领专区_官方解读_育儿补贴申请“一件事”_32:dc90d4c0ca4de14d51dc",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 3.61460614
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.10494344
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 2.66918912
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c7148e2d3a176416f56d",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.33325663
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:14a6d639456397b4d51f",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 2.28831814
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.19439797
+        }
+      ],
+      "relevant_documents": [
+        "贴申领专区_官方解读_育儿补贴申请“一件事”_32"
+      ],
+      "relevant_chunks": [
+        "贴申领专区_官方解读_育儿补贴申请“一件事”_32:dc90d4c0ca4de14d51dc"
+      ],
+      "retrieval_ms": [
+        34.8132,
+        28.9544,
+        31.1753
+      ],
+      "total_ms": [
+        35.059,
+        28.9914,
+        31.2014
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-26-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:ca8b24c37f7535df57fc",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 7.87925596
+        },
+        {
+          "document_id": "贴申领专区_官方解读_育儿补贴申请“一件事”_32",
+          "chunk_id": "贴申领专区_官方解读_育儿补贴申请“一件事”_32:dc90d4c0ca4de14d51dc",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.29909692
+        },
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:4c92426474e05f5be5d3",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.01422891
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.61664991
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.10494344
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 2.66918912
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c7148e2d3a176416f56d",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.33325663
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:14a6d639456397b4d51f",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 2.28831814
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.19439797
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.1373767
+        }
+      ],
+      "relevant_documents": [
+        "贴申领专区_官方解读_育儿补贴申请“一件事”_32"
+      ],
+      "relevant_chunks": [
+        "贴申领专区_官方解读_育儿补贴申请“一件事”_32:dc90d4c0ca4de14d51dc"
+      ],
+      "retrieval_ms": [
+        29.7376,
+        28.4256,
+        28.5181
+      ],
+      "total_ms": [
+        29.7678,
+        28.4542,
+        28.5386
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-27-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "湖南省_官方解读_育儿补贴申请“一件事”_34",
+          "chunk_id": "湖南省_官方解读_育儿补贴申请“一件事”_34:8163063bad523ad8f6b1",
+          "region_code": "430000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 32.28487415
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 7.83071124
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:f23a0cccbf7698e5fae8",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 7.06833886
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 6.77786606
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:14a6d639456397b4d51f",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.09814506
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.26479136
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 4.67053873
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 4.39829285
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.93088028
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c7148e2d3a176416f56d",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.32679939
+        }
+      ],
+      "relevant_documents": [
+        "湖南省_官方解读_育儿补贴申请“一件事”_34"
+      ],
+      "relevant_chunks": [
+        "湖南省_官方解读_育儿补贴申请“一件事”_34:8163063bad523ad8f6b1"
+      ],
+      "retrieval_ms": [
+        28.1385,
+        29.4433,
+        27.7584
+      ],
+      "total_ms": [
+        28.1935,
+        29.4659,
+        27.7894
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-27-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "湖南省_官方解读_育儿补贴申请“一件事”_34",
+          "chunk_id": "湖南省_官方解读_育儿补贴申请“一件事”_34:8163063bad523ad8f6b1",
+          "region_code": "430000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 32.28487415
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 7.83071124
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:f23a0cccbf7698e5fae8",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 7.06833886
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 6.77786606
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:14a6d639456397b4d51f",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.09814506
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.26479136
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 4.67053873
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 4.39829285
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.93088028
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c7148e2d3a176416f56d",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.32679939
+        }
+      ],
+      "relevant_documents": [
+        "湖南省_官方解读_育儿补贴申请“一件事”_34"
+      ],
+      "relevant_chunks": [
+        "湖南省_官方解读_育儿补贴申请“一件事”_34:8163063bad523ad8f6b1"
+      ],
+      "retrieval_ms": [
+        27.0926,
+        27.2641,
+        27.5022
+      ],
+      "total_ms": [
+        27.1229,
+        27.2856,
+        27.5297
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-28-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "潜江市_政策规章_育儿补贴申请“一件事”_80",
+          "chunk_id": "潜江市_政策规章_育儿补贴申请“一件事”_80:7be0550b1dc7caaae6a3",
+          "region_code": "429005",
+          "effective_from": "2024-01-04",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 31.54259693
+        },
+        {
+          "document_id": "贴申领专区_官方解读_育儿补贴申请“一件事”_32",
+          "chunk_id": "贴申领专区_官方解读_育儿补贴申请“一件事”_32:dc90d4c0ca4de14d51dc",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.48076157
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.49578675
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 6.3148167
+        },
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:4c92426474e05f5be5d3",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.23539674
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.84787113
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:11be3249d882db2b9333",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.21591217
+        },
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:ca8b24c37f7535df57fc",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 4.35695149
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:ac8b2bdfe5977ad0572b",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 3.12006502
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:a31540748945a73d0474",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.48967082
+        }
+      ],
+      "relevant_documents": [
+        "潜江市_政策规章_育儿补贴申请“一件事”_80"
+      ],
+      "relevant_chunks": [
+        "潜江市_政策规章_育儿补贴申请“一件事”_80:7be0550b1dc7caaae6a3"
+      ],
+      "retrieval_ms": [
+        29.849,
+        28.8456,
+        26.8133
+      ],
+      "total_ms": [
+        29.865,
+        28.8645,
+        26.8348
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-28-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "潜江市_政策规章_育儿补贴申请“一件事”_80",
+          "chunk_id": "潜江市_政策规章_育儿补贴申请“一件事”_80:7be0550b1dc7caaae6a3",
+          "region_code": "429005",
+          "effective_from": "2024-01-04",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 31.06256935
+        },
+        {
+          "document_id": "贴申领专区_官方解读_育儿补贴申请“一件事”_32",
+          "chunk_id": "贴申领专区_官方解读_育儿补贴申请“一件事”_32:dc90d4c0ca4de14d51dc",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.1161648
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.49578675
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 6.3148167
+        },
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:4c92426474e05f5be5d3",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.77858051
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:11be3249d882db2b9333",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.21591217
+        },
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:ca8b24c37f7535df57fc",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.14866722
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 4.88370226
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:ac8b2bdfe5977ad0572b",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 3.12006502
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:42e5b237191bd06be484",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.76565049
+        }
+      ],
+      "relevant_documents": [
+        "潜江市_政策规章_育儿补贴申请“一件事”_80"
+      ],
+      "relevant_chunks": [
+        "潜江市_政策规章_育儿补贴申请“一件事”_80:7be0550b1dc7caaae6a3"
+      ],
+      "retrieval_ms": [
+        26.2841,
+        27.3591,
+        29.7208
+      ],
+      "total_ms": [
+        26.3031,
+        27.3771,
+        29.7511
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-29-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+          "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:2d07b11c438d5c4c1d68",
+          "region_code": "350000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 23.26147351
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 11.33730973
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.69324075
+        },
+        {
+          "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:8f2fe88adbd7a96eba2c",
+          "region_code": "350000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.59348797
+        },
+        {
+          "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:40cd3cbb45c1057917a7",
+          "region_code": "350000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.56982723
+        },
+        {
+          "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+          "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:9bb4b4aa5ca9742d6c55",
+          "region_code": "350000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.4719527
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.59913588
+        },
+        {
+          "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+          "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:c88167bb12190cc2e05b",
+          "region_code": "350000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.5921034
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 8.09789192
+        },
+        {
+          "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:0bd7a119425bb9426890",
+          "region_code": "350000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.8693216
+        }
+      ],
+      "relevant_documents": [
+        "福建省_政策规章_育儿补贴申请“一件事”_23"
+      ],
+      "relevant_chunks": [
+        "福建省_政策规章_育儿补贴申请“一件事”_23:2d07b11c438d5c4c1d68"
+      ],
+      "retrieval_ms": [
+        25.3544,
+        23.2703,
+        24.1163
+      ],
+      "total_ms": [
+        25.3764,
+        23.2907,
+        24.14
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-29-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+          "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:2d07b11c438d5c4c1d68",
+          "region_code": "350000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 23.26147351
+        },
+        {
+          "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+          "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:9bb4b4aa5ca9742d6c55",
+          "region_code": "350000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 11.57060773
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.97996845
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.69324075
+        },
+        {
+          "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:8f2fe88adbd7a96eba2c",
+          "region_code": "350000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.59348797
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.59913588
+        },
+        {
+          "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:40cd3cbb45c1057917a7",
+          "region_code": "350000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.4252922
+        },
+        {
+          "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+          "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:c88167bb12190cc2e05b",
+          "region_code": "350000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.14295245
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 8.09789192
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c7148e2d3a176416f56d",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.32679939
+        }
+      ],
+      "relevant_documents": [
+        "福建省_政策规章_育儿补贴申请“一件事”_23"
+      ],
+      "relevant_chunks": [
+        "福建省_政策规章_育儿补贴申请“一件事”_23:c88167bb12190cc2e05b"
+      ],
+      "retrieval_ms": [
+        25.6747,
+        27.0238,
+        26.3425
+      ],
+      "total_ms": [
+        25.696,
+        27.0437,
+        26.3682
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-30-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:40cd3cbb45c1057917a7",
+          "region_code": "350000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 32.54607799
+        },
+        {
+          "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+          "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:2d07b11c438d5c4c1d68",
+          "region_code": "350000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 23.26147351
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 15.10243835
+        },
+        {
+          "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+          "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:9bb4b4aa5ca9742d6c55",
+          "region_code": "350000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 11.81230071
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 11.33730973
+        },
+        {
+          "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+          "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:c88167bb12190cc2e05b",
+          "region_code": "350000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 11.10340422
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.69324075
+        },
+        {
+          "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:8f2fe88adbd7a96eba2c",
+          "region_code": "350000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.59348797
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 8.09789192
+        },
+        {
+          "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:0bd7a119425bb9426890",
+          "region_code": "350000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.8693216
+        }
+      ],
+      "relevant_documents": [
+        "福建省_官方解读_育儿补贴申请“一件事”_24"
+      ],
+      "relevant_chunks": [
+        "福建省_官方解读_育儿补贴申请“一件事”_24:40cd3cbb45c1057917a7"
+      ],
+      "retrieval_ms": [
+        26.8787,
+        25.6024,
+        26.1872
+      ],
+      "total_ms": [
+        26.9057,
+        25.6322,
+        26.2085
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-30-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:0bd7a119425bb9426890",
+          "region_code": "350000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 45.90722615
+        },
+        {
+          "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+          "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:2d07b11c438d5c4c1d68",
+          "region_code": "350000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 23.26147351
+        },
+        {
+          "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+          "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:9bb4b4aa5ca9742d6c55",
+          "region_code": "350000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 13.78098507
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 11.33730973
+        },
+        {
+          "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+          "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:c88167bb12190cc2e05b",
+          "region_code": "350000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 11.08531338
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.69324075
+        },
+        {
+          "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:8f2fe88adbd7a96eba2c",
+          "region_code": "350000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.59348797
+        },
+        {
+          "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:40cd3cbb45c1057917a7",
+          "region_code": "350000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.56982723
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.59913588
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 8.09789192
+        }
+      ],
+      "relevant_documents": [
+        "福建省_官方解读_育儿补贴申请“一件事”_24"
+      ],
+      "relevant_chunks": [
+        "福建省_官方解读_育儿补贴申请“一件事”_24:0bd7a119425bb9426890"
+      ],
+      "retrieval_ms": [
+        30.6677,
+        26.2277,
+        25.7669
+      ],
+      "total_ms": [
+        30.6933,
+        26.2508,
+        25.7854
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-31-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78",
+          "chunk_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78:dcacd0c01414735a255b",
+          "region_code": "420800",
+          "effective_from": "2025-11-23",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 99.97975363
+        },
+        {
+          "document_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78",
+          "chunk_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78:266ca7c411afb7d467d3",
+          "region_code": "420800",
+          "effective_from": "2025-11-23",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 75.23742862
+        },
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:4c92426474e05f5be5d3",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 30.54540297
+        },
+        {
+          "document_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78",
+          "chunk_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78:bc9e8fee957c0a749620",
+          "region_code": "420800",
+          "effective_from": "2025-11-23",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 29.05018653
+        },
+        {
+          "document_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78",
+          "chunk_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78:453f86488758fa0fda95",
+          "region_code": "420800",
+          "effective_from": "2025-11-23",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 27.1259461
+        },
+        {
+          "document_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78",
+          "chunk_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78:5f99578757965f960589",
+          "region_code": "420800",
+          "effective_from": "2025-11-23",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 24.71150291
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 8.97426792
+        },
+        {
+          "document_id": "贴申领专区_官方解读_育儿补贴申请“一件事”_32",
+          "chunk_id": "贴申领专区_官方解读_育儿补贴申请“一件事”_32:dc90d4c0ca4de14d51dc",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 7.61820709
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 7.43014537
+        },
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:01d34e4a5d0182151bde",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.79074686
+        }
+      ],
+      "relevant_documents": [
+        "友好型城市_政策规章_育儿补贴申请“一件事”_78"
+      ],
+      "relevant_chunks": [
+        "友好型城市_政策规章_育儿补贴申请“一件事”_78:dcacd0c01414735a255b"
+      ],
+      "retrieval_ms": [
+        25.2617,
+        25.416,
+        24.7845
+      ],
+      "total_ms": [
+        25.2818,
+        25.4398,
+        24.8167
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-31-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78",
+          "chunk_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78:dcacd0c01414735a255b",
+          "region_code": "420800",
+          "effective_from": "2025-11-23",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 82.11378808
+        },
+        {
+          "document_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78",
+          "chunk_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78:266ca7c411afb7d467d3",
+          "region_code": "420800",
+          "effective_from": "2025-11-23",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 58.41627478
+        },
+        {
+          "document_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78",
+          "chunk_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78:bc9e8fee957c0a749620",
+          "region_code": "420800",
+          "effective_from": "2025-11-23",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 24.20459521
+        },
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:4c92426474e05f5be5d3",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 23.79572155
+        },
+        {
+          "document_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78",
+          "chunk_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78:453f86488758fa0fda95",
+          "region_code": "420800",
+          "effective_from": "2025-11-23",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 22.28035478
+        },
+        {
+          "document_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78",
+          "chunk_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78:5f99578757965f960589",
+          "region_code": "420800",
+          "effective_from": "2025-11-23",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 20.09632342
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 7.43014537
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 6.17526955
+        },
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:01d34e4a5d0182151bde",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.60101367
+        },
+        {
+          "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+          "chunk_id": "湖北省_政策规章_育儿补贴申请“一件事”_31:ca8b24c37f7535df57fc",
+          "region_code": "420000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.59056983
+        }
+      ],
+      "relevant_documents": [
+        "友好型城市_政策规章_育儿补贴申请“一件事”_78"
+      ],
+      "relevant_chunks": [
+        "友好型城市_政策规章_育儿补贴申请“一件事”_78:5f99578757965f960589"
+      ],
+      "retrieval_ms": [
+        25.9234,
+        24.1007,
+        25.9406
+      ],
+      "total_ms": [
+        25.9462,
+        24.1243,
+        25.9642
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-32-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:ac7da4101013b0238ed3",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 22.61252146
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:1880c5da308160a6a83c",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 15.2755148
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:0d07bf60d82b6d8969f0",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 14.55257701
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:8fe5604407da21eccd60",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 11.44596111
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 10.74379165
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:202051ffe9b4fd7114ed",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.56451706
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 7.83071124
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:0d0dd501c0cb3b0c9c6e",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 7.78103555
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:e01799a609c102c70053",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 7.37725141
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:437cadbae660171d06ee",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 7.33503786
+        }
+      ],
+      "relevant_documents": [
+        "西藏自治区_政策规章_育儿补贴申请“一件事”_48"
+      ],
+      "relevant_chunks": [
+        "西藏自治区_政策规章_育儿补贴申请“一件事”_48:202051ffe9b4fd7114ed"
+      ],
+      "retrieval_ms": [
+        27.555,
+        24.6293,
+        26.8032
+      ],
+      "total_ms": [
+        27.576,
+        24.6497,
+        26.8288
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-32-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:ac7da4101013b0238ed3",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 22.61252146
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:1880c5da308160a6a83c",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 15.2755148
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:0d07bf60d82b6d8969f0",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 14.0178015
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 11.89845752
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:8fe5604407da21eccd60",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 11.44596111
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:0d0dd501c0cb3b0c9c6e",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 11.00079468
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 10.74379165
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:5e53d1a9f5e09fd00e10",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.30228527
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:202051ffe9b4fd7114ed",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.56451706
+        },
+        {
+          "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+          "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:437cadbae660171d06ee",
+          "region_code": "540000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.09386868
+        }
+      ],
+      "relevant_documents": [
+        "西藏自治区_政策规章_育儿补贴申请“一件事”_48"
+      ],
+      "relevant_chunks": [
+        "西藏自治区_政策规章_育儿补贴申请“一件事”_48:5e53d1a9f5e09fd00e10"
+      ],
+      "retrieval_ms": [
+        29.7263,
+        26.532,
+        27.5443
+      ],
+      "total_ms": [
+        29.753,
+        26.5563,
+        27.5709
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-33-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "辽宁省_官方解读_育儿补贴申请“一件事”_61",
+          "chunk_id": "辽宁省_官方解读_育儿补贴申请“一件事”_61:81a154fd991f0e8fd1de",
+          "region_code": "210000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 7.95580794
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aeb7a35aa9028685c0d2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.76356455
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:a31540748945a73d0474",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.78605464
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.03101099
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:506cc02c3ebcf0c1c84d",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.58000347
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:5bdca3d5cc0066104073",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.5114584
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.35734643
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2d9c4f028dc8b0eadec0",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.30761565
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.22234515
+        },
+        {
+          "document_id": "辽宁省_官方解读_育儿补贴申请“一件事”_61",
+          "chunk_id": "辽宁省_官方解读_育儿补贴申请“一件事”_61:66399f8152ef24fe5add",
+          "region_code": "210000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.20208142
+        }
+      ],
+      "relevant_documents": [
+        "辽宁省_官方解读_育儿补贴申请“一件事”_61"
+      ],
+      "relevant_chunks": [
+        "辽宁省_官方解读_育儿补贴申请“一件事”_61:81a154fd991f0e8fd1de"
+      ],
+      "retrieval_ms": [
+        27.7855,
+        26.4315,
+        27.2145
+      ],
+      "total_ms": [
+        27.8155,
+        26.4587,
+        27.2496
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-33-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "辽宁省_官方解读_育儿补贴申请“一件事”_61",
+          "chunk_id": "辽宁省_官方解读_育儿补贴申请“一件事”_61:81a154fd991f0e8fd1de",
+          "region_code": "210000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.28355328
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aeb7a35aa9028685c0d2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.76356455
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:a31540748945a73d0474",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.78605464
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:42e5b237191bd06be484",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.76565049
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.03101099
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:506cc02c3ebcf0c1c84d",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.58000347
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:5bdca3d5cc0066104073",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.5114584
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.35734643
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2d9c4f028dc8b0eadec0",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.30761565
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.22234515
+        }
+      ],
+      "relevant_documents": [
+        "辽宁省_官方解读_育儿补贴申请“一件事”_61"
+      ],
+      "relevant_chunks": [
+        "辽宁省_官方解读_育儿补贴申请“一件事”_61:66399f8152ef24fe5add"
+      ],
+      "retrieval_ms": [
+        29.9636,
+        29.2574,
+        28.4619
+      ],
+      "total_ms": [
+        29.986,
+        29.2834,
+        28.491
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-34-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71",
+          "chunk_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71:92c084038716cbf37814",
+          "region_code": "150600",
+          "effective_from": "2023-11-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 45.41026994
+        },
+        {
+          "document_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71",
+          "chunk_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71:1ed9763ef4896ff6eb0a",
+          "region_code": "150600",
+          "effective_from": "2023-11-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 36.81502382
+        },
+        {
+          "document_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71",
+          "chunk_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71:61d9a7bb8f26fdb802ec",
+          "region_code": "150600",
+          "effective_from": "2023-11-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 33.3246949
+        },
+        {
+          "document_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71",
+          "chunk_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71:ab02a57cecd43c467df6",
+          "region_code": "150600",
+          "effective_from": "2023-11-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 24.61414316
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 10.05238002
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7413cfdd4f2a0b243718",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 4.3648927
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:0e65d02558ab14e9ec39",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.90488526
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:ac8b2bdfe5977ad0572b",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 3.69818158
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2b4b70a4f7fb8ae45230",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.15612167
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.09584605
+        }
+      ],
+      "relevant_documents": [
+        "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71"
+      ],
+      "relevant_chunks": [
+        "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71:1ed9763ef4896ff6eb0a"
+      ],
+      "retrieval_ms": [
+        27.8422,
+        28.0933,
+        30.4155
+      ],
+      "total_ms": [
+        27.8708,
+        28.1257,
+        30.4517
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-34-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71",
+          "chunk_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71:92c084038716cbf37814",
+          "region_code": "150600",
+          "effective_from": "2023-11-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 38.17305499
+        },
+        {
+          "document_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71",
+          "chunk_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71:1ed9763ef4896ff6eb0a",
+          "region_code": "150600",
+          "effective_from": "2023-11-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 30.02468708
+        },
+        {
+          "document_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71",
+          "chunk_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71:61d9a7bb8f26fdb802ec",
+          "region_code": "150600",
+          "effective_from": "2023-11-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 27.01709915
+        },
+        {
+          "document_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71",
+          "chunk_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71:ab02a57cecd43c467df6",
+          "region_code": "150600",
+          "effective_from": "2023-11-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 18.54741028
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.27175507
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7413cfdd4f2a0b243718",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 4.3648927
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:0e65d02558ab14e9ec39",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.90488526
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2b4b70a4f7fb8ae45230",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.15612167
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:ac8b2bdfe5977ad0572b",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 3.14037647
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:42e5b237191bd06be484",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.76565049
+        }
+      ],
+      "relevant_documents": [
+        "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71"
+      ],
+      "relevant_chunks": [
+        "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71:61d9a7bb8f26fdb802ec"
+      ],
+      "retrieval_ms": [
+        31.2783,
+        31.0267,
+        29.3898
+      ],
+      "total_ms": [
+        31.4105,
+        31.0499,
+        29.4089
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-35-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+          "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:7951108534577e88f249",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 38.25758866
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:70919618be650db7a2c6",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 27.92462766
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 17.84375145
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 17.80501167
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:c85cf030d8d0ee0728b5",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 14.98924258
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aa323da61443587c696a",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 11.532804
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:4e84eae78fd31095cc32",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.25664785
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:6fca2a3e80e8015b08f8",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 8.6888527
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:029004a9e964bfc9b5b4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 8.61924304
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.71069844
+        }
+      ],
+      "relevant_documents": [
+        "重庆市_办事指南_育儿补贴申请“一件事”_14"
+      ],
+      "relevant_chunks": [
+        "重庆市_办事指南_育儿补贴申请“一件事”_14:7951108534577e88f249"
+      ],
+      "retrieval_ms": [
+        31.8362,
+        29.6356,
+        31.0562
+      ],
+      "total_ms": [
+        31.8581,
+        29.662,
+        31.0746
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-35-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+          "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:f5c48246df76b8a0991a",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 16.94665074
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:c85cf030d8d0ee0728b5",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 14.98924258
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 12.95837566
+        },
+        {
+          "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+          "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:7951108534577e88f249",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.85722634
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:70919618be650db7a2c6",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.52829944
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:e2cdc313a998f52dd40a",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.41115638
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:4e84eae78fd31095cc32",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.64320734
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:44121d7e0f560025c5a9",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 3.64086991
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:42e5b237191bd06be484",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.76565049
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.21033796
+        }
+      ],
+      "relevant_documents": [
+        "重庆市_办事指南_育儿补贴申请“一件事”_14"
+      ],
+      "relevant_chunks": [
+        "重庆市_办事指南_育儿补贴申请“一件事”_14:f5c48246df76b8a0991a"
+      ],
+      "retrieval_ms": [
+        29.0168,
+        30.6454,
+        31.9733
+      ],
+      "total_ms": [
+        29.0342,
+        30.6758,
+        32.0261
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-36-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:c85cf030d8d0ee0728b5",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 25.20667496
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 11.33730973
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:70919618be650db7a2c6",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.46284801
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.69324075
+        },
+        {
+          "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+          "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:7951108534577e88f249",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.29032194
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.59913588
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 8.09789192
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:4e84eae78fd31095cc32",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.22363311
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:44121d7e0f560025c5a9",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 4.12602986
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.93088028
+        }
+      ],
+      "relevant_documents": [
+        "重庆市_政策规章_育儿补贴申请“一件事”_13"
+      ],
+      "relevant_chunks": [
+        "重庆市_政策规章_育儿补贴申请“一件事”_13:c85cf030d8d0ee0728b5"
+      ],
+      "retrieval_ms": [
+        29.4793,
+        28.559,
+        29.894
+      ],
+      "total_ms": [
+        29.5006,
+        28.5777,
+        29.918
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-36-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:8d69d66bd45ea046540a",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 27.5974218
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:c85cf030d8d0ee0728b5",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 25.20667496
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:70919618be650db7a2c6",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 11.97963195
+        },
+        {
+          "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+          "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:7951108534577e88f249",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 11.20391964
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.41426746
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.97996845
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:4e84eae78fd31095cc32",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.81274985
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.69324075
+        },
+        {
+          "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:44121d7e0f560025c5a9",
+          "region_code": "500000",
+          "effective_from": "2025-01-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.35015695
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 8.09789192
+        }
+      ],
+      "relevant_documents": [
+        "重庆市_政策规章_育儿补贴申请“一件事”_13"
+      ],
+      "relevant_chunks": [
+        "重庆市_政策规章_育儿补贴申请“一件事”_13:8d69d66bd45ea046540a"
+      ],
+      "retrieval_ms": [
+        30.1747,
+        31.0792,
+        31.2538
+      ],
+      "total_ms": [
+        30.2028,
+        31.1006,
+        31.2764
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-37-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+          "chunk_id": "陕西省_政策规章_育儿补贴申请“一件事”_50:44a3cbf83fa35671886e",
+          "region_code": "610000",
+          "effective_from": "2025-12-09",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 24.02448814
+        },
+        {
+          "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+          "chunk_id": "陕西省_政策规章_育儿补贴申请“一件事”_50:0a7da4a7306fb9243abf",
+          "region_code": "610000",
+          "effective_from": "2025-12-09",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 23.13556526
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 11.33730973
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.69324075
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.59913588
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 8.09789192
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.93088028
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 3.37921224
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c7148e2d3a176416f56d",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.32679939
+        },
+        {
+          "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+          "chunk_id": "陕西省_政策规章_育儿补贴申请“一件事”_50:70bf1101fccae020ecfb",
+          "region_code": "610000",
+          "effective_from": "2025-12-09",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 2.80606417
+        }
+      ],
+      "relevant_documents": [
+        "陕西省_政策规章_育儿补贴申请“一件事”_50"
+      ],
+      "relevant_chunks": [
+        "陕西省_政策规章_育儿补贴申请“一件事”_50:44a3cbf83fa35671886e"
+      ],
+      "retrieval_ms": [
+        30.0357,
+        31.0563,
+        31.4306
+      ],
+      "total_ms": [
+        30.0647,
+        31.0771,
+        31.4478
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-37-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+          "chunk_id": "陕西省_政策规章_育儿补贴申请“一件事”_50:44a3cbf83fa35671886e",
+          "region_code": "610000",
+          "effective_from": "2025-12-09",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 24.02448814
+        },
+        {
+          "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+          "chunk_id": "陕西省_政策规章_育儿补贴申请“一件事”_50:0a7da4a7306fb9243abf",
+          "region_code": "610000",
+          "effective_from": "2025-12-09",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 23.13556526
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.97996845
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.69324075
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.59913588
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 8.09789192
+        },
+        {
+          "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+          "chunk_id": "陕西省_政策规章_育儿补贴申请“一件事”_50:70bf1101fccae020ecfb",
+          "region_code": "610000",
+          "effective_from": "2025-12-09",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.17910339
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c7148e2d3a176416f56d",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.32679939
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:42e5b237191bd06be484",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.76565049
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.76558422
+        }
+      ],
+      "relevant_documents": [
+        "陕西省_政策规章_育儿补贴申请“一件事”_50"
+      ],
+      "relevant_chunks": [
+        "陕西省_政策规章_育儿补贴申请“一件事”_50:0a7da4a7306fb9243abf"
+      ],
+      "retrieval_ms": [
+        29.7577,
+        32.3253,
+        30.2598
+      ],
+      "total_ms": [
+        29.7766,
+        32.3479,
+        30.2856
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-38-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:97dfe6f67c90c376a89e",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 56.88778723
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:75f3667af3b92f0b9999",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 44.31323135
+        },
+        {
+          "document_id": "黑龙江省_官方解读_育儿补贴申请“一件事”_66",
+          "chunk_id": "黑龙江省_官方解读_育儿补贴申请“一件事”_66:a524578ff1f3945e828e",
+          "region_code": "230000",
+          "effective_from": "2025-12-13",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 24.073699
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 23.89036927
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:4f7a5f14cc82c6fcdbba",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 19.51559423
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:38508f063adc6d13d9a1",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.75817128
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:13bb37393f7146c4ae08",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.72950634
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:34a7713ff123fa7053c0",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.00833599
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:d1778dfaebef6843b0a5",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.9835023
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.45458946
+        }
+      ],
+      "relevant_documents": [
+        "黑龙江省_政策规章_育儿补贴申请“一件事”_65"
+      ],
+      "relevant_chunks": [
+        "黑龙江省_政策规章_育儿补贴申请“一件事”_65:97dfe6f67c90c376a89e"
+      ],
+      "retrieval_ms": [
+        34.51,
+        35.2645,
+        35.5888
+      ],
+      "total_ms": [
+        34.5292,
+        35.2929,
+        35.6121
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-38-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:97dfe6f67c90c376a89e",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 42.28920191
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:75f3667af3b92f0b9999",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 29.23714547
+        },
+        {
+          "document_id": "黑龙江省_官方解读_育儿补贴申请“一件事”_66",
+          "chunk_id": "黑龙江省_官方解读_育儿补贴申请“一件事”_66:a524578ff1f3945e828e",
+          "region_code": "230000",
+          "effective_from": "2025-12-13",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 20.41248492
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:41dce0ddfb59b341acc2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 15.1811081
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:4f7a5f14cc82c6fcdbba",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 13.24552091
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:38508f063adc6d13d9a1",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.75817128
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:13bb37393f7146c4ae08",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.72950634
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:34a7713ff123fa7053c0",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.00833599
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 8.45458946
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 7.42621817
+        }
+      ],
+      "relevant_documents": [
+        "黑龙江省_政策规章_育儿补贴申请“一件事”_65"
+      ],
+      "relevant_chunks": [
+        "黑龙江省_政策规章_育儿补贴申请“一件事”_65:75f3667af3b92f0b9999"
+      ],
+      "retrieval_ms": [
+        32.1764,
+        33.5086,
+        37.0851
+      ],
+      "total_ms": [
+        32.1961,
+        33.5324,
+        37.1071
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-39-a",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "黑龙江省_官方解读_育儿补贴申请“一件事”_66",
+          "chunk_id": "黑龙江省_官方解读_育儿补贴申请“一件事”_66:a524578ff1f3945e828e",
+          "region_code": "230000",
+          "effective_from": "2025-12-13",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 25.79872484
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:97dfe6f67c90c376a89e",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 23.84608119
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:75f3667af3b92f0b9999",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 13.55605985
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:34a7713ff123fa7053c0",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.84564249
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:13bb37393f7146c4ae08",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.72950178
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:ac21b557120b2fcc88d5",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.85009015
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 6.04533587
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:9bed3758e624e3189abe",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.69044141
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:4f7a5f14cc82c6fcdbba",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 4.69728623
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 4.40244409
+        }
+      ],
+      "relevant_documents": [
+        "黑龙江省_官方解读_育儿补贴申请“一件事”_66"
+      ],
+      "relevant_chunks": [
+        "黑龙江省_官方解读_育儿补贴申请“一件事”_66:a524578ff1f3945e828e"
+      ],
+      "retrieval_ms": [
+        31.9995,
+        31.1974,
+        29.8877
+      ],
+      "total_ms": [
+        32.0223,
+        31.2195,
+        29.9085
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "k4-39-b",
+      "split": "dev",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "黑龙江省_官方解读_育儿补贴申请“一件事”_66",
+          "chunk_id": "黑龙江省_官方解读_育儿补贴申请“一件事”_66:a524578ff1f3945e828e",
+          "region_code": "230000",
+          "effective_from": "2025-12-13",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 26.88841295
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:97dfe6f67c90c376a89e",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 23.84608119
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:75f3667af3b92f0b9999",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 13.55605985
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:34a7713ff123fa7053c0",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.84564249
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:13bb37393f7146c4ae08",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.72950178
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:ac21b557120b2fcc88d5",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 6.85009015
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 6.04533587
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:9bed3758e624e3189abe",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.69044141
+        },
+        {
+          "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+          "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:4f7a5f14cc82c6fcdbba",
+          "region_code": "230000",
+          "effective_from": "2025-12-29",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 4.69728623
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 4.40244409
+        }
+      ],
+      "relevant_documents": [
+        "黑龙江省_官方解读_育儿补贴申请“一件事”_66"
+      ],
+      "relevant_chunks": [
+        "黑龙江省_官方解读_育儿补贴申请“一件事”_66:a524578ff1f3945e828e"
+      ],
+      "retrieval_ms": [
+        27.6641,
+        30.4738,
+        30.6916
+      ],
+      "total_ms": [
+        27.6817,
+        30.5141,
+        30.713
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "special-missing-region",
+      "split": "dev",
+      "expected_behavior": "clarify_region",
+      "predicted_behavior": "clarify_region",
+      "top_k": [],
+      "relevant_documents": [],
+      "relevant_chunks": [],
+      "retrieval_ms": [
+        0,
+        0,
+        0
+      ],
+      "total_ms": [
+        0,
+        0,
+        0
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "special-no-answer",
+      "split": "dev",
+      "expected_behavior": "no_answer",
+      "predicted_behavior": "no_answer",
+      "top_k": [
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:0312427ac39e163a4c1a",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.84302279
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:d36a91df52edd225da78",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.83762335
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:f5be740dd2f7851a04ca",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.83762335
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:5bdca3d5cc0066104073",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.81530465
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.81284007
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aeb7a35aa9028685c0d2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.79667066
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:0212c125ae7a8da7c34c",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.79205157
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:c78717b4d6b40c7413f2",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.78571795
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:f8038437722bd46156ea",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.76733322
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:f70e458c885ed26840a0",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.76584393
+        }
+      ],
+      "relevant_documents": [],
+      "relevant_chunks": [],
+      "retrieval_ms": [
+        30.9041,
+        28.1554,
+        28.6653
+      ],
+      "total_ms": [
+        30.9293,
+        28.174,
+        28.684
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-beijing-amount",
+      "split": "regression",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:02f7cec4ff2c0cd40337",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 11.85569699
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 11.37214382
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:d4af223da849c7dd8b9e",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.46282825
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 10.32010357
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:f7412329f72585290bb3",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.11025015
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aa323da61443587c696a",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.95881237
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:aec1ceae691f8441aebe",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 2.17154314
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:cc6b95c30271077da897",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 2.08337281
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:11be3249d882db2b9333",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.0818652
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:6fca2a3e80e8015b08f8",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 2.05243823
+        }
+      ],
+      "relevant_documents": [
+        "北京市_政策规章_育儿补贴申请“一件事”_5"
+      ],
+      "relevant_chunks": [
+        "北京市_政策规章_育儿补贴申请“一件事”_5:02f7cec4ff2c0cd40337"
+      ],
+      "retrieval_ms": [
+        30.5596,
+        33.352,
+        32.4139
+      ],
+      "total_ms": [
+        30.5853,
+        33.3787,
+        32.4368
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-hebei-eligibility",
+      "split": "regression",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 13.44968428
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:6fca2a3e80e8015b08f8",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 6.53694035
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:029004a9e964bfc9b5b4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 6.48457046
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 6.4716125
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:0c734ed5f1342ab37d27",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 6.27105508
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.87292179
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.67210657
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.64660721
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:ac8b2bdfe5977ad0572b",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 4.4360617
+        },
+        {
+          "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+          "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:1e0167e142741d17f7b9",
+          "region_code": "130000",
+          "effective_from": "2025-06-19",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 3.96192879
+        }
+      ],
+      "relevant_documents": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+      ],
+      "relevant_chunks": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554"
+      ],
+      "retrieval_ms": [
+        32.2459,
+        29.9662,
+        29.6211
+      ],
+      "total_ms": [
+        32.2698,
+        29.988,
+        29.6437
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-hebei-claimant",
+      "split": "regression",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:506cc02c3ebcf0c1c84d",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.82653975
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:5bdca3d5cc0066104073",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.30079144
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:a31540748945a73d0474",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.2963851
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aeb7a35aa9028685c0d2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.29391678
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:499aaa09d46276df57c6",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.29331242
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.29030279
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.27452822
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c14cf69683927f68cfe9",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.27399649
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:4ca9160af77cef6b0dc3",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.27240888
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.2672622
+        }
+      ],
+      "relevant_documents": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+      ],
+      "relevant_chunks": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:506cc02c3ebcf0c1c84d"
+      ],
+      "retrieval_ms": [
+        28.6489,
+        29.5955,
+        28.6289
+      ],
+      "total_ms": [
+        28.6758,
+        29.6182,
+        28.6518
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-beijing-materials",
+      "split": "regression",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:d36a91df52edd225da78",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.38523228
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:5bdca3d5cc0066104073",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.29522501
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aeb7a35aa9028685c0d2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.17420136
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:c78717b4d6b40c7413f2",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.04811807
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:4ca9160af77cef6b0dc3",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 4.05719688
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:13c158fbbe5808de7465",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 4.05078255
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:d593f422ac6ce874e2ff",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 3.9799215
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.97491938
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:f7412329f72585290bb3",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 3.75028338
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aa323da61443587c696a",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 3.68790672
+        }
+      ],
+      "relevant_documents": [
+        "北京市_政策规章_育儿补贴申请“一件事”_5"
+      ],
+      "relevant_chunks": [
+        "北京市_政策规章_育儿补贴申请“一件事”_5:d36a91df52edd225da78"
+      ],
+      "retrieval_ms": [
+        29.2444,
+        30.4286,
+        29.2033
+      ],
+      "total_ms": [
+        29.2692,
+        30.4519,
+        29.2345
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-hebei-channel",
+      "split": "regression",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.98550322
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:ac8b2bdfe5977ad0572b",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.98087114
+        },
+        {
+          "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+          "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:1e0167e142741d17f7b9",
+          "region_code": "130000",
+          "effective_from": "2025-06-19",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.77468729
+        },
+        {
+          "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+          "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:10d16e09f66f3b06437f",
+          "region_code": "130000",
+          "effective_from": "2025-06-19",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.828788
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:5bdca3d5cc0066104073",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.81530465
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.81284007
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aeb7a35aa9028685c0d2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.79667066
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.72442258
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.59790746
+        },
+        {
+          "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+          "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:7cb44d62836229ba7ced",
+          "region_code": "130000",
+          "effective_from": "2025-06-19",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.01000519
+        }
+      ],
+      "relevant_documents": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+      ],
+      "relevant_chunks": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5"
+      ],
+      "retrieval_ms": [
+        27.2261,
+        27.8406,
+        26.282
+      ],
+      "total_ms": [
+        27.2507,
+        27.8663,
+        26.3014
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-beijing-deadline",
+      "split": "regression",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 10.57713781
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:6d645a796c49b5f13f18",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 9.93109254
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:53f3defc2409f38db772",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 3.4053029
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:f70e458c885ed26840a0",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 2.01580475
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.76451674
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:13c158fbbe5808de7465",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.66104856
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:cc6b95c30271077da897",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.30330613
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:11be3249d882db2b9333",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.29860342
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:0312427ac39e163a4c1a",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.84301749
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:d36a91df52edd225da78",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.83762335
+        }
+      ],
+      "relevant_documents": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+      ],
+      "relevant_chunks": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554"
+      ],
+      "retrieval_ms": [
+        28.4621,
+        27.7567,
+        29.372
+      ],
+      "total_ms": [
+        28.4935,
+        27.7735,
+        29.3974
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-hebei-payment",
+      "split": "regression",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.69885755
+        },
+        {
+          "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+          "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:10d16e09f66f3b06437f",
+          "region_code": "130000",
+          "effective_from": "2025-06-19",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.6641033
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:9eff7bdd4d3315401ffd",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.6331768
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:a31540748945a73d0474",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.6229166
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:499aaa09d46276df57c6",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.60609149
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:0e65d02558ab14e9ec39",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.60276824
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:11be3249d882db2b9333",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.58635619
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:029004a9e964bfc9b5b4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.55140307
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.54830572
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c14cf69683927f68cfe9",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.50032321
+        }
+      ],
+      "relevant_documents": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+      ],
+      "relevant_chunks": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47"
+      ],
+      "retrieval_ms": [
+        32.0969,
+        29.0864,
+        31.3193
+      ],
+      "total_ms": [
+        32.1157,
+        29.1125,
+        31.3438
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-regional-comparison",
+      "split": "regression",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:02f7cec4ff2c0cd40337",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 4.44718463
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2d9c4f028dc8b0eadec0",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 4.34783593
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 3.33320085
+        },
+        {
+          "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+          "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:1e0167e142741d17f7b9",
+          "region_code": "130000",
+          "effective_from": "2025-06-19",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 2.33583083
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:93c030e21464b9c5966c",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.40872083
+        },
+        {
+          "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+          "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:7cb44d62836229ba7ced",
+          "region_code": "130000",
+          "effective_from": "2025-06-19",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.376005
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.36734643
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:53f3defc2409f38db772",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.21237792
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:d4af223da849c7dd8b9e",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.19028717
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.17530048
+        }
+      ],
+      "relevant_documents": [
+        "北京市_政策规章_育儿补贴申请“一件事”_5",
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+      ],
+      "relevant_chunks": [
+        "北京市_政策规章_育儿补贴申请“一件事”_5:02f7cec4ff2c0cd40337",
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2d9c4f028dc8b0eadec0"
+      ],
+      "retrieval_ms": [
+        30.8502,
+        29.1891,
+        27.5464
+      ],
+      "total_ms": [
+        30.8737,
+        29.2164,
+        27.5724
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-hebei-migration",
+      "split": "regression",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 7.05892006
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 5.69653776
+        },
+        {
+          "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+          "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:6577b9a4b487dcb438ab",
+          "region_code": "130000",
+          "effective_from": "2025-06-19",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 4.89370135
+        },
+        {
+          "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+          "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:10d16e09f66f3b06437f",
+          "region_code": "130000",
+          "effective_from": "2025-06-19",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.8287867
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:5bdca3d5cc0066104073",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.81530465
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aeb7a35aa9028685c0d2",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.79667066
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.72442258
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.59790366
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:ac8b2bdfe5977ad0572b",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.46972233
+        },
+        {
+          "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+          "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:1e0167e142741d17f7b9",
+          "region_code": "130000",
+          "effective_from": "2025-06-19",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.42845884
+        }
+      ],
+      "relevant_documents": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+      ],
+      "relevant_chunks": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5"
+      ],
+      "retrieval_ms": [
+        29.2778,
+        26.3361,
+        26.1996
+      ],
+      "total_ms": [
+        29.303,
+        26.358,
+        26.2239
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-benefit-distinction",
+      "split": "regression",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:029004a9e964bfc9b5b4",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.99863447
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 1.99466316
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:f8038437722bd46156ea",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.97113947
+        },
+        {
+          "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+          "region_code": "100000",
+          "effective_from": "2026-07-22",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.81761919
+        },
+        {
+          "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+          "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:6577b9a4b487dcb438ab",
+          "region_code": "130000",
+          "effective_from": "2025-06-19",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 1.50020271
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:53a44da271bfc178ec75",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.01000539
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c7148e2d3a176416f56d",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 0.01000532
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:93c030e21464b9c5966c",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.01000531
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:0312427ac39e163a4c1a",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.0100053
+        },
+        {
+          "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+          "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:08deb78ab2ca336f69ff",
+          "region_code": "110000",
+          "effective_from": "2025-09-24",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 0.01000525
+        }
+      ],
+      "relevant_documents": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+      ],
+      "relevant_chunks": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:029004a9e964bfc9b5b4"
+      ],
+      "retrieval_ms": [
+        28.0025,
+        30.1501,
+        27.8442
+      ],
+      "total_ms": [
+        28.0259,
+        30.1719,
+        27.868
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-missing-region",
+      "split": "regression",
+      "expected_behavior": "clarify_region",
+      "predicted_behavior": "clarify_region",
+      "top_k": [],
+      "relevant_documents": [],
+      "relevant_chunks": [],
+      "retrieval_ms": [
+        0,
+        0,
+        0
+      ],
+      "total_ms": [
+        0,
+        0,
+        0
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-unsupported-region",
+      "split": "regression",
+      "expected_behavior": "answer",
+      "predicted_behavior": "answer",
+      "top_k": [
+        {
+          "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+          "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:e73812f99bcfa1bb2f7f",
+          "region_code": "310000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 13.55536685
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 11.37214382
+        },
+        {
+          "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+          "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:048c42a2fbaf8a3828bb",
+          "region_code": "310000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 11.26961298
+        },
+        {
+          "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+          "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:d58c9c05f77fdd531498",
+          "region_code": "310000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 11.06124805
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 10.32010357
+        },
+        {
+          "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+          "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:c60baf65a3c220497a07",
+          "region_code": "310000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 10.25576
+        },
+        {
+          "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aa323da61443587c696a",
+          "region_code": "100000",
+          "effective_from": "2025-08-24",
+          "effective_to": null,
+          "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+          "score": 9.95881237
+        },
+        {
+          "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+          "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:cc0d8f72677b87b65eae",
+          "region_code": "310000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.28908003
+        },
+        {
+          "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+          "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:36d13b74de3a4465145a",
+          "region_code": "310000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.09993696
+        },
+        {
+          "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+          "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:01a7ab6de23a979b1beb",
+          "region_code": "310000",
+          "effective_from": "2025-12-01",
+          "effective_to": null,
+          "duplicate_group_id": null,
+          "score": 5.03362351
+        }
+      ],
+      "relevant_documents": [
+        "上海市_政策规章_育儿补贴申请“一件事”_9"
+      ],
+      "relevant_chunks": [
+        "上海市_政策规章_育儿补贴申请“一件事”_9:e73812f99bcfa1bb2f7f"
+      ],
+      "retrieval_ms": [
+        31.9077,
+        27.9224,
+        28.9958
+      ],
+      "total_ms": [
+        31.9279,
+        27.9494,
+        29.0205
+      ],
+      "repeat_stable": true
+    },
+    {
+      "case_id": "regression-retrieval-empty",
+      "split": "regression",
+      "expected_behavior": "no_answer",
+      "predicted_behavior": "no_answer",
+      "top_k": [],
+      "relevant_documents": [],
+      "relevant_chunks": [],
+      "retrieval_ms": [
+        23.6108,
+        24.7586,
+        22.9338
+      ],
+      "total_ms": [
+        23.6397,
+        24.778,
+        22.9563
+      ],
+      "repeat_stable": true
+    }
+  ],
+  "failed_cases": []
+}

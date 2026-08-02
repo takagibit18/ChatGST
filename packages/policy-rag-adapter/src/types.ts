@@ -36,7 +36,7 @@ export interface SearchTextProcessor {
 
 export type SearchPolicyInput = {
   query: string;
-  region: "北京市" | "河北省" | "对比";
+  region: string;
   effective_date: string;
   top_k: number;
 };
@@ -86,7 +86,7 @@ export interface RetrievalProvider {
   getSource(id: string): Promise<PolicySource | null>;
   getMetadata(id: string): Promise<PolicyMetadata | null>;
   resolvePolicyVersion(input: {
-    region: "北京市" | "河北省";
+    region: string;
     policy_type: string;
     reference_date: string;
   }): Promise<PolicyVersionResolution>;

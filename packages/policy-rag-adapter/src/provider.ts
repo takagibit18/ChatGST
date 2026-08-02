@@ -16,6 +16,7 @@ import type {
   SearchTextProcessor,
 } from "./types.js";
 import type { SourceFormat } from "./document-extractor.js";
+import { getRegionPath, resolveAdministrativeRegion } from "./region-registry.js";
 
 type MetadataRow = {
   document_id: string;
@@ -120,8 +121,8 @@ export class PiLocalRagRetrievalProvider implements RetrievalProvider {
     if (!input.query.trim() || input.query.length > 2000) {
       throw new PolicyAssistantError("INVALID_INPUT", "Search query is empty or too long");
     }
-    if (input.top_k < 1 || input.top_k > 8) {
-      throw new PolicyAssistantError("INVALID_INPUT", "top_k must be between 1 and 8");
+    if (input.top_k < 1 || input.top_k > 10) {
+      throw new PolicyAssistantError("INVALID_INPUT", "top_k must be between 1 and 10");
     }
     assertDate(input.effective_date);
     const contentQuery = input.query.replace(/北京市?|河北省?/gu, " ");
@@ -130,7 +131,12 @@ export class PiLocalRagRetrievalProvider implements RetrievalProvider {
     const database = this.openReadyDatabase();
     try {
       const includeMaternity = /生育津贴|生育保险|产假工资/u.test(input.query) ? 1 : 0;
-      const regions = input.region === "对比" ? ["北京市", "河北省", "全国"] : [input.region, "全国"];
+      const resolution = resolveAdministrativeRegion(input.region);
+      const regions = input.region === "对比"
+        ? ["北京市", "河北省", "全国"]
+        : resolution.status === "resolved"
+          ? getRegionPath(resolution.region.code).map((region) => region.name).reverse()
+          : [input.region, "全国"];
       const placeholders = regions.map(() => "?").join(", ");
       const rows = database
         .prepare(`
@@ -248,7 +254,7 @@ export class PiLocalRagRetrievalProvider implements RetrievalProvider {
   }
 
   async resolvePolicyVersion(input: {
-    region: "北京市" | "河北省";
+    region: string;
     policy_type: string;
     reference_date: string;
   }): Promise<PolicyVersionResolution> {

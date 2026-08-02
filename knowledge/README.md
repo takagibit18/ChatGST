@@ -39,3 +39,13 @@ pnpm rag:build:nationwide -- --rebuild
 `duplicate-candidates.json` is machine-generated and does not itself suppress retrieval. Only confirmed groups in `duplicate-groups.json` assign a canonical document. Immutable K0–K4 manifests live under `knowledge/snapshots/`; the K4 hash is persisted into the SQLite index on a nationwide build.
 
 The generated SQLite index and evidence-bearing Golden output are also local-only.
+
+Phase 3 Eval v2 artifacts are reproducible against the K4 index:
+
+```bash
+pnpm eval:v2:write       # regenerate JSONL datasets and hashes
+pnpm eval:v2:validate    # validate schemas, counts, splits and Gold bindings
+pnpm eval:v2             # run the three-repeat BM25 baseline and persist fingerprints
+```
+
+The committed train/dev datasets live in `domains/childcare-subsidy/evals/v2/`. The blind test split is intentionally not frozen until Phase 4. Review provenance is explicit in every case; legal amount, deadline, and eligibility conclusions still require the responsible domain owner's sign-off before a frozen release.

@@ -3,6 +3,7 @@ export * from "./chunker.js";
 export * from "./document-extractor.js";
 export * from "./deduplication.js";
 export * from "./embedder.js";
+export * from "./eval-v2.js";
 export * from "./hybrid-provider.js";
 export * from "./index-builder.js";
 export * from "./intake-audit.js";

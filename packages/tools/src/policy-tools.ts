@@ -26,14 +26,14 @@ export function createPolicyToolRegistry(retrieval: RetrievalProvider, config?: 
   const searchInput = z
     .object({
       query: z.string().min(1).max(1000),
-      region: z.enum(["北京市", "河北省", "对比"]),
+      region: z.string().min(1).max(80),
       effective_date: date,
       top_k: z.number().int().min(1).max(8),
     })
     .strict();
   const searchTool: AgentTool<z.infer<typeof searchInput>, unknown> = {
     name: "search_policy",
-    description: "Search the registered Beijing/Hebei policy index with region and date filters.",
+    description: "Search the registered nationwide policy index with region and date filters.",
     inputSchema: searchInput,
     outputSchema: z.array(
       evidenceItemSchema.extend({ metadata: policyMetadataSchema, line_start: z.number(), line_end: z.number() }),
@@ -41,7 +41,7 @@ export function createPolicyToolRegistry(retrieval: RetrievalProvider, config?: 
     piParameters: Type.Object(
       {
         query: Type.String({ minLength: 1, maxLength: 1000 }),
-        region: Type.Union([Type.Literal("北京市"), Type.Literal("河北省"), Type.Literal("对比")]),
+        region: Type.String({ minLength: 1, maxLength: 80 }),
         effective_date: Type.String({ pattern: "^\\d{4}-\\d{2}-\\d{2}$" }),
         top_k: Type.Integer({ minimum: 1, maximum: 8 }),
       },
@@ -112,7 +112,7 @@ export function createPolicyToolRegistry(retrieval: RetrievalProvider, config?: 
   };
 
   const versionInput = z
-    .object({ region: z.enum(["北京市", "河北省"]), policy_type: z.string().min(1).max(80), reference_date: date })
+    .object({ region: z.string().min(1).max(80), policy_type: z.string().min(1).max(80), reference_date: date })
     .strict();
   const versionTool: AgentTool<z.infer<typeof versionInput>, unknown> = {
     name: "resolve_policy_version",
@@ -129,7 +129,7 @@ export function createPolicyToolRegistry(retrieval: RetrievalProvider, config?: 
     ]),
     piParameters: Type.Object(
       {
-        region: Type.Union([Type.Literal("北京市"), Type.Literal("河北省")]),
+        region: Type.String({ minLength: 1, maxLength: 80 }),
         policy_type: Type.String({ minLength: 1, maxLength: 80 }),
         reference_date: Type.String({ pattern: "^\\d{4}-\\d{2}-\\d{2}$" }),
       },

@@ -113,3 +113,36 @@ Phase 1 必须完成以下工作后才能准入：
 | `pnpm test` | 7个测试文件、42条测试全部通过 |
 
 这证明 intake 快照没有进入默认加载范围，也没有改变现有索引规模和回归基线。
+
+## 7. Phase 1 治理验收
+
+2026-08-02 完成地区与准入治理闭环：
+
+- 行政区注册表覆盖全国、省级地区和本批涉及的地市/区县，支持简称及旧的下划线层级写法；
+- 47 份来源均有与审计 SHA-256 绑定的 override，地区代码、层级、父级和适用范围解析率为 100%；
+- Phase 0 的 41 份 `verified` 材料标记为 `approved`，6 份 `issue` 材料标记为 `quarantined` 并保留原因；
+- loader 和 index builder 双层隔离 `quarantined` 与 `unknown`，全国集合可通过 `pnpm rag:build:nationwide -- --rebuild` 独立构建；
+- `pnpm knowledge:governance:validate` 同时检查文件覆盖、来源哈希、必填字段、父子地区和准入状态。
+
+本阶段的 `approved` 表示来源与结构化元数据通过当前准入规则，不替代对金额、资格、期限等政策事实的后续逐项业务复核；重复/canonical 选择仍属于 Phase 2。
+
+## 8. Phase 2 去重、版本与快照验收
+
+Phase 2 保留全部 47 份来源记录，不删除转载原文。机器候选清单位于 `knowledge/metadata/duplicate-candidates.json`：
+
+- exact 正文重复：0 组；
+- near 重复候选：8 组；
+- 同文号候选：10 组；
+- 跨地区相似材料只保留为候选，不自动合并。
+
+已确认的 canonical 组位于 `knowledge/metadata/duplicate-groups.json`。三份全国《育儿补贴制度管理规范（试行）》官方转载正文相似度为 0.976–0.995，选择标题和联合发布机构信息最完整的 `_29` 文档作为 canonical，其余两份继续保留审计记录但不进入 K3/K4 常规召回。
+
+| 快照 | 文档数 | 状态 |
+| --- | ---: | --- |
+| K0 | 6 | 历史本地基线，原文不随仓库提交，保留 54 chunks 指纹描述 |
+| K1 | 47 | intake 直接扩入实验清单，禁止作为默认索引 |
+| K2 | 41 | 元数据/地区治理后的 approved 集合 |
+| K3 | 39 | K2 + canonical 去重 |
+| K4 | 39 | K3 + 文档类型、发布地区、版本组和来源优先级 |
+
+K4 实际构建得到 380 个 chunks、0 vector rows，索引元数据写入快照哈希 `041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce`。版本选择依次比较 `version_priority`、`source_priority`、发布日期和 `document_id`，因此相同地区、日期和优先级下仍有稳定结果。

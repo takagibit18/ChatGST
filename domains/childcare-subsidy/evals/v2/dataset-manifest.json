@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "invalid_for_quality_claims": true,
+  "invalidation_reason": "Circular Gold generation and expected-behavior leakage; retained for audit only.",
+  "dataset_version": "phase3-v1.0",
+  "generated_at": "2026-08-02T00:00:00.000Z",
+  "knowledge_snapshot": "K4",
+  "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
+  "counts": {
+    "retrieval": 80,
+    "train": 50,
+    "dev": 30,
+    "hard": 45,
+    "regression": 13,
+    "conversations": 8,
+    "safety": 15,
+    "extraction": 47
+  },
+  "files": {
+    "retrieval.train.jsonl": {
+      "sha256": "33385a6487a04aa63a49c575afb2b6017a3d05fd1852e8a68b32761c57e479b7",
+      "rows": 50
+    },
+    "retrieval.dev.jsonl": {
+      "sha256": "dc65dc52bc0067634bb5449e3282522175f6670b9f6db17f6c52c6d5fa46e06c",
+      "rows": 30
+    },
+    "regression-v1.jsonl": {
+      "sha256": "fc0db4990f1626fbfd5e563e46f071d74aa4b3ca07dd9598120f3109414cf494",
+      "rows": 13
+    },
+    "conversations.jsonl": {
+      "sha256": "85e1a64ed06e8a213283af03e5c468cff7c76302a5662545aedfc9928da8e824",
+      "rows": 8
+    },
+    "safety.jsonl": {
+      "sha256": "ebf5df300526a5384c43e58eb64e0cfa6adb033ff2288cfc9b4657b0fb68464a",
+      "rows": 15
+    },
+    "extraction-manifest.jsonl": {
+      "sha256": "e7ad8d874b726f8eb59badf8603c3580d2e51dd111baa1e4e4d99f704fa9c617",
+      "rows": 47
+    }
+  },
+  "test_split": {
+    "status": "not_frozen",
+    "reason": "Phase 3 closes train/dev and leaves the blind test set for Phase 4 freeze."
+  }
+}

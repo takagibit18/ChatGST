@@ -85,7 +85,7 @@ export class MilvusRetrievalProvider implements RetrievalProvider {
   }
 
   async resolvePolicyVersion(_input: {
-    region: "北京市" | "河北省";
+    region: string;
     policy_type: string;
     reference_date: string;
   }): Promise<PolicyVersionResolution> {

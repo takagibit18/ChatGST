@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-02T00:00:00.000Z",
+  "groups": [
+    {
+      "group_id": "dup-national-childcare-management-standard-2025",
+      "match_kind": "near",
+      "canonical_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+      "member_document_ids": [
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_21",
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_58"
+      ],
+      "evidence": [
+        {
+          "left_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_21",
+          "right_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "similarity": 0.994961
+        },
+        {
+          "left_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_21",
+          "right_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_58",
+          "similarity": 0.981406
+        },
+        {
+          "left_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "right_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_58",
+          "similarity": 0.976534
+        }
+      ],
+      "review_status": "confirmed",
+      "rationale": "三份材料适用范围均为全国，正文五字 shingles 相似度均高于 0.97；选择标题完整且明确标注联合发布机构的官方转载作为 canonical。"
+    }
+  ]
+}

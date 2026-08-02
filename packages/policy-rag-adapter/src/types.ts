@@ -36,7 +36,7 @@ export interface SearchTextProcessor {
 
 export type SearchPolicyInput = {
   query: string;
-  region: "北京市" | "河北省" | "对比";
+  region: string;
   effective_date: string;
   top_k: number;
 };
@@ -86,18 +86,18 @@ export interface RetrievalProvider {
   getSource(id: string): Promise<PolicySource | null>;
   getMetadata(id: string): Promise<PolicyMetadata | null>;
   resolvePolicyVersion(input: {
-    region: "北京市" | "河北省";
+    region: string;
     policy_type: string;
     reference_date: string;
   }): Promise<PolicyVersionResolution>;
-  getStats?(): { documents: number; chunks: number; vector_rows: number; retrieval_mode: string };
+  getStats?(): { documents: number; chunks: number; vector_rows: number; retrieval_mode: string; snapshot_hash?: string };
 }
 
 export interface KnowledgeBrowserProvider {
   listKnowledgeDocuments(input?: { region?: string; query?: string }): Promise<KnowledgeDocumentSummary[]>;
   getKnowledgeDocument(documentId: string): Promise<KnowledgeDocumentDetail | null>;
   search(input: SearchPolicyInput): Promise<PolicySearchResult[]>;
-  getStats(): { documents: number; chunks: number; vector_rows: number; retrieval_mode: string };
+  getStats(): { documents: number; chunks: number; vector_rows: number; retrieval_mode: string; snapshot_hash?: string };
 }
 
 export type IndexBuildReport = {
@@ -108,4 +108,5 @@ export type IndexBuildReport = {
   chunks_total: number;
   vector_rows: number;
   built_at: string;
+  snapshot_hash?: string;
 };

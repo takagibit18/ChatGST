@@ -5,6 +5,14 @@ import { getOntoSummary } from "@policy/ontology/index";
 import { createDefaultPolicyRuntime } from "@policy/runtime/index";
 import { loadRuntimeConfig } from "@policy/shared/index";
 import { createPolicyServer } from "@policy/web-adapter/index";
+import type { KnowledgeBrowserProvider, RetrievalProvider } from "@policy/rag/index";
+
+function supportsKnowledgeBrowser(provider: RetrievalProvider): provider is RetrievalProvider & KnowledgeBrowserProvider {
+  const candidate = provider as Partial<KnowledgeBrowserProvider>;
+  return typeof candidate.listKnowledgeDocuments === "function"
+    && typeof candidate.getKnowledgeDocument === "function"
+    && typeof candidate.getStats === "function";
+}
 
 const config = loadRuntimeConfig();
 const logger = pino({ level: config.logLevel });
@@ -16,7 +24,7 @@ if (config.retrieval.mode === "bm25" && (stats.vector_rows !== 0 || stats.retrie
 }
 const application = createPolicyServer({
   runtime,
-  knowledge: retrieval,
+  ...(supportsKnowledgeBrowser(retrieval) ? { knowledge: retrieval } : {}),
   config,
   staticDir: resolve("apps/policy-web/dist"),
 });

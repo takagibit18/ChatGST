@@ -470,35 +470,41 @@ K1 允许出现质量问题，但不得作为面向用户的默认知识库。�
 
 ### Phase 1：元数据和地区治理，2–4 天
 
-- [ ] 建立行政区注册表和别名；
-- [ ] 将地区校验从硬编码正则改为注册表校验；
-- [ ] 扩展 PolicyMetadata 和索引字段，同时兼容旧 `region`；
-- [ ] 为 47 份文件补齐 override；
-- [ ] 增加缺失字段、父子地区和未知状态测试；
-- [ ] 标记 approved/quarantined，隔离未核验材料。
+- [x] 建立行政区注册表和别名；
+- [x] 将地区校验从硬编码正则改为注册表校验；
+- [x] 扩展 PolicyMetadata 和索引字段，同时兼容旧 `region`；
+- [x] 为 47 份文件补齐 override；
+- [x] 增加缺失字段、父子地区和未知状态测试；
+- [x] 标记 approved/quarantined，隔离未核验材料。
 
 验收：正式集合元数据完整率 100%，地区解析率 100%，unknown 文档不会进入默认索引。
 
+完成记录（2026-08-02）：47/47 override 与原文 SHA-256 绑定，元数据完整率和地区解析率均为 100%；41 份 Phase 0 `verified` 材料进入 approved 集合，6 份 `issue` 材料进入 quarantined，索引构建器会再次强制排除 quarantined/unknown。
+
 ### Phase 2：去重、版本与分阶段知识快照，2–3 天
 
-- [ ] 生成 exact/near duplicate 候选；
-- [ ] 人工确认 canonical 文档；
-- [ ] 建立版本组和有效区间；
-- [ ] 构建 K0–K4 快照；
-- [ ] 验证新增、更新、删除和仅元数据变化的增量索引。
+- [x] 生成 exact/near duplicate 候选；
+- [x] 人工确认 canonical 文档；
+- [x] 建立版本组和有效区间；
+- [x] 构建 K0–K4 快照；
+- [x] 验证新增、更新、删除和仅元数据变化的增量索引。
 
 验收：重复转载不会占满 Top-K；相同日期和地区下版本选择具有确定性。
 
-### Phase 3：Eval v2 数据和指标，3–5 天
+完成记录（2026-08-02）：对 47 份材料执行规范化正文 SHA-256、五字 shingle Jaccard 和文号候选检测，得到 0 组 exact、8 组 near、10 组同文号候选；确认 1 个全国政策转载组（3 份来源，组内相似度 0.976–0.995），保留 1 份 canonical。K0–K4 快照分别包含 6/47/41/39/39 份文档并具有独立 SHA-256；K4 实际构建为 39 份、380 chunks，索引绑定快照哈希。新增、正文更新、仅元数据更新、删除、幂等重建和同日版本确定性排序均有自动化测试。
 
-- [ ] 实现 JSONL Schema 和数据校验器；
-- [ ] 迁移 13 条回归案例；
-- [ ] 首批标注 80 条 retrieval，其中至少 30 条 hard case；
-- [ ] 建立多轮、安全和 no-answer 小集；
-- [ ] 实现 chunk Recall、nDCG、地区/时间泄漏、重复占位等指标；
-- [ ] 保存运行指纹和逐案例输出。
+### Phase 3：Eval v2.1 规范化重建
 
-验收：每个 Gold 都绑定来源与 chunk；金额、期限、资格案例经过人工复核。
+- [x] 建立 `retrieval-v2.1` source-first Schema、只读 Gold 构建器和严格数据校验器；
+- [x] 从 K4 原文重新标注 retrieval 80 条（train 50 / dev 30）和 v1 回归 13 条；
+- [x] 扩充并实际执行多轮 20 组、安全 30 条；
+- [x] 将 Query Normalizer、Runtime、工具 Schema 与业务校验器扩展到 K4 全国地区；
+- [x] 隔离 train-only calibration、label-free runner 和 Gold-aware scorer；
+- [x] 输出检索、回答、引用、多轮、安全、性能的分子/分母、分类结果和 95% 区间。
+
+技术验收：循环标签为 0、Gold 标签泄漏为 0、K4 证据绑定错误为 0、runner/scorer 隔离测试通过、全部评测集实际执行。正式质量验收仍须业务责任人完成审核。
+
+重建记录（2026-08-02）：Eval v2.0 因 Gold 受检索结果影响且 Runner 读取预期行为，被标记为 `invalid_for_quality_claims`，只保留用于审计。v2.1 首版虽消除了检索循环，但人工预审发现固定前缀截取、弱证据、对话模板循环和安全标签模板等问题，随后再次按 claim-first 重建。当前 143 条标注全部为 `pending_review`；88 个 Gold evidence span 均记录精确 K4 原文 quote、源行范围、chunk 字符范围和完整 atomic claims，`required_facts` 由 claims 精确派生，禁止固定长度截取。train-only 校准锁定阈值后运行 dev，三次完整运行预测指纹一致；当前 provisional 基线 Document Recall@5=1.000、Chunk Recall@5=0.935、MRR@10=0.822、nDCG@10=0.729、required fact coverage=0.833、citation precision=0.500、citation completeness=0.885；no-answer F1=0、多轮场景完成率=0.800、上下文污染率=0.182、安全通过率=0.367，共保留 29 个诊断失败案例。报告继续固定为 `evaluation_status: provisional`、`release_gate: blocked_pending_human_review`，不冻结 test，也不宣称 Phase 3 正式验收通过。
 
 ### Phase 4：消融、调优与冻结测试，4–7 天
 

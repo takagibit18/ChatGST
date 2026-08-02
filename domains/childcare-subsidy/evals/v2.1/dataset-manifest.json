@@ -1,0 +1,51 @@
+{
+  "schema_version": 3,
+  "dataset_version": "phase3-v2.1",
+  "generated_at": "2026-08-02T00:00:00.000Z",
+  "evaluation_status": "provisional",
+  "release_gate": "blocked_pending_human_review",
+  "knowledge_snapshot": "K4",
+  "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
+  "circular_labeling": false,
+  "mechanical_prefix_extraction": false,
+  "gold_representation": "exact_source_span+atomic_claims",
+  "counts": {
+    "retrieval": 80,
+    "train": 50,
+    "dev": 30,
+    "regression": 13,
+    "conversations": 20,
+    "safety": 30,
+    "evidence_spans": 88,
+    "atomic_claims": 88
+  },
+  "files": {
+    "retrieval.train.jsonl": {
+      "sha256": "6b41a66ea7ef53f8920e6655231d07a6f091cf6bf0b02c66b6f94ca9962a2de5",
+      "rows": 50
+    },
+    "retrieval.dev.jsonl": {
+      "sha256": "dcce4b70ec82800f456a28431f69f6622b459e6b3a54f90120042672a2c405bc",
+      "rows": 30
+    },
+    "regression-v1.jsonl": {
+      "sha256": "0c80c17040578d49ba99df7a30e1891e0b469099fa09966f722d874310a955d1",
+      "rows": 13
+    },
+    "conversations.jsonl": {
+      "sha256": "0a8eaebab6d91eb2e8cd30e0e62deda07e88e0da51e7ac4dab8f0b9f90e1e894",
+      "rows": 20
+    },
+    "safety.jsonl": {
+      "sha256": "9ee32ddbed7cef7c92aa9a6e97dac02fbf138cca534ea8ec6793b4bc6bb8a6fc",
+      "rows": 30
+    }
+  },
+  "review": {
+    "pending_review": 143,
+    "human_approved": 0
+  },
+  "test_split": {
+    "status": "not_frozen"
+  }
+}

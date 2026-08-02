@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "K0",
+  "description": "历史本地 6 文档/54 chunks 基线；原文按仓库策略不提交。",
+  "created_at": "2026-08-02T00:00:00.000Z",
+  "source_audit_hash": "e79593ab8fe4555f6340c41f74b211779ec307986e82abddd027a9f13d7c52b2",
+  "configuration": {
+    "metadata_governance": false,
+    "canonical_deduplication": false,
+    "version_authority_policy": false
+  },
+  "documents": [
+    {
+      "document_id": "legacy-local-document-1",
+      "source_sha256": "unavailable-local-only",
+      "metadata_sha256": null
+    },
+    {
+      "document_id": "legacy-local-document-2",
+      "source_sha256": "unavailable-local-only",
+      "metadata_sha256": null
+    },
+    {
+      "document_id": "legacy-local-document-3",
+      "source_sha256": "unavailable-local-only",
+      "metadata_sha256": null
+    },
+    {
+      "document_id": "legacy-local-document-4",
+      "source_sha256": "unavailable-local-only",
+      "metadata_sha256": null
+    },
+    {
+      "document_id": "legacy-local-document-5",
+      "source_sha256": "unavailable-local-only",
+      "metadata_sha256": null
+    },
+    {
+      "document_id": "legacy-local-document-6",
+      "source_sha256": "unavailable-local-only",
+      "metadata_sha256": null
+    }
+  ],
+  "excluded": [],
+  "counts": {
+    "documents": 6,
+    "excluded": 0,
+    "legacy_chunks": 54
+  },
+  "reproducibility": "legacy-local-baseline",
+  "snapshot_hash": "5cb48acc7cf21eb923d94cad259c7c2581a6b1621000530994ff3f3cff46541a"
+}

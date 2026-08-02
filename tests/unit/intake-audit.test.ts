@@ -1,4 +1,3 @@
-import { createHash } from "node:crypto";
 import { mkdtemp, readFile, rm, unlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -118,17 +117,12 @@ describe("nationwide intake audit", () => {
     expect(summary.utf8_invalid).toBe(0);
     expect(summary.source_url_invalid).toBe(0);
     expect(summary.date_invalid).toBe(0);
-    expect(indexed).toHaveLength(6);
     expect(indexed.every((document) => !document.sourcePath.includes("knowledge\\intake"))).toBe(true);
   });
 
-  it.each([
-    "北京市_政策规章_育儿补贴申请“一件事”_5.md",
-    "河北省_官方解读_育儿补贴申请“一件事”_7.md",
-  ])("keeps %s byte-identical to the existing raw source", async (fileName) => {
-    const intake = await readFile(resolve("knowledge/intake/nationwide-childcare", fileName));
-    const raw = await readFile(resolve("knowledge/raw", fileName));
-    const digest = (value: Buffer) => createHash("sha256").update(value).digest("hex");
-    expect(digest(intake)).toBe(digest(raw));
+  it("keeps the committed audit hash-bound to the cross-platform canonical snapshot", async () => {
+    const generated = serializeIntakeAudit(await auditIntakeDirectory(resolve("knowledge/intake/nationwide-childcare")));
+    const committed = await readFile(resolve("knowledge/metadata/nationwide-childcare-source-audit.jsonl"), "utf8");
+    expect(generated).toBe(committed);
   });
 });

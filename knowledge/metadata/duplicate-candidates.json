@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "algorithm": {
+    "normalization": "NFKC+URL/Markdown/punctuation/whitespace removal",
+    "fingerprint": "5-character-shingle-jaccard",
+    "near_threshold": 0.42
+  },
+  "generated_at": "2026-08-02T00:00:00.000Z",
+  "counts": {
+    "documents": 47,
+    "exact": 0,
+    "near": 8,
+    "policy_number": 10
+  },
+  "candidates": [
+    {
+      "left_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_21",
+      "right_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+      "kind": "near",
+      "similarity": 0.994961,
+      "same_region": true,
+      "evidence": [
+        "policy-number:国卫办人口发〔2025〕24号"
+      ]
+    },
+    {
+      "left_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_21",
+      "right_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_58",
+      "kind": "near",
+      "similarity": 0.981406,
+      "same_region": true,
+      "evidence": [
+        "policy-number:国卫办人口发〔2025〕24号"
+      ]
+    },
+    {
+      "left_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+      "right_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_58",
+      "kind": "near",
+      "similarity": 0.976534,
+      "same_region": true,
+      "evidence": [
+        "policy-number:国卫办人口发〔2025〕24号"
+      ]
+    },
+    {
+      "left_document_id": "济南市_政策规章_育儿补贴申请“一件事”_73",
+      "right_document_id": "山东省_政策规章_育儿补贴申请“一件事”_27",
+      "kind": "near",
+      "similarity": 0.675445,
+      "same_region": false,
+      "evidence": []
+    },
+    {
+      "left_document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+      "right_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_21",
+      "kind": "near",
+      "similarity": 0.46411,
+      "same_region": false,
+      "evidence": []
+    },
+    {
+      "left_document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+      "right_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+      "kind": "near",
+      "similarity": 0.462443,
+      "same_region": false,
+      "evidence": []
+    },
+    {
+      "left_document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+      "right_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_58",
+      "kind": "near",
+      "similarity": 0.458442,
+      "same_region": false,
+      "evidence": []
+    },
+    {
+      "left_document_id": "攀枝花市_政策规章_育儿补贴申请“一件事”_68",
+      "right_document_id": "四川省_政策规章_育儿补贴申请“一件事”_42",
+      "kind": "near",
+      "similarity": 0.457769,
+      "same_region": false,
+      "evidence": []
+    },
+    {
+      "left_document_id": "海南省_政策规章_育儿补贴申请“一件事”_40",
+      "right_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+      "kind": "policy_number",
+      "similarity": 0.206286,
+      "same_region": false,
+      "evidence": [
+        "policy-number:国卫办人口发〔2025〕24号"
+      ]
+    },
+    {
+      "left_document_id": "海南省_政策规章_育儿补贴申请“一件事”_40",
+      "right_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_21",
+      "kind": "policy_number",
+      "similarity": 0.203542,
+      "same_region": false,
+      "evidence": [
+        "policy-number:国卫办人口发〔2025〕24号"
+      ]
+    },
+    {
+      "left_document_id": "海南省_政策规章_育儿补贴申请“一件事”_40",
+      "right_document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_58",
+      "kind": "policy_number",
+      "similarity": 0.20109,
+      "same_region": false,
+      "evidence": [
+        "policy-number:国卫办人口发〔2025〕24号"
+      ]
+    },
+    {
+      "left_document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+      "right_document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+      "kind": "policy_number",
+      "similarity": 0.173503,
+      "same_region": false,
+      "evidence": [
+        "policy-number:厅字〔2025〕15号"
+      ]
+    },
+    {
+      "left_document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+      "right_document_id": "云南省_政策规章_育儿补贴申请“一件事”_46",
+      "kind": "policy_number",
+      "similarity": 0.147742,
+      "same_region": false,
+      "evidence": [
+        "policy-number:厅字〔2025〕15号"
+      ]
+    },
+    {
+      "left_document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+      "right_document_id": "云南省_政策规章_育儿补贴申请“一件事”_46",
+      "kind": "policy_number",
+      "similarity": 0.120417,
+      "same_region": false,
+      "evidence": [
+        "policy-number:厅字〔2025〕15号"
+      ]
+    },
+    {
+      "left_document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+      "right_document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+      "kind": "policy_number",
+      "similarity": 0.050012,
+      "same_region": false,
+      "evidence": [
+        "policy-number:厅字〔2025〕15号"
+      ]
+    },
+    {
+      "left_document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+      "right_document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+      "kind": "policy_number",
+      "similarity": 0.044527,
+      "same_region": false,
+      "evidence": [
+        "policy-number:厅字〔2025〕15号"
+      ]
+    },
+    {
+      "left_document_id": "广西壮族自治区_政策规章_育儿补贴申请“一件事”_38",
+      "right_document_id": "江西省_政策规章_育儿补贴申请“一件事”_25",
+      "kind": "policy_number",
+      "similarity": 0.032747,
+      "same_region": false,
+      "evidence": [
+        "policy-number:国办函〔2026〕2号"
+      ]
+    },
+    {
+      "left_document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+      "right_document_id": "云南省_政策规章_育儿补贴申请“一件事”_46",
+      "kind": "policy_number",
+      "similarity": 0.023602,
+      "same_region": false,
+      "evidence": [
+        "policy-number:厅字〔2025〕15号"
+      ]
+    }
+  ]
+}

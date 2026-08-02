@@ -75,17 +75,12 @@ function emptyPack(query: NormalizedPolicyQuery, effectiveDate: string, gaps: st
 }
 
 function clarificationResponse(query: NormalizedPolicyQuery): PolicyResponse {
-  const options = [
-    { label: "北京市", value: "北京" },
-    { label: "河北省", value: "河北" },
-    { label: "两地对比", value: "北京和河北对比" },
-  ];
   return {
-    answer_markdown: "请先选择要查询的地区，选择后我会继续查询。",
+    answer_markdown: "请告诉我孩子或申请业务所在的省、市或区县，我会按对应地区继续查询。",
     collapsibles: [],
-    actions: options.map((option, index) => ({ id: ["beijing", "hebei", "compare"][index] ?? `region-${index}`, ...option })),
+    actions: [],
     sources: [],
-    clarification: { question: "您想查询哪个地区？", options },
+    clarification: { question: "您想查询哪个省、市或区县？", options: [] },
     meta: { intent: query.intent, region: null, answer_status: "needs_clarification" },
   };
 }
@@ -103,7 +98,7 @@ function unsafeResponse(query: NormalizedPolicyQuery): PolicyResponse {
 
 function outOfScopeResponse(): PolicyResponse {
   return {
-    answer_markdown: "我是本地育儿补贴政策助手，当前只回答北京和河北的育儿补贴政策问题。您可以询问资格、金额、材料、办理渠道或发放时间。",
+    answer_markdown: "我是育儿补贴政策助手，可以按已登记的全国、省、市、区县政策证据回答。您可以询问资格、金额、材料、办理渠道或发放时间。",
     collapsibles: [],
     actions: [
       { id: "eligibility", label: "申请资格", value: "育儿补贴申请资格" },
@@ -182,7 +177,7 @@ function retrievalQuality(hits: PolicySearchResult[], query: NormalizedPolicyQue
 
 function unsupportedRegionResponse(query: NormalizedPolicyQuery): PolicyResponse {
   return {
-    answer_markdown: "当前仅支持北京市和河北省的育儿补贴政策，暂不能回答其他地区的地方规则。",
+    answer_markdown: "未能将该地区匹配到已登记的行政区或有效政策证据，因此暂不能给出地方规则。",
     collapsibles: [],
     actions: [
       { id: "beijing", label: "查询北京", value: "北京育儿补贴政策" },
@@ -390,6 +385,10 @@ export class PolicyAgentRuntime {
         let resolutions: PolicyVersionResolution[] = [];
         if (localDecision?.verdict !== "missing_info") {
           ragHits = await this.searchPolicies(query, effectiveDate, context);
+          const localExecutionIntent = ["channel", "materials", "deadline", "payment"].includes(query.intent);
+          if (localExecutionIntent && query.regionCode && query.regionCode !== "100000" && ragHits.every((hit) => hit.metadata.region_code === "100000")) {
+            ragHits = [];
+          }
           const initialQuality = retrievalQuality(ragHits, query, this.options.config.retrieval.mode);
           if (localRuleHits.length === 0 && query.region !== "对比" && !semanticAssistUsed && initialQuality.weak) {
             const reason = ragHits.length === 0 ? "zero_hits" : "weak_hits";
@@ -511,8 +510,10 @@ export class PolicyAgentRuntime {
     }
   }
 
-  private regionsFor(query: NormalizedPolicyQuery): Array<"北京市" | "河北省"> {
-    return query.region === "对比" ? ["北京市", "河北省"] : [query.region as "北京市" | "河北省"];
+  private regionsFor(query: NormalizedPolicyQuery): string[] {
+    return query.region === "对比"
+      ? query.comparisonRegions.map((item) => item.name)
+      : query.region ? [query.region] : [];
   }
 
   private async searchPolicies(query: NormalizedPolicyQuery, effectiveDate: string, context: ToolContext) {
@@ -613,7 +614,7 @@ export class PolicyAgentRuntime {
           actions: "没有合适按钮时必须为 []，严禁输出 [{}]；有按钮时每项必须完整包含 {id:小写英文id,label:按钮文字(≤16字),value:点击后发送的查询文字(≤120字)}",
           sources: [{ document_id: "证据中文档的document_id", title: "文档标题", url: "文档的source_url" }],
           clarification: "需要澄清时填 {question, options}，否则填 null",
-          meta: { intent: "从amount/eligibility/claimant/materials/channel/deadline/payment/comparison/migration/distinction/overview中选择", region: "北京市/河北省/对比 或 null", answer_status: "answered/needs_clarification/insufficient_evidence 之一" }
+          meta: { intent: "从amount/eligibility/claimant/materials/channel/deadline/payment/comparison/migration/distinction/overview中选择", region: "规范行政区名称/对比 或 null", answer_status: "answered/needs_clarification/insufficient_evidence 之一" }
         },
       });
       await agent.prompt(prompt);
@@ -668,7 +669,7 @@ export class PolicyAgentRuntime {
       '  "actions": [{"id":"英文id","label":"≤16字","value":"≤120字"}],',
       '  "sources": [{"document_id":"证据中的document_id","title":"文档标题","url":"证据中的source_url"}],',
       '  "clarification": null,',
-      '  "meta": {"intent":"amount|eligibility|claimant|materials|channel|deadline|payment|comparison|migration|distinction|overview","region":"北京市|河北省|对比|null","answer_status":"answered|needs_clarification|insufficient_evidence"}',
+      '  "meta": {"intent":"amount|eligibility|claimant|materials|channel|deadline|payment|comparison|migration|distinction|overview","region":"规范行政区名称|对比|null","answer_status":"answered|needs_clarification|insufficient_evidence"}',
       "}",
     ].join("\n");
     const evidenceItems = input.pack.evidence.slice(0, 5).map((e) => ({

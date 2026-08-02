@@ -6,6 +6,8 @@ import { ensurePolicySchema } from "./index-builder.js";
 import { openPiLocalRagDb } from "./upstream.js";
 import { ChinesePolicySearchTextProcessor, toFtsQuery } from "./chinese-search.js";
 import type {
+  KnowledgeDocumentDetail,
+  KnowledgeDocumentSummary,
   PolicySearchResult,
   PolicySource,
   PolicyVersionResolution,
@@ -13,6 +15,7 @@ import type {
   SearchPolicyInput,
   SearchTextProcessor,
 } from "./types.js";
+import type { SourceFormat } from "./document-extractor.js";
 
 type MetadataRow = {
   document_id: string;
@@ -38,6 +41,14 @@ type SearchRow = MetadataRow & {
   bm25_score: number;
 };
 
+type KnowledgeSummaryRow = MetadataRow & {
+  source_format: string;
+  extraction_warnings: string;
+  indexed_at: string;
+  chunks: number;
+  characters: number;
+};
+
 function metadataFromRow(row: MetadataRow): PolicyMetadata {
   return policyMetadataSchema.parse({
     ...row,
@@ -49,6 +60,26 @@ function assertDate(value: string): void {
   if (!/^\d{4}-\d{2}-\d{2}$/u.test(value)) {
     throw new PolicyAssistantError("INVALID_INPUT", "effective_date must use YYYY-MM-DD");
   }
+}
+
+function parseWarnings(value: string): string[] {
+  try {
+    const parsed = JSON.parse(value) as unknown;
+    return Array.isArray(parsed) ? parsed.filter((item): item is string => typeof item === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+function knowledgeSummaryFromRow(row: KnowledgeSummaryRow): KnowledgeDocumentSummary {
+  return {
+    metadata: metadataFromRow(row),
+    source_format: row.source_format as SourceFormat,
+    chunks: row.chunks,
+    characters: row.characters,
+    extraction_warnings: parseWarnings(row.extraction_warnings),
+    indexed_at: row.indexed_at,
+  };
 }
 
 export class PiLocalRagRetrievalProvider implements RetrievalProvider {
@@ -223,6 +254,89 @@ export class PiLocalRagRetrievalProvider implements RetrievalProvider {
       return conflictGroups.length > 0
         ? { status: "conflict", policies, conflict_groups: conflictGroups }
         : { status: "resolved", policies };
+    } finally {
+      database.close();
+    }
+  }
+
+  async listKnowledgeDocuments(input: { region?: string; query?: string } = {}): Promise<KnowledgeDocumentSummary[]> {
+    const query = input.query?.trim() ?? "";
+    if (query.length > 200) throw new PolicyAssistantError("INVALID_INPUT", "Knowledge query is too long");
+    const database = this.openReadyDatabase();
+    try {
+      const filters: string[] = [];
+      const parameters: Array<string> = [];
+      if (input.region && input.region !== "全部") {
+        filters.push("pd.region = ?");
+        parameters.push(input.region);
+      }
+      if (query) {
+        filters.push("(pd.title LIKE ? OR pd.authority LIKE ? OR pd.document_id LIKE ?)");
+        const pattern = `%${query}%`;
+        parameters.push(pattern, pattern, pattern);
+      }
+      const where = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
+      const rows = database.prepare(`
+        SELECT pd.document_id, pd.title, pd.region, pd.authority, pd.publish_date,
+               pd.effective_from, pd.effective_to, pd.status, pd.source_url,
+               pd.policy_type, pd.version_group, pd.version_priority,
+               pd.source_format, pd.extraction_warnings, pd.indexed_at,
+               COUNT(pc.chunk_id) AS chunks,
+               COALESCE(SUM(LENGTH(pc.original_content)), 0) AS characters
+        FROM policy_documents pd
+        LEFT JOIN policy_chunks pc ON pc.document_id = pd.document_id
+        ${where}
+        GROUP BY pd.document_id
+        ORDER BY pd.region, pd.publish_date DESC, pd.title
+        LIMIT 100
+      `).all(...parameters) as KnowledgeSummaryRow[];
+      return rows.map(knowledgeSummaryFromRow);
+    } finally {
+      database.close();
+    }
+  }
+
+  async getKnowledgeDocument(documentId: string): Promise<KnowledgeDocumentDetail | null> {
+    const database = this.openReadyDatabase();
+    try {
+      const summary = database.prepare(`
+        SELECT pd.document_id, pd.title, pd.region, pd.authority, pd.publish_date,
+               pd.effective_from, pd.effective_to, pd.status, pd.source_url,
+               pd.policy_type, pd.version_group, pd.version_priority,
+               pd.source_format, pd.extraction_warnings, pd.indexed_at,
+               COUNT(pc.chunk_id) AS chunks,
+               COALESCE(SUM(LENGTH(pc.original_content)), 0) AS characters
+        FROM policy_documents pd
+        LEFT JOIN policy_chunks pc ON pc.document_id = pd.document_id
+        WHERE pd.document_id = ?
+        GROUP BY pd.document_id
+      `).get(documentId) as KnowledgeSummaryRow | undefined;
+      if (!summary) return null;
+      const sections = database.prepare(`
+        SELECT chunk_id, ordinal, section_path, original_content,
+               line_start, line_end
+        FROM policy_chunks
+        WHERE document_id = ?
+        ORDER BY ordinal
+      `).all(documentId) as Array<{
+        chunk_id: string;
+        ordinal: number;
+        section_path: string;
+        original_content: string;
+        line_start: number;
+        line_end: number;
+      }>;
+      return {
+        ...knowledgeSummaryFromRow(summary),
+        sections: sections.map((section) => ({
+          chunk_id: section.chunk_id,
+          ordinal: section.ordinal,
+          section_path: JSON.parse(section.section_path) as string[],
+          content: section.original_content,
+          line_start: section.line_start,
+          line_end: section.line_end,
+        })),
+      };
     } finally {
       database.close();
     }

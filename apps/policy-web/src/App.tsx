@@ -1,4 +1,4 @@
-import { ArrowUp, ChatCircleDots, CircleNotch, Plus, WarningCircle } from "@phosphor-icons/react";
+import { ArrowUp, Books, ChatCircleDots, CircleNotch, Plus, WarningCircle } from "@phosphor-icons/react";
 import { useState, type FormEvent } from "react";
 import {
   Conversation,
@@ -9,6 +9,7 @@ import {
 import { Message, MessageContent } from "@/components/ai-elements/message";
 import { Suggestion, Suggestions } from "@/components/ai-elements/suggestion";
 import { PolicyAnswer } from "@/components/PolicyAnswer";
+import { KnowledgeBrowser } from "@/components/KnowledgeBrowser";
 import { PrivacyNotice } from "@/components/PrivacyNotice";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -30,6 +31,8 @@ const connectionLabels: Record<ConnectionState, string> = {
 export default function App() {
   const { ask, busy, connection, error, messages, reset, status } = usePolicySocket();
   const [draft, setDraft] = useState("");
+  const [view, setView] = useState<"chat" | "knowledge">("chat");
+  const userTurnCount = messages.filter((message) => message.from === "user").length;
 
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -54,6 +57,10 @@ export default function App() {
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2">
+            <div className="hidden rounded-[10px] border bg-surface-strong p-0.5 sm:flex">
+              <Button onClick={() => setView("chat")} size="sm" type="button" variant={view === "chat" ? "secondary" : "ghost"}><ChatCircleDots aria-hidden size={15} />对话</Button>
+              <Button onClick={() => setView("knowledge")} size="sm" type="button" variant={view === "knowledge" ? "secondary" : "ghost"}><Books aria-hidden size={15} />知识库</Button>
+            </div>
             <span className="hidden items-center gap-1.5 text-xs text-muted-foreground sm:flex">
               <span
                 aria-hidden
@@ -61,7 +68,7 @@ export default function App() {
               />
               {connectionLabels[connection]}
             </span>
-            <Button disabled={busy} onClick={reset} size="sm" type="button" variant="outline">
+            <Button className={view === "knowledge" ? "hidden sm:inline-flex" : undefined} disabled={busy} onClick={reset} size="sm" type="button" variant="outline">
               <Plus aria-hidden size={15} weight="bold" />
               新建会话
             </Button>
@@ -70,7 +77,11 @@ export default function App() {
       </header>
 
       <main className="mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col px-0 sm:px-6 sm:py-5">
-        <section className="flex min-h-[calc(100dvh-4rem)] flex-1 flex-col overflow-hidden bg-surface sm:min-h-0 sm:rounded-2xl sm:border sm:shadow-[0_16px_50px_rgba(24,60,47,0.08)]">
+        <div className="flex border-b bg-surface-strong p-2 sm:hidden">
+          <Button className="flex-1" onClick={() => setView("chat")} size="sm" type="button" variant={view === "chat" ? "secondary" : "ghost"}>对话</Button>
+          <Button className="flex-1" onClick={() => setView("knowledge")} size="sm" type="button" variant={view === "knowledge" ? "secondary" : "ghost"}>知识库</Button>
+        </div>
+        {view === "knowledge" ? <KnowledgeBrowser /> : <section className="flex min-h-[calc(100dvh-4rem)] flex-1 flex-col overflow-hidden bg-surface sm:min-h-0 sm:rounded-2xl sm:border sm:shadow-[0_16px_50px_rgba(24,60,47,0.08)]">
           <Conversation>
             <ConversationContent>
               {messages.length === 0 ? (
@@ -94,7 +105,7 @@ export default function App() {
                       <MessageContent>{message.text}</MessageContent>
                     ) : (
                       <PolicyAnswer
-                        actionsEnabled={!busy}
+                        actionsEnabled={userTurnCount < 2 && !busy}
                         onAction={askSuggestion}
                         response={message.response}
                       />
@@ -157,7 +168,7 @@ export default function App() {
               <PrivacyNotice />
             </div>
           </div>
-        </section>
+        </section>}
       </main>
     </div>
   );

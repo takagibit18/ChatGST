@@ -15,6 +15,8 @@ for (const document of documents) {
     region: document.metadata.region,
     publish_date: document.metadata.publish_date,
     source_url: document.metadata.source_url,
+    source_format: document.sourceFormat,
+    extraction_warnings: document.extractionWarnings,
     headings_or_articles: chunks.filter((chunk) => chunk.section_path.length > 0).length,
     chunks: chunks.length,
     tables: (document.body.match(/^\|.+\|$/gmu) ?? []).length,
@@ -22,4 +24,3 @@ for (const document of documents) {
   });
 }
 console.log(JSON.stringify({ documents: output.length, items: output }, null, 2));
-

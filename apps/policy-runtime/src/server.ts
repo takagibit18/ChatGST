@@ -16,6 +16,7 @@ if (config.retrieval.mode === "bm25" && (stats.vector_rows !== 0 || stats.retrie
 }
 const application = createPolicyServer({
   runtime,
+  knowledge: retrieval,
   config,
   staticDir: resolve("apps/policy-web/dist"),
 });

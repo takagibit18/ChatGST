@@ -1,12 +1,115 @@
-# Knowledge audit
+# 全国育儿补贴候选语料审计
 
-The user supplied 47 nationwide Markdown files in an external read-only directory. On 2026-07-23 all 47 were decoded with strict UTF-8, checked for replacement characters and checked for at least one source URL. No malformed UTF-8, replacement character or URL-less file was found.
+## 1. 审计范围
 
-The product scope is Beijing and Hebei, so two relevant originals were inspected and copied byte-for-byte into the ignored local `knowledge/raw/` directory for verification. Their SHA-256 hashes are reported locally by `pnpm knowledge:inspect`; source files are never rewritten or published in Git.
+2026-08-02 将用户提供的全国育儿补贴 Markdown 目录按字节快照到：
 
-Findings:
+```text
+knowledge/intake/nationwide-childcare/
+```
 
-- The Beijing file contains the full trial implementation rules, headings, numbered articles, application channels, review/payment rules and official source URL. Its official publication date is 2025-09-24 and implementation date is 2025-09-26.
-- The Hebei file is an official explanation and links to the complete rules, but its harvested frontmatter timestamp (`2025-06-19`) conflicts with the official page publication date (`2026-01-12`). Metadata corrects this without touching the source.
-- Neither selected raw item alone is enough for all demo questions. Immutable curated snapshots add the national amount/application FAQ, Hebei complete rules, Beijing's 2026 initial-application deadline update, and the official maternity-allowance distinction.
-- Headings, articles, paragraphs, lists and tables are preserved. The semantic chunker never mutates source Markdown.
+`intake` 不在默认知识加载器的 `raw/curated` 扫描范围内，因此本批候选材料尚未进入 Agent 检索，也不会改变当前北京/河北基线。原文不做清洗、改名、Front Matter 修正或政策效力判断。
+
+可复现命令：
+
+```powershell
+pnpm knowledge:intake:audit
+pnpm knowledge:intake:audit -- --write
+```
+
+- 默认模式重新扫描 intake，并与已提交清单逐字节比较；文件新增、删除、修改或审计逻辑变化都会返回失败；
+- `--write` 用于显式重新生成 `knowledge/metadata/nationwide-childcare-source-audit.jsonl`；
+- 清单按相对路径稳定排序，每个文件保存 SHA-256、原始元数据、正文统计和异常标签。
+
+## 2. 快照验收
+
+| 检查项 | 结果 |
+| --- | ---: |
+| Markdown 文件 | 47 |
+| 总字节数 | 375197 |
+| 原始来源哈希不一致 | 0 |
+| 非法 UTF-8 | 0 |
+| 缺失或非法来源 URL | 0 |
+| 缺失或非法日期格式 | 0 |
+| 政策规章 | 31 |
+| 官方解读 | 8 |
+| 办事指南 | 8 |
+| 原始状态 `verified` | 41 |
+| 原始状态 `issue` | 6 |
+
+北京市和河北省两份文件已存在于 `knowledge/raw`；intake 快照与其逐字节一致：
+
+| 文件 | SHA-256 |
+| --- | --- |
+| 北京市政策规章 | `3619d25d6d6cb7794d7eaeba9e6eec905f7dab803996f27c95ea5e5123d0d0b4` |
+| 河北省官方解读 | `e6cce271ccbdf1d4f4bc3448f3a7956ad4973ed4e3d263a388cf4436be8d1025` |
+
+## 3. 覆盖情况
+
+候选语料约覆盖 24/31 个省级行政区，并混有部分地市、区县和国家级转载。当前缺少以下省级材料：
+
+```text
+山西、江苏、安徽、贵州、甘肃、青海、宁夏
+```
+
+“页面发布地区”不能直接作为“政策适用地区”。例如省级卫健部门转载国家规范时，适用范围应标为全国；该判断将在 Phase 1 通过地区注册表和人工复核完成。
+
+## 4. 机器发现的待治理问题
+
+所有47份文件都被标记为 `non_index_status`，原因是原始状态采用 `verified/issue`，而正式索引只接受 `effective/expired/draft`。该标签不表示内容错误，只表示尚未完成政策效力映射。
+
+其他异常统计：
+
+| 异常 | 文件数 | 含义 |
+| --- | ---: | --- |
+| `suspected_duplicate` | 14 | 正文指纹或政策文号与其他文件重复，仅为候选 |
+| `suspicious_region` | 11 | 地区包含上下级拼接、机构名、栏目名或非标准简称 |
+| `suspicious_title` | 4 | 标题为栏目占位、被截断或误抽取正文首句 |
+| `missing_region` | 1 | Front Matter 未提供地区 |
+
+代表性问题：
+
+- `新疆维吾尔自治区_..._21/29/58.md` 等文件实际包含同一国家级《育儿补贴制度管理规范（试行）》的不同官方转载；
+- `地级以上市_..._36.md` 的真实地区为广东，标题被截断为“实施方案》的通知”；
+- `友好型城市_..._78.md` 的真实适用地区为湖北省荆门市；
+- `贴申领专区_..._32.md` 将页面栏目误作地区；
+- `育儿补贴申请“一件事”_办事指南_..._19.md` 缺失地区，且正文首句被当作标题；
+- `山东省_济南市`、`浙江省_温州市` 等值表达了层级信息，但不符合当前单值地区格式。
+
+疑似重复按规范化正文 SHA-256 和政策文号生成。当前文号候选组包括：
+
+- `国卫办人口发〔2025〕24号`：6份；
+- `厅字〔2025〕15号`：6份；
+- `川卫发〔2025〕12号`：2份；
+- `国办函〔2026〕2号`：2份。
+
+文号相同可能只是地方文件引用同一上位政策，不等于正文重复；Phase 0 不删除文件，也不选择 canonical 文档。
+
+## 5. 准入结论
+
+本批材料已完成“原文可追溯、哈希可验证、异常机器可读、默认索引隔离”的 Phase 0 闭环，但仍是候选快照，不是已审核全国知识库。
+
+Phase 1 必须完成以下工作后才能准入：
+
+1. 标准化适用地区及省/市/区父子关系；
+2. 核对发布机构、标题、发布日期和生效区间；
+3. 将采集状态映射为政策效力状态；
+4. 隔离无法核验、过期或适用范围未知的文档；
+5. 对金额、年龄、资格、期限和办理入口进行人工复核；
+6. 确认重复组和 canonical 官方来源。
+
+已有北京、河北原文仍通过 `knowledge/metadata/overrides.json` 修正元数据，语义切片和索引过程不改写源 Markdown。
+
+## 6. Phase 0 回归验证
+
+2026-08-02 完成以下本地验收：
+
+| 命令 | 结果 |
+| --- | --- |
+| `pnpm knowledge:intake:audit` | 清单验证通过，47份、375197字节 |
+| `pnpm knowledge:validate` | 6份正式文档，0 errors、0 warnings |
+| `pnpm rag:build -- --rebuild` | 6份文档、54个 chunks、0 vector rows |
+| `pnpm eval` | Recall@5 = 0.95、MRR = 0.80，既有质量指标无回退 |
+| `pnpm test` | 7个测试文件、42条测试全部通过 |
+
+这证明 intake 快照没有进入默认加载范围，也没有改变现有索引规模和回归基线。

@@ -1,8 +1,8 @@
 # 北京 + 河北育儿补贴政策对话助手
 
-一个本地可运行的 TypeScript MVP，用统一 Pi Agent Runtime 承载 `childcare-subsidy` Profile。它只检索已登记的北京、河北和必要的全国政策资料，只开放五个低风险政策工具，并在结构化结果通过 Schema 与业务校验后才发送给浏览器。
+一个本地可运行的 TypeScript MVP，用统一 Pi Agent Runtime 承载 `childcare-subsidy` Profile。它将 Markdown、TXT、HTML、PDF、DOCX 政策材料统一抽取到可追溯知识索引，只开放五个低风险政策工具，并在结构化结果通过 Schema 与业务校验后才发送给浏览器。页面同时提供对话与 Wiki 式知识库视图。
 
-正式本地 MVP 默认使用 DeepSeek 完成规则提取和回答，使用 SQLite 保存本体规则，并以确定性代码完成资格判定。`TestModelProvider` 和录制提取响应只用于自动化测试。真实 DeepSeek 模型 ID 不在代码中猜测，必须通过 `MODEL_NAME` 配置。
+当前默认使用确定性的 `TestModelProvider`，无需密钥即可完成索引、测试、评测和页面演示。真实 DeepSeek 模型 ID 不在代码中猜测，必须通过 `MODEL_NAME` 配置。
 
 ## 已验证版本
 
@@ -18,10 +18,9 @@
 
 ## 本地运行
 
-仓库不发布政策原文、整理快照、元数据覆盖文件或包含证据正文的 Golden。首次运行前，请按 [knowledge/README.md](knowledge/README.md) 将有权使用的政策 Markdown 放入本地忽略目录，再构建索引。
-
 ```bash
-pnpm install --frozen-lockfile
+pnpm install
+pnpm deps:check
 pnpm inspect:extensions
 pnpm knowledge:validate
 pnpm rag:build -- --rebuild
@@ -34,24 +33,7 @@ pnpm dev
 
 打开 <http://127.0.0.1:3001>。`pnpm dev` 会先构建受控前端，再启动仅监听回环地址的 HTTP + WebSocket 服务。Windows PowerShell 若阻止 `pnpm.ps1`，可等价使用 `pnpm.cmd`，无需更改系统执行策略。
 
-### 本体问答闭环
-
-先将有权使用的政策 Markdown 放入 `knowledge/raw/`。`knowledge/samples/` 中包含两份明确标注为合成数据的北京、河北演示文件，可以用于验证格式，但不是正式政策。配置 `.env` 后执行：
-
-```bash
-pnpm knowledge:validate
-pnpm rag:build -- --rebuild
-pnpm onto:step2 -- --project childcare --version v1 --policy childcare-subsidy --data-root knowledge/raw
-pnpm onto:inspect -- --project childcare --version v1
-pnpm onto:finalize -- --project childcare --version v1
-pnpm onto:publish -- --project childcare --version v1
-pnpm onto:query -- --policy childcare-subsidy --version v1 --region 北京市 --text "孩子5个月，北京户籍"
-pnpm mvp:dev
-```
-
-`onto:step2` 对未变化文件采用内容哈希断点续跑。`onto:publish` 会拒绝零规则、提取错误或规则冲突，并将版本标记为不可修改。网页查询优先读取已发布的本地规则判定，再使用 BM25 政策证据补充回答；规则库异常时降级为纯证据检索并记录 `ontology_fallback`。
-
-本地数据库默认位于 `.local/ontology.db`，可通过 `LOCAL_ONTOLOGY_DB` 修改。`mvp:check` 会检查模型配置、语料、BM25 索引和已发布规则版本。
+不要使用 `pnpm install --no-optional`：`sqlite-vec` 与 Vite/Rolldown 通过 `optionalDependencies` 分发 Windows、macOS、Linux 对应的原生包。若曾使用该参数并看到 `sqlite-vec-windows-x64` 或 `@rolldown/binding-win32-x64-msvc` 缺失，运行 `pnpm install --force` 恢复依赖，再执行 `pnpm deps:check`。
 
 额外命令：
 
@@ -63,7 +45,7 @@ pnpm smoke
 pnpm test:integration
 ```
 
-`golden:generate` 总是先执行 BM25，并保存实际 `document_id`、`chunk_id`、证据正文和生成模型；生成记录固定标为 `pending_review`，不会自动成为绝对真值。该输出包含证据正文，因此只保存在本地并被 Git 忽略。
+`golden:generate` 总是先执行 BM25，并保存实际 `document_id`、`chunk_id`、证据正文和生成模型；生成记录固定标为 `pending_review`，不会自动成为绝对真值。
 
 ## 配置 DeepSeek
 
@@ -80,9 +62,13 @@ MODEL_NAME=由实际服务商提供的 DeepSeek V4 Flash API model ID
 
 ## 知识库与索引
 
-本地验收曾对用户提供目录中的 47 个 Markdown 完成严格 UTF-8、乱码和来源 URL 检查，并使用北京、河北相关原文及受控快照验证切片与检索。政策原文、快照和派生元数据均不纳入 Git 历史，也不随远端仓库发布。
+用户提供目录中的 47 个 Markdown 已全部做严格 UTF-8、乱码和来源 URL 检查；仅北京、河北两份相关原文按字节复制到 `knowledge/raw/`，原文件不被修改。为覆盖金额、河北完整细则、北京 2026 年期限更新和生育津贴辨析，`knowledge/curated/` 保存带官方来源的固定技术验证快照，不伪装为原始公文。
 
-将有权使用的真实 Markdown 放入本地 `knowledge/raw/`，必要时补充 `knowledge/metadata/overrides.json`，再执行 `knowledge:validate` 与 `rag:build`。这些路径已被 `.gitignore` 强制排除；切片规则见 [chunking-strategy.md](docs/chunking-strategy.md)，输入审计见 [knowledge-audit.md](docs/knowledge-audit.md)。`knowledge/index/rag.db` 也是本地生成物，不提交 Git。
+将后续真实 Markdown、TXT、HTML、文本型 PDF 或 DOCX 放入 `knowledge/raw/`，补充 `knowledge/metadata/overrides.json` 后重新执行 `knowledge:validate` 与 `rag:build`。扫描 PDF 的 OCR 不在当前 MVP 范围内。切片规则见 [chunking-strategy.md](docs/chunking-strategy.md)，输入审计见 [knowledge-audit.md](docs/knowledge-audit.md)。`knowledge/index/rag.db` 是生成物，不提交 Git。
+
+本次 MVP 的范围取舍、数据管道、Agent Runtime、后端接口、演示顺序和简历写法集中记录在 [internship-mvp.md](docs/internship-mvp.md)。
+
+后续评测集扩充、检索/切片/Runtime/后端调优、实验记录规范和简历数据沉淀路线见 [tuning-and-data-plan.md](docs/tuning-and-data-plan.md)。
 
 索引沿用 `pi-local-rag` 的 `files`、`chunks`、`chunks_fts`、哈希和 FTS5 触发器，另建 `policy_documents` 与 `policy_chunks` 保存地区、机构、日期、状态、版本组、父级标题和原始行号。第一版运行链路只查询 SQLite `bm25()`；每次构建和服务启动都会断言 `chunks_vec` 为 0。
 
@@ -100,7 +86,7 @@ Agent 可见工具严格等于：
 
 浏览器只能发送 `ask / reset`，只能收到 `status / result / safe_error / session_reset`。原始 Agent 事件、思维过程、Tool 参数/结果、半截 JSON、Prompt、内部消息和异常栈不会进入公开协议。最终 `result` 必须经过 JSON 解析、Schema Validator 和 Policy Business Validator；第一次失败只请求修复结构，第二次失败使用确定性安全模板。
 
-Session 仅在内存保存，TTL 默认 10 分钟，用户输入上限由 `MAX_SESSION_TURNS` 控制（默认 20 次）；页面“新建会话”会清除服务端状态并生成新的会话 ID。不跨会话记忆，也不持久化真实对话。
+Session 仅在内存保存，TTL 默认 10 分钟，最多两次用户输入和一次澄清；不跨会话记忆，也不持久化真实对话。
 
 Raindrop 默认关闭且默认不采集内容：
 
@@ -117,7 +103,6 @@ RAINDROP_CAPTURE_CONTENT=false
 apps/policy-runtime            本地 HTTP + WebSocket 入口
 apps/policy-web                受控 pi-web-ui 前端
 packages/pi-runtime-adapter    统一 Pi Runtime、Profile 与 Evidence Pack
-packages/ontology              本体平台、Step2 建模、规则引擎接入
 packages/policy-rag-adapter    pi-local-rag BM25、切片、中文检索和版本过滤
 packages/model-provider        DeepSeek / Test Provider
 packages/tools                 五个白名单工具
@@ -125,10 +110,7 @@ packages/session               两轮内存 Session
 packages/validators            Schema 与政策业务校验
 packages/raindrop-adapter      Raindrop / Local / Composite Recorder
 domains/childcare-subsidy      Profile、Skill、References 与 Evals
-knowledge                     本地语料接入说明与被忽略的本地索引
-knowledge/examples            本体骨架与 OKF 输出样例
-docs/learning                 ChatGST 技术学习笔记与 bridge 源码拆解
-vendor/chatgst-learning-kit   Python 管道、Vue 管理端和部署脚本参考源码
+knowledge                     原文、固定快照、元数据与生成索引
 ```
 
 详细数据流和可替换接口见 [architecture.md](docs/architecture.md)，评测口径和基线见 [eval-report.md](docs/eval-report.md)。
@@ -141,7 +123,6 @@ vendor/chatgst-learning-kit   Python 管道、Vue 管理端和部署脚本参考
 
 ## 已知限制
 
-- 远端仓库不包含政策语料；全量 RAG、Runtime 和 Eval 验证需要先在本地补充已获授权的 Markdown 并重建索引。
 - 当前环境没有 DeepSeek 和 Raindrop 凭据；端到端验收使用真实 Pi Agent Core + `TestModelProvider`，没有声称完成外部模型或遥测网络调用。
 - 知识库是截至 2026-07-23 的固定快照，不会自动爬取或发现政策更新。
 - 中文 Recall@5 基线为 `0.95`；北京/河北对比题仍是最值得扩充标注与查询扩展的检索场景。

@@ -1,4 +1,5 @@
 import type { EvidenceItem, PolicyMetadata } from "@policy/schemas/index";
+import type { SourceFormat } from "./document-extractor.js";
 
 export type PolicyDocument = {
   metadata: PolicyMetadata;
@@ -8,6 +9,8 @@ export type PolicyDocument = {
   raw: string;
   bodyStartLine: number;
   fileHash: string;
+  sourceFormat: SourceFormat;
+  extractionWarnings: string[];
 };
 
 export type PolicyChunk = {
@@ -53,6 +56,26 @@ export type PolicySource = {
   source_url: string;
 };
 
+export type KnowledgeDocumentSummary = {
+  metadata: PolicyMetadata;
+  source_format: SourceFormat;
+  chunks: number;
+  characters: number;
+  extraction_warnings: string[];
+  indexed_at: string;
+};
+
+export type KnowledgeDocumentDetail = KnowledgeDocumentSummary & {
+  sections: Array<{
+    chunk_id: string;
+    ordinal: number;
+    section_path: string[];
+    content: string;
+    line_start: number;
+    line_end: number;
+  }>;
+};
+
 export type PolicyVersionResolution =
   | { status: "resolved"; policies: PolicyMetadata[] }
   | { status: "not_found"; policies: [] }
@@ -70,6 +93,13 @@ export interface RetrievalProvider {
   getStats?(): { documents: number; chunks: number; vector_rows: number; retrieval_mode: string };
 }
 
+export interface KnowledgeBrowserProvider {
+  listKnowledgeDocuments(input?: { region?: string; query?: string }): Promise<KnowledgeDocumentSummary[]>;
+  getKnowledgeDocument(documentId: string): Promise<KnowledgeDocumentDetail | null>;
+  search(input: SearchPolicyInput): Promise<PolicySearchResult[]>;
+  getStats(): { documents: number; chunks: number; vector_rows: number; retrieval_mode: string };
+}
+
 export type IndexBuildReport = {
   documents_total: number;
   documents_indexed: number;
@@ -79,4 +109,3 @@ export type IndexBuildReport = {
   vector_rows: number;
   built_at: string;
 };
-

@@ -32,6 +32,8 @@ export function ensurePolicySchema(database: Database.Database): void {
       policy_type TEXT NOT NULL,
       version_group TEXT NOT NULL,
       version_priority INTEGER NOT NULL DEFAULT 0,
+      source_format TEXT NOT NULL DEFAULT 'markdown',
+      extraction_warnings TEXT NOT NULL DEFAULT '[]',
       indexed_at TEXT NOT NULL
     );
 
@@ -51,6 +53,14 @@ export function ensurePolicySchema(database: Database.Database): void {
     CREATE INDEX IF NOT EXISTS policy_chunks_document
       ON policy_chunks(document_id, ordinal);
   `);
+  const columns = database.prepare("PRAGMA table_info(policy_documents)").all() as Array<{ name: string }>;
+  const names = new Set(columns.map((column) => column.name));
+  if (!names.has("source_format")) {
+    database.exec("ALTER TABLE policy_documents ADD COLUMN source_format TEXT NOT NULL DEFAULT 'markdown'");
+  }
+  if (!names.has("extraction_warnings")) {
+    database.exec("ALTER TABLE policy_documents ADD COLUMN extraction_warnings TEXT NOT NULL DEFAULT '[]'");
+  }
 }
 
 function registeredUri(documentId: string): string {
@@ -107,8 +117,9 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
         INSERT INTO policy_documents(
           document_id, source_path, file_name, file_hash, title, region, authority,
           publish_date, effective_from, effective_to, status, source_url,
-          policy_type, version_group, version_priority, indexed_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          policy_type, version_group, version_priority, source_format,
+          extraction_warnings, indexed_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
       const insertChunk = database.prepare(`
         INSERT INTO chunks(
@@ -155,6 +166,8 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
           metadata.policy_type,
           metadata.version_group,
           metadata.version_priority,
+          document.sourceFormat,
+          JSON.stringify(document.extractionWarnings),
           now,
         );
         const chunks = options.chunker.chunk(document);

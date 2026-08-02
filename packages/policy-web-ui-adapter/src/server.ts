@@ -7,6 +7,7 @@ import { WebSocketServer, type WebSocket } from "ws";
 import { browserCommandSchema } from "@policy/schemas/index";
 import { asPolicyError, type RuntimeConfig } from "@policy/shared/index";
 import type { PolicyAgentRuntime } from "@policy/runtime/index";
+import type { KnowledgeBrowserProvider } from "@policy/rag/index";
 import { PolicyUiEventAdapter } from "./event-adapter.js";
 
 const mimeTypes: Record<string, string> = {
@@ -22,6 +23,7 @@ const mimeTypes: Record<string, string> = {
 
 export type PolicyServerOptions = {
   runtime: Pick<PolicyAgentRuntime, "answer" | "reset">;
+  knowledge?: KnowledgeBrowserProvider;
   config: RuntimeConfig;
   staticDir: string;
 };
@@ -40,7 +42,7 @@ export function createPolicyServer(options: PolicyServerOptions) {
   const adapter = new PolicyUiEventAdapter();
   const server = createServer(async (request, response) => {
     try {
-      await handleHttp(request, response, staticRoot);
+      await handleHttp(request, response, staticRoot, options.knowledge);
     } catch {
       sendJson(response, 500, { status: "error", message: "服务暂时不可用" });
     }
@@ -127,14 +129,75 @@ export function createPolicyServer(options: PolicyServerOptions) {
   };
 }
 
-async function handleHttp(request: IncomingMessage, response: ServerResponse, staticRoot: string): Promise<void> {
+async function handleHttp(
+  request: IncomingMessage,
+  response: ServerResponse,
+  staticRoot: string,
+  knowledge?: KnowledgeBrowserProvider,
+): Promise<void> {
   if (request.method !== "GET" && request.method !== "HEAD") {
     sendJson(response, 405, { status: "error", message: "仅支持读取请求" });
     return;
   }
   const requestUrl = new URL(request.url ?? "/", "http://127.0.0.1");
   if (requestUrl.pathname === "/healthz") {
-    sendJson(response, 200, { status: "ok", service: "childcare-policy-assistant", host: "loopback" });
+    sendJson(response, 200, {
+      status: "ok",
+      service: "childcare-policy-assistant",
+      host: "loopback",
+      ...(knowledge ? { knowledge: knowledge.getStats() } : {}),
+    });
+    return;
+  }
+  if (requestUrl.pathname.startsWith("/api/knowledge")) {
+    if (!knowledge) {
+      sendJson(response, 503, { status: "error", message: "知识库暂不可用" });
+      return;
+    }
+    if (requestUrl.pathname === "/api/knowledge/documents") {
+      const region = requestUrl.searchParams.get("region")?.trim() || undefined;
+      const query = requestUrl.searchParams.get("q")?.trim() || undefined;
+      if ((region && !["北京市", "河北省", "全国", "全部"].includes(region)) || (query?.length ?? 0) > 200) {
+        sendJson(response, 400, { status: "error", message: "知识库筛选参数无效" });
+        return;
+      }
+      const documents = await knowledge.listKnowledgeDocuments({ ...(region ? { region } : {}), ...(query ? { query } : {}) });
+      sendJson(response, 200, { status: "ok", documents, count: documents.length });
+      return;
+    }
+    if (requestUrl.pathname === "/api/knowledge/search") {
+      const query = requestUrl.searchParams.get("q")?.trim() ?? "";
+      const region = requestUrl.searchParams.get("region")?.trim() ?? "对比";
+      const effectiveDate = requestUrl.searchParams.get("effective_date")?.trim() ?? new Date().toISOString().slice(0, 10);
+      if (!query || query.length > 1000 || !["北京市", "河北省", "对比"].includes(region) || !/^\d{4}-\d{2}-\d{2}$/u.test(effectiveDate)) {
+        sendJson(response, 400, { status: "error", message: "检索参数无效" });
+        return;
+      }
+      const results = await knowledge.search({
+        query,
+        region: region as "北京市" | "河北省" | "对比",
+        effective_date: effectiveDate,
+        top_k: 8,
+      });
+      sendJson(response, 200, { status: "ok", results, count: results.length });
+      return;
+    }
+    const detailMatch = requestUrl.pathname.match(/^\/api\/knowledge\/documents\/([^/]+)$/u);
+    if (detailMatch) {
+      const documentId = decodeURIComponent(detailMatch[1] ?? "");
+      if (!/^[\p{L}\p{N}:._-]{1,160}$/u.test(documentId)) {
+        sendJson(response, 400, { status: "error", message: "文档编号无效" });
+        return;
+      }
+      const document = await knowledge.getKnowledgeDocument(documentId);
+      if (!document) {
+        sendJson(response, 404, { status: "not_found" });
+        return;
+      }
+      sendJson(response, 200, { status: "ok", document });
+      return;
+    }
+    sendJson(response, 404, { status: "not_found" });
     return;
   }
   const relative = requestUrl.pathname === "/" ? "index.html" : decodeURIComponent(requestUrl.pathname.slice(1));

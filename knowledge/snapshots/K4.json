@@ -1,0 +1,249 @@
+{
+  "schema_version": 1,
+  "snapshot_id": "K4",
+  "description": "K3 加入版本组、有效区间与来源权威性优先级。",
+  "created_at": "2026-08-02T00:00:00.000Z",
+  "source_audit_hash": "e79593ab8fe4555f6340c41f74b211779ec307986e82abddd027a9f13d7c52b2",
+  "configuration": {
+    "metadata_governance": true,
+    "canonical_deduplication": true,
+    "version_authority_policy": true
+  },
+  "documents": [
+    {
+      "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+      "source_sha256": "3619d25d6d6cb7794d7eaeba9e6eec905f7dab803996f27c95ea5e5123d0d0b4",
+      "metadata_sha256": "68bbbb5fc3ce1f308670ceeddd9ef6f0165cb54f88bc88712694b4dcebdef2ec"
+    },
+    {
+      "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+      "source_sha256": "e4eb17bfb5c4245db664b8bda5adde241b31d7aa17f1215f2bbb6ed7b11f8bdb",
+      "metadata_sha256": "047e43c4eb9a5ea63f8423d450c58e6b8e3ffcdefcc7e8fba2c70adaf363a223"
+    },
+    {
+      "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+      "source_sha256": "0378aacf7982352d15b77935c6cf8b15ee79638ca210268e705517d13ac61229",
+      "metadata_sha256": "e8b2970abf69d93ca1fa43ba2b43b3c6cc96e5a3c4d2742044ce20a89f7b2780"
+    },
+    {
+      "document_id": "大庆市_政策规章_育儿补贴申请“一件事”_70",
+      "source_sha256": "30181953d3b57e6caf4f4ae2174ec5305ef65be4a2a378defac0f69d0251e69b",
+      "metadata_sha256": "8dfb73eaba1f0e4cf0f2b8ae140fdc32717fded4c959ff598ddb354e36558840"
+    },
+    {
+      "document_id": "地级以上市_政策规章_育儿补贴申请“一件事”_36",
+      "source_sha256": "4bc1064414cac1b41d1cfe93953b544619279c6ddf0042fb20f50cb160cf6b8b",
+      "metadata_sha256": "9ffc37d32462967d3e9ab11d7d8d003ab2018a58fbb659e58a2a18046c888d50"
+    },
+    {
+      "document_id": "鄂尔多斯市_政策规章_育儿补贴申请“一件事”_71",
+      "source_sha256": "3c64d1abd9c4c6f78797a59004075f1008c5e1bd31767b0ce0d6a599ad295fb1",
+      "metadata_sha256": "744ea7d940d60427b767a12107e0285704f0a45760bb0ced4216d37f93feb61b"
+    },
+    {
+      "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+      "source_sha256": "1c1547c9f00fd0fc51eb1f8258246dc27577a74ca78d68c0c598035d8dafd855",
+      "metadata_sha256": "e89fa7206e97dacf989be96e68d8be48cb06a477bd3867e13e89aadb44563ffe"
+    },
+    {
+      "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+      "source_sha256": "86843295f5cc4d4dbc1e396edf038f787dd830b491d300be21aee9e196f8ae33",
+      "metadata_sha256": "2639f02ddc21f616a9a8abf619500376afc7eaba2b9ffcac395f8d7cb52746d9"
+    },
+    {
+      "document_id": "附普陀区_办事指南_育儿补贴申请“一件事”_10",
+      "source_sha256": "79fb362a6ad22d13e8be1eb75e869a2928f34e608e1d34e8f3be98323766c4ab",
+      "metadata_sha256": "5a9e0da04a9fd8858e88938e7d048a2cad7d8a06a26a7eaccb140e45b06956a1"
+    },
+    {
+      "document_id": "广东省_办事指南_育儿补贴申请“一件事”_37",
+      "source_sha256": "fc38b33e8e77321f1c72faf68ac23356b048a80a3ec8fb5119de1cce662e640b",
+      "metadata_sha256": "fd15cefa1ac5763ed365fe1134b636c5b531d0b744906d5b9da117b0f6e61c76"
+    },
+    {
+      "document_id": "广西壮族自治区_政策规章_育儿补贴申请“一件事”_38",
+      "source_sha256": "1b14eb309fc663535de65fcb198f418a88aa8666f44cf812c013bcde8717dcd2",
+      "metadata_sha256": "743c746ab7d05ef8e971e5ac775908acf317a094d76ae95b78cf6063a7bf0754"
+    },
+    {
+      "document_id": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69",
+      "source_sha256": "2025847fd5153ad31c56c1839746861487ac4ef49d686150da5f82a71ea14cd4",
+      "metadata_sha256": "2f27dd0ef308190f6baf8e54839035220acf7a1f856b995cfef9b6a9ee034776"
+    },
+    {
+      "document_id": "海南省_办事指南_育儿补贴申请“一件事”_41",
+      "source_sha256": "475661785cbd75235dcb1d11febe4086757861cfe6509d3db756b90c4f38ad93",
+      "metadata_sha256": "dd9c2edadfaabd16229dfb360da4cf71e373aca0530aae9b1f24b5f4b90b1b62"
+    },
+    {
+      "document_id": "海南省_政策规章_育儿补贴申请“一件事”_40",
+      "source_sha256": "117686a862366ec96cebf435ccec0f9e2001763ec18cedf40b327d38cf3e16fe",
+      "metadata_sha256": "606d1bb884fb865d042745853b5969790877b88e68d9f15a3c9ab32a493822e8"
+    },
+    {
+      "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+      "source_sha256": "e6cce271ccbdf1d4f4bc3448f3a7956ad4973ed4e3d263a388cf4436be8d1025",
+      "metadata_sha256": "46778c72c2a2bc11a89b7dca070794cb177522bd49d0615aa76fbb1d05c34228"
+    },
+    {
+      "document_id": "河南省_办事指南_育儿补贴申请“一件事”_30",
+      "source_sha256": "6ab0a1799c9a60ba1385c0b52738358d4d247270bd5f54e5be771b6cbc0f4176",
+      "metadata_sha256": "dde2e485ca0a7b16e7229f1b6871fd8f6fad2371896373463218483989a79bdb"
+    },
+    {
+      "document_id": "黑龙江省_官方解读_育儿补贴申请“一件事”_66",
+      "source_sha256": "d4fb33f4ab4835bf4d289c9b343d9bcb02aca9590b5aa1dbbedcbff5f2960355",
+      "metadata_sha256": "1696e58e4de3d970f00d8b99f5ba8b3d5d7c58010a8d1f3ce2d7b0596a31a127"
+    },
+    {
+      "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+      "source_sha256": "8d986ffca9239e2fca267037e41216fd8b32468bef5b9ff7c471963109e372f1",
+      "metadata_sha256": "750dfc8917285b35874562c43d77675b42601ae7d3802bfa15539cc5d49f390d"
+    },
+    {
+      "document_id": "呼和浩特市_政策规章_育儿补贴申请“一件事”_72",
+      "source_sha256": "a19caa862d3b598b395ab8e496906d328e5e44080642c191ee5d6d4d33f51aa1",
+      "metadata_sha256": "3263caede827ec1993e1a471cd90d89526c871a4d3783436d6d68f5ac90c6bfa"
+    },
+    {
+      "document_id": "湖北省_政策规章_育儿补贴申请“一件事”_31",
+      "source_sha256": "c639cb52d94fb4f19e9fff30d30c11786b32af115589744cbd9a652da94d7144",
+      "metadata_sha256": "514ad9e18423f84baaf143a795a3f3f833b5f50b1bdd86a4c2be78092b00a91f"
+    },
+    {
+      "document_id": "湖南省_官方解读_育儿补贴申请“一件事”_34",
+      "source_sha256": "be654a66b9c58bd8f837f284f71a137386110053906c6976ca5042918ad75851",
+      "metadata_sha256": "fe2ff3f4e54e623b266b13036ba2c294e07ac16f294e507df2a3fe6412661251"
+    },
+    {
+      "document_id": "吉林省_官方解读_育儿补贴申请“一件事”_63",
+      "source_sha256": "678723cb2c41785f3aa213486b0199d5914619119602fe6e92a06ed24cbc01b0",
+      "metadata_sha256": "00baab53f001fb3fb95d260868432907cd4c8888e8e4fa891902fa93663bda9f"
+    },
+    {
+      "document_id": "济南市_政策规章_育儿补贴申请“一件事”_73",
+      "source_sha256": "27b294741583d1887c40e4e2907ecffd87b1992d75b0675cf6b3a476e1032955",
+      "metadata_sha256": "7a11c1c2edf70bcf826526f3d8ec9bcd57988718a47c435b5a96b746a89f781d"
+    },
+    {
+      "document_id": "江西省_政策规章_育儿补贴申请“一件事”_25",
+      "source_sha256": "1fedf457bfd8bce139f55f3335b8cfdf4ad9d8541851a5da435807fdf4be52fa",
+      "metadata_sha256": "638b6d41fe8892220be6d12f6e9acaf7b32c309c33e91d1d581cb2014b07fdfc"
+    },
+    {
+      "document_id": "辽宁省_官方解读_育儿补贴申请“一件事”_61",
+      "source_sha256": "74b4b57543ccd03177904bf9a3f74de2b8d8b2ee32a39f7a38bffcfef4785f74",
+      "metadata_sha256": "be41566c0bceb8f376ee7eae20a5ddf94288c3a3ffb7a840b51d8c56c4679497"
+    },
+    {
+      "document_id": "内蒙古自治区_办事指南_育儿补贴申请“一件事”_18",
+      "source_sha256": "1755cf0ebfb4f2fe3a58fdf65f966ccb24353810aa79b55f20a010aeca2ae556",
+      "metadata_sha256": "db43a887b6179bca2a0df42a2506d719c047092dbc2a1aa23f98ab2354f06e4f"
+    },
+    {
+      "document_id": "攀枝花市_政策规章_育儿补贴申请“一件事”_68",
+      "source_sha256": "05414b3493808048b72e1ec35609f8cc948c92a823ccdd2b924df88657c4c317",
+      "metadata_sha256": "ff0031d61ba401f92bbe94e5f551d4381bab0e915ef6d6df1f0a48936d03d7d1"
+    },
+    {
+      "document_id": "潜江市_政策规章_育儿补贴申请“一件事”_80",
+      "source_sha256": "cbd29ab5a7a7c1030b38ef0238cae1596a1f7665bcd4b072c8aca2e28e6972ac",
+      "metadata_sha256": "25f0fa20ac02582783c6946930311ccc63dc0dee1261d2650fdca27c206ea0aa"
+    },
+    {
+      "document_id": "山东省_政策规章_育儿补贴申请“一件事”_27",
+      "source_sha256": "07da034f4f2dafb5ae4a17cca21d983ccc45e8e0207aa12383d42e7de8513ed2",
+      "metadata_sha256": "626bc9fde54316f16f68ebf39be493630dfa6de940646d3760c710756b3d1731"
+    },
+    {
+      "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+      "source_sha256": "ecaf9555a5566f587e74d5a9236c0776ba6f28ffc8e66e3520953ffa7ba2e3dd",
+      "metadata_sha256": "c6a0ddfbbc82e2ecd776cd1c741836510df6c2476e2134afb31adb3f08b0990a"
+    },
+    {
+      "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+      "source_sha256": "1d26b17638dfcc2fd498d136b8146a5aea0668c85e7ccc6ca5978f689ebca49a",
+      "metadata_sha256": "32fe43a87e39b46d1967edcc077f915dbc7f631808edcc6a0f846f082f0fae9d"
+    },
+    {
+      "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+      "source_sha256": "48d35a379045bb146894073389b30e383fb8736531502508ec762f5046616697",
+      "metadata_sha256": "7a0e9769be8c6c8e6f82116fc44f281efff6aaec84e0e10054294efb0c9753d4"
+    },
+    {
+      "document_id": "四川省_政策规章_育儿补贴申请“一件事”_42",
+      "source_sha256": "06aa7ab4b725b6aa68251f2afcb15e6d0c1fe31bfe98c7328d4293948ca2e774",
+      "metadata_sha256": "bf3b83a434e6de09df905dbdcffbb341f272ab23110173a040063f38c7deb323"
+    },
+    {
+      "document_id": "天津市_政策规章_育儿补贴申请“一件事”_11",
+      "source_sha256": "8dd97ae6d1b3bcbf972b797c6582ba9308e59bb62845f9de433d97cce3137794",
+      "metadata_sha256": "4c39aed79359adbbf176f91715150b6d10b5290a826f291c5f9a9da298e36984"
+    },
+    {
+      "document_id": "贴申领专区_官方解读_育儿补贴申请“一件事”_32",
+      "source_sha256": "cb95aaeea15f296b432068dd8b5c78a2d4b6dd11d3fecac253d6513c9d85d211",
+      "metadata_sha256": "1a1f7cb6c4af7aa0e64a0e9f6f60a032c84c5bdf9d2ca578e26e4213345143d8"
+    },
+    {
+      "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+      "source_sha256": "750aecf2c8a09342fa71397d866de4dcf43bec4012b9722970be2569ebec0e3a",
+      "metadata_sha256": "f20b28a9996d6567096d5268c0bbe006169e5ffb861fb132c7b7f78eb986dc13"
+    },
+    {
+      "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+      "source_sha256": "594e9c865b6ad75b9f57481bbaabdb9bdf21599e08def9ca706f6990f857d8c3",
+      "metadata_sha256": "aa87616e1cb44bf1d749b5af3554f66a2cdcab9463f16c37be98aab899dc464b"
+    },
+    {
+      "document_id": "友好型城市_政策规章_育儿补贴申请“一件事”_78",
+      "source_sha256": "2dd820fec605351b82f63f46203cde2b933203cf6e97990a4408eb576ec2003d",
+      "metadata_sha256": "f63866675572919361c01533f590413da1251916c29e5eae623ec8c2a3bc6c8d"
+    },
+    {
+      "document_id": "云南省_政策规章_育儿补贴申请“一件事”_46",
+      "source_sha256": "a907d374fd83b0994397a046f6aea3aba528ac9ce78d1c9ca71bd93839798d5a",
+      "metadata_sha256": "beee1aab146b038d8ad079e11e7a9bd2cae5e52ec2746583ecaa38c3daaa9ee5"
+    }
+  ],
+  "excluded": [
+    {
+      "document_id": "杭州市_政策规章_育儿补贴申请“一件事”_79",
+      "reason": "quarantined"
+    },
+    {
+      "document_id": "辽宁省_办事指南_育儿补贴申请“一件事”_60",
+      "reason": "quarantined"
+    },
+    {
+      "document_id": "衢州市_政策规章_育儿补贴申请“一件事”_76",
+      "reason": "quarantined"
+    },
+    {
+      "document_id": "温州市_政策规章_育儿补贴申请“一件事”_77",
+      "reason": "quarantined"
+    },
+    {
+      "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_21",
+      "reason": "non_canonical_duplicate"
+    },
+    {
+      "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_58",
+      "reason": "non_canonical_duplicate"
+    },
+    {
+      "document_id": "育儿补贴申请“一件事”_办事指南_育儿补贴申请“一件事”_19",
+      "reason": "quarantined"
+    },
+    {
+      "document_id": "浙江省_政策规章_育儿补贴申请“一件事”_20",
+      "reason": "quarantined"
+    }
+  ],
+  "counts": {
+    "documents": 39,
+    "excluded": 8
+  },
+  "reproducibility": "manifest",
+  "snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce"
+}

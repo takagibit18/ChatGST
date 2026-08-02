@@ -66,6 +66,10 @@ function normalizeStatus(value: unknown): PolicyMetadata["status"] {
   return value === "effective" || value === "expired" || value === "draft" ? value : "unknown";
 }
 
+function sourceDomain(value: string): string {
+  try { return new URL(value).hostname; } catch { return "unknown"; }
+}
+
 function metadataFrom(
   fileName: string,
   attributes: Record<string, unknown>,
@@ -85,6 +89,7 @@ function metadataFrom(
   const reviewStatus = override?.review_status
     ?? (attributes.review_status === "approved" || attributes.review_status === "quarantined" ? attributes.review_status : undefined)
     ?? (inferredReasons.length > 0 ? "quarantined" : "approved");
+  const sourceUrl = sourceOrUnknown(override?.source_url ?? attributes.source_url ?? attributes.resource);
   const candidate = {
     document_id: documentId,
     title: String(override?.title ?? attributes.title ?? "unknown"),
@@ -98,10 +103,17 @@ function metadataFrom(
     effective_from: dateOrUnknown(override?.effective_from ?? attributes.effective_from),
     effective_to: nullableDate(override?.effective_to ?? attributes.effective_to),
     status,
-    source_url: sourceOrUnknown(override?.source_url ?? attributes.source_url ?? attributes.resource),
+    source_url: sourceUrl,
     policy_type: String(override?.policy_type ?? attributes.policy_type ?? "childcare-subsidy"),
+    document_kind: override?.document_kind ?? attributes.document_kind ?? "unknown",
+    source_domain: String(override?.source_domain ?? attributes.source_domain ?? sourceDomain(sourceUrl)),
+    publisher_region_code: override?.publisher_region_code ?? attributes.publisher_region_code ?? region?.code ?? null,
+    policy_number: override?.policy_number ?? attributes.policy_number ?? null,
     version_group: String(override?.version_group ?? attributes.version_group ?? documentId),
     version_priority: Number(override?.version_priority ?? attributes.version_priority ?? 0),
+    canonical_document_id: String(override?.canonical_document_id ?? attributes.canonical_document_id ?? documentId),
+    duplicate_group_id: override?.duplicate_group_id ?? attributes.duplicate_group_id ?? null,
+    source_priority: Number(override?.source_priority ?? attributes.source_priority ?? 0),
     review_status: reviewStatus,
     quarantine_reasons: override?.quarantine_reasons ?? inferredReasons,
   };
@@ -204,5 +216,13 @@ export function nationwideKnowledgeLocations(root = process.cwd()): KnowledgeLoc
     rawDir: resolve(root, "knowledge/intake/nationwide-childcare"),
     curatedDir: resolve(root, "knowledge/intake/.none"),
     overridesPath: resolve(root, "knowledge/metadata/nationwide-childcare-overrides.json"),
+  };
+}
+
+export function phase2NationwideKnowledgeLocations(root = process.cwd()): KnowledgeLocations {
+  return {
+    rawDir: resolve(root, "knowledge/intake/nationwide-childcare"),
+    curatedDir: resolve(root, "knowledge/intake/.none"),
+    overridesPath: resolve(root, "knowledge/metadata/nationwide-childcare-phase2-overrides.json"),
   };
 }

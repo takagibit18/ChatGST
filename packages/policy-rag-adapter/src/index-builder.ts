@@ -12,6 +12,7 @@ export type BuildIndexOptions = {
   textProcessor: SearchTextProcessor;
   rebuild?: boolean;
   now?: () => Date;
+  snapshotHash?: string;
 };
 
 export function ensurePolicySchema(database: Database.Database): void {
@@ -34,8 +35,15 @@ export function ensurePolicySchema(database: Database.Database): void {
       status TEXT NOT NULL,
       source_url TEXT NOT NULL,
       policy_type TEXT NOT NULL,
+      document_kind TEXT NOT NULL DEFAULT 'unknown',
+      source_domain TEXT NOT NULL DEFAULT 'unknown',
+      publisher_region_code TEXT,
+      policy_number TEXT,
       version_group TEXT NOT NULL,
       version_priority INTEGER NOT NULL DEFAULT 0,
+      canonical_document_id TEXT NOT NULL DEFAULT '',
+      duplicate_group_id TEXT,
+      source_priority INTEGER NOT NULL DEFAULT 0,
       review_status TEXT NOT NULL DEFAULT 'approved',
       quarantine_reasons TEXT NOT NULL DEFAULT '[]',
       source_format TEXT NOT NULL DEFAULT 'markdown',
@@ -74,10 +82,18 @@ export function ensurePolicySchema(database: Database.Database): void {
     ["applicable_region_codes", "TEXT NOT NULL DEFAULT '[\"100000\"]'"],
     ["review_status", "TEXT NOT NULL DEFAULT 'approved'"],
     ["quarantine_reasons", "TEXT NOT NULL DEFAULT '[]'"],
+    ["document_kind", "TEXT NOT NULL DEFAULT 'unknown'"],
+    ["source_domain", "TEXT NOT NULL DEFAULT 'unknown'"],
+    ["publisher_region_code", "TEXT"],
+    ["policy_number", "TEXT"],
+    ["canonical_document_id", "TEXT NOT NULL DEFAULT ''"],
+    ["duplicate_group_id", "TEXT"],
+    ["source_priority", "INTEGER NOT NULL DEFAULT 0"],
   ];
   for (const [name, definition] of governanceColumns) {
     if (!names.has(name)) database.exec(`ALTER TABLE policy_documents ADD COLUMN ${name} ${definition}`);
   }
+  database.exec("UPDATE policy_documents SET canonical_document_id = document_id WHERE canonical_document_id = ''");
 }
 
 function registeredUri(documentId: string): string {
@@ -100,7 +116,9 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
   const database = openPiLocalRagDb(indexDir);
   const now = (options.now ?? (() => new Date()))().toISOString();
   const indexableDocuments = options.documents.filter(
-    (document) => (document.metadata.review_status ?? "approved") === "approved" && document.metadata.status !== "unknown",
+    (document) => (document.metadata.review_status ?? "approved") === "approved"
+      && document.metadata.status !== "unknown"
+      && (!document.metadata.canonical_document_id || document.metadata.canonical_document_id === document.metadata.document_id),
   );
   try {
     ensurePolicySchema(database);
@@ -138,9 +156,10 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
           document_id, source_path, file_name, file_hash, title, region, region_code,
           region_level, parent_region_code, applicable_region_codes, authority,
           publish_date, effective_from, effective_to, status, source_url,
-          policy_type, version_group, version_priority, review_status, quarantine_reasons,
+          policy_type, document_kind, source_domain, publisher_region_code, policy_number, version_group, version_priority,
+          canonical_document_id, duplicate_group_id, source_priority, review_status, quarantine_reasons,
           source_format, extraction_warnings, indexed_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
       const insertChunk = database.prepare(`
         INSERT INTO chunks(
@@ -189,8 +208,15 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
           metadata.status,
           metadata.source_url,
           metadata.policy_type,
+          metadata.document_kind ?? "unknown",
+          metadata.source_domain ?? "unknown",
+          metadata.publisher_region_code ?? null,
+          metadata.policy_number ?? null,
           metadata.version_group,
           metadata.version_priority,
+          metadata.canonical_document_id ?? metadata.document_id,
+          metadata.duplicate_group_id ?? null,
+          metadata.source_priority ?? 0,
           metadata.review_status ?? "approved",
           JSON.stringify(metadata.quarantine_reasons ?? []),
           document.sourceFormat,
@@ -234,6 +260,11 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
       database
         .prepare("INSERT OR REPLACE INTO metadata(key, value) VALUES ('retrieval_mode', 'bm25-only')")
         .run();
+      if (options.snapshotHash) {
+        database.prepare("INSERT OR REPLACE INTO metadata(key, value) VALUES ('knowledge_snapshot_hash', ?)").run(options.snapshotHash);
+      } else {
+        database.prepare("DELETE FROM metadata WHERE key = 'knowledge_snapshot_hash'").run();
+      }
     });
     transaction();
     const vectors = database.prepare("SELECT COUNT(*) AS count FROM chunks_vec").get() as { count: number };
@@ -246,6 +277,7 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
       chunks_total: report.chunks,
       vector_rows: vectors.count,
       built_at: now,
+      ...(options.snapshotHash ? { snapshot_hash: options.snapshotHash } : {}),
     };
   } finally {
     database.close();

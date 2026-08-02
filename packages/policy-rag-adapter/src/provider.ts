@@ -32,8 +32,15 @@ type MetadataRow = {
   status: string;
   source_url: string;
   policy_type: string;
+  document_kind: string;
+  source_domain: string;
+  publisher_region_code: string | null;
+  policy_number: string | null;
   version_group: string;
   version_priority: number;
+  canonical_document_id: string;
+  duplicate_group_id: string | null;
+  source_priority: number;
   review_status: string;
   quarantine_reasons: string;
 };
@@ -131,7 +138,9 @@ export class PiLocalRagRetrievalProvider implements RetrievalProvider {
             pd.document_id, pd.title, pd.region, pd.region_code, pd.region_level,
             pd.parent_region_code, pd.applicable_region_codes, pd.authority, pd.publish_date,
             pd.effective_from, pd.effective_to, pd.status, pd.source_url,
-            pd.policy_type, pd.version_group, pd.version_priority, pd.review_status, pd.quarantine_reasons,
+            pd.policy_type, pd.document_kind, pd.source_domain, pd.publisher_region_code, pd.policy_number,
+            pd.version_group, pd.version_priority, pd.canonical_document_id, pd.duplicate_group_id,
+            pd.source_priority, pd.review_status, pd.quarantine_reasons,
             pc.chunk_id, pc.original_content, pc.section_path,
             pc.line_start, pc.line_end, bm25(chunks_fts) AS bm25_score
           FROM chunks_fts
@@ -223,7 +232,9 @@ export class PiLocalRagRetrievalProvider implements RetrievalProvider {
           SELECT pd.document_id, pd.title, pd.region, pd.region_code, pd.region_level,
                  pd.parent_region_code, pd.applicable_region_codes, pd.authority, pd.publish_date,
                  pd.effective_from, pd.effective_to, pd.status, pd.source_url,
-                 pd.policy_type, pd.version_group, pd.version_priority, pd.review_status, pd.quarantine_reasons
+                 pd.policy_type, pd.document_kind, pd.source_domain, pd.publisher_region_code, pd.policy_number,
+                 pd.version_group, pd.version_priority, pd.canonical_document_id, pd.duplicate_group_id,
+                 pd.source_priority, pd.review_status, pd.quarantine_reasons
           FROM policy_documents pd
           LEFT JOIN policy_chunks pc ON pc.document_id = pd.document_id
           WHERE pd.document_id = ? OR pc.chunk_id = ?
@@ -249,12 +260,14 @@ export class PiLocalRagRetrievalProvider implements RetrievalProvider {
           SELECT document_id, title, region, region_code, region_level,
                  parent_region_code, applicable_region_codes, authority, publish_date,
                  effective_from, effective_to, status, source_url,
-                 policy_type, version_group, version_priority, review_status, quarantine_reasons
+                 policy_type, document_kind, source_domain, publisher_region_code, policy_number,
+                 version_group, version_priority, canonical_document_id, duplicate_group_id,
+                 source_priority, review_status, quarantine_reasons
           FROM policy_documents
           WHERE region = ? AND policy_type = ? AND status = 'effective'
             AND effective_from <> 'unknown' AND effective_from <= ?
             AND (effective_to IS NULL OR (effective_to <> 'unknown' AND effective_to >= ?))
-          ORDER BY version_group, version_priority DESC, publish_date DESC
+          ORDER BY version_group, version_priority DESC, source_priority DESC, publish_date DESC, document_id ASC
         `)
         .all(input.region, input.policy_type, input.reference_date, input.reference_date) as MetadataRow[];
       if (rows.length === 0) return { status: "not_found", policies: [] };
@@ -266,15 +279,12 @@ export class PiLocalRagRetrievalProvider implements RetrievalProvider {
         group.push(policy);
         groups.set(versionGroup, group);
       }
-      const conflictGroups = [...groups.entries()]
-        .filter(([, group]) => {
-          const max = Math.max(...group.map((policy) => policy.version_priority ?? 0));
-          return group.filter((policy) => (policy.version_priority ?? 0) === max).length > 1;
-        })
-        .map(([group]) => group);
-      return conflictGroups.length > 0
-        ? { status: "conflict", policies, conflict_groups: conflictGroups }
-        : { status: "resolved", policies };
+      const selected = [...groups.values()].map((group) => [...group].sort((left, right) =>
+        (right.version_priority ?? 0) - (left.version_priority ?? 0)
+        || (right.source_priority ?? 0) - (left.source_priority ?? 0)
+        || right.publish_date.localeCompare(left.publish_date)
+        || left.document_id.localeCompare(right.document_id, "zh-CN"))[0]!);
+      return { status: "resolved", policies: selected };
     } finally {
       database.close();
     }
@@ -301,7 +311,9 @@ export class PiLocalRagRetrievalProvider implements RetrievalProvider {
         SELECT pd.document_id, pd.title, pd.region, pd.region_code, pd.region_level,
                pd.parent_region_code, pd.applicable_region_codes, pd.authority, pd.publish_date,
                pd.effective_from, pd.effective_to, pd.status, pd.source_url,
-               pd.policy_type, pd.version_group, pd.version_priority, pd.review_status, pd.quarantine_reasons,
+               pd.policy_type, pd.document_kind, pd.source_domain, pd.publisher_region_code, pd.policy_number,
+               pd.version_group, pd.version_priority, pd.canonical_document_id, pd.duplicate_group_id,
+               pd.source_priority, pd.review_status, pd.quarantine_reasons,
                pd.source_format, pd.extraction_warnings, pd.indexed_at,
                COUNT(pc.chunk_id) AS chunks,
                COALESCE(SUM(LENGTH(pc.original_content)), 0) AS characters
@@ -325,7 +337,9 @@ export class PiLocalRagRetrievalProvider implements RetrievalProvider {
         SELECT pd.document_id, pd.title, pd.region, pd.region_code, pd.region_level,
                pd.parent_region_code, pd.applicable_region_codes, pd.authority, pd.publish_date,
                pd.effective_from, pd.effective_to, pd.status, pd.source_url,
-               pd.policy_type, pd.version_group, pd.version_priority, pd.review_status, pd.quarantine_reasons,
+               pd.policy_type, pd.document_kind, pd.source_domain, pd.publisher_region_code, pd.policy_number,
+               pd.version_group, pd.version_priority, pd.canonical_document_id, pd.duplicate_group_id,
+               pd.source_priority, pd.review_status, pd.quarantine_reasons,
                pd.source_format, pd.extraction_warnings, pd.indexed_at,
                COUNT(pc.chunk_id) AS chunks,
                COALESCE(SUM(LENGTH(pc.original_content)), 0) AS characters
@@ -365,7 +379,7 @@ export class PiLocalRagRetrievalProvider implements RetrievalProvider {
     }
   }
 
-  getStats(): { documents: number; chunks: number; vector_rows: number; retrieval_mode: string } {
+  getStats(): { documents: number; chunks: number; vector_rows: number; retrieval_mode: string; snapshot_hash?: string } {
     const database = this.openReadyDatabase();
     try {
       const documents = database.prepare("SELECT COUNT(*) AS count FROM policy_documents").get() as { count: number };
@@ -374,11 +388,15 @@ export class PiLocalRagRetrievalProvider implements RetrievalProvider {
       const mode = database.prepare("SELECT value FROM metadata WHERE key = 'retrieval_mode'").get() as
         | { value: string }
         | undefined;
+      const snapshot = database.prepare("SELECT value FROM metadata WHERE key = 'knowledge_snapshot_hash'").get() as
+        | { value: string }
+        | undefined;
       return {
         documents: documents.count,
         chunks: chunks.count,
         vector_rows: vectors.count,
         retrieval_mode: mode?.value ?? "unknown",
+        ...(snapshot ? { snapshot_hash: snapshot.value } : {}),
       };
     } finally {
       database.close();

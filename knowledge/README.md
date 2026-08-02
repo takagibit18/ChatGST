@@ -28,4 +28,14 @@ pnpm rag:build:nationwide -- --rebuild
 
 The nationwide loader resolves administrative aliases to canonical codes and excludes every `quarantined` or `unknown` record before indexing. `knowledge/metadata/overrides.json` remains the backwards-compatible local override path.
 
+Phase 2 artifacts are regenerated and verified with:
+
+```bash
+pnpm knowledge:phase2:write      # intentional artifact refresh
+pnpm knowledge:phase2:validate   # read-only reproducibility check
+pnpm rag:build:nationwide -- --rebuild
+```
+
+`duplicate-candidates.json` is machine-generated and does not itself suppress retrieval. Only confirmed groups in `duplicate-groups.json` assign a canonical document. Immutable K0–K4 manifests live under `knowledge/snapshots/`; the K4 hash is persisted into the SQLite index on a nationwide build.
+
 The generated SQLite index and evidence-bearing Golden output are also local-only.

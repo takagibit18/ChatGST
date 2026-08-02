@@ -20,6 +20,9 @@ knowledge/metadata/**
 !knowledge/metadata/overrides.example.json
 !knowledge/metadata/nationwide-childcare-source-audit.jsonl
 !knowledge/metadata/nationwide-childcare-overrides.json
+!knowledge/metadata/nationwide-childcare-phase2-overrides.json
+!knowledge/metadata/duplicate-candidates.json
+!knowledge/metadata/duplicate-groups.json
 domains/childcare-subsidy/evals/goldens.generated.json
 
 domains/childcare-subsidy/evals/latest-report.json

@@ -2,8 +2,9 @@ import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
 import { extname, join, relative } from "node:path";
 import matter from "gray-matter";
+import { resolveAdministrativeRegion } from "./region-registry.js";
 
-export const INTAKE_AUDIT_SCHEMA_VERSION = 1;
+export const INTAKE_AUDIT_SCHEMA_VERSION = 2;
 
 export type IntakeAuditRecord = {
   schema_version: number;
@@ -15,6 +16,8 @@ export type IntakeAuditRecord = {
   title: string | null;
   raw_status: string | null;
   region: string | null;
+  region_code: string | null;
+  region_resolution: "resolved" | "ambiguous" | "unknown";
   source_url: string | null;
   timestamp: string | null;
   body_chars: number;
@@ -95,11 +98,6 @@ function suspiciousTitle(title: string | null): boolean {
   return genericTitles.has(title) || title.length < 6 || title.startsWith("申请育儿补贴以家庭为单位");
 }
 
-function suspiciousRegion(region: string | null): boolean {
-  if (!region) return false;
-  return region.includes("_") || /国家卫健委|财政部|申领专区/u.test(region) || region === "广东";
-}
-
 async function markdownFiles(root: string): Promise<string[]> {
   const files: string[] = [];
   async function walk(directory: string): Promise<void> {
@@ -121,6 +119,9 @@ async function inspectFile(root: string, path: string): Promise<PreliminaryRecor
   let utf8Valid = true;
   try {
     decoded = decoder.decode(buffer);
+    // Git may materialize tracked Markdown with CRLF on Windows. Audit the
+    // repository-canonical LF representation so hashes are stable cross-OS.
+    decoded = decoded.replace(/\r\n/gu, "\n");
   } catch {
     utf8Valid = false;
   }
@@ -131,6 +132,7 @@ async function inspectFile(root: string, path: string): Promise<PreliminaryRecor
   const title = stringValue(attributes.title);
   const rawStatus = stringValue(attributes.status);
   const region = stringValue(attributes.region);
+  const regionResolution = resolveAdministrativeRegion(region);
   const sourceUrl = stringValue(attributes.resource ?? attributes.source_url);
   const timestamp = stringValue(attributes.timestamp ?? attributes.publish_date);
   const body = parsed.content.trim();
@@ -140,7 +142,8 @@ async function inspectFile(root: string, path: string): Promise<PreliminaryRecor
   if (!title) flags.push("missing_title");
   else if (suspiciousTitle(title)) flags.push("suspicious_title");
   if (!region) flags.push("missing_region");
-  else if (suspiciousRegion(region)) flags.push("suspicious_region");
+  else if (regionResolution.status === "unknown") flags.push("unknown_region");
+  else if (regionResolution.status === "ambiguous") flags.push("ambiguous_region");
   if (!validHttpUrl(sourceUrl)) flags.push(sourceUrl ? "invalid_source_url" : "missing_source_url");
   if (!validDate(timestamp)) flags.push(timestamp ? "invalid_date" : "missing_date");
   if (!rawStatus) flags.push("missing_status");
@@ -150,13 +153,15 @@ async function inspectFile(root: string, path: string): Promise<PreliminaryRecor
   return {
     schema_version: INTAKE_AUDIT_SCHEMA_VERSION,
     relative_path: relativePath,
-    bytes: buffer.byteLength,
-    sha256: sha256(buffer),
+    bytes: utf8Valid ? Buffer.byteLength(decoded) : buffer.byteLength,
+    sha256: sha256(utf8Valid ? decoded : buffer),
     utf8_valid: utf8Valid,
     type,
     title,
     raw_status: rawStatus,
     region,
+    region_code: regionResolution.status === "resolved" ? regionResolution.region.code : null,
+    region_resolution: regionResolution.status,
     source_url: sourceUrl,
     timestamp,
     body_chars: body.length,

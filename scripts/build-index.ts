@@ -4,10 +4,12 @@ import {
   ChinesePolicySearchTextProcessor,
   defaultKnowledgeLocations,
   loadPolicyDocuments,
+  nationwideKnowledgeLocations,
   SemanticPolicyChunker,
 } from "@policy/rag/index";
 
-const documents = await loadPolicyDocuments(defaultKnowledgeLocations());
+const locations = process.argv.includes("--nationwide") ? nationwideKnowledgeLocations() : defaultKnowledgeLocations();
+const documents = await loadPolicyDocuments(locations);
 if (documents.length === 0) {
   throw new Error("No local policy Markdown found. See knowledge/README.md before building the index.");
 }

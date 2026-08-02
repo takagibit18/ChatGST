@@ -23,6 +23,10 @@ export function ensurePolicySchema(database: Database.Database): void {
       file_hash TEXT NOT NULL,
       title TEXT NOT NULL,
       region TEXT NOT NULL,
+      region_code TEXT NOT NULL DEFAULT '100000',
+      region_level TEXT NOT NULL DEFAULT 'national',
+      parent_region_code TEXT,
+      applicable_region_codes TEXT NOT NULL DEFAULT '["100000"]',
       authority TEXT NOT NULL,
       publish_date TEXT NOT NULL,
       effective_from TEXT NOT NULL,
@@ -32,6 +36,8 @@ export function ensurePolicySchema(database: Database.Database): void {
       policy_type TEXT NOT NULL,
       version_group TEXT NOT NULL,
       version_priority INTEGER NOT NULL DEFAULT 0,
+      review_status TEXT NOT NULL DEFAULT 'approved',
+      quarantine_reasons TEXT NOT NULL DEFAULT '[]',
       source_format TEXT NOT NULL DEFAULT 'markdown',
       extraction_warnings TEXT NOT NULL DEFAULT '[]',
       indexed_at TEXT NOT NULL
@@ -61,6 +67,17 @@ export function ensurePolicySchema(database: Database.Database): void {
   if (!names.has("extraction_warnings")) {
     database.exec("ALTER TABLE policy_documents ADD COLUMN extraction_warnings TEXT NOT NULL DEFAULT '[]'");
   }
+  const governanceColumns: Array<[string, string]> = [
+    ["region_code", "TEXT NOT NULL DEFAULT '100000'"],
+    ["region_level", "TEXT NOT NULL DEFAULT 'national'"],
+    ["parent_region_code", "TEXT"],
+    ["applicable_region_codes", "TEXT NOT NULL DEFAULT '[\"100000\"]'"],
+    ["review_status", "TEXT NOT NULL DEFAULT 'approved'"],
+    ["quarantine_reasons", "TEXT NOT NULL DEFAULT '[]'"],
+  ];
+  for (const [name, definition] of governanceColumns) {
+    if (!names.has(name)) database.exec(`ALTER TABLE policy_documents ADD COLUMN ${name} ${definition}`);
+  }
 }
 
 function registeredUri(documentId: string): string {
@@ -82,6 +99,9 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
   await mkdir(indexDir, { recursive: true });
   const database = openPiLocalRagDb(indexDir);
   const now = (options.now ?? (() => new Date()))().toISOString();
+  const indexableDocuments = options.documents.filter(
+    (document) => (document.metadata.review_status ?? "approved") === "approved" && document.metadata.status !== "unknown",
+  );
   try {
     ensurePolicySchema(database);
     const report = {
@@ -98,7 +118,7 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
         for (const item of existing) removeDocument(database, item.document_id);
       }
 
-      const incomingIds = new Set(options.documents.map((document) => document.metadata.document_id));
+      const incomingIds = new Set(indexableDocuments.map((document) => document.metadata.document_id));
       const existingRows = database.prepare("SELECT document_id, file_hash FROM policy_documents").all() as Array<{
         document_id: string;
         file_hash: string;
@@ -115,11 +135,12 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
       );
       const insertDocument = database.prepare(`
         INSERT INTO policy_documents(
-          document_id, source_path, file_name, file_hash, title, region, authority,
+          document_id, source_path, file_name, file_hash, title, region, region_code,
+          region_level, parent_region_code, applicable_region_codes, authority,
           publish_date, effective_from, effective_to, status, source_url,
-          policy_type, version_group, version_priority, source_format,
-          extraction_warnings, indexed_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          policy_type, version_group, version_priority, review_status, quarantine_reasons,
+          source_format, extraction_warnings, indexed_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
       const insertChunk = database.prepare(`
         INSERT INTO chunks(
@@ -138,7 +159,7 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
         VALUES (?, ?, ?, ?, ?, 0)
       `);
 
-      for (const document of options.documents) {
+      for (const document of indexableDocuments) {
         const existing = findExisting.get(document.metadata.document_id) as { file_hash: string } | undefined;
         if (!options.rebuild && existing?.file_hash === document.fileHash) {
           report.unchanged += 1;
@@ -157,6 +178,10 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
           document.fileHash,
           metadata.title,
           metadata.region,
+          metadata.region_code ?? "100000",
+          metadata.region_level ?? "national",
+          metadata.parent_region_code ?? null,
+          JSON.stringify(metadata.applicable_region_codes ?? [metadata.region_code ?? "100000"]),
           metadata.authority,
           metadata.publish_date,
           metadata.effective_from,
@@ -166,6 +191,8 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
           metadata.policy_type,
           metadata.version_group,
           metadata.version_priority,
+          metadata.review_status ?? "approved",
+          JSON.stringify(metadata.quarantine_reasons ?? []),
           document.sourceFormat,
           JSON.stringify(document.extractionWarnings),
           now,
@@ -212,7 +239,7 @@ export async function buildPolicyIndex(options: BuildIndexOptions): Promise<Inde
     const vectors = database.prepare("SELECT COUNT(*) AS count FROM chunks_vec").get() as { count: number };
     if (vectors.count !== 0) throw new Error(`Pure BM25 invariant failed: chunks_vec contains ${vectors.count} rows`);
     return {
-      documents_total: options.documents.length,
+      documents_total: indexableDocuments.length,
       documents_indexed: report.indexed,
       documents_unchanged: report.unchanged,
       documents_removed: report.removed,

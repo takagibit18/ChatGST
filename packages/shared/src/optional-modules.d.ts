@@ -11,3 +11,11 @@ declare module "sql.js" {
 declare module "@xenova/transformers" {
   export function pipeline(task: string, model: string): Promise<unknown>;
 }
+
+declare module "jiti/static" {
+  export function createJiti(baseUrl: string, options?: Record<string, unknown>): {
+    (specifier: string): Promise<unknown>;
+    import(specifier: string): Promise<unknown>;
+    cache: Record<string, unknown>;
+  };
+}

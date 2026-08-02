@@ -4,11 +4,17 @@ export const regionSchema = z.enum(["北京市", "河北省", "全国", "对比"
 export type PolicyRegion = z.infer<typeof regionSchema>;
 
 export const policyStatusSchema = z.enum(["effective", "expired", "draft", "unknown"]);
+export const policyReviewStatusSchema = z.enum(["approved", "quarantined"]);
+export const administrativeRegionLevelSchema = z.enum(["national", "province", "prefecture", "county", "unknown"]);
 
 export const policyMetadataSchema = z.object({
   document_id: z.string().min(1),
   title: z.string().min(1),
   region: z.string().min(1),
+  region_code: z.string().regex(/^\d{6}$/u).default("100000"),
+  region_level: administrativeRegionLevelSchema.default("national"),
+  parent_region_code: z.string().regex(/^\d{6}$/u).nullable().default(null),
+  applicable_region_codes: z.array(z.string().regex(/^\d{6}$/u)).min(1).default(["100000"]),
   authority: z.string().min(1),
   publish_date: z.string().min(1),
   effective_from: z.string().min(1),
@@ -18,8 +24,12 @@ export const policyMetadataSchema = z.object({
   policy_type: z.string().default("childcare-subsidy"),
   version_group: z.string().default("unknown"),
   version_priority: z.number().int().default(0),
+  review_status: policyReviewStatusSchema.default("approved"),
+  quarantine_reasons: z.array(z.string().min(1)).default([]),
 });
-export type PolicyMetadata = z.infer<typeof policyMetadataSchema>;
+// Input type keeps the Phase 0 shape source-compatible; parsing materializes all
+// Phase 1 defaults before metadata reaches storage or retrieval.
+export type PolicyMetadata = z.input<typeof policyMetadataSchema>;
 
 export const evidenceItemSchema = z.object({
   document_id: z.string(),
@@ -48,5 +58,4 @@ export const evidencePackSchema = z.object({
   evidence: z.array(evidenceItemSchema),
   knowledge_gaps: z.array(z.string()),
 });
-export type EvidencePack = z.infer<typeof evidencePackSchema>;
-
+export type EvidencePack = z.input<typeof evidencePackSchema>;

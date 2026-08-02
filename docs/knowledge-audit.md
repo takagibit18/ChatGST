@@ -113,3 +113,15 @@ Phase 1 必须完成以下工作后才能准入：
 | `pnpm test` | 7个测试文件、42条测试全部通过 |
 
 这证明 intake 快照没有进入默认加载范围，也没有改变现有索引规模和回归基线。
+
+## 7. Phase 1 治理验收
+
+2026-08-02 完成地区与准入治理闭环：
+
+- 行政区注册表覆盖全国、省级地区和本批涉及的地市/区县，支持简称及旧的下划线层级写法；
+- 47 份来源均有与审计 SHA-256 绑定的 override，地区代码、层级、父级和适用范围解析率为 100%；
+- Phase 0 的 41 份 `verified` 材料标记为 `approved`，6 份 `issue` 材料标记为 `quarantined` 并保留原因；
+- loader 和 index builder 双层隔离 `quarantined` 与 `unknown`，全国集合可通过 `pnpm rag:build:nationwide -- --rebuild` 独立构建；
+- `pnpm knowledge:governance:validate` 同时检查文件覆盖、来源哈希、必填字段、父子地区和准入状态。
+
+本阶段的 `approved` 表示来源与结构化元数据通过当前准入规则，不替代对金额、资格、期限等政策事实的后续逐项业务复核；重复/canonical 选择仍属于 Phase 2。

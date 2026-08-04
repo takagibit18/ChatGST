@@ -45,7 +45,7 @@ describe.skipIf(!hasLocalPolicyIndex())("restricted Pi runtime", () => {
     const first = await runtime.answer({ conversationId: "runtime-clarify-0002", message: "我想了解育儿补贴" });
     expect(first.response.meta.answer_status).toBe("needs_clarification");
     expect(first.response.actions).toEqual([]);
-    const second = await runtime.answer({ conversationId: "runtime-clarify-0002", message: "北京", effectiveDate: "2026-07-23" });
+    const second = await runtime.answer({ conversationId: "runtime-clarify-0002", message: "北京申请材料", effectiveDate: "2026-07-23" });
     expect(second.response.meta.answer_status).toBe("answered");
     await runtime.answer({ conversationId: "runtime-clarify-0002", message: "申请材料", effectiveDate: "2026-07-23" });
     await expect(runtime.answer({ conversationId: "runtime-clarify-0002", message: "继续" })).rejects.toMatchObject({ code: "SESSION_TURN_LIMIT" });

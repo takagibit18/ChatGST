@@ -88,7 +88,7 @@ export type EvidenceSufficiencyOptions = {
 };
 
 const localImplementationClaims = new Set<ClaimType>([
-  "amount", "materials", "channel", "deadline", "payment_schedule", "payment_account", "migration", "contact", "address",
+  "amount", "eligibility", "claimant", "materials", "channel", "deadline", "payment_schedule", "payment_account", "migration", "contact", "address",
 ]);
 
 const supportPatterns: Record<ClaimType, RegExp[]> = {
@@ -97,10 +97,10 @@ const supportPatterns: Record<ClaimType, RegExp[]> = {
   claimant: [/(?:申请人|申领人|经办人).{0,24}(?:父母|监护人|一方|本人)|(?:父母|监护人).{0,18}(?:申请|申领|办理)/u],
   materials: [/(?:提交|提供|携带|所需|申请材料).{0,28}(?:证明|证件|户口簿|身份证|材料)|(?:材料清单|补充材料)/u],
   channel: [/(?:通过|登录|前往|可在).{0,28}(?:小程序|平台|系统|窗口|街道|乡镇|线上|线下)|(?:申请|申领|办理)(?:渠道|入口)/u],
-  deadline: [/(?:截止|期限|时限|应于|之日起).{0,24}(?:\d|日|月|年|工作日)|(?:\d+|[一二三四五六七八九十]+)\s*(?:日|个月|年|工作日).{0,16}(?:申请|办理|截止)/u],
-  payment_schedule: [/(?:发放|到账|支付|计发|拨付).{0,28}(?:\d|月|日|工作日|批次|季度)|(?:\d+|[一二三四五六七八九十]+)\s*(?:日|个月|工作日).{0,16}(?:到账|发放)|每年.{0,30}(?:发放|计发)/u],
+  deadline: [/(?:截止|期限|时限|应于|之日起).{0,24}(?:\d|日|月|年|工作日)|(?:申请|申领).{0,30}(?:应在|截止|截至).{0,24}(?:\d|日|月|年)|(?:\d+|[一二三四五六七八九十]+)\s*(?:日|个月|年|工作日).{0,16}(?:申请|办理|截止)/u],
+  payment_schedule: [/(?:发放|到账|支付|计发|拨付).{0,28}(?:\d|月|日|工作日|批次|季度)|(?:\d+|[一二三四五六七八九十]+)\s*(?:日|个月|工作日).{0,16}(?:到账|发放)|(?:次年|当年|翌年).{0,16}(?:停止)?发放|每年.{0,30}(?:发放|计发)/u],
   payment_account: [/(?:发放|支付|拨付|打入).{0,24}(?:银行卡|社保卡|账户|信用社)|(?:银行卡|社保卡|银行账户).{0,20}(?:领取|发放|到账)/u],
-  migration: [/(?:迁入|迁出|户籍迁移|户籍变更|迁移后|迁入后|迁出后).{0,36}(?:申请|申领|领取|资格|计发|继续|重新)|(?:继续领取|重新申请|资格延续).{0,24}(?:迁入|迁出|户籍)/u],
+  migration: [/(?:迁入|迁出|户籍迁移|户籍变更|迁移后|迁入后|迁出后).{0,36}(?:申请|申领|领取|资格|计发|发放|停止|继续|重新)|(?:继续领取|重新申请|资格延续|停止发放).{0,24}(?:迁入|迁出|户籍)/u],
   comparison: [/(?:区别|不同|相比|对比|相同|分别).{0,36}(?:补贴|政策|条件|标准)|(?:补贴|政策|条件|标准).{0,36}(?:区别|不同|相比|对比|相同)/u],
   contact: [/(?:电话|热线|联系方式).{0,12}(?:\d[\s-]?){7,12}|(?:\d[\s-]?){7,12}.{0,12}(?:电话|热线)/u],
   address: [/(?:地址|地点|位于).{0,36}(?:路|街|号|政务服务中心|服务大厅)|(?:路|街).{0,18}\d+\s*号/u],
@@ -230,6 +230,10 @@ function contradictoryConflicts(
     hit.document_id ?? hit.metadata?.document_id ?? "unknown-document",
     hit.metadata?.version_group ?? "unknown",
   ]));
+  const transitionDocuments = new Set(hits.flatMap((hit) => {
+    const documentId = hit.document_id ?? hit.metadata?.document_id ?? "unknown-document";
+    return /原(?:来|有|政策)|调整为|统一调整|政策衔接|继续执行至|废止后/u.test(hit.content) ? [documentId] : [];
+  }));
   const conflicts: EvidenceConflict[] = [];
   for (const claim of claims) {
     const claimBindings = bindings.filter((binding) => binding.claim_id === claim.id);
@@ -240,6 +244,7 @@ function contradictoryConflicts(
     }
     for (const [group, groupBindings] of groups) {
       if (group === "unknown" || groupBindings.length < 2) continue;
+      if (groupBindings.some((binding) => transitionDocuments.has(binding.document_id))) continue;
       const facts = new Set(groupBindings.map((binding) => canonicalFact(claim.type, binding.matched_span)).filter((value): value is string => Boolean(value)));
       if (facts.size > 1) {
         conflicts.push({

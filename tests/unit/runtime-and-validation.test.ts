@@ -218,7 +218,7 @@ describe.skipIf(!hasLocalPolicyIndex())("restricted Pi runtime", () => {
     const repairedRuntime = createDefaultPolicyRuntime(testConfig(), {
       testResponseSequence: (pack) => ["not-json", JSON.stringify(createDeterministicTestResponse(pack))],
     }).runtime;
-    const repaired = await repairedRuntime.answer({ conversationId: "runtime-repair-0005", message: "河北申请资格？", effectiveDate: "2026-07-23" });
+    const repaired = await repairedRuntime.answer({ conversationId: "runtime-repair-0005", message: "北京申请材料？", effectiveDate: "2026-07-23" });
     expect(repaired.validation.repaired).toBe(true);
     expect(repaired.validation.fallback).toBe(false);
 

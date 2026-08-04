@@ -63,6 +63,18 @@ describe("evidence sufficiency structural repair matrix", () => {
     expect(result).toMatchObject({ sufficient: false, missing_claims: ["channel:330100"] });
   });
 
+  it("does not use national eligibility as a complete local eligibility rule", () => {
+    const result = evaluateEvidenceSufficiency(
+      "河北哪些孩子有育儿补贴申请资格？",
+      "eligibility",
+      [hit("补贴对象为符合法律法规规定生育的3周岁以下婴幼儿。")],
+      "130000",
+      { effectiveDate: "2026-08-04" },
+    );
+    expect(result.sufficient).toBe(false);
+    expect(result.reason_codes).toContain("region_mismatch");
+  });
+
   it("does not concatenate region and amount across hits", () => {
     const result = evaluateEvidenceSufficiency(
       "石家庄育儿补贴多少钱？",
@@ -125,6 +137,39 @@ describe("evidence sufficiency structural repair matrix", () => {
       { effectiveDate: "2026-08-04" },
     );
     expect(result).toMatchObject({ sufficient: false, missing_claims: ["migration:130000"] });
+  });
+
+  it("binds an explicit stop-payment rule after moving out", () => {
+    const result = evaluateEvidenceSufficiency(
+      "孩子迁出呼和浩特后，育儿补贴什么时候停止发放？",
+      "migration",
+      [hit("孩子死亡或户籍迁出呼和浩特市的，次年停止发放育儿补贴。", { regionCode: "150100" })],
+      "150100",
+      { effectiveDate: "2026-08-04" },
+    );
+    expect(result.sufficient).toBe(true);
+  });
+
+  it("binds a concrete first-application deadline", () => {
+    const result = evaluateEvidenceSufficiency(
+      "北京2022年至2024年出生孩子首次申请截止到什么时候？",
+      "deadline",
+      [hit("对于2025年1月1日以前出生的婴幼儿，首次申请应在2025年12月31日前提出。", { regionCode: "110000" })],
+      "110000",
+      { effectiveDate: "2026-08-04" },
+    );
+    expect(result.sufficient).toBe(true);
+  });
+
+  it("does not treat an explicit policy transition as contradictory active evidence", () => {
+    const result = evaluateEvidenceSufficiency(
+      "云南原来每年800元的政策如何衔接？",
+      "amount",
+      [hit("原育儿补助政策每孩每年800元，统一调整为国家育儿补贴每孩每年3600元。", { regionCode: "530000" })],
+      "530000",
+      { effectiveDate: "2026-08-04" },
+    );
+    expect(result.conflicts).toHaveLength(0);
   });
 
   it.each([

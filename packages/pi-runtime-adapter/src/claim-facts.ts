@@ -69,6 +69,7 @@ function qualifiers(text: string, binding: ClaimFactBinding): Record<string, str
   const batch = captured(text, /(?:第[一二三四五六七八九十\d]+批|每季度|第[一二三四]季度)/u);
   if (batch) result.payment_batch = batch;
   if (/本地|当地|本省|本市|户籍家庭/u.test(text)) result.policy_population = "local_registered";
+  if (/原来|原有|原政策|调整为|统一调整|政策衔接|继续执行至|废止后/u.test(text)) result.policy_transition = "true";
   return result;
 }
 

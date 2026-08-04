@@ -149,7 +149,7 @@ const supportPatterns: Record<ClaimType, RegExp[]> = {
   contact: [/(?:电话|热线|联系方式).{0,12}(?:\d[\s-]?){7,12}|(?:\d[\s-]?){7,12}.{0,12}(?:电话|热线)/u],
   address: [/(?:地址|地点|位于).{0,36}(?:路|街|号|政务服务中心|服务大厅)|(?:路|街).{0,18}\d+\s*号/u],
   effective_version: [/(?:自|从|于).{0,18}(?:起施行|起实施|开始实施|生效|执行)|(?:现行|当前|有效)(?:版本|政策|规定)|有效期至/u],
-  governance: [/(?:省级|市级|县级|各级).{0,48}(?:制定|出台|执行|政策|标准|限制|不得)|(?:不得|允许).{0,36}(?:自行)?(?:制定|出台|提高|提标)/u],
+  governance: [/(?:省级|市级|县级|各级).{0,48}(?:制定|出台|执行|政策|标准|限制|不得)|(?:不得|允许).{0,36}(?:自行)?(?:制定|出台|提高|提标)|(?:原有|原来|原政策|育儿补助).{0,48}(?:调整为|统一调整|衔接)|(?:调整为|统一调整).{0,48}(?:补贴|政策|标准)/u],
 };
 
 function addClaim(claims: ClaimType[], type: ClaimType, requested: boolean): void {
@@ -172,7 +172,7 @@ function requestedClaimTypes(question: string, intent: PolicyIntent): ClaimType[
   addClaim(claims, "contact", /电话|热线|联系方式/u.test(question));
   addClaim(claims, "address", /详细地址|办理地址|具体地址|在哪里办/u.test(question));
   addClaim(claims, "effective_version", /当前版本|是否生效|有效期|什么时候生效|从哪一天开始实施|何时开始实施|实施日期|施行日期/u.test(question));
-  addClaim(claims, "governance", /自行制定|出台政策|提标|政策边界|作了什么限制/u.test(question));
+  addClaim(claims, "governance", /自行制定|出台政策|提标|政策边界|作了什么限制|如何衔接|怎么衔接|政策衔接|统一调整|原来.{0,20}政策/u.test(question));
 
   const fallback: Partial<Record<PolicyIntent, ClaimType>> = {
     amount: "amount", eligibility: "eligibility", claimant: "claimant", materials: "materials", channel: "channel",
@@ -430,7 +430,7 @@ export function evaluateEvidenceSufficiency(
     };
   }
 
-  const allowHistoricalLineage = /变化|沿革|新旧|调整前后|历年|历史版本|政策演变/u.test(question);
+  const allowHistoricalLineage = /变化|沿革|新旧|调整前后|历年|历史版本|政策演变|衔接|原来.{0,20}政策/u.test(question);
   const topHits = applicableTopHits(hits, options.effectiveDate, allowHistoricalLineage);
   const evidenceBindings: EvidenceBinding[] = [];
   const conflicts: EvidenceConflict[] = [];

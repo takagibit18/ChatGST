@@ -330,10 +330,14 @@ describe("evidence sufficiency structural repair matrix", () => {
     const result = evaluateEvidenceSufficiency(
       "云南原来每年800元的政策如何衔接？",
       "amount",
-      [hit("原育儿补助政策每孩每年800元，统一调整为国家育儿补贴每孩每年3600元。", { regionCode: "530000" })],
+      [
+        hit("现行育儿补贴标准为每孩每年3600元。", { regionCode: "530000", documentId: "yunnan", chunkId: "current" }),
+        hit("原育儿补助政策每孩每年800元，统一调整为国家育儿补贴每孩每年3600元。", { regionCode: "530000", documentId: "yunnan", chunkId: "transition" }),
+      ],
       "530000",
       { effectiveDate: "2026-08-04" },
     );
+    expect(result.sufficient).toBe(true);
     expect(result.conflicts).toHaveLength(0);
   });
 

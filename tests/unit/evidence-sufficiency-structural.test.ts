@@ -54,9 +54,26 @@ describe("evidence sufficiency structural repair matrix", () => {
   });
 
   it.each([
+    ["上海市现阶段每个孩子一年发多少育儿补贴？", "amount", "补贴标准为每孩每年3600元。", "310000"],
+    ["河北一个宝宝一年能拿多钱补贴？", "amount", "补贴标准为每孩每年3600元。", "130000"],
+    ["吉林省不能在线申请育儿补贴时，可以到哪里现场办理？", "channel", "可到婴幼儿户籍所在地街道办事处现场办理。", "220000"],
+    ["河北育儿补贴能网上办，也能去街道办吗？", "channel", "可线上申请，也可到街道办事处现场办理。", "130000"],
+    ["重庆育儿补贴审核通过后通常在哪几个月发？", "payment_schedule", "分别于5月、8月、11月和次年2月发放。", "500000"],
+    ["河北补贴审核完啥时候打钱？", "payment_schedule", "审核确认后10个工作日发放到账。", "130000"],
+    ["首次申请可以延到什么时候？", "deadline", "首次申请应在婴幼儿出生当年或者次年提出。", "130000"],
+    ["首次申请和后续续领分别在哪些年度？", "deadline", "首次申请在出生当年提出，后续两个年度分别续领。", "130000"],
+    ["福建育儿补贴制度从哪一天开始实施？", "effective_version", "本制度自2025年1月1日起实施。", "350000"],
+    ["河北育儿补贴何时开始实施？", "effective_version", "本制度从2025年1月1日起开始实施。", "130000"],
+  ])("recovers reusable claim extraction and support-span variants: %s", (question, claimType, content, regionCode) => {
+    const result = evaluateEvidenceSufficiency(question, "overview", [hit(content, { regionCode })], regionCode);
+    expect(result.sufficient).toBe(true);
+    expect(result.required_claims.map((claim) => claim.type)).toContain(claimType);
+  });
+
+  it.each([
     ["deadline", "河北育儿补贴申请截止日期是什么？", "申请截止日期为2026年8月31日。", "申请截止日期为2026年9月30日。"],
-    ["payment_schedule", "河北育儿补贴哪个月到账？", "育儿补贴于每年2月发放到账。", "育儿补贴于每年3月发放到账。"],
-    ["channel", "河北育儿补贴通过哪个平台申请？", "可通过甲政务平台申请。", "可通过乙服务平台申请。"],
+    ["payment_schedule", "河北育儿补贴第一批仅在哪个月到账？", "第一批仅在2月发放到账。", "第一批仅在3月发放到账。"],
+    ["channel", "河北育儿补贴能在线申请吗？", "育儿补贴仅可通过线上政务平台申请。", "育儿补贴不得通过线上政务平台申请。"],
     ["migration", "迁出河北后补贴是否继续发放？", "户籍迁出后继续发放育儿补贴。", "户籍迁出后停止发放育儿补贴。"],
   ])("blocks contradictory high-risk %s evidence", (_type, question, left, right) => {
     const result = evaluateEvidenceSufficiency(question, "unknown", [

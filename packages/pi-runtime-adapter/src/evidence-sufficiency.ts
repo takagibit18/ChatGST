@@ -14,7 +14,8 @@ export type ClaimType =
   | "comparison"
   | "contact"
   | "address"
-  | "effective_version";
+  | "effective_version"
+  | "governance";
 
 export type RequiredClaim = {
   id: string;
@@ -122,18 +123,19 @@ const localImplementationClaims = new Set<ClaimType>([
 
 const supportPatterns: Record<ClaimType, RegExp[]> = {
   amount: [/(?:补贴|标准|金额).{0,24}(?:\d[\d,.]*|[一二三四五六七八九十百千万]+)\s*元|(?:\d[\d,.]*|[一二三四五六七八九十百千万]+)\s*元.{0,24}(?:补贴|标准|金额)/u],
-  eligibility: [/(?:申领|申请|补贴)(?:对象|条件|资格)|符合.{0,20}条件|(?:婴幼儿|家庭|儿童).{0,20}(?:户籍|周岁|月龄|资格)|(?:本地|当地|本省|本市).{0,12}户籍.{0,12}(?:家庭|婴幼儿|儿童)/u],
+  eligibility: [/(?:申领|申请|补贴)(?:对象|条件|资格)|符合.{0,20}条件|(?:婴幼儿|家庭|儿童).{0,20}(?:户籍|周岁|月龄|资格)|(?:本地|当地|本省|本市).{0,12}户籍.{0,12}(?:家庭|婴幼儿|儿童)|(?:双|多)胞胎.{0,36}(?:均可|都能|享受|领取)|同胎次子女.{0,24}(?:均可|都能|享受|领取)/u],
   claimant: [/(?:申请人|申领人|经办人).{0,24}(?:父母|监护人|一方|本人)|(?:父母|监护人).{0,18}(?:申请|申领|办理)/u],
   materials: [/(?:提交|提供|携带|所需|申请材料).{0,28}(?:证明|证件|户口簿|身份证|材料)|(?:材料清单|补充材料)/u],
   channel: [/(?:通过|登录|前往|可在).{0,28}(?:小程序|平台|系统|窗口|街道|乡镇|线上|线下)|(?:申请|申领|办理)(?:渠道|入口)/u],
-  deadline: [/(?:截止|期限|时限|应于|之日起).{0,24}(?:\d|日|月|年|工作日)|(?:申请|申领).{0,30}(?:应在|截止|截至).{0,24}(?:\d|日|月|年)|(?:\d+|[一二三四五六七八九十]+)\s*(?:日|个月|年|工作日).{0,16}(?:申请|办理|截止)/u],
-  payment_schedule: [/(?:发放|到账|支付|计发|拨付).{0,28}(?:\d|月|日|工作日|批次|季度)|(?:\d+|[一二三四五六七八九十]+)\s*(?:日|个月|工作日).{0,16}(?:到账|发放)|(?:次年|当年|翌年).{0,16}(?:停止)?发放|每年.{0,30}(?:发放|计发)/u],
+  deadline: [/(?:截止|期限|时限|应于|之日起).{0,24}(?:\d|日|月|年|工作日)|(?:申请|申领).{0,30}(?:应在|应当在|截止|截至).{0,32}(?:\d|日|月|年|当年|次年)|(?:应在|应当在).{0,32}(?:当年|次年).{0,24}(?:申请|申领)|(?:\d+|[一二三四五六七八九十]+)\s*(?:日|个月|年|工作日).{0,16}(?:申请|办理|截止)/u],
+  payment_schedule: [/(?:发放|到账|支付|计发|拨付).{0,36}(?:\d|月|日|工作日|批次|季度|最后一日|到位)|(?:每季度|按季度).{0,36}(?:发放|到账|最后一日|到位)|(?:\d+|[一二三四五六七八九十]+)\s*(?:日|个月|工作日).{0,16}(?:到账|发放)|(?:次年|当年|翌年).{0,16}(?:停止)?发放|每年.{0,30}(?:发放|计发)/u],
   payment_account: [/(?:发放|支付|拨付|打入).{0,24}(?:银行卡|社保卡|账户|信用社)|(?:银行卡|社保卡|银行账户).{0,20}(?:领取|发放|到账)/u],
   migration: [/(?:迁入|迁出|户籍迁移|户籍变更|迁移后|迁入后|迁出后).{0,36}(?:申请|申领|领取|资格|计发|发放|停止|继续|重新)|(?:继续领取|重新申请|资格延续|停止发放).{0,24}(?:迁入|迁出|户籍)/u],
   comparison: [/(?:区别|不同|相比|对比|相同|分别).{0,36}(?:补贴|政策|条件|标准)|(?:补贴|政策|条件|标准).{0,36}(?:区别|不同|相比|对比|相同)/u],
   contact: [/(?:电话|热线|联系方式).{0,12}(?:\d[\s-]?){7,12}|(?:\d[\s-]?){7,12}.{0,12}(?:电话|热线)/u],
   address: [/(?:地址|地点|位于).{0,36}(?:路|街|号|政务服务中心|服务大厅)|(?:路|街).{0,18}\d+\s*号/u],
   effective_version: [/(?:自|于).{0,18}(?:起施行|生效|执行)|(?:现行|当前|有效)(?:版本|政策|规定)|有效期至/u],
+  governance: [/(?:省级|市级|县级|各级).{0,48}(?:制定|出台|执行|政策|标准|限制|不得)|(?:不得|允许).{0,36}(?:自行)?(?:制定|出台|提高|提标)/u],
 };
 
 function addClaim(claims: ClaimType[], type: ClaimType, requested: boolean): void {
@@ -143,17 +145,18 @@ function addClaim(claims: ClaimType[], type: ClaimType, requested: boolean): voi
 function requestedClaimTypes(question: string, intent: PolicyIntent): ClaimType[] {
   const claims: ClaimType[] = [];
   addClaim(claims, "amount", /多少钱|多少元|金额|补贴标准|每年|每月/u.test(question));
-  addClaim(claims, "eligibility", /谁能领|哪些人|资格|条件|对象|能否领取|能不能领|可以申请吗/u.test(question));
+  addClaim(claims, "eligibility", /谁能领|哪些人|资格|条件|对象|能否领取|能不能领|可以申请吗|能享受|都能领|能否都领|都能拿/u.test(question));
   addClaim(claims, "claimant", /谁能领|谁来领|谁申请|谁办理|申请人|申领人|父母|监护人/u.test(question));
   addClaim(claims, "materials", /材料|资料|证明|证件|户口簿/u.test(question));
   addClaim(claims, "channel", /怎么办理|怎么申请|怎么申领|哪里办|去哪办|去哪里申请|在哪申请|渠道|入口|小程序|平台|窗口/u.test(question));
-  addClaim(claims, "deadline", /截止|期限|时限|多久内申请|什么时候申请/u.test(question));
-  addClaim(claims, "payment_schedule", /多久.*到账|什么时候.*(?:发|到账)|哪(?:几|四|个)月|哪个月|发放批次|如何发放/u.test(question));
+  addClaim(claims, "deadline", /截止|期限|时限|多久内申请|什么时候申请|最晚|首次申领|年度提出/u.test(question));
+  addClaim(claims, "payment_schedule", /多久.*到账|什么时候.*(?:发|到账)|啥时候.*发|一季|季度|哪(?:几|四|个)月|哪个月|发放批次|如何发放/u.test(question));
   addClaim(claims, "payment_account", /哪张卡|什么卡|哪家银行|银行账户|发到哪|打到哪/u.test(question));
   addClaim(claims, "migration", /迁入|迁出|迁移|迁户口|户籍.*变更/u.test(question));
   addClaim(claims, "contact", /电话|热线|联系方式/u.test(question));
   addClaim(claims, "address", /详细地址|办理地址|具体地址|在哪里办/u.test(question));
   addClaim(claims, "effective_version", /现行|当前版本|是否生效|有效期|什么时候生效/u.test(question));
+  addClaim(claims, "governance", /自行制定|出台政策|提标|政策边界|作了什么限制/u.test(question));
 
   const fallback: Partial<Record<PolicyIntent, ClaimType>> = {
     amount: "amount", eligibility: "eligibility", claimant: "claimant", materials: "materials", channel: "channel",

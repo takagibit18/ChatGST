@@ -38,6 +38,31 @@ function hit(content: string, options: HitOptions = {}) {
 }
 
 describe("evidence sufficiency structural repair matrix", () => {
+  it.each([
+    ["福建省双胞胎或多胞胎，同一胎的孩子都能享受育儿补贴吗？", "eligibility", "符合法律法规规定生育双胞胎或多胞胎子女的，同胎次子女均可享受育儿补贴。", "350000"],
+    ["云南首次申领最晚可以在孩子出生后的哪个年度提出？", "deadline", "申领人应当在婴幼儿出生当年或次年提出首次申请。", "530000"],
+    ["陕西育儿补帖一季啥时候发到位？", "payment_schedule", "原则上按季度集中发放，在每季度最后一日前及时足额发放到位。", "610000"],
+    ["陕西对市县自行制定或提标作了什么限制？", "governance", "各市级行政区域内执行统一政策及标准，县级以下政府不得自行出台育儿补贴政策或标准。", "610000"],
+  ])("recognizes an explicit claim instead of failing open: %s", (question, claimType, content, regionCode) => {
+    const result = evaluateEvidenceSufficiency(question, "unknown", [hit(content, { regionCode })], regionCode);
+    expect(result.sufficient).toBe(true);
+    expect(result.required_claims.map((claim) => claim.type)).toContain(claimType);
+  });
+
+  it.each([
+    ["deadline", "河北育儿补贴申请截止日期是什么？", "申请截止日期为2026年8月31日。", "申请截止日期为2026年9月30日。"],
+    ["payment_schedule", "河北育儿补贴哪个月到账？", "育儿补贴于每年2月发放到账。", "育儿补贴于每年3月发放到账。"],
+    ["channel", "河北育儿补贴通过哪个平台申请？", "可通过甲政务平台申请。", "可通过乙服务平台申请。"],
+    ["migration", "迁出河北后补贴是否继续发放？", "户籍迁出后继续发放育儿补贴。", "户籍迁出后停止发放育儿补贴。"],
+  ])("blocks contradictory high-risk %s evidence", (_type, question, left, right) => {
+    const result = evaluateEvidenceSufficiency(question, "unknown", [
+      hit(left, { regionCode: "130000", documentId: "left", versionGroup: "same-policy" }),
+      hit(right, { regionCode: "130000", documentId: "right", versionGroup: "same-policy" }),
+    ], "130000");
+    expect(result.sufficient).toBe(false);
+    expect(result.reason_codes).toContain("contradictory_evidence");
+  });
+
   it("fails closed when no required claim can be built", () => {
     const result = evaluateEvidenceSufficiency(
       "介绍一下",

@@ -9,6 +9,8 @@ type HitOptions = {
   effectiveTo?: string | null;
   status?: "effective" | "expired" | "draft" | "unknown";
   versionGroup?: string;
+  policyNumber?: string;
+  implementationOf?: string;
 };
 
 function hit(content: string, options: HitOptions = {}) {
@@ -29,11 +31,79 @@ function hit(content: string, options: HitOptions = {}) {
       effective_to: options.effectiveTo ?? null,
       status: options.status ?? "effective",
       version_group: options.versionGroup ?? "childcare-current",
+      policy_number: options.policyNumber,
+      implementation_of: options.implementationOf,
     },
   };
 }
 
 describe("evidence sufficiency structural repair matrix", () => {
+  it("fails closed when no required claim can be built", () => {
+    const result = evaluateEvidenceSufficiency(
+      "介绍一下",
+      "overview",
+      [hit("育儿补贴标准为每孩每年3600元。", { regionCode: "130000" })],
+      "130000",
+    );
+    expect(result).toMatchObject({ sufficient: false, required_claims: [], supported_claims: [], missing_claims: [],
+      evidence_bindings: [], conflicts: [], reason_codes: ["no_required_claims"], reason: "missing_requested_detail" });
+  });
+
+  it.each([
+    [[], "missing_comparison_regions"],
+    [[{ name: "河北省", code: "130000" }], "missing_comparison_regions"],
+    [[{ name: "河北省", code: "130000" }, { name: "河北", code: "130000" }], "duplicate_comparison_regions"],
+  ])("fails closed for invalid comparison scope %#", (comparisonRegions, reasonCode) => {
+    const result = evaluateEvidenceSufficiency("两地有什么区别？", "comparison", [hit("补贴标准为每孩每年3600元。")], null, { comparisonRegions });
+    expect(result.sufficient).toBe(false);
+    expect(result.reason_codes).toContain("invalid_comparison_scope");
+    expect(result.reason_codes).toContain(reasonCode);
+  });
+
+  it("rejects a cross-claim bundle from unrelated policy versions", () => {
+    const result = evaluateEvidenceSufficiency("河北育儿补贴多少钱，去哪里申请？", "amount", [
+      hit("补贴标准为每孩每年3600元。", { regionCode: "130000", documentId: "policy-a", versionGroup: "version-a" }),
+      hit("可通过政务服务平台申请。", { regionCode: "130000", documentId: "policy-b", versionGroup: "version-b" }),
+    ], "130000");
+    expect(result.sufficient).toBe(false);
+    expect(result.reason_codes).toEqual(expect.arrayContaining(["incompatible_policy_bundle", "cross_claim_version_conflict"]));
+  });
+
+  it("accepts multiple claims from the same document", () => {
+    const result = evaluateEvidenceSufficiency("河北育儿补贴多少钱，去哪里申请？", "amount", [
+      hit("补贴标准为每孩每年3600元，可通过政务服务平台申请。", { regionCode: "130000", documentId: "policy-a", versionGroup: "unknown" }),
+    ], "130000");
+    expect(result.sufficient).toBe(true);
+  });
+
+  it("accepts an explicit national-to-local implementation relationship", () => {
+    const result = evaluateEvidenceSufficiency("河北育儿补贴多少钱，去哪里申请？", "amount", [
+      hit("补贴标准为每孩每年3600元。", { regionCode: "100000", documentId: "national", versionGroup: "national-v1", policyNumber: "国育发1号" }),
+      hit("可通过河北政务服务平台申请。", { regionCode: "130000", documentId: "local", versionGroup: "local-v1", implementationOf: "national" }),
+    ], "130000");
+    expect(result.sufficient).toBe(true);
+  });
+
+  it("fails closed when multiple documents have unknown compatibility metadata", () => {
+    const result = evaluateEvidenceSufficiency("河北育儿补贴多少钱，去哪里申请？", "amount", [
+      hit("补贴标准为每孩每年3600元。", { regionCode: "130000", documentId: "a", versionGroup: "" }),
+      hit("可通过河北政务服务平台申请。", { regionCode: "130000", documentId: "b", versionGroup: "" }),
+    ], "130000");
+    expect(result.sufficient).toBe(false);
+    expect(result.reason_codes).toContain("unknown_policy_compatibility");
+  });
+
+  it("builds compatible bundles independently for comparison regions", () => {
+    const result = evaluateEvidenceSufficiency("河北和北京的补贴金额、领取条件有什么区别？", "comparison", [
+      hit("补贴标准为每孩每年3600元，申领对象为本地户籍家庭。", { regionCode: "130000", documentId: "hebei", versionGroup: "hb-v1" }),
+      hit("补贴标准为每孩每年4200元，申领对象为本地户籍家庭。", { regionCode: "110000", documentId: "beijing", versionGroup: "bj-v9" }),
+    ], null, { comparisonRegions: [{ name: "河北省", code: "130000" }, { name: "北京市", code: "110000" }] });
+    expect(result.sufficient).toBe(true);
+    expect(result.evidence_bundles).toEqual(expect.arrayContaining([
+      expect.objectContaining({ target_region_code: "130000", compatible: true }),
+      expect.objectContaining({ target_region_code: "110000", compatible: true }),
+    ]));
+  });
   it.each([
     ["exact target", "130100", "130100", true],
     ["legal province ancestor", "130100", "130000", true],

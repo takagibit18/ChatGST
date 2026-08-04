@@ -123,6 +123,6 @@ describe("nationwide intake audit", () => {
   it("keeps the committed audit hash-bound to the cross-platform canonical snapshot", async () => {
     const generated = serializeIntakeAudit(await auditIntakeDirectory(resolve("knowledge/intake/nationwide-childcare")));
     const committed = await readFile(resolve("knowledge/metadata/nationwide-childcare-source-audit.jsonl"), "utf8");
-    expect(generated).toBe(committed);
+    expect(generated.replace(/\r\n/gu, "\n")).toBe(committed.replace(/\r\n/gu, "\n"));
   });
 });

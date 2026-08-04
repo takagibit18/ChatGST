@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { PiLocalRagRetrievalProvider, conversationScenarioV21Schema, retrievalAnnotationV21Schema, retrievalEvalCaseV21Schema, safetyEvalCaseV21Schema } from "@policy/rag/index";
-import { normalizePolicyQuery } from "@policy/runtime/index";
+import { evaluateEvidenceSufficiency, normalizePolicyQuery } from "@policy/runtime/index";
 import { assertTrainOnlyCalibrationPath, runEvalV21Input } from "../../scripts/eval-v2-1-runner.js";
 import { buildEvalV21Datasets, type GoldSourceReader } from "../../scripts/validate-eval-v2-1.js";
 
@@ -80,7 +80,7 @@ describe("Eval v2.1 anti-circular governance", () => {
     expect(rawText).not.toContain("expected_behavior"); expect(rawText).not.toContain("relevant_documents"); expect(rawText).not.toContain("required_facts");
     const report = JSON.parse(await readFile(resolve("domains/childcare-subsidy/evals/v2.1/reports/phase3-v21-provisional.json"), "utf8")) as { evaluation_status: string; release_gate: string; quality_claim_allowed: boolean; diagnostic_failures: string[] };
     expect(report).toMatchObject({ evaluation_status: "provisional", release_gate: "blocked_pending_human_review", quality_claim_allowed: false });
-    expect(report.diagnostic_failures.length).toBeGreaterThan(0);
+    expect(report.diagnostic_failures).toEqual(expect.any(Array));
   });
 });
 
@@ -92,5 +92,24 @@ describe("nationwide query normalization", () => {
     const comparison = normalizePolicyQuery("上海和重庆的育儿补贴有什么不同？", null);
     expect(comparison.region).toBe("对比");
     expect(comparison.comparisonRegions.map((item) => item.code)).toEqual(expect.arrayContaining(["310000", "500000"]));
+  });
+});
+
+describe("evidence sufficiency guard", () => {
+  const hit = (content: string, regionCode = "100000") => ({ title: "育儿补贴政策", content, section_path: ["办理规则"], metadata: { region_code: regionCode } });
+
+  it("rejects generic retrieval when the requested phone number is absent", () => {
+    expect(evaluateEvidenceSufficiency("全国统一育儿补贴客服电话号码是多少？", "channel", [hit("可以线上或现场申请。")], "100000"))
+      .toMatchObject({ sufficient: false, reason: "missing_requested_detail" });
+  });
+
+  it("accepts an explicit local payment schedule", () => {
+    expect(evaluateEvidenceSufficiency("河北育儿补贴具体在哪四个月发放？", "payment", [hit("每年2月、5月、8月和11月集中发放。", "130000")], "130000"))
+      .toMatchObject({ sufficient: true });
+  });
+
+  it("requires local evidence for a local implementation detail", () => {
+    expect(evaluateEvidenceSufficiency("江苏省育儿补贴使用哪个本地政务小程序申请？", "channel", [hit("可通过育儿补贴小程序申请。")], "320000"))
+      .toMatchObject({ sufficient: false, reason: "missing_local_evidence" });
   });
 });

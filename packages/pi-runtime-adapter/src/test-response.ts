@@ -49,7 +49,7 @@ export function createDeterministicTestResponse(pack: EvidencePack): PolicyRespo
   const selected = selectEvidence(pack);
   const joined = selected.map((item) => item.content).join("\n");
   const joinedCompact = joined.replace(/\s+/gu, "");
-  const region = pack.query_context.region === "全国" ? null : (pack.query_context.region as PolicyResponse["meta"]["region"]);
+  const region = pack.query_context.region as PolicyResponse["meta"]["region"];
   let answer: string;
   let actions: PolicyResponse["actions"] = [];
   switch (pack.query_context.intent) {

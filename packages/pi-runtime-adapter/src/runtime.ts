@@ -430,8 +430,19 @@ export class PolicyAgentRuntime {
         }
         monitor("step", { step: "rerank", ms: Date.now() - rerankStart, candidates: hits.length, final: rankedHits.length });
         pack = buildEvidencePack({ query, effectiveDate, hits: rankedHits, resolutions });
-        const evidenceSufficiency = evaluateEvidenceSufficiency(input.message, query.intent, rankedHits, query.regionCode);
-        monitor("step", { step: "evidence_sufficiency", sufficient: evidenceSufficiency.sufficient, reason: evidenceSufficiency.reason });
+        const evidenceSufficiency = evaluateEvidenceSufficiency(input.message, query.intent, rankedHits, query.regionCode, {
+          effectiveDate,
+          comparisonRegions: query.comparisonRegions,
+        });
+        monitor("step", {
+          step: "evidence_sufficiency",
+          sufficient: evidenceSufficiency.sufficient,
+          required_claims: evidenceSufficiency.required_claims.map((claim) => claim.id),
+          supported_claims: evidenceSufficiency.supported_claims,
+          missing_claims: evidenceSufficiency.missing_claims,
+          conflicts: evidenceSufficiency.conflicts.map((conflict) => conflict.type),
+          reason_codes: evidenceSufficiency.reason_codes,
+        });
         await safeTrace(trace, {
           type: "retrieval",
           request_id: requestId,

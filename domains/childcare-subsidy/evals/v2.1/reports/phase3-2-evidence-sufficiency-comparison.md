@@ -1,7 +1,7 @@
 # Phase 3.2 — Evidence Sufficiency Structural Repair
 
-日期：2026-08-04  
-Base commit：`1fedc5c4f2bd1b3e0f440c3f52c3eb2b24f7bc43`  
+日期：2026-08-04
+Base commit：`1fedc5c4f2bd1b3e0f440c3f52c3eb2b24f7bc43`
 分支：`codex/phase3-2-evidence-sufficiency`
 
 ## 范围与结论

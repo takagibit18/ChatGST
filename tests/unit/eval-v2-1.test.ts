@@ -179,6 +179,12 @@ describe("Eval v2.1 quality gate invariants", () => {
     expect(result).toMatchObject({ calibration_status: "failed", eligible_candidate_count: 0, selected: null,
       failure_reasons: ["calibration_constraints_not_met"] });
   });
+
+  it("blocks the quality and release gates when calibration constraints fail", () => {
+    const qualityGate = buildQualityGate({ ...passingInput(), calibrationPassed: false });
+    expect(qualityGate).toMatchObject({ passed: false, failure_reasons: ["calibration_constraints_not_met"] });
+    expect(resolveReleaseGate({ qualityGatePassed: qualityGate.passed, humanReviewComplete: false })).toBe("blocked_quality_gate");
+  });
 });
 
 describe("nationwide query normalization", () => {

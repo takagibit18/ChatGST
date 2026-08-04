@@ -3,6 +3,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { PiLocalRagRetrievalProvider, retrievalEvalCaseV21Schema } from "@policy/rag/index";
 import { assertTrainOnlyCalibrationPath, runEvalV21Input, type EvalV21Prediction } from "./eval-v2-1-runner.js";
+import { selectCalibrationCandidate } from "./eval-v2-1-calibration.js";
 
 const root = resolve("domains/childcare-subsidy/evals/v2.1");
 const trainPath = resolve(root, "datasets/retrieval.train.jsonl");
@@ -30,11 +31,13 @@ const rows = candidates.map((threshold) => {
   const precision = predictedNoAnswer ? noAnswerCorrect / predictedNoAnswer : 0;
   const f1 = precision + noAnswerRecall ? 2 * precision * noAnswerRecall / (precision + noAnswerRecall) : 0;
   return { threshold, macro_recall: (answerRecall + noAnswerRecall) / 2, no_answer_f1: f1, answer_recall: answerRecall, no_answer_recall: noAnswerRecall };
-}).sort((left, right) => right.macro_recall - left.macro_recall || right.no_answer_f1 - left.no_answer_f1 || left.threshold - right.threshold);
-const selected = rows[0]!;
+});
+const selection = selectCalibrationCandidate(rows);
 const output = { schema_version: 1, calibration_id: "phase3-v21-train-bm25", dataset: "retrieval.train.jsonl",
-  train_sha256: createHash("sha256").update(canonicalTrainText).digest("hex"), selection_rule: "max macro recall; tie max no-answer F1; tie lowest threshold",
-  selected, candidates: rows, forbidden_inputs: ["retrieval.dev.jsonl", "retrieval.test.jsonl"] };
+  train_sha256: createHash("sha256").update(canonicalTrainText).digest("hex"),
+  selection_rule: "require no-answer recall >= 1; max answer recall; tie max macro recall; tie max no-answer F1; tie lowest threshold",
+  ...selection, candidates: rows, forbidden_inputs: ["retrieval.dev.jsonl", "retrieval.test.jsonl", "regression-v1.jsonl"] };
 await mkdir(resolve(root, "calibration"), { recursive: true });
 await writeFile(resolve(root, "calibration/bm25-threshold.json"), `${JSON.stringify(output, null, 2)}\n`, "utf8");
-console.log(JSON.stringify({ calibrated: true, selected }, null, 2));
+console.log(JSON.stringify({ calibrated: selection.calibration_status === "passed", ...selection }, null, 2));
+if (selection.calibration_status === "failed") process.exitCode = 1;

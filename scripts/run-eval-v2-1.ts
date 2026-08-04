@@ -16,7 +16,9 @@ const regression = regressionText.split(/\r?\n/u).filter(Boolean).map((line) => 
 const conversations = await load(resolve(root, "datasets/conversations.jsonl"), conversationScenarioV21Schema.parse);
 const safety = await load(resolve(root, "datasets/safety.jsonl"), safetyEvalCaseV21Schema.parse);
 const calibrationText = await readFile(resolve(root, "calibration/bm25-threshold.json"), "utf8");
-const threshold = (JSON.parse(calibrationText) as { selected: { threshold: number } }).selected.threshold;
+const calibration = JSON.parse(calibrationText) as { calibration_status?: "passed" | "failed"; selected: { threshold: number } | null };
+if (calibration.calibration_status !== "passed" || !calibration.selected) throw new Error("calibration_constraints_not_met");
+const threshold = calibration.selected.threshold;
 const provider = new PiLocalRagRetrievalProvider(resolve("knowledge/index"));
 const config = loadRuntimeConfig({ ...process.env, MODEL_PROVIDER: "test", RAINDROP_ENABLED: "false", RAINDROP_CAPTURE_CONTENT: "false", MAX_SESSION_TURNS: "100" });
 const { runtime } = createDefaultPolicyRuntime(config);
@@ -55,7 +57,7 @@ const raw = { schema_version: 1, run_id: "phase3-v21-provisional", generated_at:
   release_gate: "blocked_pending_human_review", input_fingerprint: { dev_sha256: createHash("sha256").update(canonicalText(devText)).digest("hex"),
     regression_sha256: createHash("sha256").update(canonicalText(regressionText)).digest("hex"), calibration_sha256: createHash("sha256").update(canonicalText(calibrationText)).digest("hex"),
     knowledge_snapshot_hash: provider.getStats().snapshot_hash }, prediction_fingerprint: predictionFingerprint,
-  config: { threshold, warmups: 2, measured: 5, model_provider: "test" },
+  config: { threshold, calibration_status: calibration.calibration_status, warmups: 2, measured: 5, model_provider: "test" },
   retrieval_predictions: retrievalPredictions, conversation_predictions: conversationPredictions, safety_predictions: safetyPredictions };
 await mkdir(resolve(root, "runs"), { recursive: true });
 await writeFile(resolve(root, "runs/phase3-v21-raw-predictions.json"), `${JSON.stringify(raw, null, 2)}\n`, "utf8");

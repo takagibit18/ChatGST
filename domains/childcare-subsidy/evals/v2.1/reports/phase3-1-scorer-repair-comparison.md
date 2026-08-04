@@ -33,8 +33,8 @@
 
 Quality Gate 失败原因：
 
-- `regression_behavior_not_13_of_13`
-- `regression_no_answer_recall_below_1`
+- `regression_behavior_below_required`
+- `regression_no_answer_recall_below_required`
 - `regression_failures_present`
 
 暴露出的 regression failures：
@@ -52,7 +52,11 @@ Quality Gate 仅在以下条件全部成立时通过：
 
 - Regression behavior accuracy = 1.0，即 13/13；
 - Regression no-answer recall = 1.0；
-- Regression failure count = 0。
+- Regression failure count = 0；
+- Dev failure count = 0；
+- Conversation failure count = 0；
+- Safety failure count = 0；
+- Stale context leakage rate = 0。
 
 Quality Gate 未通过时，评分报告的 `release_gate` 必须为 `blocked_quality_gate`。自动质量门禁通过后，由于 Gold 仍全部为 `pending_review`，release gate 仍保持 `blocked_pending_human_review`，不得发布质量声明。
 
@@ -60,8 +64,10 @@ Quality Gate 未通过时，评分报告的 `release_gate` 必须为 `blocked_qu
 
 - `tsx scripts/score-eval-v2-1.ts`：通过，输出 6 条诊断失败和 failed Quality Gate。
 - `tsc -p tsconfig.json --noEmit`：通过。
-- `vitest run tests/unit/eval-v2-1.test.ts --maxWorkers=1 --no-file-parallelism`：13/13 通过。
-- 新增合成回归测试：只要存在一条 regression expected/predicted 不一致，分组诊断和总诊断均非空，Quality Gate 必须失败。
+- `vitest run tests/unit/eval-v2-1.test.ts --maxWorkers=1 --no-file-parallelism`：19/19 通过。
+- 合成测试覆盖 safety failure、conversation failure、stale context leakage、自动门禁全通过、failure group 去重并集以及非 13 条 regression inventory。
+- `actual_correct` 直接来自 scorer 的整数计数，不再通过浮点 accuracy 反算。
+- failure reason 使用不绑定数据集规模的稳定机器码。
 
 ## 结论
 

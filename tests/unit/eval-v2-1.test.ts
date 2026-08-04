@@ -4,12 +4,16 @@ import { describe, expect, it } from "vitest";
 import { PiLocalRagRetrievalProvider, conversationScenarioV21Schema, retrievalAnnotationV21Schema, retrievalEvalCaseV21Schema, safetyEvalCaseV21Schema } from "@policy/rag/index";
 import { evaluateEvidenceSufficiency, normalizePolicyQuery } from "@policy/runtime/index";
 import { assertTrainOnlyCalibrationPath, runEvalV21Input } from "../../scripts/eval-v2-1-runner.js";
-import { buildQualityGate, collectFailureGroups, flattenFailureGroups } from "../../scripts/eval-v2-1-quality-gate.js";
+import { buildQualityGate, collectFailureGroups, flattenFailureGroups, resolveReleaseGate, type FailureGroups } from "../../scripts/eval-v2-1-quality-gate.js";
 import { buildEvalV21Datasets, type GoldSourceReader } from "../../scripts/validate-eval-v2-1.js";
 
 async function jsonl(path: string): Promise<unknown[]> {
   return (await readFile(resolve(path), "utf8")).split(/\r?\n/u).filter(Boolean).map((line) => JSON.parse(line) as unknown);
 }
+
+const emptyFailureGroups = (): FailureGroups => ({
+  dev_failures: [], regression_failures: [], conversation_failures: [], safety_failures: [],
+});
 
 describe("Eval v2.1 anti-circular governance", () => {
   it("keeps the exact inventory pending review and source-first", async () => {
@@ -76,57 +80,87 @@ describe("Eval v2.1 anti-circular governance", () => {
     expect(() => assertTrainOnlyCalibrationPath("retrieval.test.jsonl")).toThrow(/train/u);
   });
 
-  it("stores label-free raw predictions and reports regression failures as a failed quality gate", async () => {
+  it("stores label-free raw predictions and keeps report diagnostics and gates internally consistent", async () => {
     const rawText = await readFile(resolve("domains/childcare-subsidy/evals/v2.1/runs/phase3-v21-raw-predictions.json"), "utf8");
     expect(rawText).not.toContain("expected_behavior"); expect(rawText).not.toContain("relevant_documents"); expect(rawText).not.toContain("required_facts");
     const report = JSON.parse(await readFile(resolve("domains/childcare-subsidy/evals/v2.1/reports/phase3-v21-provisional.json"), "utf8")) as {
       evaluation_status: string; release_gate: string; quality_claim_allowed: boolean; diagnostic_failures: string[];
-      failure_groups: { dev_failures: string[]; regression_failures: string[]; conversation_failures: string[]; safety_failures: string[] };
-      quality_gate: { status: string; passed: boolean; failure_reasons: string[] };
+      failure_groups: FailureGroups;
+      retrieval: { dev: { case_results: Array<{ case_id: string; expected: string; predicted: string; document_hit: boolean | null }> }; regression: { case_results: Array<{ case_id: string; expected: string; predicted: string; document_hit: boolean | null }> } };
+      conversations: { stale_context_leakage_rate: number; case_results: Array<{ scenario_id: string; passed: boolean }> };
+      safety: { case_results: Array<{ case_id: string; passed: boolean }> };
+      quality_gate: { status: string; passed: boolean; requirements: Record<string, { passed: boolean }>; failure_reasons: string[] };
     };
-    expect(report).toMatchObject({ evaluation_status: "provisional", release_gate: "blocked_quality_gate", quality_claim_allowed: false });
-    expect(report.failure_groups.regression_failures).toHaveLength(6);
-    expect(report.diagnostic_failures).toEqual(expect.arrayContaining(report.failure_groups.regression_failures));
-    expect(report.quality_gate).toMatchObject({ status: "failed", passed: false });
-    expect(report.quality_gate.failure_reasons).toEqual(expect.arrayContaining([
-      "regression_behavior_not_13_of_13",
-      "regression_no_answer_recall_below_1",
-      "regression_failures_present",
-    ]));
+    const expectedGroups = collectFailureGroups({
+      dev: report.retrieval.dev.case_results,
+      regression: report.retrieval.regression.case_results,
+      conversations: report.conversations.case_results,
+      safety: report.safety.case_results,
+    });
+    const allRequirementsPassed = Object.values(report.quality_gate.requirements).every((requirement) => requirement.passed);
+    const hasAutomatedFailure = flattenFailureGroups(expectedGroups).length > 0 || report.conversations.stale_context_leakage_rate > 0;
+
+    expect(report).toMatchObject({ evaluation_status: "provisional", quality_claim_allowed: false });
+    expect(report.failure_groups).toEqual(expectedGroups);
+    expect(report.diagnostic_failures).toEqual(flattenFailureGroups(expectedGroups));
+    expect(report.quality_gate.passed).toBe(allRequirementsPassed);
+    if (hasAutomatedFailure) expect(report.quality_gate.passed).toBe(false);
+    expect(report.release_gate).toBe(resolveReleaseGate({ qualityGatePassed: report.quality_gate.passed, humanReviewComplete: false }));
+  });
+});
+
+describe("Eval v2.1 quality gate invariants", () => {
+  const passingInput = () => ({
+    regressionCases: 5,
+    regressionCorrect: 5,
+    regressionNoAnswerRecall: 1,
+    failureGroups: emptyFailureGroups(),
+    staleContextLeakageRate: 0,
   });
 
-  it("cannot produce zero diagnostics or a passing gate when regression has a failure", () => {
-    const failureGroups = collectFailureGroups({
-      dev: [],
-      regression: [{ case_id: "regression-failure", expected: "no_answer", predicted: "answer", document_hit: null }],
-      conversations: [],
-      safety: [],
+  it("blocks when regression passes but safety has a failure", () => {
+    const input = passingInput(); input.failureGroups.safety_failures = ["safety-critical"];
+    expect(buildQualityGate(input)).toMatchObject({ passed: false, failure_reasons: ["safety_failures_present"] });
+  });
+
+  it("blocks when regression passes but conversation has a failure", () => {
+    const input = passingInput(); input.failureGroups.conversation_failures = ["conversation-critical"];
+    expect(buildQualityGate(input)).toMatchObject({ passed: false, failure_reasons: ["conversation_failures_present"] });
+  });
+
+  it("blocks when all failure groups are empty but stale context leaks", () => {
+    const input = passingInput(); input.staleContextLeakageRate = 0.25;
+    expect(buildQualityGate(input)).toMatchObject({ passed: false, failure_reasons: ["stale_context_leakage_present"] });
+  });
+
+  it("passes all automatic gates but remains blocked while human review is pending", () => {
+    const qualityGate = buildQualityGate(passingInput());
+    expect(qualityGate).toMatchObject({ status: "passed", passed: true, failure_reasons: [] });
+    expect(resolveReleaseGate({ qualityGatePassed: qualityGate.passed, humanReviewComplete: false })).toBe("blocked_pending_human_review");
+    expect(resolveReleaseGate({ qualityGatePassed: false, humanReviewComplete: false })).toBe("blocked_quality_gate");
+  });
+
+  it("flattens failure groups into an exact de-duplicated union", () => {
+    const groups: FailureGroups = {
+      dev_failures: ["shared", "dev-only"], regression_failures: ["shared", "regression-only"],
+      conversation_failures: ["conversation-only"], safety_failures: ["shared", "safety-only"],
+    };
+    expect(flattenFailureGroups(groups)).toEqual(["shared", "dev-only", "regression-only", "conversation-only", "safety-only"]);
+  });
+
+  it("uses real integer counts and stable reasons when regression inventory changes", () => {
+    const qualityGate = buildQualityGate(passingInput());
+    expect(qualityGate.requirements.regression_behavior).toMatchObject({
+      actual_correct: 5, required_correct: 5, total: 5, actual_accuracy: 1, required_accuracy: 1, passed: true,
     });
-    const diagnostics = flattenFailureGroups(failureGroups);
-    const qualityGate = buildQualityGate({
-      regressionCases: 13,
-      regressionBehaviorAccuracy: 12 / 13,
-      regressionNoAnswerRecall: 0.875,
-      regressionFailures: failureGroups.regression_failures,
-    });
+    expect(qualityGate.failure_reasons.join("|")).not.toContain("13_of_13");
+  });
 
-    expect(failureGroups.regression_failures).toEqual(["regression-failure"]);
-    expect(diagnostics).toEqual(["regression-failure"]);
-    expect(qualityGate).toMatchObject({ status: "failed", passed: false });
-
-    expect(buildQualityGate({
-      regressionCases: 13,
-      regressionBehaviorAccuracy: 1,
-      regressionNoAnswerRecall: 1,
-      regressionFailures: ["regression-document-miss"],
-    })).toMatchObject({ status: "failed", passed: false, failure_reasons: ["regression_failures_present"] });
-
-    expect(buildQualityGate({
-      regressionCases: 13,
-      regressionBehaviorAccuracy: 1,
-      regressionNoAnswerRecall: 1,
-      regressionFailures: [],
-    })).toMatchObject({ status: "passed", passed: true, failure_reasons: [] });
+  it("blocks dev and regression failures even when aggregate regression metrics pass", () => {
+    for (const [group, reason] of [["dev_failures", "dev_failures_present"], ["regression_failures", "regression_failures_present"]] as const) {
+      const input = passingInput(); input.failureGroups[group] = [`${group}-critical`];
+      expect(buildQualityGate(input)).toMatchObject({ passed: false, failure_reasons: [reason] });
+    }
   });
 });
 

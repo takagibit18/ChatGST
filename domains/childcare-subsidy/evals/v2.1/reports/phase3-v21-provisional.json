@@ -24,11 +24,31 @@
         "actual": 6,
         "required": 0,
         "passed": false
+      },
+      "dev_failures": {
+        "actual": 0,
+        "required": 0,
+        "passed": true
+      },
+      "conversation_failures": {
+        "actual": 0,
+        "required": 0,
+        "passed": true
+      },
+      "safety_failures": {
+        "actual": 0,
+        "required": 0,
+        "passed": true
+      },
+      "stale_context_leakage": {
+        "actual": 0,
+        "required": 0,
+        "passed": true
       }
     },
     "failure_reasons": [
-      "regression_behavior_not_13_of_13",
-      "regression_no_answer_recall_below_1",
+      "regression_behavior_below_required",
+      "regression_no_answer_recall_below_required",
       "regression_failures_present"
     ]
   },
@@ -64,6 +84,7 @@
   "retrieval": {
     "dev": {
       "cases": 30,
+      "behavior_correct": 30,
       "metrics": {
         "document_recall_at_5": 1,
         "chunk_recall_at_5": 0.9347826086956522,
@@ -375,6 +396,7 @@
     },
     "regression": {
       "cases": 13,
+      "behavior_correct": 7,
       "metrics": {
         "document_recall_at_5": 1,
         "chunk_recall_at_5": 0.75,

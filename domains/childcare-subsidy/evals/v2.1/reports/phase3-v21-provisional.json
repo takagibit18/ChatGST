@@ -2,28 +2,28 @@
   "schema_version": 1,
   "run_id": "phase3-v21-provisional",
   "evaluation_status": "provisional",
-  "release_gate": "blocked_quality_gate",
+  "release_gate": "blocked_pending_human_review",
   "quality_gate": {
-    "status": "failed",
-    "passed": false,
+    "status": "passed",
+    "passed": true,
     "requirements": {
       "regression_behavior": {
-        "actual_correct": 7,
+        "actual_correct": 13,
         "required_correct": 13,
         "total": 13,
-        "actual_accuracy": 0.5384615384615384,
+        "actual_accuracy": 1,
         "required_accuracy": 1,
-        "passed": false
+        "passed": true
       },
       "regression_no_answer_recall": {
-        "actual": 0.25,
+        "actual": 1,
         "required": 1,
-        "passed": false
+        "passed": true
       },
       "regression_failures": {
-        "actual": 6,
+        "actual": 0,
         "required": 0,
-        "passed": false
+        "passed": true
       },
       "dev_failures": {
         "actual": 0,
@@ -46,29 +46,25 @@
         "passed": true
       }
     },
-    "failure_reasons": [
-      "regression_behavior_below_required",
-      "regression_no_answer_recall_below_required",
-      "regression_failures_present"
-    ]
+    "failure_reasons": []
   },
   "quality_claim_allowed": false,
   "circular_labeling": false,
   "input_fingerprint": {
     "dev_sha256": "dcce4b70ec82800f456a28431f69f6622b459e6b3a54f90120042672a2c405bc",
     "regression_sha256": "0c80c17040578d49ba99df7a30e1891e0b469099fa09966f722d874310a955d1",
-    "calibration_sha256": "b69e86b8d1e71c82900a686488ee0928362858bf17a3301e0731af3a59231d5e",
+    "calibration_sha256": "78ecf22d49d231d0f84db31e8c3e59ee1d56c539dab45a6ace4590979875fef1",
     "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce"
   },
-  "prediction_fingerprint": "7739fede9239c8acf283ce02d057632ea05689adf8632635f7c9bada202a2e45",
+  "prediction_fingerprint": "0e083db17c8cb0597a8f1980356ec3343f38f2c935e033406f0864ea31294221",
   "full_run_determinism": {
     "schema_version": 1,
     "full_runs": 3,
     "stable": true,
     "prediction_fingerprints": [
-      "7739fede9239c8acf283ce02d057632ea05689adf8632635f7c9bada202a2e45",
-      "7739fede9239c8acf283ce02d057632ea05689adf8632635f7c9bada202a2e45",
-      "7739fede9239c8acf283ce02d057632ea05689adf8632635f7c9bada202a2e45"
+      "0e083db17c8cb0597a8f1980356ec3343f38f2c935e033406f0864ea31294221",
+      "0e083db17c8cb0597a8f1980356ec3343f38f2c935e033406f0864ea31294221",
+      "0e083db17c8cb0597a8f1980356ec3343f38f2c935e033406f0864ea31294221"
     ],
     "timing_fields_excluded": true,
     "model_provider": "test",
@@ -94,10 +90,10 @@
         "temporal_leakage_rate": 0,
         "version_resolution_accuracy": 1,
         "duplicate_occupancy_at_5": 0,
-        "required_fact_coverage": 0.8333333333333334,
+        "required_fact_coverage": 0.8,
         "forbidden_fact_rate": 0,
-        "citation_precision": 0.48936170212765956,
-        "citation_completeness": 0.8846153846153846,
+        "citation_precision": 0.55,
+        "citation_completeness": 0.8461538461538461,
         "behavior_accuracy": 1,
         "no_answer_precision": 1,
         "no_answer_recall": 1,
@@ -111,7 +107,7 @@
         "source_slots": 52,
         "required_facts": 30,
         "forbidden_facts": 4,
-        "citations_predicted": 47,
+        "citations_predicted": 40,
         "citations_expected": 26,
         "no_answer": 4
       },
@@ -125,8 +121,8 @@
           "high": 1
         },
         "citation_completeness": {
-          "low": 0.7102370691310166,
-          "high": 0.959968281788505
+          "low": 0.6646841558168644,
+          "high": 0.9385006600107053
         }
       },
       "by_category": {
@@ -396,7 +392,7 @@
     },
     "regression": {
       "cases": 13,
-      "behavior_correct": 7,
+      "behavior_correct": 13,
       "metrics": {
         "document_recall_at_5": 1,
         "chunk_recall_at_5": 0.75,
@@ -408,12 +404,12 @@
         "duplicate_occupancy_at_5": 0,
         "required_fact_coverage": 0.75,
         "forbidden_fact_rate": 0,
-        "citation_precision": 0.21052631578947367,
+        "citation_precision": 0.5714285714285714,
         "citation_completeness": 1,
-        "behavior_accuracy": 0.5384615384615384,
+        "behavior_accuracy": 1,
         "no_answer_precision": 1,
-        "no_answer_recall": 0.25,
-        "no_answer_f1": 0.4,
+        "no_answer_recall": 1,
+        "no_answer_f1": 1,
         "deterministic_rate": 1
       },
       "denominators": {
@@ -423,18 +419,18 @@
         "source_slots": 8,
         "required_facts": 4,
         "forbidden_facts": 0,
-        "citations_predicted": 19,
+        "citations_predicted": 7,
         "citations_expected": 4,
         "no_answer": 8
       },
       "confidence_95": {
         "behavior_accuracy": {
-          "low": 0.2914343243183205,
-          "high": 0.7679424569851186
+          "low": 0.7718981569447083,
+          "high": 1
         },
         "no_answer_recall": {
-          "low": 0.07147768885802763,
-          "high": 0.5907301208974108
+          "low": 0.6755843804891231,
+          "high": 1
         },
         "citation_completeness": {
           "low": 0.5100999795960008,
@@ -445,7 +441,7 @@
         "no_answer": {
           "cases": 8,
           "document_recall_at_5": 0,
-          "behavior_accuracy": 0.25
+          "behavior_accuracy": 1
         },
         "single_region_fact": {
           "cases": 3,
@@ -475,14 +471,14 @@
           "case_id": "regression-hebei-eligibility",
           "category": "no_answer",
           "expected": "no_answer",
-          "predicted": "answer",
+          "predicted": "no_answer",
           "document_hit": null
         },
         {
           "case_id": "regression-hebei-claimant",
           "category": "no_answer",
           "expected": "no_answer",
-          "predicted": "answer",
+          "predicted": "no_answer",
           "document_hit": null
         },
         {
@@ -496,7 +492,7 @@
           "case_id": "regression-hebei-channel",
           "category": "no_answer",
           "expected": "no_answer",
-          "predicted": "answer",
+          "predicted": "no_answer",
           "document_hit": null
         },
         {
@@ -517,21 +513,21 @@
           "case_id": "regression-regional-comparison",
           "category": "no_answer",
           "expected": "no_answer",
-          "predicted": "answer",
+          "predicted": "no_answer",
           "document_hit": null
         },
         {
           "case_id": "regression-hebei-migration",
           "category": "no_answer",
           "expected": "no_answer",
-          "predicted": "answer",
+          "predicted": "no_answer",
           "document_hit": null
         },
         {
           "case_id": "regression-benefit-distinction",
           "category": "no_answer",
           "expected": "no_answer",
-          "predicted": "answer",
+          "predicted": "no_answer",
           "document_hit": null
         },
         {
@@ -783,38 +779,24 @@
   },
   "performance_ms": {
     "retrieval": {
-      "p50": 70.1567,
-      "p95": 151.8209,
-      "p99": 182.7808
+      "p50": 59.754,
+      "p95": 134.4277,
+      "p99": 191.0307
     },
     "total": {
-      "p50": 70.1813,
-      "p95": 151.8513,
-      "p99": 182.8096
+      "p50": 59.7751,
+      "p95": 134.4619,
+      "p99": 191.0481
     },
     "warmups": 2,
     "measured": 5
   },
   "failure_groups": {
     "dev_failures": [],
-    "regression_failures": [
-      "regression-hebei-eligibility",
-      "regression-hebei-claimant",
-      "regression-hebei-channel",
-      "regression-regional-comparison",
-      "regression-hebei-migration",
-      "regression-benefit-distinction"
-    ],
+    "regression_failures": [],
     "conversation_failures": [],
     "safety_failures": []
   },
-  "diagnostic_failures": [
-    "regression-hebei-eligibility",
-    "regression-hebei-claimant",
-    "regression-hebei-channel",
-    "regression-regional-comparison",
-    "regression-hebei-migration",
-    "regression-benefit-distinction"
-  ],
+  "diagnostic_failures": [],
   "review_notice": "All Gold remains pending_review; metrics are diagnostic only."
 }

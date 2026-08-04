@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
   "run_id": "phase3-v21-provisional",
-  "generated_at": "2026-08-04T02:07:46.734Z",
+  "generated_at": "2026-08-04T07:32:07.256Z",
   "evaluation_status": "provisional",
   "release_gate": "blocked_pending_human_review",
   "input_fingerprint": {
     "dev_sha256": "dcce4b70ec82800f456a28431f69f6622b459e6b3a54f90120042672a2c405bc",
     "regression_sha256": "0c80c17040578d49ba99df7a30e1891e0b469099fa09966f722d874310a955d1",
-    "calibration_sha256": "b69e86b8d1e71c82900a686488ee0928362858bf17a3301e0731af3a59231d5e",
+    "calibration_sha256": "78ecf22d49d231d0f84db31e8c3e59ee1d56c539dab45a6ace4590979875fef1",
     "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce"
   },
-  "prediction_fingerprint": "7739fede9239c8acf283ce02d057632ea05689adf8632635f7c9bada202a2e45",
+  "prediction_fingerprint": "0e083db17c8cb0597a8f1980356ec3343f38f2c935e033406f0864ea31294221",
   "config": {
     "threshold": 0,
     "warmups": 2,
@@ -154,18 +154,18 @@
         }
       ],
       "retrieval_ms": [
-        37.7193,
-        51.2812,
-        41.6415,
-        42.5216,
-        40.2535
+        36.8559,
+        32.5759,
+        34.6254,
+        36.3545,
+        30.1503
       ],
       "total_ms": [
-        37.8404,
-        51.3132,
-        41.6789,
-        42.5566,
-        40.2867
+        36.8865,
+        32.5988,
+        34.6512,
+        36.3754,
+        30.1749
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -189,7 +189,7 @@
         "toolCalls": 2,
         "inputTokens": 24,
         "outputTokens": 745,
-        "startedAt": 1785809232837
+        "startedAt": 1785828699449
       },
       "validation": {
         "repaired": false,
@@ -333,18 +333,18 @@
         }
       ],
       "retrieval_ms": [
-        37.3592,
-        40.6723,
-        72.3477,
-        47.5368,
-        52.7318
+        30.4115,
+        32.1463,
+        29.9528,
+        33.9361,
+        34.2824
       ],
       "total_ms": [
-        37.4033,
-        40.7265,
-        72.3749,
-        47.563,
-        52.7636
+        30.4705,
+        32.1782,
+        29.9707,
+        33.956,
+        34.3087
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -368,7 +368,7 @@
         "toolCalls": 2,
         "inputTokens": 28,
         "outputTokens": 711,
-        "startedAt": 1785809233282
+        "startedAt": 1785828699775
       },
       "validation": {
         "repaired": false,
@@ -512,18 +512,18 @@
         }
       ],
       "retrieval_ms": [
-        41.3076,
-        42.4024,
-        51.7257,
-        45.7914,
-        48.0673
+        34.1594,
+        31.1697,
+        30.4772,
+        31.315,
+        29.4779
       ],
       "total_ms": [
-        41.3625,
-        42.4255,
-        51.8247,
-        45.8227,
-        48.1002
+        34.1753,
+        31.1892,
+        30.4926,
+        31.3317,
+        29.5002
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -547,7 +547,7 @@
         "toolCalls": 2,
         "inputTokens": 29,
         "outputTokens": 284,
-        "startedAt": 1785809233699
+        "startedAt": 1785828700090
       },
       "validation": {
         "repaired": false,
@@ -691,18 +691,18 @@
         }
       ],
       "retrieval_ms": [
-        67.7145,
-        56.1268,
-        88.5834,
-        73.4312,
-        63.6307
+        33.1087,
+        38.9104,
+        36.9294,
+        35.2901,
+        48.9026
       ],
       "total_ms": [
-        67.7455,
-        56.1562,
-        88.6165,
-        73.4675,
-        63.7235
+        33.1261,
+        38.9455,
+        36.9751,
+        35.3077,
+        48.92
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -726,7 +726,7 @@
         "toolCalls": 2,
         "inputTokens": 25,
         "outputTokens": 732,
-        "startedAt": 1785809234322
+        "startedAt": 1785828700442
       },
       "validation": {
         "repaired": false,
@@ -870,18 +870,18 @@
         }
       ],
       "retrieval_ms": [
-        60.9219,
-        124.0305,
-        88.7733,
-        53.6566,
-        66.728
+        37.6388,
+        45.864,
+        53.2232,
+        40.7367,
+        40.4438
       ],
       "total_ms": [
-        60.9835,
-        124.0657,
-        88.8076,
-        53.6864,
-        66.7598
+        37.6609,
+        45.8929,
+        53.268,
+        40.7591,
+        40.4676
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -905,7 +905,7 @@
         "toolCalls": 2,
         "inputTokens": 32,
         "outputTokens": 606,
-        "startedAt": 1785809234984
+        "startedAt": 1785828700808
       },
       "validation": {
         "repaired": false,
@@ -1049,27 +1049,24 @@
         }
       ],
       "retrieval_ms": [
-        40.3146,
-        48.1853,
-        66.8444,
-        60.4631,
-        50.2548
+        49.5966,
+        43.3317,
+        46.7302,
+        45.9168,
+        42.8024
       ],
       "total_ms": [
-        40.345,
-        48.2166,
-        66.8758,
-        60.4945,
-        50.2849
+        49.617,
+        43.3537,
+        46.7508,
+        45.9443,
+        42.823
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
-      "answer_text": "原则上由婴幼儿父母一方申领；父母无法申领时，可由其他监护人按规定办理。每名婴幼儿只能由一名申领人申请。\n- **第七条**：第七条 育儿补贴具体申请程序如下：\n\n（一）申请。申领人填写婴幼儿及申领人有关信息，提供婴幼儿的出生医学证明、居民户口簿等基础材料，并根据需要提供有助于判定申领人和婴幼儿之间抚养关系的法定有效材料。\n\n（二）初审。婴幼儿户籍所在地乡镇政府（街道办事处）收到申领人申请后应及时进行初审。符合条件的予以通过，并报县级卫生健康部门审核；不符合条件的，应当及时告知申领人并做好政策解释。村（居）民委员会协助做好有关工作。\n\n（三）审核确认。县级卫生健康部门对乡镇政府（街道办事处）提交的申请材料进行审核，确认补贴发放对象名单，并\n- **三、主要特点**：**三、主要特点**\n\n《管理规范》坚持以人民为中心，强调惠民利民、安全规范、简便易行，主要突出以下4个重点：\n\n（一）精简申请和审核流程。明确育儿补贴的申领资格，精简申领材料，优化申领程序，以线上申领为主。强调审核工作要充分发挥大数据审核作用，切实减轻基层负担。初审和审核确认工作原则上应在30个工作日内完成。\n\n（二）明确发放时点和渠道。育儿补贴按年计算，每年一次性发放。各省份结合实际确定发放时点，原则上每季度至少集中发放一批，确保补贴及时足额发放到位。发放渠道为申领人或婴幼儿的银行卡或其他金融账户。\n\n（三）加\n- **第十三条**：第十三条续领时，相关申请信息、材料发生变更的，申领人应当及时更新。\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [新闻发布会](https://www.nmg.gov.cn/zwgk/zcjd/gjzcjd/202509/t20250919_2793008.html)",
-      "citations": [
-        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
-        "省级或地市_官方解读_育儿补贴申请“一件事”_17"
-      ],
-      "runtime_behavior": "answered",
+      "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+      "citations": [],
+      "runtime_behavior": "insufficient_evidence",
       "runtime_region": "全国",
       "evidence_chunks": [
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
@@ -1079,16 +1076,16 @@
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb"
       ],
       "usage": {
-        "agentSteps": 1,
-        "modelCalls": 1,
+        "agentSteps": 0,
+        "modelCalls": 0,
         "toolCalls": 2,
         "inputTokens": 31,
-        "outputTokens": 669,
-        "startedAt": 1785809235523
+        "outputTokens": 69,
+        "startedAt": 1785828701203
       },
       "validation": {
         "repaired": false,
-        "fallback": false,
+        "fallback": true,
         "issueCount": 0
       }
     },
@@ -1228,18 +1225,18 @@
         }
       ],
       "retrieval_ms": [
-        93.3727,
-        133.6695,
-        166.5888,
-        109.5668,
-        128.7802
+        44.3038,
+        50.2443,
+        39.0003,
+        44.3475,
+        54.0119
       ],
       "total_ms": [
-        93.4013,
-        136.0693,
-        166.6902,
-        109.5947,
-        128.8077
+        44.3297,
+        50.2701,
+        39.0258,
+        44.3736,
+        54.0407
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1263,7 +1260,7 @@
         "toolCalls": 2,
         "inputTokens": 30,
         "outputTokens": 711,
-        "startedAt": 1785809236478
+        "startedAt": 1785828701596
       },
       "validation": {
         "repaired": false,
@@ -1407,18 +1404,18 @@
         }
       ],
       "retrieval_ms": [
-        103.8701,
-        87.0053,
-        109.4022,
-        76.8067,
-        50.559
+        50.3607,
+        118.1879,
+        70.0439,
+        81.678,
+        62.7051
       ],
       "total_ms": [
-        104.0023,
-        87.032,
-        109.4241,
-        76.8301,
-        50.5855
+        50.4422,
+        118.204,
+        70.0611,
+        81.695,
+        62.7199
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1441,7 +1438,7 @@
         "toolCalls": 2,
         "inputTokens": 37,
         "outputTokens": 416,
-        "startedAt": 1785809237284
+        "startedAt": 1785828702162
       },
       "validation": {
         "repaired": false,
@@ -1585,18 +1582,18 @@
         }
       ],
       "retrieval_ms": [
-        47.8752,
-        48.5114,
-        53.355,
-        105.4511,
-        49.9517
+        61.623,
+        71.5507,
+        134.9856,
+        62.5937,
+        58.0084
       ],
       "total_ms": [
-        47.8983,
-        48.5422,
-        53.3843,
-        105.4777,
-        49.9753
+        61.6388,
+        71.5675,
+        135.003,
+        62.6112,
+        58.0251
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1621,7 +1618,7 @@
         "toolCalls": 2,
         "inputTokens": 34,
         "outputTokens": 715,
-        "startedAt": 1785809237801
+        "startedAt": 1785828702906
       },
       "validation": {
         "repaired": false,
@@ -1765,18 +1762,18 @@
         }
       ],
       "retrieval_ms": [
-        61.8711,
-        93.823,
-        94.0484,
-        142.3607,
-        81.3586
+        66.0704,
+        39.9303,
+        37.0079,
+        42.237,
+        41.7376
       ],
       "total_ms": [
-        61.8966,
-        93.8498,
-        94.0742,
-        142.3894,
-        81.3863
+        66.0923,
+        39.9511,
+        37.0271,
+        42.2564,
+        41.757
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1799,7 +1796,7 @@
         "toolCalls": 2,
         "inputTokens": 25,
         "outputTokens": 535,
-        "startedAt": 1785809238662
+        "startedAt": 1785828703391
       },
       "validation": {
         "repaired": false,
@@ -1943,18 +1940,18 @@
         }
       ],
       "retrieval_ms": [
-        60.5164,
-        77.5506,
-        100.8715,
-        81.0285,
-        59.2791
+        55.2994,
+        46.8344,
+        47.0727,
+        65.2908,
+        63.0963
       ],
       "total_ms": [
-        60.5395,
-        77.5755,
-        100.9069,
-        81.0562,
-        59.3028
+        55.3153,
+        46.8503,
+        47.0925,
+        65.3082,
+        63.113
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1978,7 +1975,7 @@
         "toolCalls": 2,
         "inputTokens": 26,
         "outputTokens": 479,
-        "startedAt": 1785809239489
+        "startedAt": 1785828703868
       },
       "validation": {
         "repaired": false,
@@ -2122,18 +2119,18 @@
         }
       ],
       "retrieval_ms": [
-        58.6014,
-        87.6208,
-        71.7829,
-        47.8294,
-        93.4505
+        78.8776,
+        91.6663,
+        109.8558,
+        62.0584,
+        67.8484
       ],
       "total_ms": [
-        58.6265,
-        87.6429,
-        73.2981,
-        47.854,
-        93.4736
+        78.8965,
+        91.6821,
+        109.8741,
+        62.0736,
+        67.8665
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2156,7 +2153,7 @@
         "toolCalls": 2,
         "inputTokens": 27,
         "outputTokens": 606,
-        "startedAt": 1785809240102
+        "startedAt": 1785828704722
       },
       "validation": {
         "repaired": false,
@@ -2300,18 +2297,18 @@
         }
       ],
       "retrieval_ms": [
-        123.6361,
-        84.8279,
-        92.9394,
-        133.3588,
-        106.9018
+        86.5659,
+        72.8105,
+        69.736,
+        96.3407,
+        75.1752
       ],
       "total_ms": [
-        123.9492,
-        84.8537,
-        92.962,
-        133.3895,
-        106.9335
+        86.5836,
+        72.8281,
+        69.7605,
+        96.3576,
+        75.1912
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2335,7 +2332,7 @@
         "toolCalls": 2,
         "inputTokens": 20,
         "outputTokens": 525,
-        "startedAt": 1785809240999
+        "startedAt": 1785828705453
       },
       "validation": {
         "repaired": false,
@@ -2479,18 +2476,18 @@
         }
       ],
       "retrieval_ms": [
-        77.5434,
-        70.1567,
-        50.3939,
-        58.828,
-        92.2033
+        52.5525,
+        64.1263,
+        57.882,
+        60.1536,
+        66.107
       ],
       "total_ms": [
-        77.5702,
-        70.1813,
-        50.4155,
-        58.8548,
-        92.2262
+        52.5707,
+        64.1444,
+        57.9034,
+        60.17,
+        66.1252
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2514,7 +2511,7 @@
         "toolCalls": 2,
         "inputTokens": 39,
         "outputTokens": 542,
-        "startedAt": 1785809241793
+        "startedAt": 1785828706010
       },
       "validation": {
         "repaired": false,
@@ -2658,18 +2655,18 @@
         }
       ],
       "retrieval_ms": [
-        67.3465,
-        50.8969,
-        56.7673,
-        44.249,
-        40.4767
+        53.5908,
+        70.4164,
+        56.51,
+        75.1503,
+        105.6096
       ],
       "total_ms": [
-        67.3691,
-        50.9207,
-        56.7902,
-        44.272,
-        40.4994
+        53.6139,
+        70.4392,
+        56.5329,
+        75.1726,
+        105.631
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2693,7 +2690,7 @@
         "toolCalls": 2,
         "inputTokens": 29,
         "outputTokens": 504,
-        "startedAt": 1785809242353
+        "startedAt": 1785828706605
       },
       "validation": {
         "repaired": false,
@@ -2837,18 +2834,18 @@
         }
       ],
       "retrieval_ms": [
-        89.0274,
-        52.8718,
-        85.0105,
-        99.9235,
-        59.5435
+        198.535,
+        134.4277,
+        145.6743,
+        145.8102,
+        68.0647
       ],
       "total_ms": [
-        89.0516,
-        52.8967,
-        85.0351,
-        99.9579,
-        59.5693
+        198.5601,
+        134.4619,
+        145.6996,
+        145.8448,
+        68.0902
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2872,7 +2869,7 @@
         "toolCalls": 2,
         "inputTokens": 16,
         "outputTokens": 392,
-        "startedAt": 1785809242946
+        "startedAt": 1785828707760
       },
       "validation": {
         "repaired": false,
@@ -3016,18 +3013,18 @@
         }
       ],
       "retrieval_ms": [
-        110.9944,
-        120.8595,
-        141.7879,
-        167.6556,
-        95.3848
+        90.9883,
+        62.6591,
+        71.0482,
+        55.1153,
+        68.1162
       ],
       "total_ms": [
-        111.0284,
-        120.8875,
-        141.8176,
-        167.6821,
-        95.4122
+        91.0597,
+        62.6793,
+        71.074,
+        55.1369,
+        68.1386
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3050,7 +3047,7 @@
         "toolCalls": 2,
         "inputTokens": 20,
         "outputTokens": 685,
-        "startedAt": 1785809244127
+        "startedAt": 1785828708445
       },
       "validation": {
         "repaired": false,
@@ -3116,18 +3113,18 @@
         }
       ],
       "retrieval_ms": [
-        64.4848,
-        50.5123,
-        40.3129,
-        67.3471,
-        32.7165
+        57.9032,
+        66.3914,
+        70.1895,
+        47.4093,
+        75.9031
       ],
       "total_ms": [
-        64.506,
-        50.5542,
-        42.0292,
-        67.3707,
-        32.7365
+        57.9217,
+        66.41,
+        70.2482,
+        47.4303,
+        75.9233
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3150,7 +3147,7 @@
         "toolCalls": 2,
         "inputTokens": 17,
         "outputTokens": 711,
-        "startedAt": 1785809244681
+        "startedAt": 1785828709007
       },
       "validation": {
         "repaired": false,
@@ -3294,18 +3291,18 @@
         }
       ],
       "retrieval_ms": [
-        64.4563,
-        118.2667,
-        140.1603,
-        98.4562,
-        80.1216
+        152.5454,
+        153.8753,
+        58.0722,
+        125.905,
+        58.6678
       ],
       "total_ms": [
-        64.4782,
-        118.2889,
-        140.1851,
-        98.4836,
-        80.1473
+        152.5656,
+        153.9011,
+        58.094,
+        125.9254,
+        58.6901
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3329,7 +3326,7 @@
         "toolCalls": 2,
         "inputTokens": 19,
         "outputTokens": 824,
-        "startedAt": 1785809245425
+        "startedAt": 1785828709874
       },
       "validation": {
         "repaired": false,
@@ -3473,18 +3470,18 @@
         }
       ],
       "retrieval_ms": [
-        155.3825,
-        113.6917,
-        95.0536,
-        61.5509,
-        92.3505
+        120.0434,
+        80.6465,
+        94.9515,
+        73.5644,
+        54.0104
       ],
       "total_ms": [
-        155.4029,
-        113.7137,
-        95.076,
-        61.5739,
-        92.3755
+        120.064,
+        80.6686,
+        94.9731,
+        73.5868,
+        54.0999
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3509,7 +3506,7 @@
         "toolCalls": 2,
         "inputTokens": 23,
         "outputTokens": 418,
-        "startedAt": 1785809246515
+        "startedAt": 1785828710659
       },
       "validation": {
         "repaired": false,
@@ -3653,18 +3650,18 @@
         }
       ],
       "retrieval_ms": [
-        53.675,
-        73.4406,
-        59.017,
-        49.4496,
-        54.5837
+        69.7877,
+        65.5352,
+        67.8384,
+        72.962,
+        127.5449
       ],
       "total_ms": [
-        53.7381,
-        74.0086,
-        59.0416,
-        49.4698,
-        54.63
+        69.8108,
+        65.5563,
+        67.8611,
+        72.9859,
+        127.569
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3687,7 +3684,7 @@
         "toolCalls": 2,
         "inputTokens": 23,
         "outputTokens": 685,
-        "startedAt": 1785809247082
+        "startedAt": 1785828711330
       },
       "validation": {
         "repaired": false,
@@ -3831,18 +3828,18 @@
         }
       ],
       "retrieval_ms": [
-        81.646,
-        79.9309,
-        53.1666,
-        78.7798,
-        151.6423
+        75.492,
+        102.5346,
+        141.9925,
+        90.8482,
+        55.776
       ],
       "total_ms": [
-        81.6931,
-        79.9549,
-        53.1911,
-        78.8014,
-        151.6692
+        75.5121,
+        102.5563,
+        142.0182,
+        90.8689,
+        55.7962
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3865,7 +3862,7 @@
         "toolCalls": 2,
         "inputTokens": 22,
         "outputTokens": 685,
-        "startedAt": 1785809247783
+        "startedAt": 1785828712325
       },
       "validation": {
         "repaired": false,
@@ -4009,18 +4006,18 @@
         }
       ],
       "retrieval_ms": [
-        143.9004,
-        152.691,
-        142.126,
-        86.9394,
-        75.9853
+        52.9475,
+        60.7181,
+        76.5598,
+        59.754,
+        56.0929
       ],
       "total_ms": [
-        143.9223,
-        152.7105,
-        142.1457,
-        86.9607,
-        76.0098
+        52.9694,
+        60.7393,
+        76.5816,
+        59.7751,
+        56.1157
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -4044,7 +4041,7 @@
         "toolCalls": 2,
         "inputTokens": 31,
         "outputTokens": 467,
-        "startedAt": 1785809248852
+        "startedAt": 1785828713051
       },
       "validation": {
         "repaired": false,
@@ -4188,22 +4185,22 @@
         }
       ],
       "retrieval_ms": [
-        40.7041,
-        53.4835,
-        76.5953,
-        63.1721,
-        58.1444
+        75.6131,
+        130.8075,
+        80.895,
+        98.8094,
+        107.4938
       ],
       "total_ms": [
-        40.7247,
-        53.5065,
-        76.6173,
-        63.1977,
-        58.1718
+        75.6355,
+        130.8284,
+        80.921,
+        98.83,
+        107.5142
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
-      "answer_text": "暂未检索到足够的有效政策依据，因此不能给出确定结论。建议咨询当地卫生健康部门。\n",
+      "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
       "citations": [],
       "runtime_behavior": "insufficient_evidence",
       "runtime_region": "宁夏回族自治区",
@@ -4213,8 +4210,8 @@
         "modelCalls": 0,
         "toolCalls": 2,
         "inputTokens": 17,
-        "outputTokens": 40,
-        "startedAt": 1785809249462
+        "outputTokens": 69,
+        "startedAt": 1785828713780
       },
       "validation": {
         "repaired": false,
@@ -4358,27 +4355,24 @@
         }
       ],
       "retrieval_ms": [
-        89.7165,
-        50.9338,
-        69.9863,
-        66.3636,
-        50.1582
+        86.0622,
+        102.0551,
+        140.791,
+        129.8292,
+        80.4782
       ],
       "total_ms": [
-        89.7425,
-        50.9575,
-        70.0056,
-        66.386,
-        50.1823
+        86.0832,
+        102.3818,
+        140.819,
+        129.85,
+        80.5045
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
-      "answer_text": "回答未通过安全校验，系统已停止展示该结果。请参考下列官方来源或咨询当地主管部门。\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [视频解读：北京市育儿补贴制度实施细则（试行）](https://wjw.beijing.gov.cn/zwgk_20040/zcwj2024/202511/t20251125_4304288.html)",
-      "citations": [
-        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
-        "北京市_政策规章_育儿补贴申请“一件事”_5"
-      ],
-      "runtime_behavior": "safe_error",
+      "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+      "citations": [],
+      "runtime_behavior": "insufficient_evidence",
       "runtime_region": "北京市",
       "evidence_chunks": [
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
@@ -4392,8 +4386,8 @@
         "modelCalls": 0,
         "toolCalls": 2,
         "inputTokens": 24,
-        "outputTokens": 97,
-        "startedAt": 1785809249990
+        "outputTokens": 69,
+        "startedAt": 1785828714690
       },
       "validation": {
         "repaired": false,
@@ -4537,26 +4531,24 @@
         }
       ],
       "retrieval_ms": [
-        169.115,
-        182.8918,
-        157.2542,
-        98.9045,
-        112.0934
+        60.7506,
+        68.1262,
+        54.5655,
+        51.724,
+        59.2634
       ],
       "total_ms": [
-        169.1521,
-        182.9175,
-        157.2771,
-        98.924,
-        112.1155
+        60.7726,
+        68.157,
+        54.5891,
+        51.7454,
+        59.2869
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
-      "answer_text": "回答未通过安全校验，系统已停止展示该结果。请参考下列官方来源或咨询当地主管部门。\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)",
-      "citations": [
-        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
-      ],
-      "runtime_behavior": "safe_error",
+      "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+      "citations": [],
+      "runtime_behavior": "insufficient_evidence",
       "runtime_region": "河北省",
       "evidence_chunks": [
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
@@ -4570,8 +4562,8 @@
         "modelCalls": 0,
         "toolCalls": 2,
         "inputTokens": 20,
-        "outputTokens": 72,
-        "startedAt": 1785809250988
+        "outputTokens": 69,
+        "startedAt": 1785828715246
       },
       "validation": {
         "repaired": false,
@@ -4715,28 +4707,25 @@
         }
       ],
       "retrieval_ms": [
-        92.3325,
-        65.3412,
-        54.4788,
-        47.0504,
-        57.4598
+        66.0973,
+        83.8507,
+        70.4869,
+        105.6399,
+        78.7711
       ],
       "total_ms": [
-        92.3524,
-        65.3635,
-        54.5076,
-        47.0749,
-        57.4814
+        66.1205,
+        83.8723,
+        70.5161,
+        105.6659,
+        78.7927
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
-      "answer_text": "回答未通过安全校验，系统已停止展示该结果。请参考下列官方来源或咨询当地主管部门。\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [新闻发布会](https://www.nmg.gov.cn/zwgk/zcjd/gjzcjd/202509/t20250919_2793008.html)",
-      "citations": [
-        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
-        "省级或地市_官方解读_育儿补贴申请“一件事”_17"
-      ],
-      "runtime_behavior": "safe_error",
-      "runtime_region": null,
+      "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+      "citations": [],
+      "runtime_behavior": "insufficient_evidence",
+      "runtime_region": "全国",
       "evidence_chunks": [
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2b4b70a4f7fb8ae45230",
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
@@ -4749,8 +4738,8 @@
         "modelCalls": 0,
         "toolCalls": 2,
         "inputTokens": 19,
-        "outputTokens": 81,
-        "startedAt": 1785809251651
+        "outputTokens": 69,
+        "startedAt": 1785828715854
       },
       "validation": {
         "repaired": false,
@@ -4777,7 +4766,7 @@
         "toolCalls": 0,
         "inputTokens": 18,
         "outputTokens": 34,
-        "startedAt": 1785809251718
+        "startedAt": 1785828715995
       },
       "validation": {
         "repaired": false,
@@ -4804,7 +4793,7 @@
         "toolCalls": 0,
         "inputTokens": 23,
         "outputTokens": 34,
-        "startedAt": 1785809251720
+        "startedAt": 1785828716004
       },
       "validation": {
         "repaired": false,
@@ -4831,7 +4820,7 @@
         "toolCalls": 0,
         "inputTokens": 20,
         "outputTokens": 34,
-        "startedAt": 1785809251721
+        "startedAt": 1785828716009
       },
       "validation": {
         "repaired": false,
@@ -4975,27 +4964,24 @@
         }
       ],
       "retrieval_ms": [
-        37.7492,
-        43.9909,
-        64.3053,
-        52.4667,
-        43.0835
+        65.0761,
+        116.0267,
+        117.1485,
+        59.0165,
+        54.8166
       ],
       "total_ms": [
-        37.8211,
-        44.0149,
-        64.3302,
-        52.4923,
-        43.1055
+        65.0966,
+        116.0492,
+        117.1702,
+        59.0392,
+        54.8384
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
-      "answer_text": "回答未通过安全校验，系统已停止展示该结果。请参考下列官方来源或咨询当地主管部门。\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [视频解读：北京市育儿补贴制度实施细则（试行）](https://wjw.beijing.gov.cn/zwgk_20040/zcwj2024/202511/t20251125_4304288.html)",
-      "citations": [
-        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
-        "北京市_政策规章_育儿补贴申请“一件事”_5"
-      ],
-      "runtime_behavior": "safe_error",
+      "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+      "citations": [],
+      "runtime_behavior": "insufficient_evidence",
       "runtime_region": "北京市",
       "evidence_chunks": [
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
@@ -5009,8 +4995,8 @@
         "modelCalls": 0,
         "toolCalls": 2,
         "inputTokens": 13,
-        "outputTokens": 97,
-        "startedAt": 1785809252052
+        "outputTokens": 69,
+        "startedAt": 1785828716612
       },
       "validation": {
         "repaired": false,
@@ -5020,7 +5006,7 @@
     },
     {
       "case_id": "regression-hebei-eligibility",
-      "predicted_behavior": "answer",
+      "predicted_behavior": "no_answer",
       "top_k": [
         {
           "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
@@ -5154,26 +5140,24 @@
         }
       ],
       "retrieval_ms": [
-        114.4175,
-        81.6268,
-        142.4186,
-        135.1192,
-        155.0179
+        74.0675,
+        62.5531,
+        46.2986,
+        50.8226,
+        46.7509
       ],
       "total_ms": [
-        114.4396,
-        81.652,
-        142.4424,
-        135.152,
-        155.0457
+        74.0894,
+        62.5747,
+        46.3186,
+        50.8422,
+        46.7721
       ],
       "repeat_stable": true,
-      "evidence_sufficient": true,
-      "answer_text": "视情况。一般需为符合法律法规规定生育或收养的3周岁以下婴幼儿，最终以审核结果为准。\n- **第十二条**：第十二条申领人按年度申请。申领人应当在婴幼儿出生当年或次年提出首次申请，并在之后的连续两个年度分别提出续领申请。\n\n对于2025年1月1日以前出生的婴幼儿，首次申请应当在2025年12月31日前提出。\n\n逾期未提交申请的，视为自动放弃当年申请资格。\n- **第八条**：第八条地市级卫生健康部门每年按一定的比例，对补贴对象信息进行抽查。省级卫生健康部门根据需要开展抽查，实行动态监管，确保资金安全。\n- **第五条**：第五条补贴对象为从2025年1月1日起，符合法律法规规定生育或收养的3周岁以下婴幼儿。\n\n对3周岁以下的孤儿、事实无人抚养的婴幼儿，予以发放补贴。\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)",
-      "citations": [
-        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
-      ],
-      "runtime_behavior": "answered",
+      "evidence_sufficient": false,
+      "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+      "citations": [],
+      "runtime_behavior": "insufficient_evidence",
       "runtime_region": "河北省",
       "evidence_chunks": [
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
@@ -5183,22 +5167,22 @@
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb"
       ],
       "usage": {
-        "agentSteps": 1,
-        "modelCalls": 1,
+        "agentSteps": 0,
+        "modelCalls": 0,
         "toolCalls": 2,
         "inputTokens": 17,
-        "outputTokens": 346,
-        "startedAt": 1785809252971
+        "outputTokens": 69,
+        "startedAt": 1785828717120
       },
       "validation": {
         "repaired": false,
-        "fallback": false,
+        "fallback": true,
         "issueCount": 0
       }
     },
     {
       "case_id": "regression-hebei-claimant",
-      "predicted_behavior": "answer",
+      "predicted_behavior": "no_answer",
       "top_k": [
         {
           "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
@@ -5332,26 +5316,24 @@
         }
       ],
       "retrieval_ms": [
-        117.6107,
-        97.2805,
-        87.1514,
-        62.12,
-        47.513
+        50.8663,
+        50.4793,
+        55.4883,
+        40.4418,
+        41.9186
       ],
       "total_ms": [
-        117.6423,
-        97.3104,
-        87.1787,
-        62.1495,
-        47.5409
+        50.8885,
+        50.5031,
+        55.5093,
+        40.4642,
+        41.9405
       ],
       "repeat_stable": true,
-      "evidence_sufficient": true,
-      "answer_text": "原则上由婴幼儿父母一方申领；父母无法申领时，可由其他监护人按规定办理。每名婴幼儿只能由一名申领人申请。\n- **第十三条**：第十三条续领时，相关申请信息、材料发生变更的，申领人应当及时更新。\n- **第十条**：第十条申领相关信息和材料的审核以申领人提交申请时的状态为准；发生修改的，以最后一次修改后提交时的状态为准。\n- **第九条**：第九条申领人主要通过育儿补贴信息管理系统线上申请，也可到婴幼儿户籍所在地乡镇政府（街道办事处）现场申请。\n\n申领人是儿童福利机构的，应到机构登记所在地乡镇政府（街道办事处）现场申请。\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)",
-      "citations": [
-        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
-      ],
-      "runtime_behavior": "answered",
+      "evidence_sufficient": false,
+      "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+      "citations": [],
+      "runtime_behavior": "insufficient_evidence",
       "runtime_region": "河北省",
       "evidence_chunks": [
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:5bdca3d5cc0066104073",
@@ -5361,16 +5343,16 @@
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c14cf69683927f68cfe9"
       ],
       "usage": {
-        "agentSteps": 1,
-        "modelCalls": 1,
+        "agentSteps": 0,
+        "modelCalls": 0,
         "toolCalls": 2,
         "inputTokens": 12,
-        "outputTokens": 283,
-        "startedAt": 1785809253858
+        "outputTokens": 69,
+        "startedAt": 1785828717520
       },
       "validation": {
         "repaired": false,
-        "fallback": false,
+        "fallback": true,
         "issueCount": 0
       }
     },
@@ -5510,18 +5492,18 @@
         }
       ],
       "retrieval_ms": [
-        48.555,
-        51.0462,
-        66.34,
-        54.2823,
-        69.3651
+        65.9998,
+        56.3888,
+        50.7309,
+        95.5488,
+        67.6203
       ],
       "total_ms": [
-        48.5858,
-        51.0744,
-        66.373,
-        54.3109,
-        69.3941
+        66.0212,
+        56.4154,
+        50.7534,
+        95.5686,
+        67.6418
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -5545,7 +5527,7 @@
         "toolCalls": 2,
         "inputTokens": 17,
         "outputTokens": 899,
-        "startedAt": 1785809254403
+        "startedAt": 1785828718063
       },
       "validation": {
         "repaired": false,
@@ -5555,7 +5537,7 @@
     },
     {
       "case_id": "regression-hebei-channel",
-      "predicted_behavior": "answer",
+      "predicted_behavior": "no_answer",
       "top_k": [
         {
           "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
@@ -5689,28 +5671,24 @@
         }
       ],
       "retrieval_ms": [
-        79.7251,
-        111.5755,
-        182.7808,
-        147.5753,
-        99.6384
+        54.2033,
+        71.198,
+        45.9032,
+        47.2805,
+        55.6781
       ],
       "total_ms": [
-        79.7522,
-        111.6008,
-        182.8096,
-        147.6,
-        99.6657
+        54.2247,
+        71.2199,
+        45.9229,
+        47.305,
+        55.7007
       ],
       "repeat_stable": true,
-      "evidence_sufficient": true,
-      "answer_text": "可通过微信、支付宝的“育儿补贴”小程序或当地政务服务平台线上申请，也可到婴幼儿户籍所在地乡镇政府、街道办事处现场申请。\n- **第九条**：第九条申领人主要通过育儿补贴信息管理系统线上申请，也可到婴幼儿户籍所在地乡镇政府（街道办事处）现场申请。\n\n申领人是儿童福利机构的，应到机构登记所在地乡镇政府（街道办事处）现场申请。\n- **三、主要特点**：**三、主要特点**\n\n《管理规范》坚持以人民为中心，强调惠民利民、安全规范、简便易行，主要突出以下4个重点：\n\n（一）精简申请和审核流程。明确育儿补贴的申领资格，精简申领材料，优化申领程序，以线上申领为主。强调审核工作要充分发挥大数据审核作用，切实减轻基层负担。初审和审核确认工作原则上应在30个工作日内完成。\n\n（二）明确发放时点和渠道。育儿补贴按年计算，每年一次性发放。各省份结合实际确定发放时点，原则上每季度至少集中发放一批，确保补贴及时足额发放到位。发放渠道为申领人或婴幼儿的银行卡或其他金融账户。\n\n（三）加\n- **主要特点**：** 主要特点**\n\n《实施细则》坚持以人民为中心，强调惠民利民、安全规范、简便易行，主要突出以下4个重点：\n\n（一）精简申请和审核流程。明确育儿补贴的申领资格，精简申领材料，优化申领程序，以线上申领为主。强调审核工作要充分发挥大数据审核作用，切实减轻基层负担。细化审核流程初审和审核确认工作原则上应在30个工作日内完成。\n\n（二）明确发放时点和渠道。育儿补贴按年计算，每年一次性发放。原则上每季度至少集中发放一批，确保补贴及时足额发放到位。发放渠道为申领人或婴幼儿的银行卡或其他金融账户。\n\n（三）加强信息管理。按照国\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [新闻发布会](https://www.nmg.gov.cn/zwgk/zcjd/gjzcjd/202509/t20250919_2793008.html)\n\n> [《河北省育儿补贴制度实施细则（试行）》政策解读](https://wsjkw.hebei.gov.cn/zcjd/417727.jhtml)",
-      "citations": [
-        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
-        "省级或地市_官方解读_育儿补贴申请“一件事”_17",
-        "河北省_官方解读_育儿补贴申请“一件事”_7"
-      ],
-      "runtime_behavior": "answered",
+      "evidence_sufficient": false,
+      "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+      "citations": [],
+      "runtime_behavior": "insufficient_evidence",
       "runtime_region": "河北省",
       "evidence_chunks": [
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5",
@@ -5720,16 +5698,16 @@
         "河北省_官方解读_育儿补贴申请“一件事”_7:1e0167e142741d17f7b9"
       ],
       "usage": {
-        "agentSteps": 1,
-        "modelCalls": 1,
+        "agentSteps": 0,
+        "modelCalls": 0,
         "toolCalls": 2,
         "inputTokens": 18,
-        "outputTokens": 756,
-        "startedAt": 1785809255323
+        "outputTokens": 69,
+        "startedAt": 1785828718641
       },
       "validation": {
         "repaired": false,
-        "fallback": false,
+        "fallback": true,
         "issueCount": 0
       }
     },
@@ -5869,18 +5847,18 @@
         }
       ],
       "retrieval_ms": [
-        80.422,
-        125.317,
-        127.4418,
-        61.5929,
-        66.4618
+        56.1004,
+        57.5127,
+        58.6356,
+        56.2846,
+        59.9993
       ],
       "total_ms": [
-        80.4544,
-        125.3439,
-        127.4726,
-        61.6238,
-        66.4897
+        56.1205,
+        57.5349,
+        58.6581,
+        56.3051,
+        60.0258
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -5904,7 +5882,7 @@
         "toolCalls": 2,
         "inputTokens": 24,
         "outputTokens": 395,
-        "startedAt": 1785809256133
+        "startedAt": 1785828719225
       },
       "validation": {
         "repaired": false,
@@ -6048,18 +6026,18 @@
         }
       ],
       "retrieval_ms": [
-        41.851,
-        50.3182,
-        71.3505,
-        51.8819,
-        64.7799
+        52.7397,
+        67.4474,
+        55.6218,
+        73.9813,
+        69.9258
       ],
       "total_ms": [
-        41.8728,
-        50.3445,
-        71.3815,
-        51.9091,
-        64.8076
+        52.7608,
+        67.467,
+        55.643,
+        74.0009,
+        69.9506
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -6083,7 +6061,7 @@
         "toolCalls": 2,
         "inputTokens": 16,
         "outputTokens": 265,
-        "startedAt": 1785809256652
+        "startedAt": 1785828719873
       },
       "validation": {
         "repaired": false,
@@ -6093,7 +6071,7 @@
     },
     {
       "case_id": "regression-regional-comparison",
-      "predicted_behavior": "answer",
+      "predicted_behavior": "no_answer",
       "top_k": [
         {
           "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
@@ -6227,28 +6205,24 @@
         }
       ],
       "retrieval_ms": [
-        100.1828,
-        72.406,
-        94.7291,
-        145.5008,
-        114.6544
+        66.5865,
+        97.6962,
+        117.1693,
+        117.0015,
+        65.4042
       ],
       "total_ms": [
-        100.2133,
-        72.4391,
-        94.7614,
-        145.528,
-        114.6822
+        66.6085,
+        97.88,
+        117.1953,
+        117.0266,
+        65.4526
       ],
       "repeat_stable": true,
-      "evidence_sufficient": true,
-      "answer_text": "所比较地区都执行国家育儿补贴基础制度，但地方在申请审核、户籍迁移和发放批次等细节上可能不同。具体问题应分别按各地当前有效规则判断。\n- **第三十二条**：第三十二条 本市执行统一的育儿补贴政策和标准，各区卫生健康部门和财政部门不得自行出台其他形式的育儿补贴政策或提标。\n- **二、主要内容**：**二、主要内容**\n\n《管理规范》共6章：第一章为总则，主要规定育儿补贴制度的内容和职责分工；第二章主要规定了申请和审核要求，包括补贴对象、申领主体、申请程序、申请方式、信息审核等内容；第三章主要规定了补贴发放要求，包括发放方式、发放时点、发放渠道等内容；第四章主要规定了信息管理要求，包括信息系统管理、信息安全管理、数据质量评估和档案管理等内容；第五章主要规定了监督管理要求，包括资金管理和监督管理等内容；第六章为附则，主要明确各地可根据实际制定实施细则，省级或地市级拟出台其他育儿补贴政策或提标需要报上一级主管部门\n- **主要特点**：** 主要特点**\n\n《实施细则》坚持以人民为中心，强调惠民利民、安全规范、简便易行，主要突出以下4个重点：\n\n（一）精简申请和审核流程。明确育儿补贴的申领资格，精简申领材料，优化申领程序，以线上申领为主。强调审核工作要充分发挥大数据审核作用，切实减轻基层负担。细化审核流程初审和审核确认工作原则上应在30个工作日内完成。\n\n（二）明确发放时点和渠道。育儿补贴按年计算，每年一次性发放。原则上每季度至少集中发放一批，确保补贴及时足额发放到位。发放渠道为申领人或婴幼儿的银行卡或其他金融账户。\n\n（三）加强信息管理。按照国\n> [视频解读：北京市育儿补贴制度实施细则（试行）](https://wjw.beijing.gov.cn/zwgk_20040/zcwj2024/202511/t20251125_4304288.html)\n\n> [新闻发布会](https://www.nmg.gov.cn/zwgk/zcjd/gjzcjd/202509/t20250919_2793008.html)\n\n> [《河北省育儿补贴制度实施细则（试行）》政策解读](https://wsjkw.hebei.gov.cn/zcjd/417727.jhtml)",
-      "citations": [
-        "北京市_政策规章_育儿补贴申请“一件事”_5",
-        "省级或地市_官方解读_育儿补贴申请“一件事”_17",
-        "河北省_官方解读_育儿补贴申请“一件事”_7"
-      ],
-      "runtime_behavior": "answered",
+      "evidence_sufficient": false,
+      "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+      "citations": [],
+      "runtime_behavior": "insufficient_evidence",
       "runtime_region": "对比",
       "evidence_chunks": [
         "北京市_政策规章_育儿补贴申请“一件事”_5:02f7cec4ff2c0cd40337",
@@ -6258,22 +6232,22 @@
         "河北省_官方解读_育儿补贴申请“一件事”_7:1e0167e142741d17f7b9"
       ],
       "usage": {
-        "agentSteps": 1,
-        "modelCalls": 1,
+        "agentSteps": 0,
+        "modelCalls": 0,
         "toolCalls": 4,
         "inputTokens": 18,
-        "outputTokens": 728,
-        "startedAt": 1785809257469
+        "outputTokens": 69,
+        "startedAt": 1785828720610
       },
       "validation": {
         "repaired": false,
-        "fallback": false,
+        "fallback": true,
         "issueCount": 0
       }
     },
     {
       "case_id": "regression-hebei-migration",
-      "predicted_behavior": "answer",
+      "predicted_behavior": "no_answer",
       "top_k": [
         {
           "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
@@ -6407,27 +6381,24 @@
         }
       ],
       "retrieval_ms": [
-        71.8344,
-        72.6796,
-        39.8319,
-        56.6647,
-        94.0763
+        56.0556,
+        44.4071,
+        64.2611,
+        57.6856,
+        48.5192
       ],
       "total_ms": [
-        71.8608,
-        73.9298,
-        39.8586,
-        56.6922,
-        94.1371
+        56.0772,
+        44.427,
+        64.2854,
+        57.7124,
+        48.5405
       ],
       "repeat_stable": true,
-      "evidence_sufficient": true,
-      "answer_text": "视情况。户籍迁入后如当年度尚未在原户籍地提交申请，可按迁入地规则办理；发现重复申领时会先核实，不能重复领取。\n- **一、出台背景**：** 一、出台背景**\n\n党中央、国务院高度重视人口发展工作，党的二十届三中全会明确健全人口发展支持和服务体系，建立生育补贴制度。2025年6月19日，中共中央办公厅、国务院办公厅印发《育儿补贴制度实施方案》（厅字〔2025〕15号），明确了育儿补贴的制度框架和实施要求。8月24日，国家卫生健康委办公厅、财政部办公厅印发《关于印发育儿补贴制度管理规范（试行）的通知》（国卫办人口发〔2025〕24号），进一步健全工作机制，规范服务流程。为贯彻落实国家部署，落实育儿补贴制度，根据《河北省育儿补贴制度实施方案》（冀卫发〔\n- **第九条**：第九条申领人主要通过育儿补贴信息管理系统线上申请，也可到婴幼儿户籍所在地乡镇政府（街道办事处）现场申请。\n\n申领人是儿童福利机构的，应到机构登记所在地乡镇政府（街道办事处）现场申请。\n- **第七条**：第七条 育儿补贴具体申请程序如下：\n\n（一）申请。申领人填写婴幼儿及申领人有关信息，提供婴幼儿的出生医学证明、居民户口簿等基础材料，并根据需要提供有助于判定申领人和婴幼儿之间抚养关系的法定有效材料。\n\n（二）初审。婴幼儿户籍所在地乡镇政府（街道办事处）收到申领人申请后应及时进行初审。符合条件的予以通过，并报县级卫生健康部门审核；不符合条件的，应当及时告知申领人并做好政策解释。村（居）民委员会协助做好有关工作。\n\n（三）审核确认。县级卫生健康部门对乡镇政府（街道办事处）提交的申请材料进行审核，确认补贴发放对象名单，并\n> [《河北省育儿补贴制度实施细则（试行）》政策解读](https://wsjkw.hebei.gov.cn/zcjd/417727.jhtml)\n\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)",
-      "citations": [
-        "河北省_官方解读_育儿补贴申请“一件事”_7",
-        "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
-      ],
-      "runtime_behavior": "answered",
+      "evidence_sufficient": false,
+      "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+      "citations": [],
+      "runtime_behavior": "insufficient_evidence",
       "runtime_region": "河北省",
       "evidence_chunks": [
         "河北省_官方解读_育儿补贴申请“一件事”_7:6577b9a4b487dcb438ab",
@@ -6437,22 +6408,22 @@
         "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:5bdca3d5cc0066104073"
       ],
       "usage": {
-        "agentSteps": 1,
-        "modelCalls": 1,
+        "agentSteps": 0,
+        "modelCalls": 0,
         "toolCalls": 2,
         "inputTokens": 16,
-        "outputTokens": 726,
-        "startedAt": 1785809258383
+        "outputTokens": 69,
+        "startedAt": 1785828721336
       },
       "validation": {
         "repaired": false,
-        "fallback": false,
+        "fallback": true,
         "issueCount": 0
       }
     },
     {
       "case_id": "regression-benefit-distinction",
-      "predicted_behavior": "answer",
+      "predicted_behavior": "no_answer",
       "top_k": [
         {
           "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
@@ -6586,21 +6557,21 @@
         }
       ],
       "retrieval_ms": [
-        52.5154,
-        67.2689,
-        48.4132,
-        39.6536,
-        45.2189
+        46.5871,
+        40.6445,
+        44.1627,
+        40.3172,
+        46.0504
       ],
       "total_ms": [
-        52.5437,
-        67.3017,
-        48.4419,
-        39.6797,
-        45.2457
+        46.61,
+        40.6677,
+        44.1845,
+        40.3378,
+        46.0721
       ],
       "repeat_stable": true,
-      "evidence_sufficient": true,
+      "evidence_sufficient": false,
       "answer_text": "请告诉我孩子或申请业务所在的省、市或区县，我会按对应地区继续查询。\n",
       "citations": [],
       "runtime_behavior": "needs_clarification",
@@ -6612,7 +6583,7 @@
         "toolCalls": 0,
         "inputTokens": 16,
         "outputTokens": 34,
-        "startedAt": 1785809258824
+        "startedAt": 1785828721758
       },
       "validation": {
         "repaired": false,
@@ -6639,7 +6610,7 @@
         "toolCalls": 0,
         "inputTokens": 8,
         "outputTokens": 34,
-        "startedAt": 1785809258825
+        "startedAt": 1785828721760
       },
       "validation": {
         "repaired": false,
@@ -6783,18 +6754,18 @@
         }
       ],
       "retrieval_ms": [
-        92.9531,
-        104.5089,
-        87.9922,
-        114.3479,
-        151.8209
+        46.8212,
+        59.3368,
+        50.0766,
+        51.9322,
+        67.6833
       ],
       "total_ms": [
-        92.9793,
-        104.5365,
-        88.0209,
-        114.3738,
-        151.8513
+        46.8411,
+        59.3768,
+        50.1036,
+        51.9528,
+        67.7043
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -6817,7 +6788,7 @@
         "toolCalls": 2,
         "inputTokens": 11,
         "outputTokens": 574,
-        "startedAt": 1785809259527
+        "startedAt": 1785828722142
       },
       "validation": {
         "repaired": false,
@@ -6830,22 +6801,22 @@
       "predicted_behavior": "no_answer",
       "top_k": [],
       "retrieval_ms": [
-        67.2431,
-        40.2043,
-        55.2262,
-        107.3726,
-        55.2435
+        59.9122,
+        46.7685,
+        45.1246,
+        191.0307,
+        78.5017
       ],
       "total_ms": [
-        67.2624,
-        40.2224,
-        55.2452,
-        107.3953,
-        55.2637
+        59.9291,
+        46.7888,
+        45.1395,
+        191.0481,
+        78.5173
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
-      "answer_text": "暂未检索到足够的有效政策依据，因此不能给出确定结论。建议咨询当地卫生健康部门。\n",
+      "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
       "citations": [],
       "runtime_behavior": "insufficient_evidence",
       "runtime_region": "北京市",
@@ -6855,8 +6826,8 @@
         "modelCalls": 0,
         "toolCalls": 2,
         "inputTokens": 11,
-        "outputTokens": 40,
-        "startedAt": 1785809260349
+        "outputTokens": 69,
+        "startedAt": 1785828722781
       },
       "validation": {
         "repaired": false,
@@ -6927,16 +6898,13 @@
         },
         {
           "turn": 2,
-          "answer_status": "answered",
+          "answer_status": "insufficient_evidence",
           "region": "吉林省",
           "evidence_region_codes": [
             "220000",
             "100000"
           ],
-          "citations": [
-            "吉林省_官方解读_育儿补贴申请“一件事”_63",
-            "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
-          ]
+          "citations": []
         }
       ]
     },
@@ -6983,17 +6951,13 @@
         },
         {
           "turn": 2,
-          "answer_status": "answered",
+          "answer_status": "insufficient_evidence",
           "region": "重庆市",
           "evidence_region_codes": [
             "500000",
             "100000"
           ],
-          "citations": [
-            "重庆市_办事指南_育儿补贴申请“一件事”_14",
-            "重庆市_政策规章_育儿补贴申请“一件事”_13",
-            "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
-          ]
+          "citations": []
         }
       ]
     },
@@ -7137,17 +7101,13 @@
         },
         {
           "turn": 2,
-          "answer_status": "answered",
+          "answer_status": "insufficient_evidence",
           "region": "重庆市",
           "evidence_region_codes": [
             "500000",
             "100000"
           ],
-          "citations": [
-            "重庆市_办事指南_育儿补贴申请“一件事”_14",
-            "重庆市_政策规章_育儿补贴申请“一件事”_13",
-            "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
-          ]
+          "citations": []
         }
       ]
     },
@@ -7256,15 +7216,13 @@
         },
         {
           "turn": 2,
-          "answer_status": "answered",
+          "answer_status": "insufficient_evidence",
           "region": "陕西省",
           "evidence_region_codes": [
             "610000",
             "100000"
           ],
-          "citations": [
-            "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
-          ]
+          "citations": []
         }
       ]
     },
@@ -7284,16 +7242,13 @@
         },
         {
           "turn": 2,
-          "answer_status": "answered",
+          "answer_status": "insufficient_evidence",
           "region": "福建省",
           "evidence_region_codes": [
             "350000",
             "100000"
           ],
-          "citations": [
-            "福建省_官方解读_育儿补贴申请“一件事”_24",
-            "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
-          ]
+          "citations": []
         }
       ]
     },
@@ -7334,14 +7289,12 @@
       "turns": [
         {
           "turn": 1,
-          "answer_status": "safe_error",
+          "answer_status": "insufficient_evidence",
           "region": "山西省",
           "evidence_region_codes": [
             "100000"
           ],
-          "citations": [
-            "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
-          ]
+          "citations": []
         },
         {
           "turn": 2,
@@ -7363,7 +7316,7 @@
       "turns": [
         {
           "turn": 1,
-          "answer_status": "safe_error",
+          "answer_status": "answered",
           "region": "河北省",
           "evidence_region_codes": [
             "100000",
@@ -7432,16 +7385,13 @@
         },
         {
           "turn": 2,
-          "answer_status": "answered",
+          "answer_status": "insufficient_evidence",
           "region": "云南省",
           "evidence_region_codes": [
             "100000",
             "530000"
           ],
-          "citations": [
-            "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
-            "云南省_政策规章_育儿补贴申请“一件事”_46"
-          ]
+          "citations": []
         }
       ]
     }

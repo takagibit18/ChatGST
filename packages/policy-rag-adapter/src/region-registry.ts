@@ -28,11 +28,14 @@ const provinces: Array<[string, string, string[]]> = [
 ];
 
 const children: AdministrativeRegion[] = [
+  { code: "130100", name: "石家庄市", level: "prefecture", parent_code: "130000", aliases: ["石家庄", "河北省_石家庄市"] },
+  { code: "130200", name: "唐山市", level: "prefecture", parent_code: "130000", aliases: ["唐山", "河北省_唐山市"] },
   { code: "150100", name: "呼和浩特市", level: "prefecture", parent_code: "150000", aliases: ["呼和浩特", "内蒙古自治区_呼和浩特市"] },
   { code: "150600", name: "鄂尔多斯市", level: "prefecture", parent_code: "150000", aliases: ["鄂尔多斯", "内蒙古自治区_鄂尔多斯市"] },
   { code: "230100", name: "哈尔滨市", level: "prefecture", parent_code: "230000", aliases: ["哈尔滨", "黑龙江省_哈尔滨市"] },
   { code: "230600", name: "大庆市", level: "prefecture", parent_code: "230000", aliases: ["大庆", "黑龙江省_大庆市"] },
   { code: "310107", name: "普陀区", level: "county", parent_code: "310000", aliases: ["上海市普陀区", "上海市_普陀区", "附普陀区"] },
+  { code: "320500", name: "苏州市", level: "prefecture", parent_code: "320000", aliases: ["苏州", "江苏省_苏州市"] },
   { code: "330100", name: "杭州市", level: "prefecture", parent_code: "330000", aliases: ["杭州", "浙江省_杭州市"] },
   { code: "330300", name: "温州市", level: "prefecture", parent_code: "330000", aliases: ["温州", "浙江省_温州市"] },
   { code: "330800", name: "衢州市", level: "prefecture", parent_code: "330000", aliases: ["衢州", "浙江省_衢州市"] },

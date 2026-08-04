@@ -112,6 +112,17 @@ function outOfScopeResponse(): PolicyResponse {
   };
 }
 
+function insufficientEvidenceResponse(query: NormalizedPolicyQuery): PolicyResponse {
+  return {
+    answer_markdown: "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。",
+    collapsibles: [],
+    actions: [],
+    sources: [],
+    clarification: null,
+    meta: { intent: query.intent, region: query.region, answer_status: "insufficient_evidence" },
+  };
+}
+
 export function createOntologyMissingResponse(query: NormalizedPolicyQuery, decision: LocalPolicyDecision): PolicyResponse {
   const fieldGroup = (field: string) => {
     if (field === "age_months" || field === "birth_date") return { key: "age", label: "孩子出生日期或月龄" };
@@ -430,8 +441,19 @@ export class PolicyAgentRuntime {
         }
         monitor("step", { step: "rerank", ms: Date.now() - rerankStart, candidates: hits.length, final: rankedHits.length });
         pack = buildEvidencePack({ query, effectiveDate, hits: rankedHits, resolutions });
-        const evidenceSufficiency = evaluateEvidenceSufficiency(input.message, query.intent, rankedHits, query.regionCode);
-        monitor("step", { step: "evidence_sufficiency", sufficient: evidenceSufficiency.sufficient, reason: evidenceSufficiency.reason });
+        const evidenceSufficiency = evaluateEvidenceSufficiency(input.message, query.intent, rankedHits, query.regionCode, {
+          effectiveDate,
+          comparisonRegions: query.comparisonRegions,
+        });
+        monitor("step", {
+          step: "evidence_sufficiency",
+          sufficient: evidenceSufficiency.sufficient,
+          required_claims: evidenceSufficiency.required_claims.map((claim) => claim.id),
+          supported_claims: evidenceSufficiency.supported_claims,
+          missing_claims: evidenceSufficiency.missing_claims,
+          conflicts: evidenceSufficiency.conflicts.map((conflict) => conflict.type),
+          reason_codes: evidenceSufficiency.reason_codes,
+        });
         await safeTrace(trace, {
           type: "retrieval",
           request_id: requestId,
@@ -444,8 +466,11 @@ export class PolicyAgentRuntime {
         if (localDecision?.verdict === "missing_info") {
           response = createOntologyMissingResponse(query, localDecision);
           validation = { repaired: false, fallback: false, issueCount: 0 };
-        } else if (pack.knowledge_gaps.some((gap) => gap.includes("版本冲突")) || !evidenceSufficiency.sufficient) {
+        } else if (pack.knowledge_gaps.some((gap) => gap.includes("版本冲突")) || evidenceSufficiency.conflicts.length > 0) {
           response = deterministicSafeResponse(pack);
+          validation = { repaired: false, fallback: true, issueCount: 0 };
+        } else if (!evidenceSufficiency.sufficient) {
+          response = insufficientEvidenceResponse(query);
           validation = { repaired: false, fallback: true, issueCount: 0 };
         } else {
           await this.emitStatus(input, "generating", "正在整理政策结论");

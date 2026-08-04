@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
   "run_id": "phase3-v21-provisional",
-  "generated_at": "2026-08-04T09:36:19.024Z",
+  "generated_at": "2026-08-04T13:55:23.160Z",
   "evaluation_status": "provisional",
   "release_gate": "blocked_pending_human_review",
   "input_fingerprint": {
     "dev_sha256": "dcce4b70ec82800f456a28431f69f6622b459e6b3a54f90120042672a2c405bc",
     "regression_sha256": "0c80c17040578d49ba99df7a30e1891e0b469099fa09966f722d874310a955d1",
-    "calibration_sha256": "09c806864bf41c8ce641b35b7df24bafea98962f33e470fa83193267605259da",
+    "calibration_sha256": "05e685feca665c4712f7f5e6d346e583749e4c98150337eb6a3272e0513f37d9",
     "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce"
   },
-  "prediction_fingerprint": "4d95fc88ac9160637ba2c5c65bbf19f78334db1f3eda575d47d5cc3f547f1a21",
+  "prediction_fingerprint": "e0042f254cd069005c27acc9d28c2fbdcb95e5978dbe3144be0680d096140326",
   "config": {
     "threshold": 0,
     "calibration_status": "passed",
@@ -155,18 +155,18 @@
         }
       ],
       "retrieval_ms": [
-        51.8816,
-        52.8322,
-        52.4799,
-        48.5846,
-        46.5859
+        32.4606,
+        30.2402,
+        29.1458,
+        27.3512,
+        26.1815
       ],
       "total_ms": [
-        51.9678,
-        52.8615,
-        52.5094,
-        48.6129,
-        46.6144
+        32.476,
+        30.2581,
+        29.1564,
+        27.362,
+        26.194
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -190,7 +190,7 @@
         "toolCalls": 2,
         "inputTokens": 24,
         "outputTokens": 745,
-        "startedAt": 1785836132911
+        "startedAt": 1785851712580
       },
       "validation": {
         "repaired": false,
@@ -334,18 +334,18 @@
         }
       ],
       "retrieval_ms": [
-        48.9072,
-        44.6867,
-        46.1927,
-        48.9976,
-        62.4121
+        25.3363,
+        23.9609,
+        23.6764,
+        21.6298,
+        25.0386
       ],
       "total_ms": [
-        48.9757,
-        44.7253,
-        46.2161,
-        49.0179,
-        62.4332
+        25.3642,
+        23.9814,
+        23.6835,
+        21.6366,
+        25.0534
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -369,7 +369,7 @@
         "toolCalls": 2,
         "inputTokens": 28,
         "outputTokens": 711,
-        "startedAt": 1785836133430
+        "startedAt": 1785851712841
       },
       "validation": {
         "repaired": false,
@@ -513,18 +513,18 @@
         }
       ],
       "retrieval_ms": [
-        51.5796,
-        77.3451,
-        63.1357,
-        69.8057,
-        56.7789
+        23.8029,
+        25.0804,
+        26.5784,
+        23.8838,
+        24.6497
       ],
       "total_ms": [
-        51.6013,
-        77.3681,
-        63.1574,
-        69.8803,
-        56.8034
+        23.8129,
+        25.0936,
+        26.5916,
+        23.8922,
+        24.6574
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -548,7 +548,7 @@
         "toolCalls": 2,
         "inputTokens": 29,
         "outputTokens": 284,
-        "startedAt": 1785836133998
+        "startedAt": 1785851713083
       },
       "validation": {
         "repaired": false,
@@ -692,18 +692,18 @@
         }
       ],
       "retrieval_ms": [
-        52.5498,
-        65.1565,
-        98.8458,
-        250.2599,
-        73.0558
+        26.132,
+        25.6538,
+        26.4093,
+        24.4681,
+        25.4878
       ],
       "total_ms": [
-        52.5713,
-        65.1782,
-        98.866,
-        250.2894,
-        73.0806
+        26.145,
+        25.6644,
+        26.4186,
+        24.4794,
+        25.4977
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -727,7 +727,7 @@
         "toolCalls": 2,
         "inputTokens": 25,
         "outputTokens": 732,
-        "startedAt": 1785836134877
+        "startedAt": 1785851713317
       },
       "validation": {
         "repaired": false,
@@ -871,18 +871,18 @@
         }
       ],
       "retrieval_ms": [
-        56.105,
-        69.7602,
-        89.8441,
-        88.2575,
-        101.6176
+        21.8309,
+        22.5515,
+        21.3791,
+        20.8859,
+        21.3081
       ],
       "total_ms": [
-        56.1257,
-        69.781,
-        89.8652,
-        88.278,
-        101.664
+        21.8418,
+        22.5636,
+        21.3904,
+        20.8941,
+        21.3164
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -906,7 +906,7 @@
         "toolCalls": 2,
         "inputTokens": 32,
         "outputTokens": 606,
-        "startedAt": 1785836135993
+        "startedAt": 1785851713547
       },
       "validation": {
         "repaired": false,
@@ -1050,18 +1050,18 @@
         }
       ],
       "retrieval_ms": [
-        164.9815,
-        273.6865,
-        205.7935,
-        94.2279,
-        77.2722
+        23.4375,
+        26.6159,
+        24.5789,
+        26.4385,
+        25.5929
       ],
       "total_ms": [
-        165.007,
-        277.702,
-        205.8203,
-        94.2585,
-        77.2918
+        23.4479,
+        26.6253,
+        24.5872,
+        26.4462,
+        25.6044
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1082,7 +1082,7 @@
         "toolCalls": 2,
         "inputTokens": 31,
         "outputTokens": 69,
-        "startedAt": 1785836137340
+        "startedAt": 1785851713796
       },
       "validation": {
         "repaired": false,
@@ -1226,18 +1226,18 @@
         }
       ],
       "retrieval_ms": [
-        54.9096,
-        59.781,
-        95.1302,
-        94.0432,
-        76.779
+        28.7029,
+        26.4154,
+        26.035,
+        26.2105,
+        24.1581
       ],
       "total_ms": [
-        54.9316,
-        59.8035,
-        95.1531,
-        94.0673,
-        76.8007
+        28.7154,
+        26.4252,
+        26.0471,
+        26.2208,
+        24.1713
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1261,7 +1261,7 @@
         "toolCalls": 2,
         "inputTokens": 30,
         "outputTokens": 711,
-        "startedAt": 1785836137970
+        "startedAt": 1785851714022
       },
       "validation": {
         "repaired": false,
@@ -1405,18 +1405,18 @@
         }
       ],
       "retrieval_ms": [
-        91.3922,
-        92.3376,
-        139.7753,
-        155.7949,
-        60.3862
+        23.7383,
+        23.9073,
+        27.088,
+        26.331,
+        25.8729
       ],
       "total_ms": [
-        91.5378,
-        92.3546,
-        139.7909,
-        155.8119,
-        60.4026
+        23.789,
+        23.9184,
+        27.0956,
+        26.3426,
+        25.8838
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1439,7 +1439,7 @@
         "toolCalls": 2,
         "inputTokens": 37,
         "outputTokens": 416,
-        "startedAt": 1785836138891
+        "startedAt": 1785851714272
       },
       "validation": {
         "repaired": false,
@@ -1583,18 +1583,18 @@
         }
       ],
       "retrieval_ms": [
-        71.128,
-        82.7657,
-        81.163,
-        142.9083,
-        110.3423
+        24.5747,
+        24.0534,
+        25.0522,
+        25.8632,
+        25.4572
       ],
       "total_ms": [
-        71.1455,
-        82.7834,
-        81.1783,
-        142.9222,
-        110.3593
+        24.5826,
+        24.0598,
+        25.0589,
+        25.8721,
+        25.4647
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1619,7 +1619,7 @@
         "toolCalls": 2,
         "inputTokens": 34,
         "outputTokens": 715,
-        "startedAt": 1785836139820
+        "startedAt": 1785851714508
       },
       "validation": {
         "repaired": false,
@@ -1763,18 +1763,18 @@
         }
       ],
       "retrieval_ms": [
-        80.4542,
-        89.2891,
-        110.3757,
-        136.7209,
-        148.3006
+        24.0563,
+        24.8991,
+        22.9297,
+        24.0068,
+        22.4281
       ],
       "total_ms": [
-        80.4709,
-        89.3069,
-        110.4092,
-        136.7359,
-        148.316
+        24.0665,
+        24.9083,
+        22.9378,
+        24.0177,
+        22.4336
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1797,7 +1797,7 @@
         "toolCalls": 2,
         "inputTokens": 25,
         "outputTokens": 535,
-        "startedAt": 1785836140706
+        "startedAt": 1785851714726
       },
       "validation": {
         "repaired": false,
@@ -1941,18 +1941,18 @@
         }
       ],
       "retrieval_ms": [
-        142.1187,
-        191.3276,
-        142.8161,
-        129.8675,
-        144.2389
+        24.3294,
+        24.0209,
+        25.1672,
+        27.226,
+        27.5801
       ],
       "total_ms": [
-        142.1355,
-        191.3432,
-        142.8328,
-        129.8864,
-        144.2568
+        24.3351,
+        24.0279,
+        25.1756,
+        27.234,
+        27.5899
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1976,7 +1976,7 @@
         "toolCalls": 2,
         "inputTokens": 26,
         "outputTokens": 479,
-        "startedAt": 1785836142056
+        "startedAt": 1785851714970
       },
       "validation": {
         "repaired": false,
@@ -2120,18 +2120,18 @@
         }
       ],
       "retrieval_ms": [
-        140.3763,
-        114.8555,
-        239.0697,
-        121.7938,
-        98.4503
+        26.0936,
+        23.0675,
+        23.2874,
+        23.5532,
+        24.7391
       ],
       "total_ms": [
-        140.3943,
-        114.8706,
-        239.0867,
-        121.8114,
-        98.4668
+        26.1022,
+        23.0742,
+        23.2957,
+        23.5612,
+        24.7474
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2154,7 +2154,7 @@
         "toolCalls": 2,
         "inputTokens": 27,
         "outputTokens": 606,
-        "startedAt": 1785836143333
+        "startedAt": 1785851715194
       },
       "validation": {
         "repaired": false,
@@ -2298,18 +2298,18 @@
         }
       ],
       "retrieval_ms": [
-        154.3843,
-        123.4518,
-        99.0596,
-        90.6915,
-        138.5487
+        23.8894,
+        24.394,
+        25.4323,
+        23.7904,
+        24.8506
       ],
       "total_ms": [
-        154.3996,
-        123.4837,
-        101.6549,
-        90.7098,
-        138.5656
+        23.8973,
+        24.4017,
+        25.4375,
+        23.7959,
+        24.8603
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2333,7 +2333,7 @@
         "toolCalls": 2,
         "inputTokens": 20,
         "outputTokens": 525,
-        "startedAt": 1785836144428
+        "startedAt": 1785851715410
       },
       "validation": {
         "repaired": false,
@@ -2477,18 +2477,18 @@
         }
       ],
       "retrieval_ms": [
-        117.711,
-        71.0755,
-        104.5932,
-        85.509,
-        74.0283
+        25.9215,
+        26.649,
+        26.4215,
+        26.7885,
+        27.7927
       ],
       "total_ms": [
-        117.7318,
-        71.0912,
-        104.6112,
-        85.5478,
-        74.0456
+        25.9312,
+        26.6565,
+        26.431,
+        26.7978,
+        27.8027
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2512,7 +2512,7 @@
         "toolCalls": 2,
         "inputTokens": 39,
         "outputTokens": 542,
-        "startedAt": 1785836145253
+        "startedAt": 1785851715654
       },
       "validation": {
         "repaired": false,
@@ -2656,18 +2656,18 @@
         }
       ],
       "retrieval_ms": [
-        131.1861,
-        113.6075,
-        110.322,
-        96.4874,
-        90.784
+        25.7703,
+        25.2456,
+        23.8191,
+        23.1197,
+        25.3213
       ],
       "total_ms": [
-        131.2029,
-        113.6224,
-        110.3407,
-        96.5051,
-        90.8044
+        25.777,
+        25.2565,
+        23.8248,
+        23.124,
+        25.3325
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2691,7 +2691,7 @@
         "toolCalls": 2,
         "inputTokens": 29,
         "outputTokens": 504,
-        "startedAt": 1785836146052
+        "startedAt": 1785851715899
       },
       "validation": {
         "repaired": false,
@@ -2835,18 +2835,18 @@
         }
       ],
       "retrieval_ms": [
-        76.8978,
-        134.6484,
-        129.7331,
-        99.6206,
-        101.3554
+        20.236,
+        21.7425,
+        21.0922,
+        21.0536,
+        22.5871
       ],
       "total_ms": [
-        76.913,
-        134.6656,
-        130.6768,
-        99.6847,
-        101.3717
+        20.2446,
+        21.7495,
+        21.0965,
+        21.064,
+        22.594
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2870,7 +2870,7 @@
         "toolCalls": 2,
         "inputTokens": 16,
         "outputTokens": 392,
-        "startedAt": 1785836147035
+        "startedAt": 1785851716104
       },
       "validation": {
         "repaired": false,
@@ -3014,18 +3014,18 @@
         }
       ],
       "retrieval_ms": [
-        91.2858,
-        127.1769,
-        101.6522,
-        77.6479,
-        57.5843
+        24.9099,
+        23.7119,
+        26.7783,
+        25.1098,
+        23.3666
       ],
       "total_ms": [
-        91.3055,
-        127.1932,
-        101.6696,
-        77.666,
-        57.5989
+        24.9188,
+        23.7181,
+        26.7886,
+        25.1164,
+        23.3776
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3048,7 +3048,7 @@
         "toolCalls": 2,
         "inputTokens": 20,
         "outputTokens": 685,
-        "startedAt": 1785836147974
+        "startedAt": 1785851716331
       },
       "validation": {
         "repaired": false,
@@ -3114,18 +3114,18 @@
         }
       ],
       "retrieval_ms": [
-        66.1432,
-        69.9775,
-        85.016,
-        55.6362,
-        76.0455
+        20.6231,
+        18.9416,
+        19.7953,
+        19.1024,
+        18.9829
       ],
       "total_ms": [
-        66.1573,
-        69.9904,
-        85.0282,
-        55.6489,
-        76.0589
+        20.6282,
+        18.9471,
+        19.8053,
+        19.1098,
+        18.9903
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3148,7 +3148,7 @@
         "toolCalls": 2,
         "inputTokens": 17,
         "outputTokens": 711,
-        "startedAt": 1785836148558
+        "startedAt": 1785851716541
       },
       "validation": {
         "repaired": false,
@@ -3292,18 +3292,18 @@
         }
       ],
       "retrieval_ms": [
-        147.1329,
-        122.6407,
-        124.6883,
-        126.2521,
-        101.236
+        26.4735,
+        24.8952,
+        26.8261,
+        26.562,
+        24.9429
       ],
       "total_ms": [
-        147.1488,
-        122.6571,
-        124.706,
-        126.2679,
-        101.2527
+        26.4902,
+        24.903,
+        26.8376,
+        26.5689,
+        24.9529
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3327,7 +3327,7 @@
         "toolCalls": 2,
         "inputTokens": 19,
         "outputTokens": 824,
-        "startedAt": 1785836149656
+        "startedAt": 1785851716792
       },
       "validation": {
         "repaired": false,
@@ -3471,18 +3471,18 @@
         }
       ],
       "retrieval_ms": [
-        111.5079,
-        77.2938,
-        110.0187,
-        63.9401,
-        82.6871
+        24.1633,
+        25.1491,
+        25.626,
+        25.6098,
+        24.4342
       ],
       "total_ms": [
-        111.5245,
-        77.3096,
-        110.0351,
-        63.9637,
-        82.7039
+        24.1819,
+        25.1564,
+        25.6361,
+        25.6157,
+        24.4403
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3507,7 +3507,7 @@
         "toolCalls": 2,
         "inputTokens": 23,
         "outputTokens": 418,
-        "startedAt": 1785836150668
+        "startedAt": 1785851717034
       },
       "validation": {
         "repaired": false,
@@ -3651,18 +3651,18 @@
         }
       ],
       "retrieval_ms": [
-        62.6826,
-        66.3852,
-        80.2913,
-        284.256,
-        93.5126
+        24.709,
+        26.0905,
+        26.2038,
+        24.8881,
+        24.565
       ],
       "total_ms": [
-        62.7,
-        67.088,
-        80.3096,
-        284.2723,
-        93.5282
+        24.7147,
+        26.1007,
+        26.2124,
+        24.8935,
+        24.5727
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3685,7 +3685,7 @@
         "toolCalls": 2,
         "inputTokens": 23,
         "outputTokens": 685,
-        "startedAt": 1785836151532
+        "startedAt": 1785851717265
       },
       "validation": {
         "repaired": false,
@@ -3829,18 +3829,18 @@
         }
       ],
       "retrieval_ms": [
-        96.2237,
-        72.0706,
-        106.5984,
-        85.8235,
-        108.6868
+        25.5909,
+        27.3807,
+        25.6896,
+        27.6333,
+        31.9482
       ],
       "total_ms": [
-        96.2397,
-        72.0853,
-        106.6155,
-        85.8396,
-        108.7038
+        25.5983,
+        27.3881,
+        25.701,
+        27.644,
+        31.9586
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3863,7 +3863,7 @@
         "toolCalls": 2,
         "inputTokens": 22,
         "outputTokens": 685,
-        "startedAt": 1785836152493
+        "startedAt": 1785851717526
       },
       "validation": {
         "repaired": false,
@@ -4007,18 +4007,18 @@
         }
       ],
       "retrieval_ms": [
-        84.5839,
-        64.7372,
-        69.5811,
-        74.7405,
-        81.4326
+        26.8873,
+        26.9253,
+        26.2033,
+        26.3564,
+        26.276
       ],
       "total_ms": [
-        84.5982,
-        64.7547,
-        69.6909,
-        74.7588,
-        81.4485
+        26.8975,
+        26.9331,
+        26.2142,
+        26.3668,
+        26.2838
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -4042,7 +4042,7 @@
         "toolCalls": 2,
         "inputTokens": 31,
         "outputTokens": 467,
-        "startedAt": 1785836153469
+        "startedAt": 1785851717772
       },
       "validation": {
         "repaired": false,
@@ -4186,18 +4186,18 @@
         }
       ],
       "retrieval_ms": [
-        76.5657,
-        68.2739,
-        144.132,
-        101.8767,
-        73.5623
+        22.1884,
+        21.7537,
+        21.6712,
+        20.9828,
+        23.4777
       ],
       "total_ms": [
-        76.5805,
-        68.29,
-        144.1481,
-        101.8915,
-        73.5774
+        22.1942,
+        21.7636,
+        21.6802,
+        20.9877,
+        23.4839
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -4212,7 +4212,7 @@
         "toolCalls": 2,
         "inputTokens": 17,
         "outputTokens": 69,
-        "startedAt": 1785836154281
+        "startedAt": 1785851717985
       },
       "validation": {
         "repaired": false,
@@ -4356,18 +4356,18 @@
         }
       ],
       "retrieval_ms": [
-        134.4519,
-        156.3248,
-        127.5132,
-        146.8179,
-        112.6559
+        25.7396,
+        24.8165,
+        22.8407,
+        25.0901,
+        29.0639
       ],
       "total_ms": [
-        134.4701,
-        156.3412,
-        127.5305,
-        146.8352,
-        112.6736
+        25.7482,
+        24.8238,
+        22.8465,
+        25.0964,
+        29.0706
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -4388,7 +4388,7 @@
         "toolCalls": 2,
         "inputTokens": 24,
         "outputTokens": 69,
-        "startedAt": 1785836155411
+        "startedAt": 1785851718207
       },
       "validation": {
         "repaired": false,
@@ -4532,18 +4532,18 @@
         }
       ],
       "retrieval_ms": [
-        87.6768,
-        87.8647,
-        64.8298,
-        82.5781,
-        70.1102
+        24.6911,
+        25.2647,
+        26.5061,
+        26.6471,
+        28.1648
       ],
       "total_ms": [
-        87.7332,
-        87.8846,
-        64.8472,
-        82.5964,
-        70.1266
+        24.6974,
+        25.2734,
+        26.5143,
+        26.6553,
+        28.1741
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -4564,7 +4564,7 @@
         "toolCalls": 2,
         "inputTokens": 20,
         "outputTokens": 69,
-        "startedAt": 1785836156312
+        "startedAt": 1785851718431
       },
       "validation": {
         "repaired": false,
@@ -4708,18 +4708,18 @@
         }
       ],
       "retrieval_ms": [
-        106.1042,
-        112.3114,
-        135.9316,
-        166.0179,
-        74.7386
+        24.3127,
+        24.8,
+        23.1021,
+        22.1391,
+        24.0613
       ],
       "total_ms": [
-        106.1205,
-        112.3275,
-        135.9494,
-        166.0355,
-        74.7541
+        24.3231,
+        24.8098,
+        23.1099,
+        22.146,
+        24.0689
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -4740,7 +4740,7 @@
         "toolCalls": 2,
         "inputTokens": 19,
         "outputTokens": 69,
-        "startedAt": 1785836157297
+        "startedAt": 1785851718643
       },
       "validation": {
         "repaired": false,
@@ -4767,7 +4767,7 @@
         "toolCalls": 0,
         "inputTokens": 18,
         "outputTokens": 34,
-        "startedAt": 1785836157481
+        "startedAt": 1785851718684
       },
       "validation": {
         "repaired": false,
@@ -4794,7 +4794,7 @@
         "toolCalls": 0,
         "inputTokens": 23,
         "outputTokens": 34,
-        "startedAt": 1785836157482
+        "startedAt": 1785851718685
       },
       "validation": {
         "repaired": false,
@@ -4821,7 +4821,7 @@
         "toolCalls": 0,
         "inputTokens": 20,
         "outputTokens": 34,
-        "startedAt": 1785836157483
+        "startedAt": 1785851718685
       },
       "validation": {
         "repaired": false,
@@ -4965,18 +4965,18 @@
         }
       ],
       "retrieval_ms": [
-        78.8647,
-        81.4861,
-        84.2531,
-        90.7282,
-        196.2136
+        27.5046,
+        24.9246,
+        25.0994,
+        25.3491,
+        24.3437
       ],
       "total_ms": [
-        78.8819,
-        81.5015,
-        84.2759,
-        90.7441,
-        196.4
+        27.513,
+        24.9312,
+        25.1079,
+        25.3549,
+        24.3527
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -4997,7 +4997,7 @@
         "toolCalls": 2,
         "inputTokens": 13,
         "outputTokens": 69,
-        "startedAt": 1785836158236
+        "startedAt": 1785851718865
       },
       "validation": {
         "repaired": false,
@@ -5141,18 +5141,18 @@
         }
       ],
       "retrieval_ms": [
-        85.4393,
-        64.6367,
-        60.5577,
-        62.1088,
-        64.9371
+        24.7071,
+        26.1414,
+        26.6055,
+        25.7613,
+        25.5433
       ],
       "total_ms": [
-        85.4553,
-        64.6507,
-        60.5737,
-        62.1232,
-        64.9525
+        24.7141,
+        26.1506,
+        26.6119,
+        25.768,
+        25.5523
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -5173,7 +5173,7 @@
         "toolCalls": 2,
         "inputTokens": 17,
         "outputTokens": 69,
-        "startedAt": 1785836159015
+        "startedAt": 1785851719086
       },
       "validation": {
         "repaired": false,
@@ -5317,18 +5317,18 @@
         }
       ],
       "retrieval_ms": [
-        106.2796,
-        96.9905,
-        104.5667,
-        75.4638,
-        193.0199
+        22.7465,
+        23.3572,
+        22.5387,
+        23.4081,
+        22.989
       ],
       "total_ms": [
-        106.2938,
-        97.0067,
-        104.5819,
-        75.4797,
-        193.0357
+        22.7545,
+        23.3641,
+        22.5456,
+        23.4147,
+        22.9953
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -5349,7 +5349,7 @@
         "toolCalls": 2,
         "inputTokens": 12,
         "outputTokens": 69,
-        "startedAt": 1785836160024
+        "startedAt": 1785851719307
       },
       "validation": {
         "repaired": false,
@@ -5493,18 +5493,18 @@
         }
       ],
       "retrieval_ms": [
-        90.3275,
-        85.3436,
-        109.8258,
-        101.7863,
-        108.9724
+        25.9653,
+        25.9583,
+        27.9056,
+        27.1995,
+        27.397
       ],
       "total_ms": [
-        90.3749,
-        85.3598,
-        109.8394,
-        101.802,
-        108.9884
+        25.9731,
+        25.9657,
+        27.9156,
+        27.2103,
+        27.412
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -5528,7 +5528,7 @@
         "toolCalls": 2,
         "inputTokens": 17,
         "outputTokens": 899,
-        "startedAt": 1785836160937
+        "startedAt": 1785851719533
       },
       "validation": {
         "repaired": false,
@@ -5672,18 +5672,18 @@
         }
       ],
       "retrieval_ms": [
-        120.2082,
-        135.1893,
-        69.9955,
-        95.2946,
-        89.0678
+        25.786,
+        27.3968,
+        27.9341,
+        26.4693,
+        24.9561
       ],
       "total_ms": [
-        120.2266,
-        135.2057,
-        70.0112,
-        95.3122,
-        89.0835
+        25.7924,
+        27.4083,
+        27.9434,
+        26.4763,
+        24.9637
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -5704,7 +5704,7 @@
         "toolCalls": 2,
         "inputTokens": 18,
         "outputTokens": 69,
-        "startedAt": 1785836161841
+        "startedAt": 1785851719793
       },
       "validation": {
         "repaired": false,
@@ -5848,18 +5848,18 @@
         }
       ],
       "retrieval_ms": [
-        117.4304,
-        115.3207,
-        176.0687,
-        353.0497,
-        128.151
+        25.2725,
+        25.8072,
+        26.1379,
+        26.4242,
+        24.5805
       ],
       "total_ms": [
-        117.4455,
-        115.3383,
-        176.0845,
-        353.0652,
-        128.1697
+        25.2829,
+        25.8184,
+        26.1455,
+        26.4341,
+        24.5873
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -5883,7 +5883,7 @@
         "toolCalls": 2,
         "inputTokens": 24,
         "outputTokens": 395,
-        "startedAt": 1785836163459
+        "startedAt": 1785851720016
       },
       "validation": {
         "repaired": false,
@@ -6027,18 +6027,18 @@
         }
       ],
       "retrieval_ms": [
-        135.7252,
-        112.8445,
-        167.7808,
-        97.5997,
-        108.1787
+        23.2745,
+        22.6847,
+        22.2045,
+        22.3971,
+        22.7901
       ],
       "total_ms": [
-        135.7444,
-        112.8621,
-        167.7968,
-        97.617,
-        108.1962
+        23.2814,
+        22.6902,
+        22.2113,
+        22.4068,
+        22.796
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -6062,7 +6062,7 @@
         "toolCalls": 2,
         "inputTokens": 16,
         "outputTokens": 265,
-        "startedAt": 1785836164469
+        "startedAt": 1785851720221
       },
       "validation": {
         "repaired": false,
@@ -6206,18 +6206,18 @@
         }
       ],
       "retrieval_ms": [
-        83.7662,
-        164.198,
-        129.9146,
-        122.7364,
-        237.8571
+        21.9425,
+        21.7993,
+        20.7449,
+        23.0467,
+        20.8191
       ],
       "total_ms": [
-        83.7815,
-        164.2124,
-        129.9319,
-        122.7513,
-        237.8746
+        21.9515,
+        21.8054,
+        20.751,
+        23.0551,
+        20.825
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -6238,7 +6238,7 @@
         "toolCalls": 4,
         "inputTokens": 18,
         "outputTokens": 69,
-        "startedAt": 1785836165746
+        "startedAt": 1785851720416
       },
       "validation": {
         "repaired": false,
@@ -6382,18 +6382,18 @@
         }
       ],
       "retrieval_ms": [
-        68.5557,
-        80.6113,
-        109.1273,
-        78.8498,
-        98.6045
+        24.3796,
+        24.9982,
+        25.5029,
+        25.0953,
+        24.0894
       ],
       "total_ms": [
-        68.6102,
-        80.6321,
-        109.1453,
-        78.8639,
-        98.6202
+        24.3885,
+        25.0039,
+        25.5114,
+        25.1019,
+        24.0958
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -6414,7 +6414,7 @@
         "toolCalls": 2,
         "inputTokens": 16,
         "outputTokens": 69,
-        "startedAt": 1785836166753
+        "startedAt": 1785851720667
       },
       "validation": {
         "repaired": false,
@@ -6558,18 +6558,18 @@
         }
       ],
       "retrieval_ms": [
-        128.6307,
-        106.9067,
-        148.2002,
-        132.3171,
-        181.1378
+        22.2652,
+        23.2505,
+        22.7895,
+        24.0779,
+        22.7658
       ],
       "total_ms": [
-        128.6469,
-        106.9283,
-        148.2237,
-        132.3344,
-        181.2576
+        22.2718,
+        23.256,
+        22.7962,
+        24.0881,
+        22.7773
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -6584,7 +6584,7 @@
         "toolCalls": 0,
         "inputTokens": 16,
         "outputTokens": 34,
-        "startedAt": 1785836167833
+        "startedAt": 1785851720868
       },
       "validation": {
         "repaired": false,
@@ -6611,7 +6611,7 @@
         "toolCalls": 0,
         "inputTokens": 8,
         "outputTokens": 34,
-        "startedAt": 1785836167843
+        "startedAt": 1785851720869
       },
       "validation": {
         "repaired": false,
@@ -6755,18 +6755,18 @@
         }
       ],
       "retrieval_ms": [
-        136.6607,
-        145.0424,
-        134.019,
-        166.2929,
-        100.1395
+        26.6338,
+        26.3257,
+        27.5746,
+        25.274,
+        23.2284
       ],
       "total_ms": [
-        136.6765,
-        145.0578,
-        134.0361,
-        166.3084,
-        100.1558
+        26.641,
+        26.3331,
+        27.5842,
+        25.2828,
+        23.2344
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -6789,7 +6789,7 @@
         "toolCalls": 2,
         "inputTokens": 11,
         "outputTokens": 574,
-        "startedAt": 1785836168761
+        "startedAt": 1785851721051
       },
       "validation": {
         "repaired": false,
@@ -6802,18 +6802,18 @@
       "predicted_behavior": "no_answer",
       "top_k": [],
       "retrieval_ms": [
-        52.9359,
-        36.7574,
-        38.4066,
-        51.1668,
-        53.3597
+        15.8356,
+        17.2334,
+        16.1454,
+        18.901,
+        18.0068
       ],
       "total_ms": [
-        52.9545,
-        36.7726,
-        38.4214,
-        51.1821,
-        53.3764
+        15.8452,
+        17.2439,
+        16.1537,
+        18.9102,
+        18.0158
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -6828,7 +6828,7 @@
         "toolCalls": 2,
         "inputTokens": 11,
         "outputTokens": 69,
-        "startedAt": 1785836169239
+        "startedAt": 1785851721228
       },
       "validation": {
         "repaired": false,
@@ -7036,7 +7036,7 @@
         },
         {
           "turn": 2,
-          "answer_status": "safe_error",
+          "answer_status": "answered",
           "region": "福建省",
           "evidence_region_codes": [
             "350000",
@@ -7054,13 +7054,16 @@
       "turns": [
         {
           "turn": 1,
-          "answer_status": "insufficient_evidence",
+          "answer_status": "answered",
           "region": "北京市",
           "evidence_region_codes": [
             "100000",
             "110000"
           ],
-          "citations": []
+          "citations": [
+            "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "北京市_政策规章_育儿补贴申请“一件事”_5"
+          ]
         },
         {
           "turn": 2,
@@ -7093,13 +7096,17 @@
         },
         {
           "turn": 2,
-          "answer_status": "insufficient_evidence",
+          "answer_status": "answered",
           "region": "重庆市",
           "evidence_region_codes": [
             "500000",
             "100000"
           ],
-          "citations": []
+          "citations": [
+            "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "重庆市_政策规章_育儿补贴申请“一件事”_13",
+            "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+          ]
         }
       ]
     },

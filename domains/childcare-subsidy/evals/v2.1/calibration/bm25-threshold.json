@@ -11,200 +11,200 @@
   "eligible_candidate_count": 48,
   "selected": {
     "threshold": 0,
-    "macro_recall": 0.7926829268292683,
-    "no_answer_f1": 0.41379310344827586,
-    "answer_recall": 0.5853658536585366,
+    "macro_recall": 0.9390243902439024,
+    "no_answer_f1": 0.7058823529411764,
+    "answer_recall": 0.8780487804878049,
     "no_answer_recall": 1
   },
   "failure_reasons": [],
   "candidates": [
     {
       "threshold": 0,
+      "macro_recall": 0.9390243902439024,
+      "no_answer_f1": 0.7058823529411764,
+      "answer_recall": 0.8780487804878049,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 3.101838355,
+      "macro_recall": 0.9268292682926829,
+      "no_answer_f1": 0.6666666666666666,
+      "answer_recall": 0.8536585365853658,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 4.713333035,
+      "macro_recall": 0.9146341463414633,
+      "no_answer_f1": 0.631578947368421,
+      "answer_recall": 0.8292682926829268,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 5.105462875000001,
+      "macro_recall": 0.9146341463414633,
+      "no_answer_f1": 0.631578947368421,
+      "answer_recall": 0.8292682926829268,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 5.651016565,
+      "macro_recall": 0.9024390243902439,
+      "no_answer_f1": 0.6,
+      "answer_recall": 0.8048780487804879,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 6.03960534,
+      "macro_recall": 0.8902439024390244,
+      "no_answer_f1": 0.5714285714285715,
+      "answer_recall": 0.7804878048780488,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 6.124923620000001,
+      "macro_recall": 0.8780487804878049,
+      "no_answer_f1": 0.5454545454545454,
+      "answer_recall": 0.7560975609756098,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 6.183593484999999,
+      "macro_recall": 0.8658536585365854,
+      "no_answer_f1": 0.5217391304347826,
+      "answer_recall": 0.7317073170731707,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 6.247487995,
+      "macro_recall": 0.8536585365853658,
+      "no_answer_f1": 0.5,
+      "answer_recall": 0.7073170731707317,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 6.31310006,
+      "macro_recall": 0.8414634146341464,
+      "no_answer_f1": 0.4799999999999999,
+      "answer_recall": 0.6829268292682927,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 6.48868675,
+      "macro_recall": 0.8414634146341464,
+      "no_answer_f1": 0.4799999999999999,
+      "answer_recall": 0.6829268292682927,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 8.28767336,
+      "macro_recall": 0.8292682926829269,
+      "no_answer_f1": 0.4615384615384615,
+      "answer_recall": 0.6585365853658537,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 9.913532555,
+      "macro_recall": 0.8170731707317074,
+      "no_answer_f1": 0.4444444444444445,
+      "answer_recall": 0.6341463414634146,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 10.36042568,
+      "macro_recall": 0.8048780487804879,
+      "no_answer_f1": 0.42857142857142855,
+      "answer_recall": 0.6097560975609756,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 10.826775210000001,
+      "macro_recall": 0.8048780487804879,
+      "no_answer_f1": 0.42857142857142855,
+      "answer_recall": 0.6097560975609756,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 11.12414147,
       "macro_recall": 0.7926829268292683,
       "no_answer_f1": 0.41379310344827586,
       "answer_recall": 0.5853658536585366,
       "no_answer_recall": 1
     },
     {
-      "threshold": 3.101838355,
+      "threshold": 11.718965055,
       "macro_recall": 0.7804878048780488,
       "no_answer_f1": 0.4,
       "answer_recall": 0.5609756097560976,
       "no_answer_recall": 1
     },
     {
-      "threshold": 4.713333035,
-      "macro_recall": 0.7804878048780488,
-      "no_answer_f1": 0.4,
-      "answer_recall": 0.5609756097560976,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 5.105462875000001,
-      "macro_recall": 0.7804878048780488,
-      "no_answer_f1": 0.4,
-      "answer_recall": 0.5609756097560976,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 5.651016565,
-      "macro_recall": 0.7804878048780488,
-      "no_answer_f1": 0.4,
-      "answer_recall": 0.5609756097560976,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 6.03960534,
-      "macro_recall": 0.7804878048780488,
-      "no_answer_f1": 0.4,
-      "answer_recall": 0.5609756097560976,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 6.124923620000001,
-      "macro_recall": 0.7804878048780488,
-      "no_answer_f1": 0.4,
-      "answer_recall": 0.5609756097560976,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 6.183593484999999,
-      "macro_recall": 0.7804878048780488,
-      "no_answer_f1": 0.4,
-      "answer_recall": 0.5609756097560976,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 6.247487995,
-      "macro_recall": 0.7804878048780488,
-      "no_answer_f1": 0.4,
-      "answer_recall": 0.5609756097560976,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 6.31310006,
-      "macro_recall": 0.7804878048780488,
-      "no_answer_f1": 0.4,
-      "answer_recall": 0.5609756097560976,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 6.48868675,
-      "macro_recall": 0.7804878048780488,
-      "no_answer_f1": 0.4,
-      "answer_recall": 0.5609756097560976,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 8.28767336,
-      "macro_recall": 0.7804878048780488,
-      "no_answer_f1": 0.4,
-      "answer_recall": 0.5609756097560976,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 9.913532555,
+      "threshold": 12.360535995,
       "macro_recall": 0.7682926829268293,
       "no_answer_f1": 0.3870967741935484,
       "answer_recall": 0.5365853658536586,
       "no_answer_recall": 1
     },
     {
-      "threshold": 10.36042568,
-      "macro_recall": 0.7560975609756098,
-      "no_answer_f1": 0.375,
-      "answer_recall": 0.5121951219512195,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 10.826775210000001,
-      "macro_recall": 0.7560975609756098,
-      "no_answer_f1": 0.375,
-      "answer_recall": 0.5121951219512195,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 11.12414147,
-      "macro_recall": 0.7560975609756098,
-      "no_answer_f1": 0.375,
-      "answer_recall": 0.5121951219512195,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 11.718965055,
-      "macro_recall": 0.7560975609756098,
-      "no_answer_f1": 0.375,
-      "answer_recall": 0.5121951219512195,
-      "no_answer_recall": 1
-    },
-    {
-      "threshold": 12.360535995,
-      "macro_recall": 0.7560975609756098,
-      "no_answer_f1": 0.375,
-      "answer_recall": 0.5121951219512195,
-      "no_answer_recall": 1
-    },
-    {
       "threshold": 13.27535103,
-      "macro_recall": 0.7439024390243902,
-      "no_answer_f1": 0.3636363636363636,
-      "answer_recall": 0.4878048780487805,
+      "macro_recall": 0.7682926829268293,
+      "no_answer_f1": 0.3870967741935484,
+      "answer_recall": 0.5365853658536586,
       "no_answer_recall": 1
     },
     {
       "threshold": 14.000514299999999,
+      "macro_recall": 0.7560975609756098,
+      "no_answer_f1": 0.375,
+      "answer_recall": 0.5121951219512195,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 14.269951785,
       "macro_recall": 0.7439024390243902,
       "no_answer_f1": 0.3636363636363636,
       "answer_recall": 0.4878048780487805,
       "no_answer_recall": 1
     },
     {
-      "threshold": 14.269951785,
+      "threshold": 14.447748505,
       "macro_recall": 0.7317073170731707,
       "no_answer_f1": 0.35294117647058826,
       "answer_recall": 0.4634146341463415,
       "no_answer_recall": 1
     },
     {
-      "threshold": 14.447748505,
+      "threshold": 14.495654505000001,
       "macro_recall": 0.7195121951219512,
       "no_answer_f1": 0.34285714285714286,
       "answer_recall": 0.43902439024390244,
       "no_answer_recall": 1
     },
     {
-      "threshold": 14.495654505000001,
+      "threshold": 14.644654899999999,
       "macro_recall": 0.7073170731707317,
       "no_answer_f1": 0.33333333333333337,
       "answer_recall": 0.4146341463414634,
       "no_answer_recall": 1
     },
     {
-      "threshold": 14.644654899999999,
+      "threshold": 15.269021825,
       "macro_recall": 0.6951219512195121,
       "no_answer_f1": 0.3243243243243243,
       "answer_recall": 0.3902439024390244,
       "no_answer_recall": 1
     },
     {
-      "threshold": 15.269021825,
-      "macro_recall": 0.6829268292682926,
-      "no_answer_f1": 0.3157894736842105,
-      "answer_recall": 0.36585365853658536,
-      "no_answer_recall": 1
-    },
-    {
       "threshold": 15.769842685,
-      "macro_recall": 0.6829268292682926,
-      "no_answer_f1": 0.3157894736842105,
-      "answer_recall": 0.36585365853658536,
+      "macro_recall": 0.6951219512195121,
+      "no_answer_f1": 0.3243243243243243,
+      "answer_recall": 0.3902439024390244,
       "no_answer_recall": 1
     },
     {
       "threshold": 16.303007,
-      "macro_recall": 0.6829268292682926,
-      "no_answer_f1": 0.3157894736842105,
-      "answer_recall": 0.36585365853658536,
+      "macro_recall": 0.6951219512195121,
+      "no_answer_f1": 0.3243243243243243,
+      "answer_recall": 0.3902439024390244,
       "no_answer_recall": 1
     },
     {
@@ -272,37 +272,37 @@
     },
     {
       "threshold": 26.14020078,
+      "macro_recall": 0.6097560975609756,
+      "no_answer_f1": 0.2727272727272727,
+      "answer_recall": 0.21951219512195122,
+      "no_answer_recall": 1
+    },
+    {
+      "threshold": 26.805878165,
       "macro_recall": 0.5975609756097561,
       "no_answer_f1": 0.2666666666666667,
       "answer_recall": 0.1951219512195122,
       "no_answer_recall": 1
     },
     {
-      "threshold": 26.805878165,
+      "threshold": 26.830618735,
       "macro_recall": 0.5853658536585366,
       "no_answer_f1": 0.2608695652173913,
       "answer_recall": 0.17073170731707318,
       "no_answer_recall": 1
     },
     {
-      "threshold": 26.830618735,
-      "macro_recall": 0.573170731707317,
-      "no_answer_f1": 0.2553191489361702,
-      "answer_recall": 0.14634146341463414,
-      "no_answer_recall": 1
-    },
-    {
       "threshold": 26.99502664,
-      "macro_recall": 0.573170731707317,
-      "no_answer_f1": 0.2553191489361702,
-      "answer_recall": 0.14634146341463414,
+      "macro_recall": 0.5853658536585366,
+      "no_answer_f1": 0.2608695652173913,
+      "answer_recall": 0.17073170731707318,
       "no_answer_recall": 1
     },
     {
       "threshold": 27.74993901,
-      "macro_recall": 0.5609756097560976,
-      "no_answer_f1": 0.25,
-      "answer_recall": 0.12195121951219512,
+      "macro_recall": 0.573170731707317,
+      "no_answer_f1": 0.2553191489361702,
+      "answer_recall": 0.14634146341463414,
       "no_answer_recall": 1
     },
     {

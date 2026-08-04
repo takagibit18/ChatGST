@@ -12,6 +12,11 @@
         "required": true,
         "passed": true
       },
+      "calibration_answer_recall": {
+        "actual": 0.8780487804878049,
+        "required": 0.8,
+        "passed": true
+      },
       "regression_behavior": {
         "actual_correct": 13,
         "required_correct": 13,
@@ -58,18 +63,18 @@
   "input_fingerprint": {
     "dev_sha256": "dcce4b70ec82800f456a28431f69f6622b459e6b3a54f90120042672a2c405bc",
     "regression_sha256": "0c80c17040578d49ba99df7a30e1891e0b469099fa09966f722d874310a955d1",
-    "calibration_sha256": "09c806864bf41c8ce641b35b7df24bafea98962f33e470fa83193267605259da",
+    "calibration_sha256": "05e685feca665c4712f7f5e6d346e583749e4c98150337eb6a3272e0513f37d9",
     "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce"
   },
-  "prediction_fingerprint": "4d95fc88ac9160637ba2c5c65bbf19f78334db1f3eda575d47d5cc3f547f1a21",
+  "prediction_fingerprint": "e0042f254cd069005c27acc9d28c2fbdcb95e5978dbe3144be0680d096140326",
   "full_run_determinism": {
     "schema_version": 1,
     "full_runs": 3,
     "stable": true,
     "prediction_fingerprints": [
-      "4d95fc88ac9160637ba2c5c65bbf19f78334db1f3eda575d47d5cc3f547f1a21",
-      "4d95fc88ac9160637ba2c5c65bbf19f78334db1f3eda575d47d5cc3f547f1a21",
-      "4d95fc88ac9160637ba2c5c65bbf19f78334db1f3eda575d47d5cc3f547f1a21"
+      "e0042f254cd069005c27acc9d28c2fbdcb95e5978dbe3144be0680d096140326",
+      "e0042f254cd069005c27acc9d28c2fbdcb95e5978dbe3144be0680d096140326",
+      "e0042f254cd069005c27acc9d28c2fbdcb95e5978dbe3144be0680d096140326"
     ],
     "timing_fields_excluded": true,
     "model_provider": "test",
@@ -785,14 +790,14 @@
   },
   "performance_ms": {
     "retrieval": {
-      "p50": 95.2946,
-      "p95": 191.3276,
-      "p99": 284.256
+      "p50": 24.8991,
+      "p95": 27.7927,
+      "p99": 31.9482
     },
     "total": {
-      "p50": 95.3122,
-      "p95": 191.3432,
-      "p99": 284.2723
+      "p50": 24.9083,
+      "p95": 27.8027,
+      "p99": 31.9586
     },
     "warmups": 2,
     "measured": 5

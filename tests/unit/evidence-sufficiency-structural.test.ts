@@ -11,6 +11,8 @@ type HitOptions = {
   versionGroup?: string;
   policyNumber?: string;
   implementationOf?: string;
+  parentPolicyId?: string;
+  supersedes?: string;
 };
 
 function hit(content: string, options: HitOptions = {}) {
@@ -33,6 +35,8 @@ function hit(content: string, options: HitOptions = {}) {
       version_group: options.versionGroup ?? "childcare-current",
       policy_number: options.policyNumber,
       implementation_of: options.implementationOf,
+      parent_policy_id: options.parentPolicyId,
+      supersedes: options.supersedes,
     },
   };
 }
@@ -50,9 +54,26 @@ describe("evidence sufficiency structural repair matrix", () => {
   });
 
   it.each([
+    ["上海市现阶段每个孩子一年发多少育儿补贴？", "amount", "补贴标准为每孩每年3600元。", "310000"],
+    ["河北一个宝宝一年能拿多钱补贴？", "amount", "补贴标准为每孩每年3600元。", "130000"],
+    ["吉林省不能在线申请育儿补贴时，可以到哪里现场办理？", "channel", "可到婴幼儿户籍所在地街道办事处现场办理。", "220000"],
+    ["河北育儿补贴能网上办，也能去街道办吗？", "channel", "可线上申请，也可到街道办事处现场办理。", "130000"],
+    ["重庆育儿补贴审核通过后通常在哪几个月发？", "payment_schedule", "分别于5月、8月、11月和次年2月发放。", "500000"],
+    ["河北补贴审核完啥时候打钱？", "payment_schedule", "审核确认后10个工作日发放到账。", "130000"],
+    ["首次申请可以延到什么时候？", "deadline", "首次申请应在婴幼儿出生当年或者次年提出。", "130000"],
+    ["首次申请和后续续领分别在哪些年度？", "deadline", "首次申请在出生当年提出，后续两个年度分别续领。", "130000"],
+    ["福建育儿补贴制度从哪一天开始实施？", "effective_version", "本制度自2025年1月1日起实施。", "350000"],
+    ["河北育儿补贴何时开始实施？", "effective_version", "本制度从2025年1月1日起开始实施。", "130000"],
+  ])("recovers reusable claim extraction and support-span variants: %s", (question, claimType, content, regionCode) => {
+    const result = evaluateEvidenceSufficiency(question, "overview", [hit(content, { regionCode })], regionCode);
+    expect(result.sufficient).toBe(true);
+    expect(result.required_claims.map((claim) => claim.type)).toContain(claimType);
+  });
+
+  it.each([
     ["deadline", "河北育儿补贴申请截止日期是什么？", "申请截止日期为2026年8月31日。", "申请截止日期为2026年9月30日。"],
-    ["payment_schedule", "河北育儿补贴哪个月到账？", "育儿补贴于每年2月发放到账。", "育儿补贴于每年3月发放到账。"],
-    ["channel", "河北育儿补贴通过哪个平台申请？", "可通过甲政务平台申请。", "可通过乙服务平台申请。"],
+    ["payment_schedule", "河北育儿补贴第一批仅在哪个月到账？", "第一批仅在2月发放到账。", "第一批仅在3月发放到账。"],
+    ["channel", "河北育儿补贴能在线申请吗？", "育儿补贴仅可通过线上政务平台申请。", "育儿补贴不得通过线上政务平台申请。"],
     ["migration", "迁出河北后补贴是否继续发放？", "户籍迁出后继续发放育儿补贴。", "户籍迁出后停止发放育儿补贴。"],
   ])("blocks contradictory high-risk %s evidence", (_type, question, left, right) => {
     const result = evaluateEvidenceSufficiency(question, "unknown", [
@@ -107,6 +128,55 @@ describe("evidence sufficiency structural repair matrix", () => {
       hit("可通过河北政务服务平台申请。", { regionCode: "130000", documentId: "local", versionGroup: "local-v1", implementationOf: "national" }),
     ], "130000");
     expect(result.sufficient).toBe(true);
+  });
+
+  it("rejects a partially connected policy bundle with an unrelated document", () => {
+    const result = evaluateEvidenceSufficiency("河北育儿补贴多少钱，去哪里申请，截止日期是什么？", "amount", [
+      hit("补贴标准为每孩每年3600元。", { regionCode: "130000", documentId: "national", versionGroup: "national-v1" }),
+      hit("可通过河北政务服务平台申请。", { regionCode: "130000", documentId: "local", versionGroup: "local-v1", implementationOf: "national" }),
+      hit("申请截止日期为2026年8月31日。", { regionCode: "130000", documentId: "unrelated", versionGroup: "unrelated-v1" }),
+    ], "130000");
+    expect(result.sufficient).toBe(false);
+    expect(result.reason_codes).toContain("disconnected_policy_bundle");
+  });
+
+  it("accepts a fully connected national-province-city policy chain", () => {
+    const result = evaluateEvidenceSufficiency("石家庄育儿补贴多少钱，去哪里申请，截止日期是什么？", "amount", [
+      hit("补贴标准为每孩每年3600元。", { regionCode: "100000", documentId: "national", versionGroup: "national-v1" }),
+      hit("可通过河北政务服务平台申请。", { regionCode: "130000", documentId: "province", versionGroup: "hebei-v1", implementationOf: "national" }),
+      hit("首次申请截止日期为2026年8月31日。", { regionCode: "130100", documentId: "city", versionGroup: "sjz-v1", parentPolicyId: "province" }),
+    ], "130100");
+    expect(result.sufficient).toBe(true);
+    expect(result.evidence_bundles[0]).toMatchObject({ compatible: true });
+  });
+
+  it("rejects a bundle composed from two disconnected policy subgraphs", () => {
+    const result = evaluateEvidenceSufficiency("河北育儿补贴多少钱，去哪里申请，截止日期是什么，多久到账？", "amount", [
+      hit("补贴标准为每孩每年3600元。", { regionCode: "130000", documentId: "a", versionGroup: "a-v1" }),
+      hit("可通过河北政务服务平台申请。", { regionCode: "130000", documentId: "b", versionGroup: "b-v1", implementationOf: "a" }),
+      hit("首次申请截止日期为2026年8月31日。", { regionCode: "130000", documentId: "c", versionGroup: "c-v1" }),
+      hit("审核后10个工作日发放到账。", { regionCode: "130000", documentId: "d", versionGroup: "d-v1", parentPolicyId: "c" }),
+    ], "130000");
+    expect(result.sufficient).toBe(false);
+    expect(result.reason_codes).toContain("disconnected_policy_bundle");
+  });
+
+  it("uses the active successor without mixing superseded evidence", () => {
+    const result = evaluateEvidenceSufficiency("河北现行育儿补贴多少钱？", "amount", [
+      hit("补贴标准为每孩每年2400元。", { regionCode: "130000", documentId: "old", versionGroup: "hebei-old", effectiveFrom: "2024-01-01" }),
+      hit("补贴标准为每孩每年3600元。", { regionCode: "130000", documentId: "new", versionGroup: "hebei-new", effectiveFrom: "2025-01-01", supersedes: "old" }),
+    ], "130000", { effectiveDate: "2026-08-04" });
+    expect(result.sufficient).toBe(true);
+    expect(result.evidence_bindings.map((binding) => binding.document_id)).toEqual(["new"]);
+  });
+
+  it("uses the predecessor for a historical query before the successor takes effect", () => {
+    const result = evaluateEvidenceSufficiency("河北2024年育儿补贴多少钱？", "amount", [
+      hit("补贴标准为每孩每年2400元。", { regionCode: "130000", documentId: "old", versionGroup: "hebei-old", effectiveFrom: "2024-01-01" }),
+      hit("补贴标准为每孩每年3600元。", { regionCode: "130000", documentId: "new", versionGroup: "hebei-new", effectiveFrom: "2025-01-01", supersedes: "old" }),
+    ], "130000", { effectiveDate: "2024-08-04" });
+    expect(result.sufficient).toBe(true);
+    expect(result.evidence_bindings.map((binding) => binding.document_id)).toEqual(["old"]);
   });
 
   it("fails closed when multiple documents have unknown compatibility metadata", () => {
@@ -260,11 +330,63 @@ describe("evidence sufficiency structural repair matrix", () => {
     const result = evaluateEvidenceSufficiency(
       "云南原来每年800元的政策如何衔接？",
       "amount",
-      [hit("原育儿补助政策每孩每年800元，统一调整为国家育儿补贴每孩每年3600元。", { regionCode: "530000" })],
+      [
+        hit("现行育儿补贴标准为每孩每年3600元。", { regionCode: "530000", documentId: "yunnan", chunkId: "current" }),
+        hit("原育儿补助政策每孩每年800元，统一调整为国家育儿补贴每孩每年3600元。", { regionCode: "530000", documentId: "yunnan", chunkId: "transition" }),
+      ],
       "530000",
       { effectiveDate: "2026-08-04" },
     );
+    expect(result.sufficient).toBe(true);
     expect(result.conflicts).toHaveLength(0);
+  });
+
+  it.each([
+    ["eligibility", "河北哪些家庭符合育儿补贴条件？", "申领条件包括3周岁以下婴幼儿。", "申领条件包括本地户籍家庭。"],
+    ["channel", "河北育儿补贴可以通过哪些渠道申请？", "可通过政务小程序申请。", "也可通过街道窗口申请。"],
+    ["materials", "河北育儿补贴需要哪些材料？", "申请材料需要提供身份证。", "申请材料需要提供出生医学证明。"],
+    ["payment_schedule", "河北育儿补贴分几批发放？", "第一批在2月发放。", "第二批在8月发放。"],
+  ])("keeps complementary %s facts as a set", (_type, question, left, right) => {
+    const result = evaluateEvidenceSufficiency(question, "unknown", [
+      hit(left, { regionCode: "130000", documentId: "left", versionGroup: "same-policy" }),
+      hit(right, { regionCode: "130000", documentId: "right", versionGroup: "same-policy" }),
+    ], "130000");
+    expect(result.sufficient).toBe(true);
+    expect(result.evidence_bindings.map((binding) => binding.document_id)).toEqual(expect.arrayContaining(["left", "right"]));
+    expect(result.reason_codes).not.toContain("contradictory_evidence");
+  });
+
+  it("keeps scalar amounts with different age qualifiers", () => {
+    const result = evaluateEvidenceSufficiency("河北不同年龄段的育儿补贴分别多少钱？", "amount", [
+      hit("补贴标准为0至1岁每孩每年3600元。", { regionCode: "130000", documentId: "infant", versionGroup: "same-policy" }),
+      hit("补贴标准为1至3岁每孩每年2400元。", { regionCode: "130000", documentId: "toddler", versionGroup: "same-policy" }),
+    ], "130000");
+    expect(result.sufficient).toBe(true);
+    expect(result.reason_codes).not.toContain("contradictory_evidence");
+  });
+
+  it("blocks mutually exclusive channel rules", () => {
+    const result = evaluateEvidenceSufficiency("河北育儿补贴能在线申请吗？", "channel", [
+      hit("育儿补贴仅可通过线上政务平台申请。", { regionCode: "130000", documentId: "online-only", versionGroup: "same-policy" }),
+      hit("育儿补贴不得通过线上政务平台申请。", { regionCode: "130000", documentId: "online-forbidden", versionGroup: "same-policy" }),
+    ], "130000");
+    expect(result.sufficient).toBe(false);
+    expect(result.reason_codes).toContain("contradictory_evidence");
+  });
+
+  it("distinguishes migration directions while blocking opposite outcomes for the same direction", () => {
+    const complementary = evaluateEvidenceSufficiency("河北户籍迁入和迁出分别怎么办？", "migration", [
+      hit("户籍迁入后需要重新申请育儿补贴。", { regionCode: "130000", documentId: "move-in", versionGroup: "same-policy" }),
+      hit("户籍迁出后停止发放育儿补贴。", { regionCode: "130000", documentId: "move-out", versionGroup: "same-policy" }),
+    ], "130000");
+    expect(complementary.sufficient).toBe(true);
+
+    const contradictory = evaluateEvidenceSufficiency("迁出河北后补贴是否继续发放？", "migration", [
+      hit("户籍迁出后继续发放育儿补贴。", { regionCode: "130000", documentId: "continue", versionGroup: "same-policy" }),
+      hit("户籍迁出后停止发放育儿补贴。", { regionCode: "130000", documentId: "stop", versionGroup: "same-policy" }),
+    ], "130000");
+    expect(contradictory.sufficient).toBe(false);
+    expect(contradictory.reason_codes).toContain("contradictory_evidence");
   });
 
   it.each([

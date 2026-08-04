@@ -2,7 +2,36 @@
   "schema_version": 1,
   "run_id": "phase3-v21-provisional",
   "evaluation_status": "provisional",
-  "release_gate": "blocked_pending_human_review",
+  "release_gate": "blocked_quality_gate",
+  "quality_gate": {
+    "status": "failed",
+    "passed": false,
+    "requirements": {
+      "regression_behavior": {
+        "actual_correct": 7,
+        "required_correct": 13,
+        "total": 13,
+        "actual_accuracy": 0.5384615384615384,
+        "required_accuracy": 1,
+        "passed": false
+      },
+      "regression_no_answer_recall": {
+        "actual": 0.25,
+        "required": 1,
+        "passed": false
+      },
+      "regression_failures": {
+        "actual": 6,
+        "required": 0,
+        "passed": false
+      }
+    },
+    "failure_reasons": [
+      "regression_behavior_not_13_of_13",
+      "regression_no_answer_recall_below_1",
+      "regression_failures_present"
+    ]
+  },
   "quality_claim_allowed": false,
   "circular_labeling": false,
   "input_fingerprint": {
@@ -744,6 +773,26 @@
     "warmups": 2,
     "measured": 5
   },
-  "diagnostic_failures": [],
+  "failure_groups": {
+    "dev_failures": [],
+    "regression_failures": [
+      "regression-hebei-eligibility",
+      "regression-hebei-claimant",
+      "regression-hebei-channel",
+      "regression-regional-comparison",
+      "regression-hebei-migration",
+      "regression-benefit-distinction"
+    ],
+    "conversation_failures": [],
+    "safety_failures": []
+  },
+  "diagnostic_failures": [
+    "regression-hebei-eligibility",
+    "regression-hebei-claimant",
+    "regression-hebei-channel",
+    "regression-regional-comparison",
+    "regression-hebei-migration",
+    "regression-benefit-distinction"
+  ],
   "review_notice": "All Gold remains pending_review; metrics are diagnostic only."
 }

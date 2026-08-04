@@ -30,12 +30,20 @@ export type EvidenceBinding = {
   chunk_id: string;
   region_code: string;
   policy_version?: string | null;
+  version_group?: string | null;
+  policy_number?: string | null;
+  effective_from?: string | null;
+  effective_to?: string | null;
+  status?: "effective" | "expired" | "draft" | "unknown" | null;
+  implementation_of?: string | null;
+  parent_policy_id?: string | null;
+  supersedes?: string | null;
   matched_span: string;
   support_type: "direct" | "inherited";
 };
 
 export type EvidenceConflict = {
-  type: "expired_evidence" | "future_evidence" | "unknown_effective_date" | "contradictory_evidence";
+  type: "expired_evidence" | "future_evidence" | "unknown_effective_date" | "contradictory_evidence" | "incompatible_policy_bundle";
   claim_ids: string[];
   document_ids: string[];
   reason: string;
@@ -48,7 +56,24 @@ export type EvidenceSufficiencyReasonCode =
   | "version_conflict"
   | "contradictory_evidence"
   | "retrieval_miss"
+  | "no_required_claims"
+  | "invalid_comparison_scope"
+  | "missing_comparison_regions"
+  | "duplicate_comparison_regions"
+  | "unsupported_claim"
+  | "incompatible_policy_bundle"
+  | "cross_claim_version_conflict"
+  | "unknown_policy_compatibility"
   | "supported";
+
+export type EvidenceBundle = {
+  target_region_code: string | null;
+  claim_ids: string[];
+  bindings: EvidenceBinding[];
+  policy_families: string[];
+  compatible: boolean;
+  incompatibility_reasons: Array<"cross_claim_version_conflict" | "unknown_policy_compatibility">;
+};
 
 export type EvidenceSufficiencyResult = {
   sufficient: boolean;
@@ -56,6 +81,7 @@ export type EvidenceSufficiencyResult = {
   supported_claims: string[];
   missing_claims: string[];
   evidence_bindings: EvidenceBinding[];
+  evidence_bundles: EvidenceBundle[];
   conflicts: EvidenceConflict[];
   reason_codes: EvidenceSufficiencyReasonCode[];
   /** 兼容 Phase 3.1 的监控字段；判定应读取结构化字段。 */
@@ -79,6 +105,9 @@ type EvidenceCandidate = {
     status?: "effective" | "expired" | "draft" | "unknown" | undefined;
     version_group?: string | undefined;
     policy_number?: string | null | undefined;
+    implementation_of?: string | null | undefined;
+    parent_policy_id?: string | null | undefined;
+    supersedes?: string | null | undefined;
   };
 };
 
@@ -117,7 +146,7 @@ function requestedClaimTypes(question: string, intent: PolicyIntent): ClaimType[
   addClaim(claims, "eligibility", /谁能领|哪些人|资格|条件|对象|能否领取|能不能领|可以申请吗/u.test(question));
   addClaim(claims, "claimant", /谁能领|谁来领|谁申请|谁办理|申请人|申领人|父母|监护人/u.test(question));
   addClaim(claims, "materials", /材料|资料|证明|证件|户口簿/u.test(question));
-  addClaim(claims, "channel", /怎么办理|怎么申请|怎么申领|哪里办|去哪办|渠道|入口|小程序|平台|窗口/u.test(question));
+  addClaim(claims, "channel", /怎么办理|怎么申请|怎么申领|哪里办|去哪办|去哪里申请|在哪申请|渠道|入口|小程序|平台|窗口/u.test(question));
   addClaim(claims, "deadline", /截止|期限|时限|多久内申请|什么时候申请/u.test(question));
   addClaim(claims, "payment_schedule", /多久.*到账|什么时候.*(?:发|到账)|哪(?:几|四|个)月|哪个月|发放批次|如何发放/u.test(question));
   addClaim(claims, "payment_account", /哪张卡|什么卡|哪家银行|银行账户|发到哪|打到哪/u.test(question));
@@ -174,11 +203,17 @@ function regionCodeOf(hit: EvidenceCandidate): string | null {
   return hit.metadata?.region_code ?? null;
 }
 
-function supportsRegion(claim: RequiredClaim, hit: EvidenceCandidate): boolean {
+function supportsRegion(claim: RequiredClaim, hit: EvidenceCandidate, candidates: EvidenceCandidate[] = []): boolean {
   if (!claim.target_region_code) return true;
   const evidenceRegionCode = regionCodeOf(hit);
   if (!evidenceRegionCode) return false;
-  if (evidenceRegionCode === "100000" && claim.target_region_code !== "100000" && localImplementationClaims.has(claim.type)) return false;
+  if (evidenceRegionCode === "100000" && claim.target_region_code !== "100000" && localImplementationClaims.has(claim.type)) {
+    const documentId = hit.document_id ?? hit.metadata?.document_id;
+    const policyNumber = hit.metadata?.policy_number;
+    const explicitlyImplemented = candidates.some((candidate) => candidate.metadata?.region_code === claim.target_region_code
+      && [candidate.metadata?.implementation_of, candidate.metadata?.parent_policy_id].some((relation) => relation && (relation === documentId || relation === policyNumber)));
+    if (!explicitlyImplemented) return false;
+  }
   return isRegionAncestor(evidenceRegionCode, claim.target_region_code);
 }
 
@@ -210,6 +245,14 @@ function bindingFor(claim: RequiredClaim, hit: EvidenceCandidate, index: number,
     chunk_id: hit.chunk_id ?? `${documentId}-chunk-${index + 1}`,
     region_code: regionCode,
     policy_version: policyVersion,
+    version_group: hit.metadata?.version_group ?? null,
+    policy_number: hit.metadata?.policy_number ?? null,
+    effective_from: hit.effective_from ?? hit.metadata?.effective_from ?? null,
+    effective_to: hit.effective_to ?? hit.metadata?.effective_to ?? null,
+    status: hit.status ?? hit.metadata?.status ?? null,
+    implementation_of: hit.metadata?.implementation_of ?? null,
+    parent_policy_id: hit.metadata?.parent_policy_id ?? null,
+    supersedes: hit.metadata?.supersedes ?? null,
     matched_span: span,
     support_type: claim.target_region_code === regionCode ? "direct" : "inherited",
   };
@@ -218,7 +261,61 @@ function bindingFor(claim: RequiredClaim, hit: EvidenceCandidate, index: number,
 function canonicalFact(type: ClaimType, span: string): string | null {
   if (type === "amount") return span.match(/(?:\d[\d,.]*|[一二三四五六七八九十百千万]+)\s*元/u)?.[0].replace(/\s+/gu, "") ?? null;
   if (type === "payment_account") return span.match(/[\p{Script=Han}]{2,20}(?:银行卡|社保卡|银行|信用社|账户)/u)?.[0] ?? null;
+  if (type === "deadline") return span.match(/(?:\d{4}年\d{1,2}月\d{1,2}日|\d{1,2}月\d{1,2}日|\d+\s*(?:日|个月|年|工作日))/u)?.[0].replace(/\s+/gu, "") ?? null;
+  if (type === "payment_schedule") return span.match(/(?:\d{1,2}月|\d+\s*(?:日|个月|工作日)|(?:次年|当年|翌年).{0,8}(?:发放|停止))/u)?.[0].replace(/\s+/gu, "") ?? null;
+  if (type === "channel") return span.match(/[\p{Script=Han}A-Za-z0-9]{2,24}(?:小程序|平台|系统|窗口)/u)?.[0] ?? null;
+  if (type === "migration") return span.match(/(?:迁入|迁出|户籍迁移|户籍变更).{0,24}(?:继续|停止|重新申请|重新申领|发放|领取)/u)?.[0] ?? null;
+  if (type === "eligibility") return span.match(/(?:申领|申请|补贴)(?:对象|条件|资格).{0,30}|(?:本地|当地|本省|本市).{0,24}户籍/u)?.[0] ?? null;
   return null;
+}
+
+function compatibleBundle(targetRegionCode: string | null, claims: RequiredClaim[], bindings: EvidenceBinding[]): EvidenceBundle {
+  const claimIds = claims.map((claim) => claim.id);
+  const byClaim = claimIds.map((claimId) => bindings.filter((binding) => binding.claim_id === claimId));
+  if (byClaim.some((claimBindings) => claimBindings.length === 0)) {
+    const available = byClaim.flatMap((claimBindings) => claimBindings.slice(0, 1));
+    return { target_region_code: targetRegionCode, claim_ids: claimIds, bindings: available,
+      policy_families: [...new Set(available.flatMap((binding) => [binding.version_group, binding.policy_number].filter((value): value is string => Boolean(value))))],
+      compatible: true, incompatibility_reasons: [] };
+  }
+  const combinations: EvidenceBinding[][] = [];
+  const visit = (index: number, current: EvidenceBinding[]) => {
+    if (combinations.length >= 256) return;
+    if (index === byClaim.length) { combinations.push(current); return; }
+    for (const binding of byClaim[index] ?? []) visit(index + 1, [...current, binding]);
+  };
+  visit(0, []);
+  const assess = (selected: EvidenceBinding[]) => {
+    const documents = [...new Set(selected.map((binding) => binding.document_id))];
+    if (documents.length <= 1) return { compatible: true, reasons: [] as EvidenceBundle["incompatibility_reasons"] };
+    const versions = [...new Set(selected.map((binding) => binding.version_group).filter((value): value is string => Boolean(value) && value !== "unknown"))];
+    if (versions.length === 1 && selected.every((binding) => Boolean(binding.version_group) && binding.version_group !== "unknown")) {
+      return { compatible: true, reasons: [] as EvidenceBundle["incompatibility_reasons"] };
+    }
+    const policyNumbers = [...new Set(selected.map((binding) => binding.policy_number).filter((value): value is string => Boolean(value)))];
+    if (policyNumbers.length === 1 && selected.every((binding) => Boolean(binding.policy_number))) {
+      return { compatible: true, reasons: [] as EvidenceBundle["incompatibility_reasons"] };
+    }
+    const identities = new Set(selected.flatMap((binding) => [binding.document_id, binding.policy_number].filter((value): value is string => Boolean(value))));
+    const explicitRelations = selected.flatMap((binding) => [binding.implementation_of, binding.parent_policy_id, binding.supersedes]
+      .filter((value): value is string => Boolean(value)));
+    if (explicitRelations.some((relation) => identities.has(relation))) {
+      return { compatible: true, reasons: [] as EvidenceBundle["incompatibility_reasons"] };
+    }
+    const metadataKnown = selected.every((binding) => Boolean(binding.version_group && binding.version_group !== "unknown") || Boolean(binding.policy_number));
+    return { compatible: false, reasons: [metadataKnown ? "cross_claim_version_conflict" : "unknown_policy_compatibility"] as EvidenceBundle["incompatibility_reasons"] };
+  };
+  for (const selected of combinations) {
+    const assessment = assess(selected);
+    if (assessment.compatible) return { target_region_code: targetRegionCode, claim_ids: claimIds, bindings: selected,
+      policy_families: [...new Set(selected.flatMap((binding) => [binding.version_group, binding.policy_number].filter((value): value is string => Boolean(value))))],
+      compatible: true, incompatibility_reasons: [] };
+  }
+  const selected = combinations[0] ?? [];
+  const assessment = assess(selected);
+  return { target_region_code: targetRegionCode, claim_ids: claimIds, bindings: selected,
+    policy_families: [...new Set(selected.flatMap((binding) => [binding.version_group, binding.policy_number].filter((value): value is string => Boolean(value))))],
+    compatible: false, incompatibility_reasons: assessment.reasons };
 }
 
 function contradictoryConflicts(
@@ -278,6 +375,19 @@ export function evaluateEvidenceSufficiency(
   options: EvidenceSufficiencyOptions = {},
 ): EvidenceSufficiencyResult {
   const requiredClaims = buildRequiredClaims(question, intent, targetRegionCode, options.comparisonRegions);
+  if (intent === "comparison") {
+    const comparisonRegions = options.comparisonRegions ?? [];
+    const uniqueCodes = new Set(comparisonRegions.map((region) => region.code).filter(Boolean));
+    if (comparisonRegions.length < 2 || uniqueCodes.size < 2) {
+      const scopeReason: EvidenceSufficiencyReasonCode = comparisonRegions.length < 2 ? "missing_comparison_regions" : "duplicate_comparison_regions";
+      return { sufficient: false, required_claims: [], supported_claims: [], missing_claims: [], evidence_bindings: [], evidence_bundles: [], conflicts: [],
+        reason_codes: ["invalid_comparison_scope", scopeReason], reason: "missing_requested_detail" };
+    }
+  }
+  if (requiredClaims.length === 0) {
+    return { sufficient: false, required_claims: [], supported_claims: [], missing_claims: [], evidence_bindings: [], evidence_bundles: [], conflicts: [],
+      reason_codes: ["no_required_claims"], reason: "missing_requested_detail" };
+  }
   if (hits.length === 0) {
     return {
       sufficient: false,
@@ -285,6 +395,7 @@ export function evaluateEvidenceSufficiency(
       supported_claims: [],
       missing_claims: requiredClaims.map((claim) => claim.id),
       evidence_bindings: [],
+      evidence_bundles: [],
       conflicts: [],
       reason_codes: ["no_hits", "missing_claim"],
       reason: "no_hits",
@@ -299,7 +410,7 @@ export function evaluateEvidenceSufficiency(
     for (const [index, hit] of topHits.entries()) {
       const span = matchingSpan(claim.type, hit);
       if (!span) continue;
-      if (!supportsRegion(claim, hit)) {
+      if (!supportsRegion(claim, hit, topHits)) {
         sawRegionMismatch = true;
         continue;
       }
@@ -313,20 +424,30 @@ export function evaluateEvidenceSufficiency(
   }
 
   conflicts.push(...contradictoryConflicts(requiredClaims, evidenceBindings, topHits));
+  const bundleRegions = [...new Set(requiredClaims.map((claim) => claim.target_region_code))];
+  const evidenceBundles = bundleRegions.map((regionCode) => compatibleBundle(regionCode,
+    requiredClaims.filter((claim) => claim.target_region_code === regionCode), evidenceBindings));
+  for (const bundle of evidenceBundles.filter((item) => !item.compatible)) {
+    conflicts.push({ type: "incompatible_policy_bundle", claim_ids: bundle.claim_ids,
+      document_ids: bundle.bindings.map((binding) => binding.document_id), reason: bundle.incompatibility_reasons.join(",") });
+  }
+  const selectedBindings = evidenceBundles.flatMap((bundle) => bundle.bindings);
   const conflictedClaims = new Set(conflicts.flatMap((conflict) => conflict.claim_ids));
   const supportedClaims = requiredClaims
-    .filter((claim) => evidenceBindings.some((binding) => binding.claim_id === claim.id) && !conflictedClaims.has(claim.id))
+    .filter((claim) => selectedBindings.some((binding) => binding.claim_id === claim.id) && !conflictedClaims.has(claim.id))
     .map((claim) => claim.id);
   const missingClaims = requiredClaims.filter((claim) => !supportedClaims.includes(claim.id)).map((claim) => claim.id);
   const retrievalMiss = missingClaims.some((claimId) => {
     const claim = requiredClaims.find((item) => item.id === claimId)!;
-    return hits.slice(5).some((hit) => matchingSpan(claim.type, hit) && supportsRegion(claim, hit) && !versionConflict(hit, options.effectiveDate, claim.id));
+    return hits.slice(5).some((hit) => matchingSpan(claim.type, hit) && supportsRegion(claim, hit, hits) && !versionConflict(hit, options.effectiveDate, claim.id));
   });
   const reasonCodes: EvidenceSufficiencyReasonCode[] = [];
   if (missingClaims.length > 0) reasonCodes.push("missing_claim");
   if (missingClaims.length > 0 && sawRegionMismatch) reasonCodes.push("region_mismatch");
   if (conflicts.length > 0) reasonCodes.push("version_conflict");
   if (conflicts.some((conflict) => conflict.type === "contradictory_evidence")) reasonCodes.push("contradictory_evidence");
+  if (conflicts.some((conflict) => conflict.type === "incompatible_policy_bundle")) reasonCodes.push("incompatible_policy_bundle");
+  for (const reason of evidenceBundles.flatMap((bundle) => bundle.incompatibility_reasons)) reasonCodes.push(reason);
   if (retrievalMiss) reasonCodes.push("retrieval_miss");
   const sufficient = missingClaims.length === 0 && conflicts.length === 0;
   if (sufficient) reasonCodes.push("supported");
@@ -335,7 +456,8 @@ export function evaluateEvidenceSufficiency(
     required_claims: requiredClaims,
     supported_claims: supportedClaims,
     missing_claims: missingClaims,
-    evidence_bindings: evidenceBindings,
+    evidence_bindings: selectedBindings,
+    evidence_bundles: evidenceBundles,
     conflicts,
     reason_codes: [...new Set(reasonCodes)],
     reason: legacyReason(reasonCodes),

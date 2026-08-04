@@ -28,6 +28,7 @@ function normalize(value: string): string {
 }
 function jsonl(values: unknown[]): string { return `${values.map((value) => JSON.stringify(value)).join("\n")}\n`; }
 function hash(value: string): string { return createHash("sha256").update(value).digest("hex"); }
+function normalizeEol(value: string): string { return value.replace(/\r\n/gu, "\n"); }
 async function loadJsonl<T>(path: string): Promise<T[]> {
   return (await readFile(path, "utf8")).split(/\r?\n/u).filter(Boolean).map((line) => JSON.parse(line) as T);
 }
@@ -146,7 +147,7 @@ async function main(): Promise<void> {
     await writeFile(resolve(root, "dataset-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
   } else {
     for (const [name, expected] of Object.entries(files)) {
-      if (await readFile(resolve(datasetsDir, name), "utf8") !== expected) throw new Error(`${name}: materialized dataset is stale`);
+      if (normalizeEol(await readFile(resolve(datasetsDir, name), "utf8")) !== normalizeEol(expected)) throw new Error(`${name}: materialized dataset is stale`);
     }
   }
   console.log(JSON.stringify({ valid: true, retrieval: retrieval.length, regression: regression.length, conversations: conversations.length, safety: safety.length, circular_labeling: false, review_status: "pending_review" }, null, 2));

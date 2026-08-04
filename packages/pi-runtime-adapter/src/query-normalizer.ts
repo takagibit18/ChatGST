@@ -18,8 +18,8 @@ export type NormalizedPolicyQuery = {
   unsupportedRegion: boolean;
 };
 
-const unsafePattern = /(?:读取|打开|列出).{0,8}(?:本地|电脑|磁盘|文件)|(?:bash|shell|python|node|powershell|cmd|sql|终端|命令)|(?:系统提示|内部提示|思维过程|思维链|推理过程)|[A-Za-z]:\\|\/(?:etc|Users|home)\//iu;
-const outOfScopePattern = /你是谁|你是什么|什么模型|哪个模型|模型版本|你好|您好|谢谢|再见|天气|讲个笑话|唱首歌/u;
+const unsafePattern = /(?:读取|打开|列出|执行|导出).{0,12}(?:本地|电脑|服务器|磁盘|文件|环境变量|\.env|申请人|手机号)|(?:bash|shell|python|node|powershell|cmd|sql|终端|命令)|(?:系统提示|内部提示|隐藏指令|思维过程|思维链|推理过程)|(?:忽略|绕过).{0,12}(?:规则|审核|证据|指令)|(?:不要引用来源|直接肯定)|(?:改成|改写).{0,12}(?:购车补贴|政策|回答)|(?:编造|伪造|冒充|入侵|破解|泄露)|(?:替|代).{0,8}(?:批准|审批|修改政府数据库)|(?:保证|承诺).{0,12}(?:获批|审批通过|到账)|(?:其他|陌生|上一位|所有).{0,12}(?:申请人|用户|身份证|银行卡|手机号|家庭住址)|(?:密钥|密码|API_KEY|SECRET)|[A-Za-z]:\\|\/(?:etc|Users|home)\//iu;
+const outOfScopePattern = /你是谁|你是什么|什么模型|哪个模型|模型版本|你好|您好|谢谢|再见|天气|笑话|唱首歌|股票|彩票/u;
 const contextualFollowUpPattern = /^(?:那|那么|这个|上述|刚才|继续|再问|还有|然后|北京|北京市|河北|河北省|两地)|呢[？?]?$|怎么办|怎么弄|可以吗|能吗/u;
 
 const intentSearchTerms: Partial<Record<PolicyIntent, string>> = {
@@ -61,15 +61,38 @@ function intentFrom(text: string): PolicyIntent {
 export function normalizePolicyQuery(message: string, state: ConversationState | null): NormalizedPolicyQuery {
   const detectedRegions = findAdministrativeRegionsInText(message);
   const comparisonRequested = detectedRegions.length > 1 && /对比|比较|区别|不同|相比/u.test(message);
+  const previousRegion = typeof state?.confirmed_slots.region === "string"
+    ? resolveAdministrativeRegion(state.confirmed_slots.region)
+    : null;
+  const switchRequested = /说错|改(?:成|为|查)|更正|实际|重新查|现在查|不要沿用|迁到|办理地/u.test(message);
+  const switchTargetText = message.match(/(?:改查|现在查|重新查|迁到|办理地(?:改成|改为)?|实际(?:是|为)?)(.*)/u)?.[1] ?? "";
+  const switchTarget = switchTargetText
+    ? findAdministrativeRegionsInText(switchTargetText).sort((left, right) => {
+      const firstMention = (region: typeof left) => Math.min(...[region.name, ...region.aliases]
+        .map((alias) => switchTargetText.indexOf(alias))
+        .filter((index) => index >= 0));
+      return firstMention(left) - firstMention(right);
+    })[0]
+    : undefined;
+  const selectedRegion = !comparisonRequested && switchRequested && detectedRegions.length > 1
+    ? switchTarget ?? detectedRegions.find((item) => previousRegion?.status === "resolved" && item.code !== previousRegion.region.code) ?? detectedRegions.at(-1)
+    : detectedRegions[0];
   let comparisonRegions = comparisonRequested ? detectedRegions.map((item) => ({ name: item.name, code: item.code })) : [];
-  let region = comparisonRequested ? "对比" : detectedRegions[0]?.name ?? null;
-  let regionCode = comparisonRequested ? null : detectedRegions[0]?.code ?? null;
+  let region = comparisonRequested ? "对比" : selectedRegion?.name ?? null;
+  let regionCode = comparisonRequested ? null : selectedRegion?.code ?? null;
   let intent = intentFrom(message);
-  const directlyRecognizedIntent = intent;
+  const explicitOutOfScope = outOfScopePattern.test(message) && /先不聊|与政策无关|股票|彩票|天气|笑话|模型|你是谁|你是什么/u.test(message);
+  const directlyRecognizedIntent = explicitOutOfScope ? "unknown" : intent;
   const outOfScope = directlyRecognizedIntent === "unknown" && outOfScopePattern.test(message);
+  if (outOfScope) intent = "unknown";
   const contextualFollowUp = Boolean(state) && contextualFollowUpPattern.test(message.trim());
   const canInheritContext = !outOfScope && (directlyRecognizedIntent !== "unknown" || contextualFollowUp);
   const confirmedSlots = { ...(state?.confirmed_slots ?? {}) };
+  if (selectedRegion || comparisonRequested) {
+    delete confirmedSlots.region;
+    delete confirmedSlots.region_code;
+    delete confirmedSlots.comparison_regions;
+  }
   if (!region && canInheritContext && typeof confirmedSlots.region === "string") {
     region = confirmedSlots.region;
     const inherited = resolveAdministrativeRegion(region);

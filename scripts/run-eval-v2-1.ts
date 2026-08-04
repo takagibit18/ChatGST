@@ -10,6 +10,7 @@ const root = resolve("domains/childcare-subsidy/evals/v2.1");
 const load = async <T>(path: string, parse: (value: unknown) => T) => (await readFile(path, "utf8")).split(/\r?\n/u).filter(Boolean).map((line) => parse(JSON.parse(line)));
 const devPath = resolve(root, "datasets/retrieval.dev.jsonl"), regressionPath = resolve(root, "datasets/regression-v1.jsonl");
 const devText = await readFile(devPath, "utf8"), regressionText = await readFile(regressionPath, "utf8");
+const canonicalText = (value: string) => value.replace(/\r\n/gu, "\n");
 const dev = devText.split(/\r?\n/u).filter(Boolean).map((line) => retrievalEvalCaseV21Schema.parse(JSON.parse(line)));
 const regression = regressionText.split(/\r?\n/u).filter(Boolean).map((line) => retrievalEvalCaseV21Schema.parse(JSON.parse(line)));
 const conversations = await load(resolve(root, "datasets/conversations.jsonl"), conversationScenarioV21Schema.parse);
@@ -51,8 +52,8 @@ const stablePredictions = {
 };
 const predictionFingerprint = createHash("sha256").update(JSON.stringify(stablePredictions)).digest("hex");
 const raw = { schema_version: 1, run_id: "phase3-v21-provisional", generated_at: new Date().toISOString(), evaluation_status: "provisional",
-  release_gate: "blocked_pending_human_review", input_fingerprint: { dev_sha256: createHash("sha256").update(devText).digest("hex"),
-    regression_sha256: createHash("sha256").update(regressionText).digest("hex"), calibration_sha256: createHash("sha256").update(calibrationText).digest("hex"),
+  release_gate: "blocked_pending_human_review", input_fingerprint: { dev_sha256: createHash("sha256").update(canonicalText(devText)).digest("hex"),
+    regression_sha256: createHash("sha256").update(canonicalText(regressionText)).digest("hex"), calibration_sha256: createHash("sha256").update(canonicalText(calibrationText)).digest("hex"),
     knowledge_snapshot_hash: provider.getStats().snapshot_hash }, prediction_fingerprint: predictionFingerprint,
   config: { threshold, warmups: 2, measured: 5, model_provider: "test" },
   retrieval_predictions: retrievalPredictions, conversation_predictions: conversationPredictions, safety_predictions: safetyPredictions };

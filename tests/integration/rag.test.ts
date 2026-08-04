@@ -1,4 +1,7 @@
 import { resolve } from "node:path";
+import { join } from "node:path";
+import { mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { describe, expect, it } from "vitest";
 import {
   buildPolicyIndex,
@@ -39,16 +42,20 @@ describe.skipIf(!hasLocalPolicyIndex())("pi-local-rag pure BM25 policy adapter",
 
   it("uses content hashes for an unchanged incremental rebuild", async () => {
     const documents = await loadPolicyDocuments(defaultKnowledgeLocations());
-    const report = await buildPolicyIndex({
-      indexDir: resolve("knowledge/index"),
-      documents,
-      chunker: new SemanticPolicyChunker(),
-      textProcessor: new ChinesePolicySearchTextProcessor(),
-      rebuild: false,
-    });
-    expect(report.documents_indexed).toBe(0);
-    expect(report.documents_unchanged).toBe(documents.length);
-    expect(report.vector_rows).toBe(0);
+    const indexDir = await mkdtemp(join(tmpdir(), "chatgst-rag-incremental-"));
+    try {
+      await buildPolicyIndex({
+        indexDir, documents, chunker: new SemanticPolicyChunker(), textProcessor: new ChinesePolicySearchTextProcessor(), rebuild: true,
+      });
+      const report = await buildPolicyIndex({
+        indexDir, documents, chunker: new SemanticPolicyChunker(), textProcessor: new ChinesePolicySearchTextProcessor(), rebuild: false,
+      });
+      expect(report.documents_indexed).toBe(0);
+      expect(report.documents_unchanged).toBe(documents.length);
+      expect(report.vector_rows).toBe(0);
+    } finally {
+      await rm(indexDir, { recursive: true, force: true });
+    }
   });
 
   it("chunks by Markdown policy structure and preserves source locations", async () => {

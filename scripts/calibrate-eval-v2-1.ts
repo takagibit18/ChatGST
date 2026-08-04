@@ -8,6 +8,7 @@ const root = resolve("domains/childcare-subsidy/evals/v2.1");
 const trainPath = resolve(root, "datasets/retrieval.train.jsonl");
 assertTrainOnlyCalibrationPath(trainPath);
 const trainText = await readFile(trainPath, "utf8");
+const canonicalTrainText = trainText.replace(/\r\n/gu, "\n");
 const train = trainText.split(/\r?\n/u).filter(Boolean).map((line) => retrievalEvalCaseV21Schema.parse(JSON.parse(line)));
 const provider = new PiLocalRagRetrievalProvider(resolve("knowledge/index"));
 const raw: EvalV21Prediction[] = [];
@@ -19,7 +20,7 @@ const rows = candidates.map((threshold) => {
   for (const [index, item] of train.entries()) {
     if (item.expected_behavior === "clarify_region") continue;
     const score = raw[index]!.top_k[0]?.score ?? Number.NEGATIVE_INFINITY;
-    const predicted = score >= threshold ? "answer" : "no_answer";
+    const predicted = raw[index]!.evidence_sufficient && score >= threshold ? "answer" : "no_answer";
     if (item.expected_behavior === "answer") { answerTotal += 1; if (predicted === "answer") answerCorrect += 1; }
     if (item.expected_behavior === "no_answer") { noAnswerTotal += 1; if (predicted === "no_answer") noAnswerCorrect += 1; }
     if (predicted === "no_answer") predictedNoAnswer += 1;
@@ -32,7 +33,7 @@ const rows = candidates.map((threshold) => {
 }).sort((left, right) => right.macro_recall - left.macro_recall || right.no_answer_f1 - left.no_answer_f1 || left.threshold - right.threshold);
 const selected = rows[0]!;
 const output = { schema_version: 1, calibration_id: "phase3-v21-train-bm25", dataset: "retrieval.train.jsonl",
-  train_sha256: createHash("sha256").update(trainText).digest("hex"), selection_rule: "max macro recall; tie max no-answer F1; tie lowest threshold",
+  train_sha256: createHash("sha256").update(canonicalTrainText).digest("hex"), selection_rule: "max macro recall; tie max no-answer F1; tie lowest threshold",
   selected, candidates: rows, forbidden_inputs: ["retrieval.dev.jsonl", "retrieval.test.jsonl"] };
 await mkdir(resolve(root, "calibration"), { recursive: true });
 await writeFile(resolve(root, "calibration/bm25-threshold.json"), `${JSON.stringify(output, null, 2)}\n`, "utf8");

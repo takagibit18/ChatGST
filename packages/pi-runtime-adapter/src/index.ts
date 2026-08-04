@@ -1,4 +1,5 @@
 export * from "./evidence.js";
+export * from "./evidence-sufficiency.js";
 export * from "./factory.js";
 export * from "./query-normalizer.js";
 export * from "./runtime.js";

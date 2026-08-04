@@ -22,6 +22,7 @@ import { buildEvidencePack } from "./evidence.js";
 import { normalizePolicyQuery, withIntentSearchTerms, type NormalizedPolicyQuery } from "./query-normalizer.js";
 import type { LoadedProfile, SkillLoader } from "./skill-loader.js";
 import { createDeterministicTestResponse } from "./test-response.js";
+import { evaluateEvidenceSufficiency } from "./evidence-sufficiency.js";
 
 function monitor(tag: string, detail: Record<string, unknown>): void {
   process.stderr.write(`[monitor] ${tag} ${JSON.stringify(detail)}\n`);
@@ -107,7 +108,7 @@ function outOfScopeResponse(): PolicyResponse {
     ],
     sources: [],
     clarification: null,
-    meta: { intent: "unknown", region: null, answer_status: "insufficient_evidence" },
+    meta: { intent: "unknown", region: null, answer_status: "answered" },
   };
 }
 
@@ -429,6 +430,8 @@ export class PolicyAgentRuntime {
         }
         monitor("step", { step: "rerank", ms: Date.now() - rerankStart, candidates: hits.length, final: rankedHits.length });
         pack = buildEvidencePack({ query, effectiveDate, hits: rankedHits, resolutions });
+        const evidenceSufficiency = evaluateEvidenceSufficiency(input.message, query.intent, rankedHits, query.regionCode);
+        monitor("step", { step: "evidence_sufficiency", sufficient: evidenceSufficiency.sufficient, reason: evidenceSufficiency.reason });
         await safeTrace(trace, {
           type: "retrieval",
           request_id: requestId,
@@ -441,7 +444,7 @@ export class PolicyAgentRuntime {
         if (localDecision?.verdict === "missing_info") {
           response = createOntologyMissingResponse(query, localDecision);
           validation = { repaired: false, fallback: false, issueCount: 0 };
-        } else if (pack.knowledge_gaps.some((gap) => gap.includes("版本冲突")) || hits.length === 0) {
+        } else if (pack.knowledge_gaps.some((gap) => gap.includes("版本冲突")) || !evidenceSufficiency.sufficient) {
           response = deterministicSafeResponse(pack);
           validation = { repaired: false, fallback: true, issueCount: 0 };
         } else {

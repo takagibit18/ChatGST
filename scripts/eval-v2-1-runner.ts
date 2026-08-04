@@ -35,7 +35,10 @@ export async function runEvalV21Input(
     const totalStart = performance.now();
     const retrievalStart = performance.now();
     const hits = await provider.search({ query: normalized.retrievalQuery, region, effective_date: effectiveDate, top_k: 10 });
-    evidenceSufficient = evaluateEvidenceSufficiency(question, normalized.intent, hits, targetRegionCode).sufficient;
+    evidenceSufficient = evaluateEvidenceSufficiency(question, normalized.intent, hits, targetRegionCode, {
+      effectiveDate,
+      comparisonRegions: normalized.comparisonRegions,
+    }).sufficient;
     const elapsed = performance.now() - retrievalStart;
     finalHits = hits.map((hit) => ({ document_id: hit.document_id, chunk_id: hit.chunk_id, region_code: hit.metadata.region_code ?? "100000",
       effective_from: hit.effective_from, effective_to: hit.effective_to, duplicate_group_id: hit.metadata.duplicate_group_id ?? null, score: hit.retrieval_score,

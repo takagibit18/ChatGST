@@ -160,6 +160,7 @@ describe.skipIf(!hasLocalPolicyIndex())("restricted Pi runtime", () => {
     ]);
     expect(rewriteInputs).toHaveLength(1);
     expect(result.evidencePack.query_context.intent).toBe("amount");
+    expect(result.response.meta.answer_status).toBe("insufficient_evidence");
     expect(result.usage.toolCalls).toBe(3);
   });
 
@@ -224,7 +225,7 @@ describe.skipIf(!hasLocalPolicyIndex())("restricted Pi runtime", () => {
     const fallbackRuntime = createDefaultPolicyRuntime(testConfig(), {
       testResponseSequence: () => ["not-json", "still-not-json"],
     }).runtime;
-    const fallback = await fallbackRuntime.answer({ conversationId: "runtime-fallback-0006", message: "北京补贴金额？", effectiveDate: "2026-07-23" });
+    const fallback = await fallbackRuntime.answer({ conversationId: "runtime-fallback-0006", message: "北京申请材料？", effectiveDate: "2026-07-23" });
     expect(fallback.validation.fallback).toBe(true);
     expect(fallback.response.meta.answer_status).toBe("safe_error");
   });

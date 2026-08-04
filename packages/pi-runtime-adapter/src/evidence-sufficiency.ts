@@ -319,7 +319,7 @@ export function evaluateEvidenceSufficiency(
   });
   const reasonCodes: EvidenceSufficiencyReasonCode[] = [];
   if (missingClaims.length > 0) reasonCodes.push("missing_claim");
-  if (sawRegionMismatch) reasonCodes.push("region_mismatch");
+  if (missingClaims.length > 0 && sawRegionMismatch) reasonCodes.push("region_mismatch");
   if (conflicts.length > 0) reasonCodes.push("version_conflict");
   if (conflicts.some((conflict) => conflict.type === "contradictory_evidence")) reasonCodes.push("contradictory_evidence");
   if (retrievalMiss) reasonCodes.push("retrieval_miss");

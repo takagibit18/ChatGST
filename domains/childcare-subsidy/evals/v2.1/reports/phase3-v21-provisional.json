@@ -7,6 +7,11 @@
     "status": "passed",
     "passed": true,
     "requirements": {
+      "calibration_constraints": {
+        "actual": true,
+        "required": true,
+        "passed": true
+      },
       "regression_behavior": {
         "actual_correct": 13,
         "required_correct": 13,
@@ -53,18 +58,18 @@
   "input_fingerprint": {
     "dev_sha256": "dcce4b70ec82800f456a28431f69f6622b459e6b3a54f90120042672a2c405bc",
     "regression_sha256": "0c80c17040578d49ba99df7a30e1891e0b469099fa09966f722d874310a955d1",
-    "calibration_sha256": "78ecf22d49d231d0f84db31e8c3e59ee1d56c539dab45a6ace4590979875fef1",
+    "calibration_sha256": "09c806864bf41c8ce641b35b7df24bafea98962f33e470fa83193267605259da",
     "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce"
   },
-  "prediction_fingerprint": "0e083db17c8cb0597a8f1980356ec3343f38f2c935e033406f0864ea31294221",
+  "prediction_fingerprint": "4d95fc88ac9160637ba2c5c65bbf19f78334db1f3eda575d47d5cc3f547f1a21",
   "full_run_determinism": {
     "schema_version": 1,
     "full_runs": 3,
     "stable": true,
     "prediction_fingerprints": [
-      "0e083db17c8cb0597a8f1980356ec3343f38f2c935e033406f0864ea31294221",
-      "0e083db17c8cb0597a8f1980356ec3343f38f2c935e033406f0864ea31294221",
-      "0e083db17c8cb0597a8f1980356ec3343f38f2c935e033406f0864ea31294221"
+      "4d95fc88ac9160637ba2c5c65bbf19f78334db1f3eda575d47d5cc3f547f1a21",
+      "4d95fc88ac9160637ba2c5c65bbf19f78334db1f3eda575d47d5cc3f547f1a21",
+      "4d95fc88ac9160637ba2c5c65bbf19f78334db1f3eda575d47d5cc3f547f1a21"
     ],
     "timing_fields_excluded": true,
     "model_provider": "test",
@@ -72,6 +77,7 @@
   },
   "config": {
     "threshold": 0,
+    "calibration_status": "passed",
     "warmups": 2,
     "measured": 5,
     "model_provider": "test",
@@ -779,14 +785,14 @@
   },
   "performance_ms": {
     "retrieval": {
-      "p50": 59.754,
-      "p95": 134.4277,
-      "p99": 191.0307
+      "p50": 95.2946,
+      "p95": 191.3276,
+      "p99": 284.256
     },
     "total": {
-      "p50": 59.7751,
-      "p95": 134.4619,
-      "p99": 191.0481
+      "p50": 95.3122,
+      "p95": 191.3432,
+      "p99": 284.2723
     },
     "warmups": 2,
     "measured": 5

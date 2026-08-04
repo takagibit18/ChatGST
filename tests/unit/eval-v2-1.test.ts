@@ -5,6 +5,7 @@ import { PiLocalRagRetrievalProvider, conversationScenarioV21Schema, retrievalAn
 import { evaluateEvidenceSufficiency, normalizePolicyQuery } from "@policy/runtime/index";
 import { assertTrainOnlyCalibrationPath, runEvalV21Input } from "../../scripts/eval-v2-1-runner.js";
 import { buildQualityGate, collectFailureGroups, flattenFailureGroups, resolveReleaseGate, type FailureGroups } from "../../scripts/eval-v2-1-quality-gate.js";
+import { selectCalibrationCandidate } from "../../scripts/eval-v2-1-calibration.js";
 import { buildEvalV21Datasets, type GoldSourceReader } from "../../scripts/validate-eval-v2-1.js";
 
 async function jsonl(path: string): Promise<unknown[]> {
@@ -162,6 +163,28 @@ describe("Eval v2.1 quality gate invariants", () => {
       expect(buildQualityGate(input)).toMatchObject({ passed: false, failure_reasons: [reason] });
     }
   });
+
+  it("rejects calibration candidates below the no-answer recall floor", () => {
+    const result = selectCalibrationCandidate([
+      { threshold: 0, answer_recall: 1, macro_recall: 0.915, no_answer_f1: 0.9, no_answer_recall: 0.83 },
+      { threshold: 6, answer_recall: 0.8, macro_recall: 0.9, no_answer_f1: 0.8, no_answer_recall: 1 },
+    ]);
+    expect(result).toMatchObject({ calibration_status: "passed", eligible_candidate_count: 1, selected: { threshold: 6 } });
+  });
+
+  it("fails calibration instead of falling back to threshold zero", () => {
+    const result = selectCalibrationCandidate([
+      { threshold: 0, answer_recall: 1, macro_recall: 0.9, no_answer_f1: 0.8, no_answer_recall: 0.8 },
+    ]);
+    expect(result).toMatchObject({ calibration_status: "failed", eligible_candidate_count: 0, selected: null,
+      failure_reasons: ["calibration_constraints_not_met"] });
+  });
+
+  it("blocks the quality and release gates when calibration constraints fail", () => {
+    const qualityGate = buildQualityGate({ ...passingInput(), calibrationPassed: false });
+    expect(qualityGate).toMatchObject({ passed: false, failure_reasons: ["calibration_constraints_not_met"] });
+    expect(resolveReleaseGate({ qualityGatePassed: qualityGate.passed, humanReviewComplete: false })).toBe("blocked_quality_gate");
+  });
 });
 
 describe("nationwide query normalization", () => {
@@ -172,6 +195,17 @@ describe("nationwide query normalization", () => {
     const comparison = normalizePolicyQuery("上海和重庆的育儿补贴有什么不同？", null);
     expect(comparison.region).toBe("对比");
     expect(comparison.comparisonRegions.map((item) => item.code)).toEqual(expect.arrayContaining(["310000", "500000"]));
+  });
+
+  it.each([
+    ["上海和浙江的育儿补贴有什么区别？", ["310000", "330000"]],
+    ["广东和四川补贴标准一样吗？", ["440000", "510000"]],
+    ["江苏和安徽谁能领的条件有什么不同？", ["320000", "340000"]],
+    ["北京和河北有什么区别？", ["110000", "130000"]],
+  ])("recognizes generic regional comparisons: %s", (question, codes) => {
+    const result = normalizePolicyQuery(question, null);
+    expect(result).toMatchObject({ intent: "comparison", region: "对比", regionCode: null });
+    expect(result.comparisonRegions.map((item) => item.code)).toEqual(codes);
   });
 });
 

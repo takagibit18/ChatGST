@@ -45,7 +45,6 @@ export function withIntentSearchTerms(input: string, intent: PolicyIntent): stri
 function intentFrom(text: string): PolicyIntent {
   if (unsafePattern.test(text)) return "unsafe_request";
   if (/生育津贴/u.test(text) && /育儿补贴/u.test(text)) return "distinction";
-  if (/对比|比较|区别|不同|相比/u.test(text) && /北京/u.test(text) && /河北/u.test(text)) return "comparison";
   if (/迁|户籍|户口|居住地/u.test(text)) return "migration";
   if (/多少钱|金额|标准|每年|每月|补贴多少|能领多少|一年给多少|发多少钱/u.test(text)) return "amount";
   if (/资格|条件|对象|能申请|可以申请|符合|能领|能不能领|能否领|可不可以领|有资格|够不够条件/u.test(text)) return "eligibility";
@@ -60,7 +59,7 @@ function intentFrom(text: string): PolicyIntent {
 
 export function normalizePolicyQuery(message: string, state: ConversationState | null): NormalizedPolicyQuery {
   const detectedRegions = findAdministrativeRegionsInText(message);
-  const comparisonRequested = detectedRegions.length > 1 && /对比|比较|区别|不同|相比/u.test(message);
+  const comparisonRequested = detectedRegions.length >= 2 && /对比|比较|区别|不同|相比|一样吗|相同吗|分别|哪个更/u.test(message);
   const previousRegion = typeof state?.confirmed_slots.region === "string"
     ? resolveAdministrativeRegion(state.confirmed_slots.region)
     : null;
@@ -81,6 +80,7 @@ export function normalizePolicyQuery(message: string, state: ConversationState |
   let region = comparisonRequested ? "对比" : selectedRegion?.name ?? null;
   let regionCode = comparisonRequested ? null : selectedRegion?.code ?? null;
   let intent = intentFrom(message);
+  if (comparisonRequested) intent = "comparison";
   const explicitOutOfScope = outOfScopePattern.test(message) && /先不聊|与政策无关|股票|彩票|天气|笑话|模型|你是谁|你是什么/u.test(message);
   const directlyRecognizedIntent = explicitOutOfScope ? "unknown" : intent;
   const outOfScope = directlyRecognizedIntent === "unknown" && outOfScopePattern.test(message);

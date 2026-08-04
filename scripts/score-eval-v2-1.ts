@@ -16,7 +16,10 @@ type Raw = { run_id: string; input_fingerprint: unknown; prediction_fingerprint:
   conversation_predictions: Array<{ scenario_id: string; turns: Array<{ answer_status: string; region: string | null; evidence_region_codes: string[] }> }>;
   safety_predictions: Array<{ case_id: string; answer_status: string; answer_text: string; citations: string[] }> };
 const raw = JSON.parse(await readFile(resolve(root, "runs/phase3-v21-raw-predictions.json"), "utf8")) as Raw;
-const calibration = JSON.parse(await readFile(resolve(root, "calibration/bm25-threshold.json"), "utf8")) as { calibration_status?: string };
+const calibration = JSON.parse(await readFile(resolve(root, "calibration/bm25-threshold.json"), "utf8")) as {
+  calibration_status?: string;
+  selected?: { answer_recall?: number } | null;
+};
 const fullRunDeterminism = JSON.parse(await readFile(resolve(root, "runs/determinism-verification.json"), "utf8")) as {
   full_runs: number; stable: boolean; prediction_fingerprints: string[]; timing_fields_excluded: boolean;
 };
@@ -64,7 +67,7 @@ const devScore=scoreSet(dev),regressionScore=scoreSet(regression);
 const failureGroups=collectFailureGroups({dev:devScore.case_results,regression:regressionScore.case_results,conversations:conversationResults,safety:safetyResults});
 const diagnosticFailures=flattenFailureGroups(failureGroups);
 const staleContextLeakageRate=divide(staleLeaks,switchTurns);
-const qualityGate=buildQualityGate({regressionCases:regressionScore.cases,regressionCorrect:regressionScore.behavior_correct,regressionNoAnswerRecall:regressionScore.metrics.no_answer_recall,failureGroups,staleContextLeakageRate,calibrationPassed:calibration.calibration_status==="passed"});
+const qualityGate=buildQualityGate({regressionCases:regressionScore.cases,regressionCorrect:regressionScore.behavior_correct,regressionNoAnswerRecall:regressionScore.metrics.no_answer_recall,failureGroups,staleContextLeakageRate,calibrationPassed:calibration.calibration_status==="passed",calibrationAnswerRecall:calibration.selected?.answer_recall ?? 0});
 const releaseGate=resolveReleaseGate({qualityGatePassed:qualityGate.passed,humanReviewComplete:false});
 const report={schema_version:1,run_id:raw.run_id,evaluation_status:"provisional",release_gate:releaseGate,quality_gate:qualityGate,quality_claim_allowed:false,circular_labeling:false,input_fingerprint:raw.input_fingerprint,prediction_fingerprint:raw.prediction_fingerprint,full_run_determinism:fullRunDeterminism,config:{...raw.config,required_fact_match:"normalized_bigram_recall>=0.45"},retrieval:{dev:devScore,regression:regressionScore},conversations:{scenarios:conversations.length,turn_accuracy:divide(turnCorrect,turnTotal),scenario_completion_rate:divide(scenariosCorrect,conversations.length),stale_context_leakage_rate:staleContextLeakageRate,confidence_95:wilson(scenariosCorrect,conversations.length),case_results:conversationResults},safety:{cases:safety.length,pass_rate:divide(safetyPassed,safety.length),false_refusal_rate:divide(falseRefusals,safety.length),confidence_95:wilson(safetyPassed,safety.length),case_results:safetyResults},performance_ms:{retrieval:{p50:percentile(timings,.5),p95:percentile(timings,.95),p99:percentile(timings,.99)},total:{p50:percentile(totals,.5),p95:percentile(totals,.95),p99:percentile(totals,.99)},warmups:2,measured:5},failure_groups:failureGroups,diagnostic_failures:diagnosticFailures,review_notice:"All Gold remains pending_review; metrics are diagnostic only."};
 await mkdir(resolve(root,"reports"),{recursive:true});await writeFile(resolve(root,"reports/phase3-v21-provisional.json"),`${JSON.stringify(report,null,2)}\n`,"utf8");console.log(JSON.stringify({scored:true,evaluation_status:report.evaluation_status,release_gate:report.release_gate,quality_gate:report.quality_gate,failure_groups:report.failure_groups,dev:report.retrieval.dev.metrics,conversations:report.conversations,safety:report.safety,diagnostic_failures:report.diagnostic_failures.length},null,2));

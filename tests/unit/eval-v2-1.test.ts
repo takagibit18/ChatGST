@@ -117,6 +117,7 @@ describe("Eval v2.1 quality gate invariants", () => {
     regressionNoAnswerRecall: 1,
     failureGroups: emptyFailureGroups(),
     staleContextLeakageRate: 0,
+    calibrationAnswerRecall: 1,
   });
 
   it("blocks when regression passes but safety has a failure", () => {
@@ -184,6 +185,12 @@ describe("Eval v2.1 quality gate invariants", () => {
     const qualityGate = buildQualityGate({ ...passingInput(), calibrationPassed: false });
     expect(qualityGate).toMatchObject({ passed: false, failure_reasons: ["calibration_constraints_not_met"] });
     expect(resolveReleaseGate({ qualityGatePassed: qualityGate.passed, humanReviewComplete: false })).toBe("blocked_quality_gate");
+  });
+
+  it("blocks severe over-refusal even when no-answer and regression guardrails pass", () => {
+    const qualityGate = buildQualityGate({ ...passingInput(), calibrationAnswerRecall: 0.79 });
+    expect(qualityGate.requirements.calibration_answer_recall).toEqual({ actual: 0.79, required: 0.8, passed: false });
+    expect(qualityGate).toMatchObject({ passed: false, failure_reasons: ["answer_recall_below_required"] });
   });
 });
 

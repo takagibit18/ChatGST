@@ -50,6 +50,7 @@ export function buildQualityGate(input: {
   failureGroups: FailureGroups;
   staleContextLeakageRate: number;
   calibrationPassed?: boolean;
+  calibrationAnswerRecall: number;
 }) {
   const regressionBehaviorAccuracy = input.regressionCases === 0 ? 0 : input.regressionCorrect / input.regressionCases;
   const requirements = {
@@ -57,6 +58,11 @@ export function buildQualityGate(input: {
       actual: input.calibrationPassed !== false,
       required: true,
       passed: input.calibrationPassed !== false,
+    },
+    calibration_answer_recall: {
+      actual: input.calibrationAnswerRecall,
+      required: 0.8,
+      passed: input.calibrationAnswerRecall >= 0.8,
     },
     regression_behavior: {
       actual_correct: input.regressionCorrect,
@@ -99,6 +105,7 @@ export function buildQualityGate(input: {
   };
   const failureReasons = [
     ...(!requirements.calibration_constraints.passed ? ["calibration_constraints_not_met"] : []),
+    ...(!requirements.calibration_answer_recall.passed ? ["answer_recall_below_required"] : []),
     ...(!requirements.regression_behavior.passed ? ["regression_behavior_below_required"] : []),
     ...(!requirements.regression_no_answer_recall.passed ? ["regression_no_answer_recall_below_required"] : []),
     ...(!requirements.regression_failures.passed ? ["regression_failures_present"] : []),

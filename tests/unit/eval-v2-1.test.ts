@@ -4,7 +4,8 @@ import { describe, expect, it } from "vitest";
 import { PiLocalRagRetrievalProvider, conversationScenarioV21Schema, retrievalAnnotationV21Schema, retrievalEvalCaseV21Schema, safetyEvalCaseV21Schema } from "@policy/rag/index";
 import { evaluateEvidenceSufficiency, normalizePolicyQuery } from "@policy/runtime/index";
 import { assertTrainOnlyCalibrationPath, runEvalV21Input } from "../../scripts/eval-v2-1-runner.js";
-import { buildQualityGate, collectFailureGroups, flattenFailureGroups, resolveReleaseGate, type FailureGroups } from "../../scripts/eval-v2-1-quality-gate.js";
+import { buildQualityGate, collectFailureGroups, flattenFailureGroups, resolvePhase4EntryGate, resolveProductionReleaseGate, type FailureGroups } from "../../scripts/eval-v2-1-quality-gate.js";
+import { EXPECTED_REVIEW_INVENTORY, assertArtifactConsistency, assertManifestReview, assertReviewSourceConsistency, evaluateHumanReview, type DatasetManifest, type InputFingerprint } from "../../scripts/eval-v2-1-integrity.js";
 import { selectCalibrationCandidate } from "../../scripts/eval-v2-1-calibration.js";
 import { buildEvalV21Datasets, type GoldSourceReader } from "../../scripts/validate-eval-v2-1.js";
 
@@ -14,6 +15,63 @@ async function jsonl(path: string): Promise<unknown[]> {
 
 const emptyFailureGroups = (): FailureGroups => ({
   dev_failures: [], regression_failures: [], conversation_failures: [], safety_failures: [],
+});
+
+describe("Eval v2.1 Phase 3.3 review and artifact integrity", () => {
+  const inventory = { ...EXPECTED_REVIEW_INVENTORY };
+  const completeReview = { human_approved: 143, pending_review: 0, rejected: 0 };
+
+  it.each([
+    [{ human_approved: 142, pending_review: 0, rejected: 0 }, "blocked_pending_human_review"],
+    [{ human_approved: 143, pending_review: 1, rejected: 0 }, "blocked_pending_human_review"],
+    [{ human_approved: 143, pending_review: 0, rejected: 1 }, "blocked_rejected_gold"],
+  ] as const)("blocks incomplete review counts %#", (review, gate) => {
+    expect(evaluateHumanReview({ review: { ...review }, inventory, reviewer: "xinyuxing" })).toMatchObject({ complete: false, gate });
+  });
+
+  it("blocks when review inventory does not equal the frozen 143-case contract", () => {
+    expect(evaluateHumanReview({ review: completeReview, inventory: { ...inventory, retrieval: 79 }, reviewer: "xinyuxing" }))
+      .toMatchObject({ complete: false, gate: "blocked_pending_human_review" });
+  });
+
+  it("rejects forged manifest review counts", () => {
+    const manifest = { review: { ...completeReview, human_approved: 142, reviewer: "xinyuxing" } } satisfies DatasetManifest;
+    expect(() => assertManifestReview(manifest, completeReview, "xinyuxing")).toThrow(/manifest_review_mismatch: human_approved/u);
+  });
+
+  it("rejects annotation and materialized review-state divergence", () => {
+    const annotations = [{ id: "case-1", source_review_status: "human_approved" as const, reviewer: "xinyuxing" }];
+    const datasets = [{ id: "case-1", source_review_status: "pending_review" as const, reviewer: "xinyuxing" }];
+    expect(() => assertReviewSourceConsistency(annotations, datasets)).toThrow(/review_state_mismatch/u);
+  });
+
+  const fingerprint = (): InputFingerprint => ({
+    dev_sha256: "dev", regression_sha256: "regression", calibration_sha256: "calibration",
+    knowledge_snapshot_hash: "knowledge", dataset_manifest_sha256: "manifest",
+  });
+  const artifactInput = () => ({
+    raw: fingerprint(), actual: fingerprint(),
+    manifest: { knowledge_snapshot_hash: "knowledge", files: { "retrieval.dev.jsonl": { sha256: "dev" } } } satisfies DatasetManifest,
+    actualDatasetHashes: { "retrieval.dev.jsonl": "dev" },
+  });
+
+  it.each([
+    ["dev_sha256", "stale_raw_predictions: retrieval.dev dataset hash"],
+    ["calibration_sha256", "stale_raw_predictions: calibration hash"],
+    ["knowledge_snapshot_hash", "stale_raw_predictions: knowledge snapshot hash"],
+  ] as const)("rejects stale raw fingerprint field %s", (key, message) => {
+    const input = artifactInput(); input.raw[key] = "stale";
+    expect(() => assertArtifactConsistency(input)).toThrow(message);
+  });
+
+  it("rejects a manifest dataset hash that differs from the actual file", () => {
+    const input = artifactInput(); input.manifest.files!["retrieval.dev.jsonl"]!.sha256 = "forged";
+    expect(() => assertArtifactConsistency(input)).toThrow(/manifest_mismatch: retrieval.dev.jsonl/u);
+  });
+
+  it("allows scoring inputs only when every artifact fingerprint agrees", () => {
+    expect(() => assertArtifactConsistency(artifactInput())).not.toThrow();
+  });
 });
 
 describe("Eval v2.1 anti-circular governance", () => {
@@ -85,7 +143,9 @@ describe("Eval v2.1 anti-circular governance", () => {
     const rawText = await readFile(resolve("domains/childcare-subsidy/evals/v2.1/runs/phase3-v21-raw-predictions.json"), "utf8");
     expect(rawText).not.toContain("expected_behavior"); expect(rawText).not.toContain("relevant_documents"); expect(rawText).not.toContain("required_facts");
     const report = JSON.parse(await readFile(resolve("domains/childcare-subsidy/evals/v2.1/reports/phase3-v21-provisional.json"), "utf8")) as {
-      evaluation_status: string; release_gate: string; quality_claim_allowed: boolean; diagnostic_failures: string[];
+      evaluation_status: string; dataset_review_gate: string; phase4_entry_gate: string; production_release_gate: string; diagnostic_failures: string[];
+      quality_claims: { phase3_test_provider_baseline_allowed: boolean; real_model_quality_allowed: boolean; production_readiness_allowed: boolean };
+      artifact_consistency_gate: { passed: boolean }; determinism_gate: { passed: boolean };
       failure_groups: FailureGroups;
       retrieval: { dev: { case_results: Array<{ case_id: string; expected: string; predicted: string; document_hit: boolean | null }> }; regression: { case_results: Array<{ case_id: string; expected: string; predicted: string; document_hit: boolean | null }> } };
       conversations: { stale_context_leakage_rate: number; case_results: Array<{ scenario_id: string; passed: boolean }> };
@@ -100,16 +160,16 @@ describe("Eval v2.1 anti-circular governance", () => {
     });
     const allRequirementsPassed = Object.values(report.quality_gate.requirements).every((requirement) => requirement.passed);
     const hasAutomatedFailure = flattenFailureGroups(expectedGroups).length > 0 || report.conversations.stale_context_leakage_rate > 0;
-    const manifestReview = (JSON.parse(await readFile(resolve("domains/childcare-subsidy/evals/v2.1/dataset-manifest.json"), "utf8")) as { review?: { pending_review?: number; human_approved?: number; rejected?: number } }).review ?? { pending_review: 0, human_approved: 0, rejected: 0 };
-    const humanReviewComplete = manifestReview.pending_review === 0 && manifestReview.rejected === 0 && (manifestReview.human_approved ?? 0) > 0;
-
-    expect(report).toMatchObject({ evaluation_status: "provisional" });
+    expect(report).toMatchObject({ evaluation_status: "phase3_frozen_baseline", dataset_review_gate: "human_review_passed",
+      production_release_gate: "blocked_pending_phase4", artifact_consistency_gate: { passed: true } });
     expect(report.failure_groups).toEqual(expectedGroups);
     expect(report.diagnostic_failures).toEqual(flattenFailureGroups(expectedGroups));
     expect(report.quality_gate.passed).toBe(allRequirementsPassed);
     if (hasAutomatedFailure) expect(report.quality_gate.passed).toBe(false);
-    expect(report.release_gate).toBe(resolveReleaseGate({ qualityGatePassed: report.quality_gate.passed, humanReviewComplete }));
-    expect(report.quality_claim_allowed).toBe(report.release_gate === "ready_for_release");
+    expect(report.phase4_entry_gate).toBe(resolvePhase4EntryGate({ qualityGatePassed: report.quality_gate.passed,
+      datasetReviewGate: report.dataset_review_gate, artifactConsistencyPassed: report.artifact_consistency_gate.passed,
+      determinismPassed: report.determinism_gate.passed, requiredTestsPassed: true, testSplitStatus: "not_frozen" }));
+    expect(report.quality_claims).toMatchObject({ real_model_quality_allowed: false, production_readiness_allowed: false });
   });
 });
 
@@ -138,11 +198,15 @@ describe("Eval v2.1 quality gate invariants", () => {
     expect(buildQualityGate(input)).toMatchObject({ passed: false, failure_reasons: ["stale_context_leakage_present"] });
   });
 
-  it("passes all automatic gates but remains blocked while human review is pending", () => {
+  it("separates dataset review, Phase 4 entry and production gates", () => {
     const qualityGate = buildQualityGate(passingInput());
     expect(qualityGate).toMatchObject({ status: "passed", passed: true, failure_reasons: [] });
-    expect(resolveReleaseGate({ qualityGatePassed: qualityGate.passed, humanReviewComplete: false })).toBe("blocked_pending_human_review");
-    expect(resolveReleaseGate({ qualityGatePassed: false, humanReviewComplete: false })).toBe("blocked_quality_gate");
+    expect(resolvePhase4EntryGate({ qualityGatePassed: true, datasetReviewGate: "blocked_pending_human_review", artifactConsistencyPassed: true,
+      determinismPassed: true, requiredTestsPassed: true, testSplitStatus: "not_frozen" })).toBe("blocked_dataset_review");
+    expect(resolvePhase4EntryGate({ qualityGatePassed: true, datasetReviewGate: "human_review_passed", artifactConsistencyPassed: true,
+      determinismPassed: true, requiredTestsPassed: true, testSplitStatus: "not_frozen" })).toBe("ready_for_phase4");
+    expect(resolveProductionReleaseGate({ qualityGatePassed: true, phase4Complete: false, frozenTestExecuted: false, realModelEvalPassed: false }))
+      .toBe("blocked_pending_phase4");
   });
 
   it("flattens failure groups into an exact de-duplicated union", () => {
@@ -187,7 +251,8 @@ describe("Eval v2.1 quality gate invariants", () => {
   it("blocks the quality and release gates when calibration constraints fail", () => {
     const qualityGate = buildQualityGate({ ...passingInput(), calibrationPassed: false });
     expect(qualityGate).toMatchObject({ passed: false, failure_reasons: ["calibration_constraints_not_met"] });
-    expect(resolveReleaseGate({ qualityGatePassed: qualityGate.passed, humanReviewComplete: false })).toBe("blocked_quality_gate");
+    expect(resolvePhase4EntryGate({ qualityGatePassed: qualityGate.passed, datasetReviewGate: "human_review_passed", artifactConsistencyPassed: true,
+      determinismPassed: true, requiredTestsPassed: true, testSplitStatus: "not_frozen" })).toBe("blocked_quality_gate");
   });
 
   it("blocks severe over-refusal even when no-answer and regression guardrails pass", () => {

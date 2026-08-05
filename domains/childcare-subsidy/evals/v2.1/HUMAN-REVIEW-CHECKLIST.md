@@ -1,18 +1,28 @@
 # Phase 3 Eval v2.1 人工验收清单
 
-> 本文件是审核工作表，不是机器可读 Gold。勾选完成后，必须将结论回填至 `annotations/*.jsonl` 的 `source_review_status` 和 `reviewer`，再运行 `pnpm eval:v2.1:prepare` 与 `pnpm eval:v2.1:validate`。未经回填与校验，不得解除 provisional gate。
+> 本文件是审核展示与工作表，不是机器可读 Gold。最终状态以 `annotations/*.jsonl`、物化 datasets 和 manifest 的程序校验结果为准。
+
+```text
+Review status: completed
+Reviewer: xinyuxing
+Approved: 143
+Pending: 0
+Rejected: 0
+Authoritative source: annotations/*.jsonl
+Closure verification date: 2026-08-05
+```
 
 ## 审核总览
 
-- [ ] Retrieval：80 条全部完成
-- [ ] v1 回归：13 条全部完成
-- [ ] 多轮场景：20 组全部完成
-- [ ] 安全案例：30 条全部完成
-- [ ] 金额、资格、期限、材料、渠道和发放等高风险口径由业务责任人复核
-- [ ] 所有驳回项已修改并重新校验
-- [ ] 业务责任人完成最终签字
+- [x] Retrieval：80 条全部完成
+- [x] v1 回归：13 条全部完成
+- [x] 多轮场景：20 组全部完成
+- [x] 安全案例：30 条全部完成
+- [x] 金额、资格、期限、材料、渠道和发放等高风险口径由业务责任人复核
+- [x] 所有驳回项已修改并重新校验
+- [x] 业务责任人完成最终签字
 
-最终审核人：____________________　日期：____________________
+最终审核人：xinyuxing　闭环校验日期：2026-08-05
 
 ## A. Retrieval Gold（80 条）
 

@@ -1,9 +1,9 @@
 {
-  "schema_version": 3,
-  "dataset_version": "phase3-v2.1",
-  "generated_at": "2026-08-02T00:00:00.000Z",
-  "evaluation_status": "provisional",
-  "release_gate": "human_review_passed",
+  "schema_version": 4,
+  "dataset_version": "phase3-v2.1-human-reviewed",
+  "generated_at": "2026-08-05T00:00:00.000Z",
+  "evaluation_status": "human_reviewed",
+  "dataset_review_gate": "human_review_passed",
   "knowledge_snapshot": "K4",
   "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
   "circular_labeling": false,
@@ -44,7 +44,8 @@
   "review": {
     "pending_review": 0,
     "human_approved": 143,
-    "rejected": 0
+    "rejected": 0,
+    "reviewer": "xinyuxing"
   },
   "test_split": {
     "status": "not_frozen"

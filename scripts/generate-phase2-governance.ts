@@ -173,7 +173,7 @@ const candidateArtifact = {
   },
   candidates,
 };
-const auditHash = createHash("sha256").update(auditText).digest("hex");
+const auditHash = createHash("sha256").update(auditText.replace(/\r\n/gu, "\n")).digest("hex");
 const auditById = new Map(audit.map((record) => [phase1[record.relative_path]!.document_id, record]));
 const descriptor = (items: Array<[string, Phase2Override | NationwideMetadataOverride]>, stage: "K2" | "K3" | "K4") => items
   .map(([, item]) => ({ document_id: item.document_id, source_sha256: item.source_sha256, metadata_sha256: metadataHash(item, stage) }))
@@ -215,7 +215,14 @@ if (process.argv.includes("--write")) {
   await Promise.all([...outputs].map(([path, content]) => writeFile(path, content, "utf8")));
 } else {
   for (const [path, expected] of outputs) {
-    if (await readFile(path, "utf8").catch(() => "") !== expected) throw new Error(`Stale Phase 2 artifact: ${path}`);
+    const actual = await readFile(path, "utf8").catch(() => "");
+    const normalizedActual = actual.replace(/\r\n/gu, "\n");
+    const normalizedExpected = expected.replace(/\r\n/gu, "\n");
+    if (normalizedActual !== normalizedExpected) {
+      const firstDifference = [...Array(Math.max(normalizedActual.length, normalizedExpected.length)).keys()]
+        .find((index) => normalizedActual[index] !== normalizedExpected[index]) ?? 0;
+      throw new Error(`Stale Phase 2 artifact: ${path} (first difference at character ${firstDifference})`);
+    }
   }
 }
 

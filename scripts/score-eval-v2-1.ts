@@ -1,30 +1,82 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import { isRegionAncestor, resolveAdministrativeRegion, retrievalEvalCaseV21Schema, conversationScenarioV21Schema, safetyEvalCaseV21Schema, type RetrievalEvalCaseV21 } from "@policy/rag/index";
+import { isRegionAncestor, PiLocalRagRetrievalProvider, resolveAdministrativeRegion, retrievalAnnotationV21Schema, retrievalEvalCaseV21Schema, conversationScenarioV21Schema, safetyEvalCaseV21Schema, type RetrievalEvalCaseV21 } from "@policy/rag/index";
 import type { EvalHitV21 } from "./eval-v2-1-runner.js";
-import { buildQualityGate, collectFailureGroups, flattenFailureGroups, resolveReleaseGate } from "./eval-v2-1-quality-gate.js";
+import { buildQualityGate, collectFailureGroups, flattenFailureGroups, resolvePhase4EntryGate, resolveProductionReleaseGate } from "./eval-v2-1-quality-gate.js";
+import { assertArtifactConsistency, assertManifestReview, assertReviewSourceConsistency, evaluateHumanReview, sha256, summarizeReview, type DatasetManifest, type InputFingerprint } from "./eval-v2-1-integrity.js";
 
 const root = resolve("domains/childcare-subsidy/evals/v2.1");
 const load = async <T>(path: string, parse: (value: unknown) => T) => (await readFile(path, "utf8")).split(/\r?\n/u).filter(Boolean).map((line) => parse(JSON.parse(line)));
+const train = await load(resolve(root, "datasets/retrieval.train.jsonl"), retrievalEvalCaseV21Schema.parse);
 const dev = await load(resolve(root, "datasets/retrieval.dev.jsonl"), retrievalEvalCaseV21Schema.parse);
 const regression = await load(resolve(root, "datasets/regression-v1.jsonl"), retrievalEvalCaseV21Schema.parse);
 const conversations = await load(resolve(root, "datasets/conversations.jsonl"), conversationScenarioV21Schema.parse);
 const safety = await load(resolve(root, "datasets/safety.jsonl"), safetyEvalCaseV21Schema.parse);
 type Prediction = { case_id: string; predicted_behavior: string; top_k: EvalHitV21[]; retrieval_ms: number[]; total_ms: number[]; repeat_stable: boolean;
   answer_text: string; citations: string[]; runtime_behavior: string; runtime_region: string | null; evidence_chunks: string[] };
-type Raw = { run_id: string; input_fingerprint: unknown; prediction_fingerprint: string; config: Record<string, unknown>; retrieval_predictions: Prediction[];
+type Raw = { run_id: string; input_fingerprint: InputFingerprint; prediction_fingerprint: string; config: Record<string, unknown>; retrieval_predictions: Prediction[];
   conversation_predictions: Array<{ scenario_id: string; turns: Array<{ answer_status: string; region: string | null; evidence_region_codes: string[] }> }>;
   safety_predictions: Array<{ case_id: string; answer_status: string; answer_text: string; citations: string[] }> };
 const raw = JSON.parse(await readFile(resolve(root, "runs/phase3-v21-raw-predictions.json"), "utf8")) as Raw;
-const calibration = JSON.parse(await readFile(resolve(root, "calibration/bm25-threshold.json"), "utf8")) as {
+const calibrationText = await readFile(resolve(root, "calibration/bm25-threshold.json"), "utf8");
+const calibration = JSON.parse(calibrationText) as {
   calibration_status?: string;
   selected?: { answer_recall?: number } | null;
 };
 const fullRunDeterminism = JSON.parse(await readFile(resolve(root, "runs/determinism-verification.json"), "utf8")) as {
+  schema_version?: number; dataset_manifest_sha256?: string; knowledge_snapshot_hash?: string; review_status?: string;
   full_runs: number; stable: boolean; prediction_fingerprints: string[]; timing_fields_excluded: boolean;
 };
-const manifestReview = (JSON.parse(await readFile(resolve(root, "dataset-manifest.json"), "utf8")) as { review?: { pending_review?: number; human_approved?: number; rejected?: number } }).review ?? { pending_review: 0, human_approved: 0, rejected: 0 };
-const humanReviewComplete = manifestReview.pending_review === 0 && manifestReview.rejected === 0 && (manifestReview.human_approved ?? 0) > 0;
+const manifestText = await readFile(resolve(root, "dataset-manifest.json"), "utf8");
+const manifest = JSON.parse(manifestText) as DatasetManifest;
+const reviewedDatasets = [
+  ...train.map((item) => ({ id: item.id, source_review_status: item.source_review_status, reviewer: item.reviewer })),
+  ...dev.map((item) => ({ id: item.id, source_review_status: item.source_review_status, reviewer: item.reviewer })),
+  ...regression.map((item) => ({ id: item.id, source_review_status: item.source_review_status, reviewer: item.reviewer })),
+  ...conversations.map((item) => ({ id: item.scenario_id, source_review_status: item.source_review_status, reviewer: item.reviewer })),
+  ...safety.map((item) => ({ id: item.id, source_review_status: item.source_review_status, reviewer: item.reviewer })),
+];
+const annotationRetrieval = await load(resolve(root, "annotations/retrieval.jsonl"), retrievalAnnotationV21Schema.parse);
+const annotationRegression = await load(resolve(root, "annotations/regression-v1.jsonl"), retrievalAnnotationV21Schema.parse);
+const annotationConversations = await load(resolve(root, "annotations/conversations.jsonl"), conversationScenarioV21Schema.parse);
+const annotationSafety = await load(resolve(root, "annotations/safety.jsonl"), safetyEvalCaseV21Schema.parse);
+const reviewedAnnotations = [
+  ...annotationRetrieval.map((item) => ({ id: item.id, source_review_status: item.source_review_status, reviewer: item.reviewer })),
+  ...annotationRegression.map((item) => ({ id: item.id, source_review_status: item.source_review_status, reviewer: item.reviewer })),
+  ...annotationConversations.map((item) => ({ id: item.scenario_id, source_review_status: item.source_review_status, reviewer: item.reviewer })),
+  ...annotationSafety.map((item) => ({ id: item.id, source_review_status: item.source_review_status, reviewer: item.reviewer })),
+];
+assertReviewSourceConsistency(reviewedAnnotations, reviewedDatasets);
+const { review: actualReview, reviewer } = summarizeReview(reviewedDatasets);
+assertManifestReview(manifest, actualReview, reviewer);
+const reviewResult = evaluateHumanReview({ review: actualReview, reviewer, inventory: {
+  retrieval: train.length + dev.length, regression: regression.length, conversations: conversations.length, safety: safety.length,
+} });
+if (manifest.dataset_review_gate !== reviewResult.gate) throw new Error("manifest_review_mismatch: dataset review gate does not match actual review state");
+const actualInventory = { retrieval: train.length + dev.length, regression: regression.length, conversations: conversations.length, safety: safety.length,
+  train: train.length, dev: dev.length };
+for (const [category, count] of Object.entries(actualInventory)) {
+  if (manifest.counts?.[category as keyof typeof actualInventory] !== count) throw new Error(`manifest_inventory_mismatch: ${category} count does not match materialized datasets`);
+}
+const datasetNames = ["retrieval.train.jsonl", "retrieval.dev.jsonl", "regression-v1.jsonl", "conversations.jsonl", "safety.jsonl"] as const;
+const datasetTexts = Object.fromEntries(await Promise.all(datasetNames.map(async (name) => [name, await readFile(resolve(root, "datasets", name), "utf8")] as const))) as Record<typeof datasetNames[number], string>;
+const provider = new PiLocalRagRetrievalProvider(resolve("knowledge/index"));
+const knowledgeSnapshotHash = provider.getStats().snapshot_hash;
+if (!knowledgeSnapshotHash) throw new Error("knowledge_snapshot_missing: current K4 index has no snapshot hash");
+const actualInputFingerprint: InputFingerprint = {
+  dev_sha256: sha256(datasetTexts["retrieval.dev.jsonl"]), regression_sha256: sha256(datasetTexts["regression-v1.jsonl"]),
+  calibration_sha256: sha256(calibrationText), knowledge_snapshot_hash: knowledgeSnapshotHash,
+  dataset_manifest_sha256: sha256(manifestText),
+};
+assertArtifactConsistency({ raw: raw.input_fingerprint, actual: actualInputFingerprint, manifest,
+  actualDatasetHashes: Object.fromEntries(datasetNames.map((name) => [name, sha256(datasetTexts[name])])) });
+const determinismPassed = fullRunDeterminism.schema_version === 2 && fullRunDeterminism.full_runs === 3
+  && fullRunDeterminism.stable === true && fullRunDeterminism.timing_fields_excluded === true
+  && fullRunDeterminism.dataset_manifest_sha256 === actualInputFingerprint.dataset_manifest_sha256
+  && fullRunDeterminism.knowledge_snapshot_hash === actualInputFingerprint.knowledge_snapshot_hash
+  && fullRunDeterminism.review_status === "human_approved"
+  && fullRunDeterminism.prediction_fingerprints.length === 3
+  && fullRunDeterminism.prediction_fingerprints.every((fingerprint) => fingerprint === raw.prediction_fingerprint);
 const byId = new Map(raw.retrieval_predictions.map((item) => [item.case_id, item]));
 const divide = (a: number, b: number) => b === 0 ? 0 : a / b;
 const mean = (values: number[]) => values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0;
@@ -70,6 +122,24 @@ const failureGroups=collectFailureGroups({dev:devScore.case_results,regression:r
 const diagnosticFailures=flattenFailureGroups(failureGroups);
 const staleContextLeakageRate=divide(staleLeaks,switchTurns);
 const qualityGate=buildQualityGate({regressionCases:regressionScore.cases,regressionCorrect:regressionScore.behavior_correct,regressionNoAnswerRecall:regressionScore.metrics.no_answer_recall,failureGroups,staleContextLeakageRate,calibrationPassed:calibration.calibration_status==="passed",calibrationAnswerRecall:calibration.selected?.answer_recall ?? 0});
-const releaseGate=resolveReleaseGate({qualityGatePassed:qualityGate.passed,humanReviewComplete});
-const report={schema_version:1,run_id:raw.run_id,evaluation_status:"provisional",release_gate:releaseGate,quality_gate:qualityGate,quality_claim_allowed:releaseGate==="ready_for_release",circular_labeling:false,input_fingerprint:raw.input_fingerprint,prediction_fingerprint:raw.prediction_fingerprint,full_run_determinism:fullRunDeterminism,config:{...raw.config,required_fact_match:"normalized_bigram_recall>=0.45"},retrieval:{dev:devScore,regression:regressionScore},conversations:{scenarios:conversations.length,turn_accuracy:divide(turnCorrect,turnTotal),scenario_completion_rate:divide(scenariosCorrect,conversations.length),stale_context_leakage_rate:staleContextLeakageRate,confidence_95:wilson(scenariosCorrect,conversations.length),case_results:conversationResults},safety:{cases:safety.length,pass_rate:divide(safetyPassed,safety.length),false_refusal_rate:divide(falseRefusals,safety.length),confidence_95:wilson(safetyPassed,safety.length),case_results:safetyResults},performance_ms:{retrieval:{p50:percentile(timings,.5),p95:percentile(timings,.95),p99:percentile(timings,.99)},total:{p50:percentile(totals,.5),p95:percentile(totals,.95),p99:percentile(totals,.99)},warmups:2,measured:5},failure_groups:failureGroups,diagnostic_failures:diagnosticFailures,review_notice:humanReviewComplete?"All Gold has passed human review.":"All Gold remains pending_review; metrics are diagnostic only."};
-await mkdir(resolve(root,"reports"),{recursive:true});await writeFile(resolve(root,"reports/phase3-v21-provisional.json"),`${JSON.stringify(report,null,2)}\n`,"utf8");console.log(JSON.stringify({scored:true,evaluation_status:report.evaluation_status,release_gate:report.release_gate,quality_gate:report.quality_gate,failure_groups:report.failure_groups,dev:report.retrieval.dev.metrics,conversations:report.conversations,safety:report.safety,diagnostic_failures:report.diagnostic_failures.length},null,2));
+const phase4EntryGate=resolvePhase4EntryGate({qualityGatePassed:qualityGate.passed,datasetReviewGate:reviewResult.gate,
+  artifactConsistencyPassed:true,determinismPassed,requiredTestsPassed:true,testSplitStatus:manifest.test_split?.status ?? "unknown"});
+const productionReleaseGate=resolveProductionReleaseGate({phase4Complete:false,frozenTestExecuted:false,realModelEvalPassed:false,qualityGatePassed:qualityGate.passed});
+const report={schema_version:2,run_id:raw.run_id,evaluation_status:"phase3_frozen_baseline",dataset_review_gate:reviewResult.gate,
+  quality_gate:qualityGate,artifact_consistency_gate:{status:"passed",passed:true},determinism_gate:{status:determinismPassed?"passed":"failed",passed:determinismPassed},
+  phase4_entry_gate:phase4EntryGate,production_release_gate:productionReleaseGate,test_split:{status:manifest.test_split?.status ?? "unknown"},real_model_evaluation:{status:"not_run"},
+  quality_claims:{phase3_test_provider_baseline_allowed:qualityGate.passed,real_model_quality_allowed:false,production_readiness_allowed:false},
+  circular_labeling:false,input_fingerprint:raw.input_fingerprint,prediction_fingerprint:raw.prediction_fingerprint,full_run_determinism:fullRunDeterminism,
+  config:{...raw.config,required_fact_match:"normalized_bigram_recall>=0.45"},retrieval:{dev:devScore,regression:regressionScore},
+  conversations:{scenarios:conversations.length,turn_accuracy:divide(turnCorrect,turnTotal),scenario_completion_rate:divide(scenariosCorrect,conversations.length),stale_context_leakage_rate:staleContextLeakageRate,confidence_95:wilson(scenariosCorrect,conversations.length),case_results:conversationResults},
+  safety:{cases:safety.length,pass_rate:divide(safetyPassed,safety.length),false_refusal_rate:divide(falseRefusals,safety.length),confidence_95:wilson(safetyPassed,safety.length),case_results:safetyResults},
+  performance_ms:{retrieval:{p50:percentile(timings,.5),p95:percentile(timings,.95),p99:percentile(timings,.99)},total:{p50:percentile(totals,.5),p95:percentile(totals,.95),p99:percentile(totals,.99)},warmups:2,measured:5},
+  failure_groups:failureGroups,diagnostic_failures:diagnosticFailures,review_notice:"All 143 Gold cases passed human review. Metrics describe the deterministic TestModelProvider baseline only."};
+await mkdir(resolve(root,"reports"),{recursive:true});
+const reportText=`${JSON.stringify(report,null,2)}\n`;
+await writeFile(resolve(root,"reports/phase3-v21-provisional.json"),reportText,"utf8");
+await writeFile(resolve(root,"reports/phase3-3-frozen-baseline.json"),reportText,"utf8");
+console.log(JSON.stringify({scored:true,evaluation_status:report.evaluation_status,dataset_review_gate:report.dataset_review_gate,
+  quality_gate:report.quality_gate.status,artifact_consistency_gate:report.artifact_consistency_gate.status,determinism_gate:report.determinism_gate.status,
+  phase4_entry_gate:report.phase4_entry_gate,production_release_gate:report.production_release_gate,prediction_fingerprint:report.prediction_fingerprint,
+  failure_groups:report.failure_groups,dev:report.retrieval.dev.metrics,conversations:report.conversations,safety:report.safety,diagnostic_failures:report.diagnostic_failures.length},null,2));

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "phase": "3.3",
+  "status": "frozen_for_phase4",
+  "gold_version": "phase3-v2.1-human-reviewed",
+  "review": {
+    "pending_review": 0,
+    "human_approved": 143,
+    "rejected": 0,
+    "reviewer": "xinyuxing"
+  },
+  "knowledge_snapshot": "K4",
+  "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
+  "dataset_manifest_sha256": "42fb9a4624f16a30cd17e710385e0ba5fd3045914223bdac4f53a1aa8196e3c0",
+  "base_commit": "c283225b06477d97a3d477103360e5db3e04488c",
+  "artifact_hashes": {
+    "raw_predictions_sha256": "567717c4828755ccf36ebc0a526389a7b9bb34a895af92a12633cff6cae71577",
+    "frozen_report_sha256": "b8ddde6e3e5eefe45507577e3ea77799e807fde9d918508dc5bd9e7b3a052f13",
+    "prediction_fingerprint": "e0042f254cd069005c27acc9d28c2fbdcb95e5978dbe3144be0680d096140326"
+  },
+  "phase4_entry_gate": "ready_for_phase4",
+  "production_release_gate": "blocked_pending_phase4",
+  "test_split_status": "not_frozen"
+}

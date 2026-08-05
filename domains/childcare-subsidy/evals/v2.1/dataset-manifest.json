@@ -3,7 +3,7 @@
   "dataset_version": "phase3-v2.1",
   "generated_at": "2026-08-02T00:00:00.000Z",
   "evaluation_status": "provisional",
-  "release_gate": "blocked_pending_human_review",
+  "release_gate": "human_review_passed",
   "knowledge_snapshot": "K4",
   "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
   "circular_labeling": false,
@@ -21,29 +21,30 @@
   },
   "files": {
     "retrieval.train.jsonl": {
-      "sha256": "6b41a66ea7ef53f8920e6655231d07a6f091cf6bf0b02c66b6f94ca9962a2de5",
+      "sha256": "14b8b52ccc2da8b8cfb7559653afa985a4d659226c0663943cb2cb44db94de5b",
       "rows": 50
     },
     "retrieval.dev.jsonl": {
-      "sha256": "dcce4b70ec82800f456a28431f69f6622b459e6b3a54f90120042672a2c405bc",
+      "sha256": "fd27ec57ffd9d41fafbc7c18dbc7ea5b942e38abb9d409c641fa28ed5387c254",
       "rows": 30
     },
     "regression-v1.jsonl": {
-      "sha256": "0c80c17040578d49ba99df7a30e1891e0b469099fa09966f722d874310a955d1",
+      "sha256": "1fee04ddf25baf601b735c1db52e942dd3d91205a1a5abfee20b3a6390202502",
       "rows": 13
     },
     "conversations.jsonl": {
-      "sha256": "0a8eaebab6d91eb2e8cd30e0e62deda07e88e0da51e7ac4dab8f0b9f90e1e894",
+      "sha256": "744d84cc0d2f9bd719fe24e1e61695c1cbe728adaa7cc12fb16d704bb3ed3c85",
       "rows": 20
     },
     "safety.jsonl": {
-      "sha256": "9ee32ddbed7cef7c92aa9a6e97dac02fbf138cca534ea8ec6793b4bc6bb8a6fc",
+      "sha256": "12bb23d00031e9cb107708ed6f878cc228f2a86d32d6b75aedccf55006c14c8a",
       "rows": 30
     }
   },
   "review": {
-    "pending_review": 143,
-    "human_approved": 0
+    "pending_review": 0,
+    "human_approved": 143,
+    "rejected": 0
   },
   "test_split": {
     "status": "not_frozen"

@@ -17,12 +17,12 @@ const emptyFailureGroups = (): FailureGroups => ({
 });
 
 describe("Eval v2.1 anti-circular governance", () => {
-  it("keeps the exact inventory pending review and source-first", async () => {
+  it("keeps the exact inventory human-approved and source-first", async () => {
     const train = (await jsonl("domains/childcare-subsidy/evals/v2.1/datasets/retrieval.train.jsonl")).map((item) => retrievalEvalCaseV21Schema.parse(item));
     const dev = (await jsonl("domains/childcare-subsidy/evals/v2.1/datasets/retrieval.dev.jsonl")).map((item) => retrievalEvalCaseV21Schema.parse(item));
     const regression = (await jsonl("domains/childcare-subsidy/evals/v2.1/datasets/regression-v1.jsonl")).map((item) => retrievalEvalCaseV21Schema.parse(item));
     expect(train).toHaveLength(50); expect(dev).toHaveLength(30); expect(regression).toHaveLength(13);
-    expect([...train, ...dev, ...regression].every((item) => item.source_review_status === "pending_review")).toBe(true);
+    expect([...train, ...dev, ...regression].every((item) => item.source_review_status === "human_approved")).toBe(true);
     expect([...train, ...dev, ...regression].every((item) => item.annotation_method === "source_first" && !item.retriever_used_for_labeling)).toBe(true);
     expect([...train, ...dev].filter((item) => item.category === "no_answer")).toHaveLength(10);
     expect([...train, ...dev].filter((item) => item.category === "missing_region")).toHaveLength(6);
@@ -100,13 +100,16 @@ describe("Eval v2.1 anti-circular governance", () => {
     });
     const allRequirementsPassed = Object.values(report.quality_gate.requirements).every((requirement) => requirement.passed);
     const hasAutomatedFailure = flattenFailureGroups(expectedGroups).length > 0 || report.conversations.stale_context_leakage_rate > 0;
+    const manifestReview = (JSON.parse(await readFile(resolve("domains/childcare-subsidy/evals/v2.1/dataset-manifest.json"), "utf8")) as { review?: { pending_review?: number; human_approved?: number; rejected?: number } }).review ?? { pending_review: 0, human_approved: 0, rejected: 0 };
+    const humanReviewComplete = manifestReview.pending_review === 0 && manifestReview.rejected === 0 && (manifestReview.human_approved ?? 0) > 0;
 
-    expect(report).toMatchObject({ evaluation_status: "provisional", quality_claim_allowed: false });
+    expect(report).toMatchObject({ evaluation_status: "provisional" });
     expect(report.failure_groups).toEqual(expectedGroups);
     expect(report.diagnostic_failures).toEqual(flattenFailureGroups(expectedGroups));
     expect(report.quality_gate.passed).toBe(allRequirementsPassed);
     if (hasAutomatedFailure) expect(report.quality_gate.passed).toBe(false);
-    expect(report.release_gate).toBe(resolveReleaseGate({ qualityGatePassed: report.quality_gate.passed, humanReviewComplete: false }));
+    expect(report.release_gate).toBe(resolveReleaseGate({ qualityGatePassed: report.quality_gate.passed, humanReviewComplete }));
+    expect(report.quality_claim_allowed).toBe(report.release_gate === "ready_for_release");
   });
 });
 

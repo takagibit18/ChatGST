@@ -27,3 +27,12 @@
 
 ## 用户目标
 - 大四秋招，把本体智能体平台（以 eval 视角）写成实习项目简历条目，并迭代采集调优数据（指标）。
+
+## v2.1 评测管线约束（2026-08-05）
+- **Node 版本（必踩坑）**：项目 `better-sqlite3` 原生绑定编译在 Node 24（NODE_MODULE_VERSION 137）；用 managed node 22 跑 `pnpm eval:v2.1:*` 会报 `ERR_DLOPEN_FAILED`。必须 `PATH="/c/Program Files/nodejs:$PATH" pnpm ...`（系统 node 24.17.0）。package.json engines 写 `>=22.19` 但原生模块锁死 24。
+- **gate 体系（两层独立）**：
+  - manifest.release_gate（`validate-eval-v2-1.ts` 生成，数据集发布 gate，记录性）：`blocked_pending_human_review` / `human_review_passed`
+  - score release_gate（`score-eval-v2-1.ts` 调 `resolveReleaseGate`，运行 gate）：`blocked_quality_gate` / `blocked_pending_human_review` / `ready_for_release`，依赖 `qualityGatePassed && humanReviewComplete`
+  - score 现在读 manifest review counts 算 `humanReviewComplete`（2026-08-05 改，原硬编码 false）
+- **validate 脚本已改支持 human_approved**（2026-08-05）：第 85/115 行从"必须 pending"放宽为"拒绝 rejected"；manifest.release_gate/review 动态化；全 approved → `human_review_passed`。schema 层（`evalReviewStatusSchema`）早已支持 `pending_review/human_approved/rejected`，reviewer 为 `z.string().nullable()`。
+- **score + run 脚本已改联动 human review**（2026-08-05）：`score-eval-v2-1.ts` 的 `humanReviewComplete` 读 manifest review counts；`review_notice` 动态化；`quality_claim_allowed` 联动 `release_gate==="ready_for_release"`（原硬编码 false）。`run-eval-v2-1.ts` 的 raw.release_gate 读 manifest。本地 Mock 下 quality gate 过 + human 过 → `ready_for_release`+`quality_claim_allowed=true`（强声明，对外用需判断 Mock 局限）。`tests/unit/eval-v2-1.test.ts` 已同步更新（27 tests 全过）。

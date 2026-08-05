@@ -19,6 +19,11 @@ const calibrationText = await readFile(resolve(root, "calibration/bm25-threshold
 const calibration = JSON.parse(calibrationText) as { calibration_status?: "passed" | "failed"; selected: { threshold: number } | null };
 if (calibration.calibration_status !== "passed" || !calibration.selected) throw new Error("calibration_constraints_not_met");
 const threshold = calibration.selected.threshold;
+let datasetReleaseGate = "blocked_pending_human_review";
+try {
+  const manifest = JSON.parse(await readFile(resolve(root, "dataset-manifest.json"), "utf8")) as { release_gate?: string };
+  if (manifest.release_gate) datasetReleaseGate = manifest.release_gate;
+} catch { /* manifest absent; keep default */ }
 const provider = new PiLocalRagRetrievalProvider(resolve("knowledge/index"));
 const config = loadRuntimeConfig({ ...process.env, MODEL_PROVIDER: "test", RAINDROP_ENABLED: "false", RAINDROP_CAPTURE_CONTENT: "false", MAX_SESSION_TURNS: "100" });
 const { runtime } = createDefaultPolicyRuntime(config);
@@ -54,7 +59,7 @@ const stablePredictions = {
 };
 const predictionFingerprint = createHash("sha256").update(JSON.stringify(stablePredictions)).digest("hex");
 const raw = { schema_version: 1, run_id: "phase3-v21-provisional", generated_at: new Date().toISOString(), evaluation_status: "provisional",
-  release_gate: "blocked_pending_human_review", input_fingerprint: { dev_sha256: createHash("sha256").update(canonicalText(devText)).digest("hex"),
+  release_gate: datasetReleaseGate, input_fingerprint: { dev_sha256: createHash("sha256").update(canonicalText(devText)).digest("hex"),
     regression_sha256: createHash("sha256").update(canonicalText(regressionText)).digest("hex"), calibration_sha256: createHash("sha256").update(canonicalText(calibrationText)).digest("hex"),
     knowledge_snapshot_hash: provider.getStats().snapshot_hash }, prediction_fingerprint: predictionFingerprint,
   config: { threshold, calibration_status: calibration.calibration_status, warmups: 2, measured: 5, model_provider: "test" },

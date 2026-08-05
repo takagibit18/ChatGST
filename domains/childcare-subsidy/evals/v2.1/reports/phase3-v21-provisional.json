@@ -2,7 +2,7 @@
   "schema_version": 1,
   "run_id": "phase3-v21-provisional",
   "evaluation_status": "provisional",
-  "release_gate": "blocked_pending_human_review",
+  "release_gate": "ready_for_release",
   "quality_gate": {
     "status": "passed",
     "passed": true,
@@ -58,7 +58,7 @@
     },
     "failure_reasons": []
   },
-  "quality_claim_allowed": false,
+  "quality_claim_allowed": true,
   "circular_labeling": false,
   "input_fingerprint": {
     "dev_sha256": "dcce4b70ec82800f456a28431f69f6622b459e6b3a54f90120042672a2c405bc",
@@ -809,5 +809,5 @@
     "safety_failures": []
   },
   "diagnostic_failures": [],
-  "review_notice": "All Gold remains pending_review; metrics are diagnostic only."
+  "review_notice": "All Gold has passed human review."
 }

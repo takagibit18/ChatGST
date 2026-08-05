@@ -82,7 +82,7 @@ function validateInventory(retrieval: RetrievalEvalCaseV21[], regression: Retrie
   }
   if (regression.length !== 13) throw new Error("Expected 13 regression cases");
   const all = [...retrieval, ...regression];
-  if (all.some((item) => item.source_review_status !== "pending_review")) throw new Error("All v2.1 Gold must remain pending_review");
+  if (all.some((item) => item.source_review_status === "rejected")) throw new Error("Rejected Gold must be revised before entering the dataset");
   if (all.some((item) => item.retriever_used_for_labeling !== false || item.annotation_method !== "source_first")) throw new Error("Circular labeling guard failed");
   const groupSplits = new Map<string, Set<string>>();
   for (const item of retrieval) groupSplits.set(item.case_group_id, new Set([...(groupSplits.get(item.case_group_id) ?? []), item.split]));
@@ -112,7 +112,7 @@ async function main(): Promise<void> {
   const conversations = (await loadJsonl<unknown>(resolve(annotationsDir, "conversations.jsonl"))).map((item) => conversationScenarioV21Schema.parse(item));
   const safety = (await loadJsonl<unknown>(resolve(annotationsDir, "safety.jsonl"))).map((item) => safetyEvalCaseV21Schema.parse(item));
   if (conversations.length !== 20 || safety.length !== 30) throw new Error("Expected 20 conversations and 30 safety cases");
-  if ([...conversations, ...safety].some((item) => item.source_review_status !== "pending_review")) throw new Error("Scenario review status must be pending_review");
+  if ([...conversations, ...safety].some((item) => item.source_review_status === "rejected")) throw new Error("Rejected scenarios must be revised before entering the dataset");
   const transcripts = conversations.map((scenario) => normalize(scenario.turns.map((turn) => turn.user).join("\n")));
   if (new Set(transcripts).size !== transcripts.length) throw new Error("Conversation scenarios contain repeated transcripts");
   const forbiddenSets = safety.map((item) => item.forbidden_behavior.map(normalize).sort().join("|"));
@@ -125,6 +125,10 @@ async function main(): Promise<void> {
   const retrieval = await buildEvalV21Datasets(reader, retrievalAnnotations);
   const regression = await buildEvalV21Datasets(reader, regressionAnnotations);
   validateInventory(retrieval, regression);
+  const reviewCounts = { pending_review: 0, human_approved: 0, rejected: 0 };
+  for (const item of [...retrieval, ...regression, ...conversations, ...safety]) reviewCounts[item.source_review_status]++;
+  const totalCases = retrieval.length + regression.length + conversations.length + safety.length;
+  const allHumanApproved = reviewCounts.human_approved === totalCases;
   const files: Record<string, string> = {
     "retrieval.train.jsonl": jsonl(retrieval.filter((item) => item.split === "train")),
     "retrieval.dev.jsonl": jsonl(retrieval.filter((item) => item.split === "dev")),
@@ -135,14 +139,14 @@ async function main(): Promise<void> {
     for (const [name, contents] of Object.entries(files)) await writeFile(resolve(datasetsDir, name), contents, "utf8");
     const manifest = {
       schema_version: 3, dataset_version: "phase3-v2.1", generated_at: "2026-08-02T00:00:00.000Z",
-      evaluation_status: "provisional", release_gate: "blocked_pending_human_review", knowledge_snapshot: "K4",
+      evaluation_status: "provisional", release_gate: allHumanApproved ? "human_review_passed" : "blocked_pending_human_review", knowledge_snapshot: "K4",
       knowledge_snapshot_hash: "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
       circular_labeling: false, mechanical_prefix_extraction: false, gold_representation: "exact_source_span+atomic_claims",
       counts: { retrieval: 80, train: 50, dev: 30, regression: 13, conversations: 20, safety: 30,
         evidence_spans: [...retrieval, ...regression].flatMap((item) => item.gold_evidence).length,
         atomic_claims: [...retrieval, ...regression].flatMap((item) => item.gold_evidence.flatMap((entry) => entry.claims)).length },
       files: Object.fromEntries(Object.entries(files).map(([name, contents]) => [name, { sha256: hash(contents), rows: contents.trim().split(/\r?\n/u).length }])),
-      review: { pending_review: 143, human_approved: 0 }, test_split: { status: "not_frozen" },
+      review: reviewCounts, test_split: { status: "not_frozen" },
     };
     await writeFile(resolve(root, "dataset-manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
   } else {
@@ -150,7 +154,7 @@ async function main(): Promise<void> {
       if (normalizeEol(await readFile(resolve(datasetsDir, name), "utf8")) !== normalizeEol(expected)) throw new Error(`${name}: materialized dataset is stale`);
     }
   }
-  console.log(JSON.stringify({ valid: true, retrieval: retrieval.length, regression: regression.length, conversations: conversations.length, safety: safety.length, circular_labeling: false, review_status: "pending_review" }, null, 2));
+  console.log(JSON.stringify({ valid: true, retrieval: retrieval.length, regression: regression.length, conversations: conversations.length, safety: safety.length, circular_labeling: false, review_status: allHumanApproved ? "human_approved" : "pending_review", review_counts: reviewCounts, release_gate: allHumanApproved ? "human_review_passed" : "blocked_pending_human_review" }, null, 2));
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) await main();

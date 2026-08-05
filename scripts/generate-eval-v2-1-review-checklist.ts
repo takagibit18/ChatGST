@@ -24,16 +24,17 @@ const decision = () => [
 
 type Evidence = { document_id: string; chunk_id: string; source_line_start: number; source_line_end: number; chunk_char_start: number; chunk_char_end: number;
   supporting_text: string; relevance_grade: number; claims: Array<{ claim_id: string; text: string; claim_type: string }> };
-type Retrieval = {
+type Reviewable = { source_review_status: "pending_review" | "human_approved" | "rejected"; reviewer?: string | null };
+type Retrieval = Reviewable & {
   id: string; split: string; category: string; difficulty: string; question: string; user_region: string | null;
   effective_date: string; answerable: boolean; expected_behavior: string; gold_evidence: Evidence[];
   required_facts: string[]; forbidden_facts: string[]; difficulty_rationale: string; notes?: string;
 };
-type Conversation = {
+type Conversation = Reviewable & {
   scenario_id: string; category: string; turns: Array<{ user: string; expected_behavior: string; expected_region_code: string | null; forbidden_region_codes: string[] }>;
   success_conditions: string[];
 };
-type Safety = { id: string; category: string; prompt: string; expected_behavior: string; forbidden_behavior: string[] };
+type Safety = Reviewable & { id: string; category: string; prompt: string; expected_behavior: string; forbidden_behavior: string[] };
 
 function retrievalSection(item: Retrieval, index: number): string {
   const evidence = item.gold_evidence.length
@@ -117,23 +118,41 @@ const retrieval = await loadJsonl<Retrieval>("retrieval.jsonl");
 const regression = await loadJsonl<Retrieval>("regression-v1.jsonl");
 const conversations = await loadJsonl<Conversation>("conversations.jsonl");
 const safety = await loadJsonl<Safety>("safety.jsonl");
+const all = [...retrieval, ...regression, ...conversations, ...safety];
+const approved = all.filter((item) => item.source_review_status === "human_approved").length;
+const pending = all.filter((item) => item.source_review_status === "pending_review").length;
+const rejected = all.filter((item) => item.source_review_status === "rejected").length;
+const reviewers = [...new Set(all.map((item) => item.reviewer?.trim()).filter(Boolean))];
+const reviewer = reviewers.length === 1 ? reviewers[0]! : "";
+const completed = approved === all.length && pending === 0 && rejected === 0 && reviewer.length > 0;
+const mark = completed ? "x" : " ";
 
 const markdown = [
   "# Phase 3 Eval v2.1 人工验收清单",
   "",
-  "> 本文件是审核工作表，不是机器可读 Gold。勾选完成后，必须将结论回填至 `annotations/*.jsonl` 的 `source_review_status` 和 `reviewer`，再运行 `pnpm eval:v2.1:prepare` 与 `pnpm eval:v2.1:validate`。未经回填与校验，不得解除 provisional gate。",
+  "> 本文件是审核展示与工作表，不是机器可读 Gold。最终状态以 `annotations/*.jsonl`、物化 datasets 和 manifest 的程序校验结果为准。",
+  "",
+  "```text",
+  `Review status: ${completed ? "completed" : "incomplete"}`,
+  `Reviewer: ${reviewer || "missing"}`,
+  `Approved: ${approved}`,
+  `Pending: ${pending}`,
+  `Rejected: ${rejected}`,
+  "Authoritative source: annotations/*.jsonl",
+  "Closure verification date: 2026-08-05",
+  "```",
   "",
   "## 审核总览",
   "",
-  `- [ ] Retrieval：${retrieval.length} 条全部完成`,
-  `- [ ] v1 回归：${regression.length} 条全部完成`,
-  `- [ ] 多轮场景：${conversations.length} 组全部完成`,
-  `- [ ] 安全案例：${safety.length} 条全部完成`,
-  "- [ ] 金额、资格、期限、材料、渠道和发放等高风险口径由业务责任人复核",
-  "- [ ] 所有驳回项已修改并重新校验",
-  "- [ ] 业务责任人完成最终签字",
+  `- [${mark}] Retrieval：${retrieval.length} 条全部完成`,
+  `- [${mark}] v1 回归：${regression.length} 条全部完成`,
+  `- [${mark}] 多轮场景：${conversations.length} 组全部完成`,
+  `- [${mark}] 安全案例：${safety.length} 条全部完成`,
+  `- [${mark}] 金额、资格、期限、材料、渠道和发放等高风险口径由业务责任人复核`,
+  `- [${mark}] 所有驳回项已修改并重新校验`,
+  `- [${mark}] 业务责任人完成最终签字`,
   "",
-  "最终审核人：____________________　日期：____________________",
+  `最终审核人：${reviewer || "____________________"}　闭环校验日期：${completed ? "2026-08-05" : "____________________"}`,
   "",
   "## A. Retrieval Gold（80 条）",
   "",

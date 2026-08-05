@@ -16,6 +16,8 @@
 
 完整审查、许可证、Peer Dependencies、公开接口、breaking changes 和源码基准见 [third-party-assessment.md](docs/third-party-assessment.md)、[upstream-delta.md](docs/upstream-delta.md) 与 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 
+Eval v2.1 已完成 Phase 3.3：143/143 Gold 人工审核通过，自动质量、产物一致性和三次确定性验证通过，允许进入 Phase 4。当前仍使用 `TestModelProvider`，frozen test 和真实 DeepSeek 评测均未运行，生产发布保持 blocked。
+
 ## 本地运行
 
 ```bash
@@ -127,6 +129,6 @@ knowledge                     原文、固定快照、元数据与生成索引
 - 知识库是截至 2026-07-23 的固定快照，不会自动爬取或发现政策更新。
 - 中文 Recall@5 基线为 `0.95`；北京/河北对比题仍是最值得扩充标注与查询扩展的检索场景。
 - Session、并发队列和本地 Trace 都在单进程内存中，不适合多实例生产环境。
-- Golden 尚待人工政策审核，文件中的 `pending_review` 不应被改成自动通过。
+- 旧版 `goldens.generated.json` 仍是独立的未审核候选；Eval v2.1 已人工审核冻结，两者不得混为同一数据集。
 
 最高优先级后续工作：人工复核 Golden 与政策日期；使用真实 DeepSeek V4 Flash 凭据运行结构化输出回归；扩充两地对比/迁移标注并验证受控 Raindrop 项目的端到端脱敏 Payload。

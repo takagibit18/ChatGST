@@ -26,6 +26,8 @@
     "eval:v2.1:calibrate": "tsx scripts/calibrate-eval-v2-1.ts",
     "eval:v2.1:review-checklist": "tsx scripts/generate-eval-v2-1-review-checklist.ts",
     "eval:v2.1": "tsx scripts/run-eval-v2-1.ts && tsx scripts/score-eval-v2-1.ts",
+    "eval:v2.1:determinism": "tsx scripts/verify-eval-v2-1-determinism.ts",
+    "eval:v2.1:freeze-report": "tsx scripts/generate-phase3-3-freeze-report.ts",
     "prerag:build": "pnpm deps:check",
     "prerag:build:nationwide": "pnpm knowledge:phase2:validate && pnpm deps:check",
     "rag:build": "tsx scripts/build-index.ts",

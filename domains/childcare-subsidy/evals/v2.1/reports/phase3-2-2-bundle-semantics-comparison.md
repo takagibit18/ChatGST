@@ -1,5 +1,7 @@
 # Phase 3.2.2 — Bundle Semantics and Over-refusal Repair
 
+> Superseded for current status by the Phase 3.3 freeze report. This report preserves the state at the time of Phase 3.2.2.
+
 ## 1. 基线与范围
 
 - Base commit：`1a0a8f16c1d3252f84513d54f180b180750a17ed`

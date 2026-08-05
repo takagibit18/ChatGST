@@ -123,11 +123,30 @@ export function buildQualityGate(input: {
   };
 }
 
-export function resolveReleaseGate(input: {
+export function resolvePhase4EntryGate(input: {
   qualityGatePassed: boolean;
-  humanReviewComplete: boolean;
-}): "blocked_quality_gate" | "blocked_pending_human_review" | "ready_for_release" {
+  datasetReviewGate: string;
+  artifactConsistencyPassed: boolean;
+  determinismPassed: boolean;
+  requiredTestsPassed: boolean;
+  testSplitStatus: string;
+}): "blocked_dataset_review" | "blocked_quality_gate" | "blocked_artifact_mismatch" | "ready_for_phase4" {
+  if (input.datasetReviewGate !== "human_review_passed") return "blocked_dataset_review";
   if (!input.qualityGatePassed) return "blocked_quality_gate";
-  if (!input.humanReviewComplete) return "blocked_pending_human_review";
-  return "ready_for_release";
+  if (!input.artifactConsistencyPassed || !input.determinismPassed || !input.requiredTestsPassed) return "blocked_artifact_mismatch";
+  if (input.testSplitStatus !== "not_frozen") return "blocked_artifact_mismatch";
+  return "ready_for_phase4";
+}
+
+export function resolveProductionReleaseGate(input: {
+  phase4Complete: boolean;
+  frozenTestExecuted: boolean;
+  realModelEvalPassed: boolean;
+  qualityGatePassed: boolean;
+}): "blocked_pending_phase4" | "blocked_pending_frozen_test" | "blocked_pending_real_model_eval" | "blocked_quality_gate" | "ready_for_production_candidate" {
+  if (!input.qualityGatePassed) return "blocked_quality_gate";
+  if (!input.phase4Complete) return "blocked_pending_phase4";
+  if (!input.frozenTestExecuted) return "blocked_pending_frozen_test";
+  if (!input.realModelEvalPassed) return "blocked_pending_real_model_eval";
+  return "ready_for_production_candidate";
 }

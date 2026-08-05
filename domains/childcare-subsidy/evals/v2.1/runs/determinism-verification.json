@@ -1,5 +1,11 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
+  "git_commit": "c283225b06477d97a3d477103360e5db3e04488c",
+  "dataset_version": "phase3-v2.1-human-reviewed",
+  "dataset_manifest_sha256": "42fb9a4624f16a30cd17e710385e0ba5fd3045914223bdac4f53a1aa8196e3c0",
+  "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
+  "model_provider": "test",
+  "review_status": "human_approved",
   "full_runs": 3,
   "stable": true,
   "prediction_fingerprints": [
@@ -7,7 +13,5 @@
     "e0042f254cd069005c27acc9d28c2fbdcb95e5978dbe3144be0680d096140326",
     "e0042f254cd069005c27acc9d28c2fbdcb95e5978dbe3144be0680d096140326"
   ],
-  "timing_fields_excluded": true,
-  "model_provider": "test",
-  "review_status": "pending_review"
+  "timing_fields_excluded": true
 }

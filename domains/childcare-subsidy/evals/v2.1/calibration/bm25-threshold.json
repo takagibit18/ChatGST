@@ -2,7 +2,7 @@
   "schema_version": 1,
   "calibration_id": "phase3-v21-train-bm25",
   "dataset": "retrieval.train.jsonl",
-  "train_sha256": "6b41a66ea7ef53f8920e6655231d07a6f091cf6bf0b02c66b6f94ca9962a2de5",
+  "train_sha256": "14b8b52ccc2da8b8cfb7559653afa985a4d659226c0663943cb2cb44db94de5b",
   "selection_rule": "require no-answer recall >= 1; max answer recall; tie max macro recall; tie max no-answer F1; tie lowest threshold",
   "calibration_status": "passed",
   "constraints": {

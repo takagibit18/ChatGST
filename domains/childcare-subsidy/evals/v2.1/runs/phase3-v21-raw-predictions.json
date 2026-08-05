@@ -1,14 +1,15 @@
 {
-  "schema_version": 1,
-  "run_id": "phase3-v21-provisional",
-  "generated_at": "2026-08-04T13:55:23.160Z",
-  "evaluation_status": "provisional",
-  "release_gate": "blocked_pending_human_review",
+  "schema_version": 2,
+  "run_id": "phase3-3-frozen-baseline",
+  "generated_at": "2026-08-05T09:54:58.053Z",
+  "evaluation_status": "human_reviewed",
+  "dataset_review_gate": "human_review_passed",
   "input_fingerprint": {
-    "dev_sha256": "dcce4b70ec82800f456a28431f69f6622b459e6b3a54f90120042672a2c405bc",
-    "regression_sha256": "0c80c17040578d49ba99df7a30e1891e0b469099fa09966f722d874310a955d1",
-    "calibration_sha256": "05e685feca665c4712f7f5e6d346e583749e4c98150337eb6a3272e0513f37d9",
-    "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce"
+    "dev_sha256": "fd27ec57ffd9d41fafbc7c18dbc7ea5b942e38abb9d409c641fa28ed5387c254",
+    "regression_sha256": "1fee04ddf25baf601b735c1db52e942dd3d91205a1a5abfee20b3a6390202502",
+    "calibration_sha256": "8dd477b3b33682e6945b174aaef636243af7b75aaa990a763841574886b83660",
+    "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
+    "dataset_manifest_sha256": "42fb9a4624f16a30cd17e710385e0ba5fd3045914223bdac4f53a1aa8196e3c0"
   },
   "prediction_fingerprint": "e0042f254cd069005c27acc9d28c2fbdcb95e5978dbe3144be0680d096140326",
   "config": {
@@ -155,18 +156,18 @@
         }
       ],
       "retrieval_ms": [
-        32.4606,
-        30.2402,
-        29.1458,
-        27.3512,
-        26.1815
+        131.9967,
+        145.5013,
+        91.2365,
+        123.4037,
+        119.4982
       ],
       "total_ms": [
-        32.476,
-        30.2581,
-        29.1564,
-        27.362,
-        26.194
+        132.097,
+        145.5341,
+        91.2663,
+        123.4378,
+        119.5288
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -190,7 +191,7 @@
         "toolCalls": 2,
         "inputTokens": 24,
         "outputTokens": 745,
-        "startedAt": 1785851712580
+        "startedAt": 1785923631188
       },
       "validation": {
         "repaired": false,
@@ -334,18 +335,18 @@
         }
       ],
       "retrieval_ms": [
-        25.3363,
-        23.9609,
-        23.6764,
-        21.6298,
-        25.0386
+        232.5205,
+        157.8536,
+        155.939,
+        342.5154,
+        264.5912
       ],
       "total_ms": [
-        25.3642,
-        23.9814,
-        23.6835,
-        21.6366,
-        25.0534
+        232.6088,
+        157.8941,
+        155.9624,
+        342.5411,
+        264.6143
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -369,7 +370,7 @@
         "toolCalls": 2,
         "inputTokens": 28,
         "outputTokens": 711,
-        "startedAt": 1785851712841
+        "startedAt": 1785923633337
       },
       "validation": {
         "repaired": false,
@@ -513,18 +514,18 @@
         }
       ],
       "retrieval_ms": [
-        23.8029,
-        25.0804,
-        26.5784,
-        23.8838,
-        24.6497
+        163.8009,
+        98.8758,
+        108.4892,
+        98.6817,
+        125.2122
       ],
       "total_ms": [
-        23.8129,
-        25.0936,
-        26.5916,
-        23.8922,
-        24.6574
+        163.8247,
+        98.8994,
+        108.514,
+        98.705,
+        125.2357
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -548,7 +549,7 @@
         "toolCalls": 2,
         "inputTokens": 29,
         "outputTokens": 284,
-        "startedAt": 1785851713083
+        "startedAt": 1785923634578
       },
       "validation": {
         "repaired": false,
@@ -692,18 +693,18 @@
         }
       ],
       "retrieval_ms": [
-        26.132,
-        25.6538,
-        26.4093,
-        24.4681,
-        25.4878
+        94.269,
+        70.1677,
+        109.6191,
+        110.4287,
+        94.1931
       ],
       "total_ms": [
-        26.145,
-        25.6644,
-        26.4186,
-        24.4794,
-        25.4977
+        94.296,
+        70.1899,
+        109.6419,
+        110.452,
+        94.2168
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -727,7 +728,7 @@
         "toolCalls": 2,
         "inputTokens": 25,
         "outputTokens": 732,
-        "startedAt": 1785851713317
+        "startedAt": 1785923635652
       },
       "validation": {
         "repaired": false,
@@ -871,18 +872,18 @@
         }
       ],
       "retrieval_ms": [
-        21.8309,
-        22.5515,
-        21.3791,
-        20.8859,
-        21.3081
+        64.9025,
+        70.1129,
+        86.1297,
+        87.9866,
+        94.807
       ],
       "total_ms": [
-        21.8418,
-        22.5636,
-        21.3904,
-        20.8941,
-        21.3164
+        64.9257,
+        70.1556,
+        86.1544,
+        88.0115,
+        94.8309
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -906,7 +907,7 @@
         "toolCalls": 2,
         "inputTokens": 32,
         "outputTokens": 606,
-        "startedAt": 1785851713547
+        "startedAt": 1785923636418
       },
       "validation": {
         "repaired": false,
@@ -1050,18 +1051,18 @@
         }
       ],
       "retrieval_ms": [
-        23.4375,
-        26.6159,
-        24.5789,
-        26.4385,
-        25.5929
+        130.2409,
+        110.996,
+        89.7155,
+        110.4479,
+        152.556
       ],
       "total_ms": [
-        23.4479,
-        26.6253,
-        24.5872,
-        26.4462,
-        25.6044
+        130.2661,
+        111.0203,
+        89.7384,
+        110.4723,
+        152.5821
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1082,7 +1083,7 @@
         "toolCalls": 2,
         "inputTokens": 31,
         "outputTokens": 69,
-        "startedAt": 1785851713796
+        "startedAt": 1785923637461
       },
       "validation": {
         "repaired": false,
@@ -1226,18 +1227,18 @@
         }
       ],
       "retrieval_ms": [
-        28.7029,
-        26.4154,
-        26.035,
-        26.2105,
-        24.1581
+        166.5369,
+        125.01,
+        170.6344,
+        145.2725,
+        127.4563
       ],
       "total_ms": [
-        28.7154,
-        26.4252,
-        26.0471,
-        26.2208,
-        24.1713
+        166.5821,
+        125.0341,
+        170.6581,
+        145.2976,
+        127.4795
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1261,7 +1262,7 @@
         "toolCalls": 2,
         "inputTokens": 30,
         "outputTokens": 711,
-        "startedAt": 1785851714022
+        "startedAt": 1785923638874
       },
       "validation": {
         "repaired": false,
@@ -1405,18 +1406,18 @@
         }
       ],
       "retrieval_ms": [
-        23.7383,
-        23.9073,
-        27.088,
-        26.331,
-        25.8729
+        74.8746,
+        67.789,
+        79.1552,
+        159.551,
+        91.3061
       ],
       "total_ms": [
-        23.789,
-        23.9184,
-        27.0956,
-        26.3426,
-        25.8838
+        74.977,
+        67.8065,
+        79.1714,
+        159.5772,
+        91.51
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1439,7 +1440,7 @@
         "toolCalls": 2,
         "inputTokens": 37,
         "outputTokens": 416,
-        "startedAt": 1785851714272
+        "startedAt": 1785923639897
       },
       "validation": {
         "repaired": false,
@@ -1583,18 +1584,18 @@
         }
       ],
       "retrieval_ms": [
-        24.5747,
-        24.0534,
-        25.0522,
-        25.8632,
-        25.4572
+        192.5433,
+        128.3609,
+        139.917,
+        184.4137,
+        152.9737
       ],
       "total_ms": [
-        24.5826,
-        24.0598,
-        25.0589,
-        25.8721,
-        25.4647
+        192.562,
+        128.3769,
+        139.9487,
+        184.4947,
+        152.9919
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1619,7 +1620,7 @@
         "toolCalls": 2,
         "inputTokens": 34,
         "outputTokens": 715,
-        "startedAt": 1785851714508
+        "startedAt": 1785923641087
       },
       "validation": {
         "repaired": false,
@@ -1763,18 +1764,18 @@
         }
       ],
       "retrieval_ms": [
-        24.0563,
-        24.8991,
-        22.9297,
-        24.0068,
-        22.4281
+        366.6403,
+        447.8374,
+        231.3676,
+        315.472,
+        146.7551
       ],
       "total_ms": [
-        24.0665,
-        24.9083,
-        22.9378,
-        24.0177,
-        22.4336
+        366.659,
+        447.8549,
+        231.3854,
+        315.4901,
+        146.7732
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1797,7 +1798,7 @@
         "toolCalls": 2,
         "inputTokens": 25,
         "outputTokens": 535,
-        "startedAt": 1785851714726
+        "startedAt": 1785923643667
       },
       "validation": {
         "repaired": false,
@@ -1941,18 +1942,18 @@
         }
       ],
       "retrieval_ms": [
-        24.3294,
-        24.0209,
-        25.1672,
-        27.226,
-        27.5801
+        195.9053,
+        189.9156,
+        248.8297,
+        289.4851,
+        280.3872
       ],
       "total_ms": [
-        24.3351,
-        24.0279,
-        25.1756,
-        27.234,
-        27.5899
+        195.9223,
+        189.9771,
+        248.8491,
+        290.6975,
+        280.4039
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -1976,7 +1977,7 @@
         "toolCalls": 2,
         "inputTokens": 26,
         "outputTokens": 479,
-        "startedAt": 1785851714970
+        "startedAt": 1785923646364
       },
       "validation": {
         "repaired": false,
@@ -2120,18 +2121,18 @@
         }
       ],
       "retrieval_ms": [
-        26.0936,
-        23.0675,
-        23.2874,
-        23.5532,
-        24.7391
+        164.5004,
+        170.378,
+        242.0649,
+        186.262,
+        213.3848
       ],
       "total_ms": [
-        26.1022,
-        23.0742,
-        23.2957,
-        23.5612,
-        24.7474
+        164.523,
+        170.3945,
+        242.0909,
+        186.2791,
+        213.4032
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2154,7 +2155,7 @@
         "toolCalls": 2,
         "inputTokens": 27,
         "outputTokens": 606,
-        "startedAt": 1785851715194
+        "startedAt": 1785923648144
       },
       "validation": {
         "repaired": false,
@@ -2298,18 +2299,18 @@
         }
       ],
       "retrieval_ms": [
-        23.8894,
-        24.394,
-        25.4323,
-        23.7904,
-        24.8506
+        137.183,
+        109.3491,
+        142.9989,
+        204.5465,
+        120.9372
       ],
       "total_ms": [
-        23.8973,
-        24.4017,
-        25.4375,
-        23.7959,
-        24.8603
+        137.2009,
+        109.3669,
+        144.5008,
+        204.5631,
+        120.9538
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2333,7 +2334,7 @@
         "toolCalls": 2,
         "inputTokens": 20,
         "outputTokens": 525,
-        "startedAt": 1785851715410
+        "startedAt": 1785923649364
       },
       "validation": {
         "repaired": false,
@@ -2477,18 +2478,18 @@
         }
       ],
       "retrieval_ms": [
-        25.9215,
-        26.649,
-        26.4215,
-        26.7885,
-        27.7927
+        161.5696,
+        217.5664,
+        195.6462,
+        132.9456,
+        371.7254
       ],
       "total_ms": [
-        25.9312,
-        26.6565,
-        26.431,
-        26.7978,
-        27.8027
+        161.5891,
+        217.5836,
+        195.6667,
+        132.9634,
+        371.7479
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2512,7 +2513,7 @@
         "toolCalls": 2,
         "inputTokens": 39,
         "outputTokens": 542,
-        "startedAt": 1785851715654
+        "startedAt": 1785923651280
       },
       "validation": {
         "repaired": false,
@@ -2656,18 +2657,18 @@
         }
       ],
       "retrieval_ms": [
-        25.7703,
-        25.2456,
-        23.8191,
-        23.1197,
-        25.3213
+        1056.6645,
+        174.0326,
+        212.3343,
+        114.4612,
+        154.1006
       ],
       "total_ms": [
-        25.777,
-        25.2565,
-        23.8248,
-        23.124,
-        25.3325
+        1056.6869,
+        174.0497,
+        212.3543,
+        114.4795,
+        154.1427
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2691,7 +2692,7 @@
         "toolCalls": 2,
         "inputTokens": 29,
         "outputTokens": 504,
-        "startedAt": 1785851715899
+        "startedAt": 1785923654594
       },
       "validation": {
         "repaired": false,
@@ -2835,18 +2836,18 @@
         }
       ],
       "retrieval_ms": [
-        20.236,
-        21.7425,
-        21.0922,
-        21.0536,
-        22.5871
+        202.7798,
+        149.4476,
+        163.7374,
+        190.8831,
+        143.0418
       ],
       "total_ms": [
-        20.2446,
-        21.7495,
-        21.0965,
-        21.064,
-        22.594
+        202.8001,
+        149.4666,
+        163.7544,
+        190.9122,
+        143.0592
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -2870,7 +2871,7 @@
         "toolCalls": 2,
         "inputTokens": 16,
         "outputTokens": 392,
-        "startedAt": 1785851716104
+        "startedAt": 1785923656014
       },
       "validation": {
         "repaired": false,
@@ -3014,18 +3015,18 @@
         }
       ],
       "retrieval_ms": [
-        24.9099,
-        23.7119,
-        26.7783,
-        25.1098,
-        23.3666
+        193.5188,
+        93.3105,
+        110.3653,
+        74.1262,
+        95.3758
       ],
       "total_ms": [
-        24.9188,
-        23.7181,
-        26.7886,
-        25.1164,
-        23.3776
+        193.5358,
+        93.3306,
+        110.3812,
+        74.1429,
+        95.399
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3048,7 +3049,7 @@
         "toolCalls": 2,
         "inputTokens": 20,
         "outputTokens": 685,
-        "startedAt": 1785851716331
+        "startedAt": 1785923657498
       },
       "validation": {
         "repaired": false,
@@ -3114,18 +3115,18 @@
         }
       ],
       "retrieval_ms": [
-        20.6231,
-        18.9416,
-        19.7953,
-        19.1024,
-        18.9829
+        66.3504,
+        63.9315,
+        84.9379,
+        90.3892,
+        59.1897
       ],
       "total_ms": [
-        20.6282,
-        18.9471,
-        19.8053,
-        19.1098,
-        18.9903
+        66.364,
+        63.9489,
+        84.9514,
+        90.406,
+        59.2057
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3148,7 +3149,7 @@
         "toolCalls": 2,
         "inputTokens": 17,
         "outputTokens": 711,
-        "startedAt": 1785851716541
+        "startedAt": 1785923658402
       },
       "validation": {
         "repaired": false,
@@ -3292,18 +3293,18 @@
         }
       ],
       "retrieval_ms": [
-        26.4735,
-        24.8952,
-        26.8261,
-        26.562,
-        24.9429
+        123.4642,
+        142.0637,
+        93.9665,
+        111.5692,
+        93.6536
       ],
       "total_ms": [
-        26.4902,
-        24.903,
-        26.8376,
-        26.5689,
-        24.9529
+        123.481,
+        142.0791,
+        93.9811,
+        111.5879,
+        93.674
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3327,7 +3328,7 @@
         "toolCalls": 2,
         "inputTokens": 19,
         "outputTokens": 824,
-        "startedAt": 1785851716792
+        "startedAt": 1785923659388
       },
       "validation": {
         "repaired": false,
@@ -3471,18 +3472,18 @@
         }
       ],
       "retrieval_ms": [
-        24.1633,
-        25.1491,
-        25.626,
-        25.6098,
-        24.4342
+        152.7944,
+        105.1177,
+        102.6192,
+        129.3859,
+        161.2734
       ],
       "total_ms": [
-        24.1819,
-        25.1564,
-        25.6361,
-        25.6157,
-        24.4403
+        152.8106,
+        105.1345,
+        102.6358,
+        129.4082,
+        161.2921
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3507,7 +3508,7 @@
         "toolCalls": 2,
         "inputTokens": 23,
         "outputTokens": 418,
-        "startedAt": 1785851717034
+        "startedAt": 1785923660768
       },
       "validation": {
         "repaired": false,
@@ -3651,18 +3652,18 @@
         }
       ],
       "retrieval_ms": [
-        24.709,
-        26.0905,
-        26.2038,
-        24.8881,
-        24.565
+        84.0526,
+        124.2792,
+        93.096,
+        106.2837,
+        122.3518
       ],
       "total_ms": [
-        24.7147,
-        26.1007,
-        26.2124,
-        24.8935,
-        24.5727
+        84.0692,
+        124.2969,
+        93.1144,
+        106.3003,
+        122.3702
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3685,7 +3686,7 @@
         "toolCalls": 2,
         "inputTokens": 23,
         "outputTokens": 685,
-        "startedAt": 1785851717265
+        "startedAt": 1785923661898
       },
       "validation": {
         "repaired": false,
@@ -3829,18 +3830,18 @@
         }
       ],
       "retrieval_ms": [
-        25.5909,
-        27.3807,
-        25.6896,
-        27.6333,
-        31.9482
+        215.6064,
+        204.9365,
+        209.5184,
+        422.2083,
+        108.0618
       ],
       "total_ms": [
-        25.5983,
-        27.3881,
-        25.701,
-        27.644,
-        31.9586
+        215.6232,
+        204.9547,
+        209.5343,
+        422.2253,
+        108.0799
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -3863,7 +3864,7 @@
         "toolCalls": 2,
         "inputTokens": 22,
         "outputTokens": 685,
-        "startedAt": 1785851717526
+        "startedAt": 1785923663811
       },
       "validation": {
         "repaired": false,
@@ -4007,18 +4008,18 @@
         }
       ],
       "retrieval_ms": [
-        26.8873,
-        26.9253,
-        26.2033,
-        26.3564,
-        26.276
+        130.1268,
+        136.0789,
+        122.0297,
+        79.6541,
+        151.115
       ],
       "total_ms": [
-        26.8975,
-        26.9331,
-        26.2142,
-        26.3668,
-        26.2838
+        130.1549,
+        136.106,
+        122.0524,
+        79.6766,
+        151.1367
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -4042,7 +4043,7 @@
         "toolCalls": 2,
         "inputTokens": 31,
         "outputTokens": 467,
-        "startedAt": 1785851717772
+        "startedAt": 1785923665419
       },
       "validation": {
         "repaired": false,
@@ -4186,18 +4187,18 @@
         }
       ],
       "retrieval_ms": [
-        22.1884,
-        21.7537,
-        21.6712,
-        20.9828,
-        23.4777
+        126.9245,
+        133.7575,
+        120.8913,
+        88.6711,
+        74.4181
       ],
       "total_ms": [
-        22.1942,
-        21.7636,
-        21.6802,
-        20.9877,
-        23.4839
+        127.1628,
+        133.7789,
+        120.9136,
+        88.6933,
+        74.4404
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -4212,7 +4213,7 @@
         "toolCalls": 2,
         "inputTokens": 17,
         "outputTokens": 69,
-        "startedAt": 1785851717985
+        "startedAt": 1785923666414
       },
       "validation": {
         "repaired": false,
@@ -4356,18 +4357,18 @@
         }
       ],
       "retrieval_ms": [
-        25.7396,
-        24.8165,
-        22.8407,
-        25.0901,
-        29.0639
+        249.2403,
+        222.5834,
+        135.9138,
+        99.037,
+        227.0069
       ],
       "total_ms": [
-        25.7482,
-        24.8238,
-        22.8465,
-        25.0964,
-        29.0706
+        249.2613,
+        222.6039,
+        135.9378,
+        99.0594,
+        227.0296
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -4388,7 +4389,7 @@
         "toolCalls": 2,
         "inputTokens": 24,
         "outputTokens": 69,
-        "startedAt": 1785851718207
+        "startedAt": 1785923667733
       },
       "validation": {
         "repaired": false,
@@ -4532,18 +4533,18 @@
         }
       ],
       "retrieval_ms": [
-        24.6911,
-        25.2647,
-        26.5061,
-        26.6471,
-        28.1648
+        147.1156,
+        130.3411,
+        105.1491,
+        94.1572,
+        117.7126
       ],
       "total_ms": [
-        24.6974,
-        25.2734,
-        26.5143,
-        26.6553,
-        28.1741
+        147.1356,
+        130.3634,
+        105.1737,
+        94.1832,
+        117.7351
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -4564,7 +4565,7 @@
         "toolCalls": 2,
         "inputTokens": 20,
         "outputTokens": 69,
-        "startedAt": 1785851718431
+        "startedAt": 1785923668731
       },
       "validation": {
         "repaired": false,
@@ -4708,18 +4709,18 @@
         }
       ],
       "retrieval_ms": [
-        24.3127,
-        24.8,
-        23.1021,
-        22.1391,
-        24.0613
+        158.9576,
+        107.9586,
+        132.2728,
+        81.1786,
+        59.2267
       ],
       "total_ms": [
-        24.3231,
-        24.8098,
-        23.1099,
-        22.146,
-        24.0689
+        158.9812,
+        107.9803,
+        132.2951,
+        81.2002,
+        59.2507
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -4740,7 +4741,7 @@
         "toolCalls": 2,
         "inputTokens": 19,
         "outputTokens": 69,
-        "startedAt": 1785851718643
+        "startedAt": 1785923669713
       },
       "validation": {
         "repaired": false,
@@ -4767,7 +4768,7 @@
         "toolCalls": 0,
         "inputTokens": 18,
         "outputTokens": 34,
-        "startedAt": 1785851718684
+        "startedAt": 1785923669829
       },
       "validation": {
         "repaired": false,
@@ -4794,7 +4795,7 @@
         "toolCalls": 0,
         "inputTokens": 23,
         "outputTokens": 34,
-        "startedAt": 1785851718685
+        "startedAt": 1785923669841
       },
       "validation": {
         "repaired": false,
@@ -4821,7 +4822,7 @@
         "toolCalls": 0,
         "inputTokens": 20,
         "outputTokens": 34,
-        "startedAt": 1785851718685
+        "startedAt": 1785923669855
       },
       "validation": {
         "repaired": false,
@@ -4965,18 +4966,18 @@
         }
       ],
       "retrieval_ms": [
-        27.5046,
-        24.9246,
-        25.0994,
-        25.3491,
-        24.3437
+        232.9524,
+        118.2092,
+        110.5608,
+        161.0434,
+        170.8354
       ],
       "total_ms": [
-        27.513,
-        24.9312,
-        25.1079,
-        25.3549,
-        24.3527
+        232.9756,
+        118.2317,
+        110.6166,
+        161.0708,
+        170.8637
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -4997,7 +4998,7 @@
         "toolCalls": 2,
         "inputTokens": 13,
         "outputTokens": 69,
-        "startedAt": 1785851718865
+        "startedAt": 1785923670979
       },
       "validation": {
         "repaired": false,
@@ -5141,18 +5142,18 @@
         }
       ],
       "retrieval_ms": [
-        24.7071,
-        26.1414,
-        26.6055,
-        25.7613,
-        25.5433
+        205.4075,
+        173.4538,
+        139.4638,
+        153.9382,
+        162.323
       ],
       "total_ms": [
-        24.7141,
-        26.1506,
-        26.6119,
-        25.768,
-        25.5523
+        205.4304,
+        173.4752,
+        139.4858,
+        153.9604,
+        162.3445
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -5173,7 +5174,7 @@
         "toolCalls": 2,
         "inputTokens": 17,
         "outputTokens": 69,
-        "startedAt": 1785851719086
+        "startedAt": 1785923672588
       },
       "validation": {
         "repaired": false,
@@ -5317,18 +5318,18 @@
         }
       ],
       "retrieval_ms": [
-        22.7465,
-        23.3572,
-        22.5387,
-        23.4081,
-        22.989
+        330.3637,
+        264.5482,
+        294.3578,
+        167.0938,
+        209.7008
       ],
       "total_ms": [
-        22.7545,
-        23.3641,
-        22.5456,
-        23.4147,
-        22.9953
+        330.3824,
+        264.5689,
+        294.3781,
+        167.1208,
+        209.7218
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -5349,7 +5350,7 @@
         "toolCalls": 2,
         "inputTokens": 12,
         "outputTokens": 69,
-        "startedAt": 1785851719307
+        "startedAt": 1785923675224
       },
       "validation": {
         "repaired": false,
@@ -5493,18 +5494,18 @@
         }
       ],
       "retrieval_ms": [
-        25.9653,
-        25.9583,
-        27.9056,
-        27.1995,
-        27.397
+        169.1515,
+        127.3441,
+        137.3384,
+        402.848,
+        208.3123
       ],
       "total_ms": [
-        25.9731,
-        25.9657,
-        27.9156,
-        27.2103,
-        27.412
+        169.1736,
+        127.3651,
+        137.3581,
+        402.8719,
+        208.3351
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -5528,7 +5529,7 @@
         "toolCalls": 2,
         "inputTokens": 17,
         "outputTokens": 899,
-        "startedAt": 1785851719533
+        "startedAt": 1785923677093
       },
       "validation": {
         "repaired": false,
@@ -5672,18 +5673,18 @@
         }
       ],
       "retrieval_ms": [
-        25.786,
-        27.3968,
-        27.9341,
-        26.4693,
-        24.9561
+        271.5755,
+        299.2831,
+        178.658,
+        271.9491,
+        125.0427
       ],
       "total_ms": [
-        25.7924,
-        27.4083,
-        27.9434,
-        26.4763,
-        24.9637
+        271.5988,
+        299.3049,
+        178.6773,
+        271.97,
+        125.0627
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -5704,7 +5705,7 @@
         "toolCalls": 2,
         "inputTokens": 18,
         "outputTokens": 69,
-        "startedAt": 1785851719793
+        "startedAt": 1785923679217
       },
       "validation": {
         "repaired": false,
@@ -5848,18 +5849,18 @@
         }
       ],
       "retrieval_ms": [
-        25.2725,
-        25.8072,
-        26.1379,
-        26.4242,
-        24.5805
+        101.7419,
+        149.6001,
+        135.6357,
+        105.7158,
+        121.6526
       ],
       "total_ms": [
-        25.2829,
-        25.8184,
-        26.1455,
-        26.4341,
-        24.5873
+        101.77,
+        149.6222,
+        135.6644,
+        105.7365,
+        121.6754
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -5883,7 +5884,7 @@
         "toolCalls": 2,
         "inputTokens": 24,
         "outputTokens": 395,
-        "startedAt": 1785851720016
+        "startedAt": 1785923680455
       },
       "validation": {
         "repaired": false,
@@ -6027,18 +6028,18 @@
         }
       ],
       "retrieval_ms": [
-        23.2745,
-        22.6847,
-        22.2045,
-        22.3971,
-        22.7901
+        138.9258,
+        137.2887,
+        103.4286,
+        136.7753,
+        206.2309
       ],
       "total_ms": [
-        23.2814,
-        22.6902,
-        22.2113,
-        22.4068,
-        22.796
+        138.9464,
+        137.3124,
+        103.4513,
+        136.7963,
+        206.2543
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -6062,7 +6063,7 @@
         "toolCalls": 2,
         "inputTokens": 16,
         "outputTokens": 265,
-        "startedAt": 1785851720221
+        "startedAt": 1785923681941
       },
       "validation": {
         "repaired": false,
@@ -6206,18 +6207,18 @@
         }
       ],
       "retrieval_ms": [
-        21.9425,
-        21.7993,
-        20.7449,
-        23.0467,
-        20.8191
+        92.6381,
+        278.9661,
+        80.7184,
+        71.1116,
+        73.0221
       ],
       "total_ms": [
-        21.9515,
-        21.8054,
-        20.751,
-        23.0551,
-        20.825
+        92.6613,
+        278.9884,
+        80.7493,
+        71.1683,
+        73.0444
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -6238,7 +6239,7 @@
         "toolCalls": 4,
         "inputTokens": 18,
         "outputTokens": 69,
-        "startedAt": 1785851720416
+        "startedAt": 1785923682924
       },
       "validation": {
         "repaired": false,
@@ -6382,18 +6383,18 @@
         }
       ],
       "retrieval_ms": [
-        24.3796,
-        24.9982,
-        25.5029,
-        25.0953,
-        24.0894
+        173.5111,
+        132.462,
+        200.7194,
+        252.1064,
+        114.7754
       ],
       "total_ms": [
-        24.3885,
-        25.0039,
-        25.5114,
-        25.1019,
-        24.0958
+        173.5316,
+        132.4837,
+        200.7446,
+        252.1289,
+        114.7977
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -6414,7 +6415,7 @@
         "toolCalls": 2,
         "inputTokens": 16,
         "outputTokens": 69,
-        "startedAt": 1785851720667
+        "startedAt": 1785923684457
       },
       "validation": {
         "repaired": false,
@@ -6558,18 +6559,18 @@
         }
       ],
       "retrieval_ms": [
-        22.2652,
-        23.2505,
-        22.7895,
-        24.0779,
-        22.7658
+        122.3464,
+        262.0566,
+        197.0481,
+        228.241,
+        363.5246
       ],
       "total_ms": [
-        22.2718,
-        23.256,
-        22.7962,
-        24.0881,
-        22.7773
+        122.3688,
+        262.0813,
+        197.0694,
+        228.265,
+        363.5475
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -6584,7 +6585,7 @@
         "toolCalls": 0,
         "inputTokens": 16,
         "outputTokens": 34,
-        "startedAt": 1785851720868
+        "startedAt": 1785923686494
       },
       "validation": {
         "repaired": false,
@@ -6611,7 +6612,7 @@
         "toolCalls": 0,
         "inputTokens": 8,
         "outputTokens": 34,
-        "startedAt": 1785851720869
+        "startedAt": 1785923686510
       },
       "validation": {
         "repaired": false,
@@ -6755,18 +6756,18 @@
         }
       ],
       "retrieval_ms": [
-        26.6338,
-        26.3257,
-        27.5746,
-        25.274,
-        23.2284
+        175.5452,
+        179.3628,
+        176.2221,
+        154.3975,
+        109.48
       ],
       "total_ms": [
-        26.641,
-        26.3331,
-        27.5842,
-        25.2828,
-        23.2344
+        175.7624,
+        179.3871,
+        176.2438,
+        154.4183,
+        109.5024
       ],
       "repeat_stable": true,
       "evidence_sufficient": true,
@@ -6789,7 +6790,7 @@
         "toolCalls": 2,
         "inputTokens": 11,
         "outputTokens": 574,
-        "startedAt": 1785851721051
+        "startedAt": 1785923687653
       },
       "validation": {
         "repaired": false,
@@ -6802,18 +6803,18 @@
       "predicted_behavior": "no_answer",
       "top_k": [],
       "retrieval_ms": [
-        15.8356,
-        17.2334,
-        16.1454,
-        18.901,
-        18.0068
+        82.7381,
+        77.1258,
+        86.671,
+        104.0875,
+        67.9693
       ],
       "total_ms": [
-        15.8452,
-        17.2439,
-        16.1537,
-        18.9102,
-        18.0158
+        82.7657,
+        77.1424,
+        86.6881,
+        104.1035,
+        67.9857
       ],
       "repeat_stable": true,
       "evidence_sufficient": false,
@@ -6828,7 +6829,7 @@
         "toolCalls": 2,
         "inputTokens": 11,
         "outputTokens": 69,
-        "startedAt": 1785851721228
+        "startedAt": 1785923688626
       },
       "validation": {
         "repaired": false,

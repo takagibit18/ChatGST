@@ -5,12 +5,12 @@ import { PiLocalRagRetrievalProvider, conversationScenarioV21Schema, retrievalEv
 import { createDefaultPolicyRuntime } from "@policy/runtime/index";
 import { loadRuntimeConfig } from "@policy/shared/index";
 import { runEvalV21Input } from "./eval-v2-1-runner.js";
+import { sha256, type DatasetManifest } from "./eval-v2-1-integrity.js";
 
 const root = resolve("domains/childcare-subsidy/evals/v2.1");
 const load = async <T>(path: string, parse: (value: unknown) => T) => (await readFile(path, "utf8")).split(/\r?\n/u).filter(Boolean).map((line) => parse(JSON.parse(line)));
 const devPath = resolve(root, "datasets/retrieval.dev.jsonl"), regressionPath = resolve(root, "datasets/regression-v1.jsonl");
 const devText = await readFile(devPath, "utf8"), regressionText = await readFile(regressionPath, "utf8");
-const canonicalText = (value: string) => value.replace(/\r\n/gu, "\n");
 const dev = devText.split(/\r?\n/u).filter(Boolean).map((line) => retrievalEvalCaseV21Schema.parse(JSON.parse(line)));
 const regression = regressionText.split(/\r?\n/u).filter(Boolean).map((line) => retrievalEvalCaseV21Schema.parse(JSON.parse(line)));
 const conversations = await load(resolve(root, "datasets/conversations.jsonl"), conversationScenarioV21Schema.parse);
@@ -19,11 +19,9 @@ const calibrationText = await readFile(resolve(root, "calibration/bm25-threshold
 const calibration = JSON.parse(calibrationText) as { calibration_status?: "passed" | "failed"; selected: { threshold: number } | null };
 if (calibration.calibration_status !== "passed" || !calibration.selected) throw new Error("calibration_constraints_not_met");
 const threshold = calibration.selected.threshold;
-let datasetReleaseGate = "blocked_pending_human_review";
-try {
-  const manifest = JSON.parse(await readFile(resolve(root, "dataset-manifest.json"), "utf8")) as { release_gate?: string };
-  if (manifest.release_gate) datasetReleaseGate = manifest.release_gate;
-} catch { /* manifest absent; keep default */ }
+const manifestText = await readFile(resolve(root, "dataset-manifest.json"), "utf8");
+const manifest = JSON.parse(manifestText) as DatasetManifest;
+const datasetReviewGate = manifest.dataset_review_gate ?? "blocked_pending_human_review";
 const provider = new PiLocalRagRetrievalProvider(resolve("knowledge/index"));
 const config = loadRuntimeConfig({ ...process.env, MODEL_PROVIDER: "test", RAINDROP_ENABLED: "false", RAINDROP_CAPTURE_CONTENT: "false", MAX_SESSION_TURNS: "100" });
 const { runtime } = createDefaultPolicyRuntime(config);
@@ -58,10 +56,10 @@ const stablePredictions = {
   safety: safetyPredictions,
 };
 const predictionFingerprint = createHash("sha256").update(JSON.stringify(stablePredictions)).digest("hex");
-const raw = { schema_version: 1, run_id: "phase3-v21-provisional", generated_at: new Date().toISOString(), evaluation_status: "provisional",
-  release_gate: datasetReleaseGate, input_fingerprint: { dev_sha256: createHash("sha256").update(canonicalText(devText)).digest("hex"),
-    regression_sha256: createHash("sha256").update(canonicalText(regressionText)).digest("hex"), calibration_sha256: createHash("sha256").update(canonicalText(calibrationText)).digest("hex"),
-    knowledge_snapshot_hash: provider.getStats().snapshot_hash }, prediction_fingerprint: predictionFingerprint,
+const raw = { schema_version: 2, run_id: "phase3-3-frozen-baseline", generated_at: new Date().toISOString(), evaluation_status: "human_reviewed",
+  dataset_review_gate: datasetReviewGate, input_fingerprint: { dev_sha256: sha256(devText),
+    regression_sha256: sha256(regressionText), calibration_sha256: sha256(calibrationText),
+    knowledge_snapshot_hash: provider.getStats().snapshot_hash, dataset_manifest_sha256: sha256(manifestText) }, prediction_fingerprint: predictionFingerprint,
   config: { threshold, calibration_status: calibration.calibration_status, warmups: 2, measured: 5, model_provider: "test" },
   retrieval_predictions: retrievalPredictions, conversation_predictions: conversationPredictions, safety_predictions: safetyPredictions };
 await mkdir(resolve(root, "runs"), { recursive: true });

@@ -12,7 +12,19 @@
       "base_tag": "phase3.3-frozen-baseline",
       "base_commit": "f6f033baac1231937de377a9383fdb3117743ff7",
       "snapshot_hash": "5cb48acc7cf21eb923d94cad259c7c2581a6b1621000530994ff3f3cff46541a",
-      "repeats_completed": 0
+      "repeats_completed": 0,
+      "governance_inventory": {
+        "input_documents": 6,
+        "effective_documents": null,
+        "quarantined_documents": 0,
+        "non_canonical_duplicates": 0,
+        "dedup_before": 6,
+        "dedup_after": 6,
+        "version_conflict_groups": null,
+        "region_bound_documents": null,
+        "chunks": null,
+        "status": "blocked_missing_frozen_source"
+      }
     },
     {
       "schema_version": 1,
@@ -546,7 +558,19 @@
         "cost_currency": "USD",
         "latency_scope": "local_test_provider_not_real_model"
       },
-      "completed_at": "2026-08-06T03:41:15.405Z"
+      "completed_at": "2026-08-06T03:41:15.405Z",
+      "governance_inventory": {
+        "input_documents": 47,
+        "effective_documents": 47,
+        "quarantined_documents": 0,
+        "non_canonical_duplicates": 0,
+        "dedup_before": 47,
+        "dedup_after": 47,
+        "version_conflict_groups": 0,
+        "region_bound_documents": 42,
+        "chunks": 458,
+        "status": "available"
+      }
     },
     {
       "schema_version": 1,
@@ -1082,7 +1106,19 @@
         "cost_currency": "USD",
         "latency_scope": "local_test_provider_not_real_model"
       },
-      "completed_at": "2026-08-06T03:43:05.378Z"
+      "completed_at": "2026-08-06T03:43:05.378Z",
+      "governance_inventory": {
+        "input_documents": 47,
+        "effective_documents": 41,
+        "quarantined_documents": 6,
+        "non_canonical_duplicates": 0,
+        "dedup_before": 41,
+        "dedup_after": 41,
+        "version_conflict_groups": 0,
+        "region_bound_documents": 41,
+        "chunks": 448,
+        "status": "available"
+      }
     },
     {
       "schema_version": 1,
@@ -1612,7 +1648,19 @@
         "cost_currency": "USD",
         "latency_scope": "local_test_provider_not_real_model"
       },
-      "completed_at": "2026-08-06T03:44:53.183Z"
+      "completed_at": "2026-08-06T03:44:53.183Z",
+      "governance_inventory": {
+        "input_documents": 47,
+        "effective_documents": 41,
+        "quarantined_documents": 6,
+        "non_canonical_duplicates": 2,
+        "dedup_before": 41,
+        "dedup_after": 39,
+        "version_conflict_groups": 0,
+        "region_bound_documents": 41,
+        "chunks": 449,
+        "status": "available"
+      }
     },
     {
       "schema_version": 1,
@@ -2142,7 +2190,19 @@
         "cost_currency": "USD",
         "latency_scope": "local_test_provider_not_real_model"
       },
-      "completed_at": "2026-08-06T03:46:27.090Z"
+      "completed_at": "2026-08-06T03:46:27.090Z",
+      "governance_inventory": {
+        "input_documents": 47,
+        "effective_documents": 41,
+        "quarantined_documents": 6,
+        "non_canonical_duplicates": 2,
+        "dedup_before": 41,
+        "dedup_after": 39,
+        "version_conflict_groups": 1,
+        "region_bound_documents": 41,
+        "chunks": 449,
+        "status": "available"
+      }
     }
   ],
   "completion": {

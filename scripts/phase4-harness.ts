@@ -632,7 +632,7 @@ async function createFrozenTest() {
   const sourceChunks = documents.flatMap((document) => chunker.chunk(document).map((chunk) => ({ document, chunk })))
     .filter(({ document, chunk }) => !usedChunkIds.has(chunk.chunk_id) && document.metadata.region_code !== "000000")
     .map(({ document, chunk }) => {
-      const sentence = chunk.content.split(/(?<=[。！？；])|\r?\n/gu).map((item) => item.replace(/^#{1,6}\s+/u, "").replace(/\*\*/gu, "").trim())
+      const sentence = chunk.content.split(/(?<=[。！？；])|\r?\n/gu).map((item) => item.trim())
         .find((item) => item.length >= 28 && item.length <= 180 && /[育儿补贴申请发放资格材料标准渠道]/u.test(item));
       return { document, chunk, sentence };
     })

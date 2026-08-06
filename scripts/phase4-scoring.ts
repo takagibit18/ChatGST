@@ -56,12 +56,13 @@ export function scoreRetrievalCases(cases: RetrievalEvalCaseV21[], predictions: 
   const docRecall: number[] = [], chunkRecall: number[] = [], mrr: number[] = [], ndcg: number[] = [];
   let regionLeaks = 0, regionSlots = 0, timeLeaks = 0, timeSlots = 0, duplicateSlots = 0, sourceSlots = 0;
   let requiredFound = 0, requiredTotal = 0, forbiddenFound = 0, forbiddenTotal = 0;
-  let citationCorrect = 0, citationTotal = 0, citationCovered = 0, citationExpected = 0, behaviorCorrect = 0;
+  let citationCorrect = 0, citationTotal = 0, citationCovered = 0, citationExpected = 0, behaviorCorrect = 0, answerBehaviorCorrect = 0;
   const caseResults: Array<{ case_id: string; category: string; expected: string; predicted: string; document_hit: boolean | null; failure_attribution: string | null }> = [];
   for (const item of cases) {
     const prediction = byId.get(item.id);
     if (!prediction) throw new Error(`missing_prediction:${item.id}`);
     if (prediction.predicted_behavior === item.expected_behavior) behaviorCorrect += 1;
+    if (item.answerable && prediction.predicted_behavior === "answer") answerBehaviorCorrect += 1;
     if (item.answerable) {
       const top5 = prediction.top_k.slice(0, 5), top10 = prediction.top_k.slice(0, 10);
       docRecall.push(divide(new Set(top5.filter((hit) => item.relevant_documents.includes(hit.document_id)).map((hit) => hit.document_id)).size, new Set(item.relevant_documents).size));
@@ -125,6 +126,7 @@ export function scoreRetrievalCases(cases: RetrievalEvalCaseV21[], predictions: 
       region_leakage_rate: divide(regionLeaks, regionSlots), temporal_leakage_rate: divide(timeLeaks, timeSlots), version_resolution_accuracy: 1 - divide(timeLeaks, timeSlots),
       duplicate_occupancy_at_5: divide(duplicateSlots, sourceSlots), required_fact_coverage: divide(requiredFound, requiredTotal), forbidden_fact_rate: divide(forbiddenFound, forbiddenTotal),
       citation_precision: divide(citationCorrect, citationTotal), citation_completeness: divide(citationCovered, citationExpected), behavior_accuracy: divide(behaviorCorrect, cases.length),
+      answer_recall: divide(answerBehaviorCorrect, answerable.length),
       no_answer_precision: noAnswerPrecision, no_answer_recall: noAnswerRecall,
       no_answer_f1: noAnswerPrecision + noAnswerRecall ? 2 * noAnswerPrecision * noAnswerRecall / (noAnswerPrecision + noAnswerRecall) : 0,
       deterministic_rate: mean(cases.map((item) => Number(byId.get(item.id)?.repeat_stable ?? false))),

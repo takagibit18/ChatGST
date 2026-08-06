@@ -878,7 +878,8 @@ async function executeFrozenRole(input: { role: string; config: Phase4Config; pr
   const metrics = first.metrics as { retrieval: ReturnType<typeof scoreRetrievalCases>; regression: ReturnType<typeof scoreRetrievalCases> | null;
     conversations: ReturnType<typeof scoreConversations>; safety: ReturnType<typeof scoreSafety> };
   const hardGates = { no_answer_recall: metrics.retrieval.metrics.no_answer_recall === 1, region_leakage: metrics.retrieval.metrics.region_leakage_rate === 0,
-    temporal_leakage: metrics.retrieval.metrics.temporal_leakage_rate === 0, stale_context_leakage: metrics.conversations.stale_context_leakage_rate === 0,
+    temporal_leakage: metrics.retrieval.metrics.temporal_leakage_rate === 0, conversation_completion: metrics.conversations.scenario_completion_rate === 1,
+    stale_context_leakage: metrics.conversations.stale_context_leakage_rate === 0,
     safety_critical_failures: metrics.safety.case_results.filter((item) => !item.passed).length === 0,
     regression_behavior: !metrics.regression || metrics.regression.behavior_correct === metrics.regression.cases,
     regression_no_answer_recall: !metrics.regression || metrics.regression.metrics.no_answer_recall === 1 };

@@ -57,6 +57,22 @@ export type PolicyRuntimeOptions = {
   skillLoader: SkillLoader;
   traceRecorderFactory: (context: { requestId: string; conversationId: string }) => TraceRecorder;
   testResponseSequence?: TestResponseSequence;
+  /** Phase 4 only: defaults preserve production behavior; disabled components are never candidate-eligible when high risk. */
+  experimentalAblation?: Partial<Record<
+    | "query_normalizer"
+    | "intent_classification"
+    | "region_hierarchy"
+    | "version_filtering"
+    | "evidence_sufficiency"
+    | "policy_bundle_compatibility"
+    | "claim_conflict_semantics"
+    | "citation_binding"
+    | "conversation_state"
+    | "stale_context_guard"
+    | "safety_precheck"
+    | "structured_response_validation",
+    boolean
+  >>;
   now?: () => Date;
 };
 
@@ -264,7 +280,17 @@ export class PolicyAgentRuntime {
     if (previous && previous.turn_count >= this.options.config.budget.maxSessionTurns) {
       throw new PolicyAssistantError("SESSION_TURN_LIMIT");
     }
-    let query = normalizePolicyQuery(input.message, previous);
+    const ablation = this.options.experimentalAblation ?? {};
+    const stateForQuery = ablation.conversation_state === false ? null : previous;
+    let query = normalizePolicyQuery(input.message, stateForQuery);
+    if (ablation.query_normalizer === false) query = { ...query, retrievalQuery: input.message.trim() };
+    if (ablation.intent_classification === false) query = { ...query, intent: "unknown", intentConfidence: "low" };
+    if (ablation.safety_precheck === false) query = { ...query, unsafe: false };
+    if (ablation.stale_context_guard === false && previous && typeof previous.confirmed_slots.region === "string") {
+      const stale = String(previous.confirmed_slots.region);
+      const staleCode = typeof previous.confirmed_slots.region_code === "string" ? previous.confirmed_slots.region_code : null;
+      query = { ...query, region: stale, regionCode: staleCode, comparisonRegions: [], regionResolution: "resolved" };
+    }
     const requestId = randomUUID();
     const usage: RuntimeUsage = {
       agentSteps: 0,
@@ -412,7 +438,7 @@ export class PolicyAgentRuntime {
               monitor("step", { step: "retrieval_quality", reason, initial_score: initialQuality.score, retry_score: retriedQuality.score, retry_used: retriedQuality.score >= initialQuality.score });
             }
           }
-          resolutions = await this.resolvePolicyVersions(query, effectiveDate, context);
+          resolutions = ablation.version_filtering === false ? [] : await this.resolvePolicyVersions(query, effectiveDate, context);
         }
         if (!semanticAssistUsed) {
           monitor("step", { step: "rewrite", ms: Date.now() - rewriteStart, reason: "skipped_high_confidence", rewritten: false, final_intent: query.intent, fallback: false });
@@ -441,10 +467,20 @@ export class PolicyAgentRuntime {
         }
         monitor("step", { step: "rerank", ms: Date.now() - rerankStart, candidates: hits.length, final: rankedHits.length });
         pack = buildEvidencePack({ query, effectiveDate, hits: rankedHits, resolutions });
-        const evidenceSufficiency = evaluateEvidenceSufficiency(input.message, query.intent, rankedHits, query.regionCode, {
+        const evaluatedEvidenceSufficiency = evaluateEvidenceSufficiency(input.message, query.intent, rankedHits, query.regionCode, {
           effectiveDate,
           comparisonRegions: query.comparisonRegions,
         });
+        const bundleConflictTypes = new Set(["disconnected_policy_bundle", "mixed_policy_lineage", "incompatible_policy_bundle"]);
+        const effectiveConflicts = evaluatedEvidenceSufficiency.conflicts.filter((conflict) =>
+          ablation.policy_bundle_compatibility === false ? !bundleConflictTypes.has(conflict.type) : true);
+        const evidenceSufficiency = {
+          ...evaluatedEvidenceSufficiency,
+          conflicts: effectiveConflicts,
+          sufficient: ablation.evidence_sufficiency === false
+            ? rankedHits.length > 0
+            : evaluatedEvidenceSufficiency.missing_claims.length === 0 && effectiveConflicts.length === 0,
+        };
         monitor("step", {
           step: "evidence_sufficiency",
           sufficient: evidenceSufficiency.sufficient,
@@ -466,7 +502,8 @@ export class PolicyAgentRuntime {
         if (localDecision?.verdict === "missing_info") {
           response = createOntologyMissingResponse(query, localDecision);
           validation = { repaired: false, fallback: false, issueCount: 0 };
-        } else if (pack.knowledge_gaps.some((gap) => gap.includes("版本冲突")) || evidenceSufficiency.conflicts.length > 0) {
+        } else if (ablation.claim_conflict_semantics !== false
+          && (pack.knowledge_gaps.some((gap) => gap.includes("版本冲突")) || evidenceSufficiency.conflicts.length > 0)) {
           response = deterministicSafeResponse(pack);
           validation = { repaired: false, fallback: true, issueCount: 0 };
         } else if (!evidenceSufficiency.sufficient) {
@@ -505,9 +542,11 @@ export class PolicyAgentRuntime {
         }
       }
       if (signal.aborted) throw new PolicyAssistantError("MODEL_TIMEOUT");
+      if (ablation.citation_binding === false) response = { ...response, sources: [] };
+      if (ablation.structured_response_validation === false) validation = { repaired: false, fallback: false, issueCount: 0 };
       usage.outputTokens = estimateTokens(response.answer_markdown + response.collapsibles.map((item) => item.content_markdown).join(""));
       const countsTowardLimit = !(validation.fallback && response.meta.answer_status === "safe_error");
-      if (countsTowardLimit) await this.saveSession(previous, input, query, response, pack, now);
+      if (countsTowardLimit && ablation.conversation_state !== false) await this.saveSession(previous, input, query, response, pack, now);
       await safeTrace(trace, {
         type: "request_end",
         request_id: requestId,

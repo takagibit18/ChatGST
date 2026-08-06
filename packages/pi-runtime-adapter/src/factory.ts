@@ -12,7 +12,7 @@ import { InMemorySessionStore } from "@policy/session/index";
 import type { RuntimeConfig } from "@policy/shared/index";
 import { createPolicyToolRegistry } from "@policy/tools/index";
 import { createTraceRecorder } from "@policy/tracing/index";
-import { PolicyAgentRuntime, type TestResponseSequence } from "./runtime.js";
+import { PolicyAgentRuntime, type PolicyRuntimeOptions, type TestResponseSequence } from "./runtime.js";
 import { SkillLoader } from "./skill-loader.js";
 
 function createRetrievalProvider(config: RuntimeConfig): RetrievalProvider {
@@ -48,6 +48,7 @@ export function createDefaultPolicyRuntime(config: RuntimeConfig, options?: {
   testResponseSequence?: TestResponseSequence;
   modelProviderFactory?: () => ModelProvider;
   retrievalProvider?: RetrievalProvider;
+  experimentalAblation?: PolicyRuntimeOptions["experimentalAblation"];
 }) {
   const retrieval = options?.retrievalProvider ?? createRetrievalProvider(config);
   const registry = createPolicyToolRegistry(retrieval, config);
@@ -72,6 +73,7 @@ export function createDefaultPolicyRuntime(config: RuntimeConfig, options?: {
       skillLoader: new SkillLoader(),
       traceRecorderFactory: (context) => createTraceRecorder(config.raindrop, context),
       ...(options?.testResponseSequence ? { testResponseSequence: options.testResponseSequence } : {}),
+      ...(options?.experimentalAblation ? { experimentalAblation: options.experimentalAblation } : {}),
     }),
     retrieval,
     registry,

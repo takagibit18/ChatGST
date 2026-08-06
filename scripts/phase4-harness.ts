@@ -167,12 +167,47 @@ function neutralizeGovernance(document: PolicyDocument, stage: SnapshotId): Poli
   return { ...document, metadata };
 }
 
+function rawFrontMatterField(text: string, field: string): string | null {
+  const match = new RegExp(`^${field}:\\s*(?:["']([^"']*)["']|([^\\r\\n]*))$`, "mu").exec(text);
+  return (match?.[1] ?? match?.[2])?.trim() || null;
+}
+
+async function rawK1Document(document: PolicyDocument): Promise<PolicyDocument> {
+  const source = await readFile(document.sourcePath, "utf8");
+  const rawRegion = rawFrontMatterField(source, "region") ?? "unknown";
+  const resolution = resolveAdministrativeRegion(rawRegion);
+  const region = resolution.status === "resolved" ? resolution.region : null;
+  const rawDate = rawFrontMatterField(source, "timestamp");
+  const date = rawDate && /^\d{4}-\d{2}-\d{2}$/u.test(rawDate) ? rawDate : "1900-01-01";
+  const metadata = structuredClone(document.metadata);
+  metadata.title = rawFrontMatterField(source, "title") ?? document.fileName;
+  metadata.region = rawRegion;
+  metadata.region_code = region?.code ?? "000000";
+  metadata.region_level = region?.level ?? "unknown";
+  metadata.parent_region_code = region?.parent_code ?? null;
+  metadata.applicable_region_codes = [region?.code ?? "000000"];
+  metadata.authority = "unknown";
+  metadata.publish_date = date;
+  metadata.effective_from = date;
+  metadata.effective_to = null;
+  metadata.status = "effective";
+  metadata.source_url = rawFrontMatterField(source, "resource") ?? "unknown";
+  metadata.document_kind = "unknown";
+  metadata.version_group = metadata.document_id;
+  metadata.version_priority = 0;
+  metadata.canonical_document_id = metadata.document_id;
+  metadata.duplicate_group_id = null;
+  metadata.source_priority = 0;
+  metadata.review_status = "approved";
+  metadata.quarantine_reasons = [];
+  return { ...document, metadata };
+}
+
 async function documentsFor(snapshot: SnapshotId): Promise<PolicyDocument[]> {
   if (snapshot === "K0") throw new Error("blocked_missing_frozen_source:K0 manifest references six unavailable local documents");
   if (snapshot === "K1") {
-    const locations = nationwideKnowledgeLocations();
-    const rawLocations = { ...locations, overridesPath: resolve("knowledge/metadata/.phase4-no-overrides.json") };
-    return (await loadPolicyDocuments(rawLocations, { includeQuarantined: true })).map((document) => neutralizeGovernance(document, snapshot));
+    const documents = await loadPolicyDocuments(nationwideKnowledgeLocations(), { includeQuarantined: true });
+    return Promise.all(documents.map(rawK1Document));
   }
   if (snapshot === "K2") return (await loadPolicyDocuments(nationwideKnowledgeLocations())).map((document) => neutralizeGovernance(document, snapshot));
   return (await loadPolicyDocuments(phase2NationwideKnowledgeLocations())).map((document) => neutralizeGovernance(document, snapshot));

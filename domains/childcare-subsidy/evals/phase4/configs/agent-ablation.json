@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "extends": "baseline.json",
+  "ablations": [
+    { "id": "A1", "component": "query_normalizer", "changed_variable": "agent.query_normalizer", "baseline_value": true, "experiment_value": false, "high_risk": false },
+    { "id": "A2", "component": "intent_classification", "changed_variable": "agent.intent_classification", "baseline_value": true, "experiment_value": false, "high_risk": false },
+    { "id": "A3", "component": "region_hierarchy", "changed_variable": "agent.region_hierarchy", "baseline_value": true, "experiment_value": false, "high_risk": true },
+    { "id": "A4", "component": "version_filtering", "changed_variable": "agent.version_filtering", "baseline_value": true, "experiment_value": false, "high_risk": true },
+    { "id": "A5", "component": "evidence_sufficiency", "changed_variable": "agent.evidence_sufficiency", "baseline_value": true, "experiment_value": false, "high_risk": false },
+    { "id": "A6", "component": "policy_bundle_compatibility", "changed_variable": "agent.policy_bundle_compatibility", "baseline_value": true, "experiment_value": false, "high_risk": false },
+    { "id": "A7", "component": "claim_conflict_semantics", "changed_variable": "agent.claim_conflict_semantics", "baseline_value": true, "experiment_value": false, "high_risk": false },
+    { "id": "A8", "component": "citation_binding", "changed_variable": "agent.citation_binding", "baseline_value": true, "experiment_value": false, "high_risk": false },
+    { "id": "A9", "component": "conversation_state", "changed_variable": "agent.conversation_state", "baseline_value": true, "experiment_value": false, "high_risk": false },
+    { "id": "A10", "component": "stale_context_guard", "changed_variable": "agent.stale_context_guard", "baseline_value": true, "experiment_value": false, "high_risk": true },
+    { "id": "A11", "component": "safety_precheck", "changed_variable": "agent.safety_precheck", "baseline_value": true, "experiment_value": false, "high_risk": true },
+    { "id": "A12", "component": "structured_response_validation", "changed_variable": "agent.structured_response_validation", "baseline_value": true, "experiment_value": false, "high_risk": false }
+  ]
+}

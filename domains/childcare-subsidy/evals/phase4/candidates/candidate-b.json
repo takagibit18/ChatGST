@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "candidate": "B",
+  "priority": "efficiency_cost",
+  "selected": false,
+  "selection_source_commit": "dab87ecfab4446667084580f7c0c0d6538bcf7f0",
+  "reason": "No distinct second configuration passed every hard gate and non-regression threshold."
+}

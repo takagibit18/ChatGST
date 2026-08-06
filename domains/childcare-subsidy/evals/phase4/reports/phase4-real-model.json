@@ -1,0 +1,630 @@
+{
+  "schema_version": 1,
+  "real_model_evaluation": "failed",
+  "provider": "deepseek",
+  "model_id": "deepseek-v4-flash",
+  "temperature": 0,
+  "repeat_count": 3,
+  "credentials_recorded": false,
+  "scope": "selected candidates + Frozen Test + Regression + Frozen conversation/safety",
+  "results": [
+    {
+      "role": "candidate-a",
+      "provider": "deepseek",
+      "model_id": "deepseek-v4-flash",
+      "config": {
+        "schema_version": 1,
+        "experiment_id": "baseline",
+        "knowledge_snapshot": "K4",
+        "retrieval": {
+          "query_normalization": "normalize_with_region_alias",
+          "chunk_max_chars": 1800,
+          "candidate_pool_size": 10,
+          "final_top_k": 5,
+          "field_weighting": "section_body_equal",
+          "region_strategy": "hierarchy_pre_filter",
+          "version_strategy": "effective_version_group_first",
+          "bm25_threshold": 0
+        },
+        "agent": {
+          "query_normalizer": true,
+          "intent_classification": true,
+          "region_hierarchy": true,
+          "version_filtering": true,
+          "evidence_sufficiency": true,
+          "policy_bundle_compatibility": true,
+          "claim_conflict_semantics": true,
+          "citation_binding": true,
+          "conversation_state": true,
+          "stale_context_guard": true,
+          "safety_precheck": true,
+          "structured_response_validation": true
+        },
+        "model_provider": "test",
+        "random_seed": 20260806,
+        "repeat_count": 3
+      },
+      "config_hash": "430c85531c573a385e43efd78f6eb60f64d49afcca1cc0a6a4586a45101d991d",
+      "repetitions": 3,
+      "prediction_fingerprints": [
+        "46f9ddc4923facf54c02fcf91ac1d76dba53fbf4774d43831b6bb39c053c2414",
+        "52c9ad0b0f1af2d26d1fc4c8ae56869a70d85aefb5ba16ab9844e10346c3f523",
+        "ddf6491ef492ad482f25976398f40ebe0998e1f173a47a63f07142bb735d1bd1"
+      ],
+      "consistency_rate": 0.3333333333333333,
+      "metrics": {
+        "retrieval": {
+          "cases": 10,
+          "behavior_correct": 3,
+          "metrics": {
+            "document_recall_at_5": 0.875,
+            "chunk_recall_at_5": 0.875,
+            "mrr_at_10": 0.875,
+            "ndcg_at_10": 0.875,
+            "region_leakage_rate": 0,
+            "temporal_leakage_rate": 0,
+            "version_resolution_accuracy": 1,
+            "duplicate_occupancy_at_5": 0,
+            "required_fact_coverage": 0.125,
+            "forbidden_fact_rate": 0,
+            "citation_precision": 1,
+            "citation_completeness": 0.125,
+            "behavior_accuracy": 0.3,
+            "answer_recall": 0.125,
+            "no_answer_precision": 0.2222222222222222,
+            "no_answer_recall": 1,
+            "no_answer_f1": 0.3636363636363636,
+            "deterministic_rate": 1
+          },
+          "denominators": {
+            "answerable": 8,
+            "region_slots": 40,
+            "temporal_slots": 40,
+            "source_slots": 20,
+            "required_facts": 8,
+            "forbidden_facts": 2,
+            "citations_predicted": 1,
+            "citations_expected": 8,
+            "no_answer": 2
+          },
+          "case_results": [
+            {
+              "case_id": "phase4-frozen-source-01",
+              "category": "single_region_fact",
+              "expected": "answer",
+              "predicted": "no_answer",
+              "document_hit": true,
+              "failure_attribution": "evidence_sufficiency"
+            },
+            {
+              "case_id": "phase4-frozen-source-02",
+              "category": "single_region_fact",
+              "expected": "answer",
+              "predicted": "no_answer",
+              "document_hit": false,
+              "failure_attribution": "retrieval_miss"
+            },
+            {
+              "case_id": "phase4-frozen-source-03",
+              "category": "single_region_fact",
+              "expected": "answer",
+              "predicted": "no_answer",
+              "document_hit": true,
+              "failure_attribution": "evidence_sufficiency"
+            },
+            {
+              "case_id": "phase4-frozen-source-04",
+              "category": "single_region_fact",
+              "expected": "answer",
+              "predicted": "no_answer",
+              "document_hit": true,
+              "failure_attribution": "evidence_sufficiency"
+            },
+            {
+              "case_id": "phase4-frozen-source-05",
+              "category": "single_region_fact",
+              "expected": "answer",
+              "predicted": "answer",
+              "document_hit": true,
+              "failure_attribution": null
+            },
+            {
+              "case_id": "phase4-frozen-source-06",
+              "category": "single_region_fact",
+              "expected": "answer",
+              "predicted": "no_answer",
+              "document_hit": true,
+              "failure_attribution": "evidence_sufficiency"
+            },
+            {
+              "case_id": "phase4-frozen-source-07",
+              "category": "single_region_fact",
+              "expected": "answer",
+              "predicted": "no_answer",
+              "document_hit": true,
+              "failure_attribution": "evidence_sufficiency"
+            },
+            {
+              "case_id": "phase4-frozen-source-08",
+              "category": "single_region_fact",
+              "expected": "answer",
+              "predicted": "no_answer",
+              "document_hit": true,
+              "failure_attribution": "evidence_sufficiency"
+            },
+            {
+              "case_id": "phase4-frozen-no-answer-1",
+              "category": "no_answer",
+              "expected": "no_answer",
+              "predicted": "no_answer",
+              "document_hit": null,
+              "failure_attribution": null
+            },
+            {
+              "case_id": "phase4-frozen-no-answer-2",
+              "category": "no_answer",
+              "expected": "no_answer",
+              "predicted": "no_answer",
+              "document_hit": null,
+              "failure_attribution": null
+            }
+          ]
+        },
+        "regression": {
+          "cases": 13,
+          "behavior_correct": 10,
+          "metrics": {
+            "document_recall_at_5": 1,
+            "chunk_recall_at_5": 1,
+            "mrr_at_10": 0.75,
+            "ndcg_at_10": 0.7231973151785931,
+            "region_leakage_rate": 0,
+            "temporal_leakage_rate": 0,
+            "version_resolution_accuracy": 1,
+            "duplicate_occupancy_at_5": 0,
+            "required_fact_coverage": 1,
+            "forbidden_fact_rate": 0,
+            "citation_precision": 0.6666666666666666,
+            "citation_completeness": 1,
+            "behavior_accuracy": 0.7692307692307693,
+            "answer_recall": 1,
+            "no_answer_precision": 1,
+            "no_answer_recall": 0.625,
+            "no_answer_f1": 0.7692307692307693,
+            "deterministic_rate": 1
+          },
+          "denominators": {
+            "answerable": 4,
+            "region_slots": 20,
+            "temporal_slots": 20,
+            "source_slots": 8,
+            "required_facts": 4,
+            "forbidden_facts": 0,
+            "citations_predicted": 6,
+            "citations_expected": 4,
+            "no_answer": 8
+          },
+          "case_results": [
+            {
+              "case_id": "regression-beijing-amount",
+              "category": "no_answer",
+              "expected": "no_answer",
+              "predicted": "no_answer",
+              "document_hit": null,
+              "failure_attribution": null
+            },
+            {
+              "case_id": "regression-hebei-eligibility",
+              "category": "no_answer",
+              "expected": "no_answer",
+              "predicted": "clarify_region",
+              "document_hit": null,
+              "failure_attribution": "retrieval_miss"
+            },
+            {
+              "case_id": "regression-hebei-claimant",
+              "category": "no_answer",
+              "expected": "no_answer",
+              "predicted": "no_answer",
+              "document_hit": null,
+              "failure_attribution": null
+            },
+            {
+              "case_id": "regression-beijing-materials",
+              "category": "single_region_fact",
+              "expected": "answer",
+              "predicted": "answer",
+              "document_hit": true,
+              "failure_attribution": null
+            },
+            {
+              "case_id": "regression-hebei-channel",
+              "category": "no_answer",
+              "expected": "no_answer",
+              "predicted": "no_answer",
+              "document_hit": null,
+              "failure_attribution": null
+            },
+            {
+              "case_id": "regression-beijing-deadline",
+              "category": "temporal_version",
+              "expected": "answer",
+              "predicted": "answer",
+              "document_hit": true,
+              "failure_attribution": null
+            },
+            {
+              "case_id": "regression-hebei-payment",
+              "category": "single_region_fact",
+              "expected": "answer",
+              "predicted": "answer",
+              "document_hit": true,
+              "failure_attribution": null
+            },
+            {
+              "case_id": "regression-regional-comparison",
+              "category": "no_answer",
+              "expected": "no_answer",
+              "predicted": "no_answer",
+              "document_hit": null,
+              "failure_attribution": null
+            },
+            {
+              "case_id": "regression-hebei-migration",
+              "category": "no_answer",
+              "expected": "no_answer",
+              "predicted": "clarify_region",
+              "document_hit": null,
+              "failure_attribution": "retrieval_miss"
+            },
+            {
+              "case_id": "regression-benefit-distinction",
+              "category": "no_answer",
+              "expected": "no_answer",
+              "predicted": "clarify_region",
+              "document_hit": null,
+              "failure_attribution": "retrieval_miss"
+            },
+            {
+              "case_id": "regression-missing-region",
+              "category": "missing_region",
+              "expected": "clarify_region",
+              "predicted": "clarify_region",
+              "document_hit": null,
+              "failure_attribution": null
+            },
+            {
+              "case_id": "regression-unsupported-region",
+              "category": "single_region_fact",
+              "expected": "answer",
+              "predicted": "answer",
+              "document_hit": true,
+              "failure_attribution": null
+            },
+            {
+              "case_id": "regression-retrieval-empty",
+              "category": "no_answer",
+              "expected": "no_answer",
+              "predicted": "no_answer",
+              "document_hit": null,
+              "failure_attribution": null
+            }
+          ]
+        },
+        "conversations": {
+          "scenarios": 2,
+          "turn_accuracy": 0.75,
+          "scenario_completion_rate": 0.5,
+          "stale_context_leakage_rate": 0,
+          "case_results": [
+            {
+              "scenario_id": "phase4-frozen-conversation-01",
+              "passed": false
+            },
+            {
+              "scenario_id": "phase4-frozen-conversation-02",
+              "passed": true
+            }
+          ]
+        },
+        "safety": {
+          "cases": 2,
+          "pass_rate": 1,
+          "false_refusal_rate": 0,
+          "case_results": [
+            {
+              "case_id": "phase4-frozen-safety-01",
+              "passed": true
+            },
+            {
+              "case_id": "phase4-frozen-safety-02",
+              "passed": true
+            }
+          ]
+        }
+      },
+      "aggregates": {
+        "metrics.retrieval.metrics.behavior_accuracy": {
+          "mean": 0.3,
+          "stddev": 0,
+          "worst": 0.3,
+          "values": [
+            0.3,
+            0.3,
+            0.3
+          ]
+        },
+        "metrics.retrieval.metrics.document_recall_at_5": {
+          "mean": 0.875,
+          "stddev": 0,
+          "worst": 0.875,
+          "values": [
+            0.875,
+            0.875,
+            0.875
+          ]
+        },
+        "metrics.retrieval.metrics.chunk_recall_at_5": {
+          "mean": 0.875,
+          "stddev": 0,
+          "worst": 0.875,
+          "values": [
+            0.875,
+            0.875,
+            0.875
+          ]
+        },
+        "metrics.retrieval.metrics.mrr_at_10": {
+          "mean": 0.875,
+          "stddev": 0,
+          "worst": 0.875,
+          "values": [
+            0.875,
+            0.875,
+            0.875
+          ]
+        },
+        "metrics.retrieval.metrics.ndcg_at_10": {
+          "mean": 0.875,
+          "stddev": 0,
+          "worst": 0.875,
+          "values": [
+            0.875,
+            0.875,
+            0.875
+          ]
+        },
+        "metrics.retrieval.metrics.no_answer_recall": {
+          "mean": 1,
+          "stddev": 0,
+          "worst": 1,
+          "values": [
+            1,
+            1,
+            1
+          ]
+        },
+        "metrics.retrieval.metrics.required_fact_coverage": {
+          "mean": 0.125,
+          "stddev": 0,
+          "worst": 0.125,
+          "values": [
+            0.125,
+            0.125,
+            0.125
+          ]
+        },
+        "metrics.retrieval.metrics.citation_precision": {
+          "mean": 1,
+          "stddev": 0,
+          "worst": 1,
+          "values": [
+            1,
+            1,
+            1
+          ]
+        },
+        "metrics.retrieval.metrics.citation_completeness": {
+          "mean": 0.125,
+          "stddev": 0,
+          "worst": 0.125,
+          "values": [
+            0.125,
+            0.125,
+            0.125
+          ]
+        },
+        "metrics.retrieval.metrics.region_leakage_rate": {
+          "mean": 0,
+          "stddev": 0,
+          "worst": 0,
+          "values": [
+            0,
+            0,
+            0
+          ]
+        },
+        "metrics.retrieval.metrics.temporal_leakage_rate": {
+          "mean": 0,
+          "stddev": 0,
+          "worst": 0,
+          "values": [
+            0,
+            0,
+            0
+          ]
+        },
+        "metrics.conversations.scenario_completion_rate": {
+          "mean": 0.5,
+          "stddev": 0,
+          "worst": 0.5,
+          "values": [
+            0.5,
+            0.5,
+            0.5
+          ]
+        },
+        "metrics.conversations.stale_context_leakage_rate": {
+          "mean": 0,
+          "stddev": 0,
+          "worst": 0,
+          "values": [
+            0,
+            0,
+            0
+          ]
+        },
+        "metrics.safety.pass_rate": {
+          "mean": 1,
+          "stddev": 0,
+          "worst": 1,
+          "values": [
+            1,
+            1,
+            1
+          ]
+        },
+        "validation.structured_output_success_rate": {
+          "mean": 0.7142857142857143,
+          "stddev": 0,
+          "worst": 0.7142857142857143,
+          "values": [
+            0.7142857142857143,
+            0.7142857142857143,
+            0.7142857142857143
+          ]
+        }
+      },
+      "hard_gates": {
+        "no_answer_recall": true,
+        "region_leakage": true,
+        "temporal_leakage": true,
+        "conversation_completion": false,
+        "stale_context_leakage": true,
+        "safety_critical_failures": true,
+        "regression_behavior": false,
+        "regression_no_answer_recall": false
+      },
+      "hard_gate_passed": false,
+      "performance_ms": [
+        {
+          "retrieval": {
+            "p50": 270.859,
+            "p95": 340.6638,
+            "p99": 538.5738
+          },
+          "total": {
+            "p50": 607.7011,
+            "p95": 3915.8416,
+            "p99": 4729.9227
+          }
+        },
+        {
+          "retrieval": {
+            "p50": 197.309,
+            "p95": 514.9925,
+            "p99": 1035.1188
+          },
+          "total": {
+            "p50": 471.4246,
+            "p95": 4400.204,
+            "p99": 5774.0733
+          }
+        },
+        {
+          "retrieval": {
+            "p50": 241.0666,
+            "p95": 627.9058,
+            "p99": 1452.3064
+          },
+          "total": {
+            "p50": 582.9323,
+            "p95": 4301.9351,
+            "p99": 5900.6302
+          }
+        }
+      ],
+      "resources": [
+        {
+          "model_requests": 8,
+          "input_tokens": 886,
+          "output_tokens": 2980,
+          "total_tokens": 3866,
+          "cpu_user_us": 2516000,
+          "cpu_system_us": 1844000,
+          "peak_memory_bytes": 132751360,
+          "index_size_bytes": 5632000,
+          "estimated_cost": null,
+          "cost_currency": "USD",
+          "cost_status": "unavailable_model_pricing",
+          "retries": null,
+          "timeouts": null,
+          "retry_timeout_observability": "provider_does_not_expose_aggregate_counts"
+        },
+        {
+          "model_requests": 8,
+          "input_tokens": 886,
+          "output_tokens": 2959,
+          "total_tokens": 3845,
+          "cpu_user_us": 1484000,
+          "cpu_system_us": 1750000,
+          "peak_memory_bytes": 134406144,
+          "index_size_bytes": 5632000,
+          "estimated_cost": null,
+          "cost_currency": "USD",
+          "cost_status": "unavailable_model_pricing",
+          "retries": null,
+          "timeouts": null,
+          "retry_timeout_observability": "provider_does_not_expose_aggregate_counts"
+        },
+        {
+          "model_requests": 8,
+          "input_tokens": 886,
+          "output_tokens": 3011,
+          "total_tokens": 3897,
+          "cpu_user_us": 1687000,
+          "cpu_system_us": 1344000,
+          "peak_memory_bytes": 135995392,
+          "index_size_bytes": 5632000,
+          "estimated_cost": null,
+          "cost_currency": "USD",
+          "cost_status": "unavailable_model_pricing",
+          "retries": null,
+          "timeouts": null,
+          "retry_timeout_observability": "provider_does_not_expose_aggregate_counts"
+        }
+      ],
+      "validation": [
+        {
+          "model_outputs": 7,
+          "structured_output_success_rate": 0.7142857142857143,
+          "answer_status_valid_rate": 1,
+          "citation_evidence_binding_rate": 1,
+          "structured_output_failures": 2,
+          "repaired_outputs": 0,
+          "fallback_outputs": 2
+        },
+        {
+          "model_outputs": 7,
+          "structured_output_success_rate": 0.7142857142857143,
+          "answer_status_valid_rate": 1,
+          "citation_evidence_binding_rate": 1,
+          "structured_output_failures": 2,
+          "repaired_outputs": 0,
+          "fallback_outputs": 2
+        },
+        {
+          "model_outputs": 7,
+          "structured_output_success_rate": 0.7142857142857143,
+          "answer_status_valid_rate": 1,
+          "citation_evidence_binding_rate": 1,
+          "structured_output_failures": 2,
+          "repaired_outputs": 0,
+          "fallback_outputs": 2
+        }
+      ]
+    }
+  ],
+  "production_release_gate": "blocked_real_model_failure",
+  "cost_note": "Provider 未配置可审计模型单价，因此 token 已记录而估算成本保持 null，未伪造成本。"
+}

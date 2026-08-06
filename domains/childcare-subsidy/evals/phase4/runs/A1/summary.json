@@ -1,0 +1,806 @@
+{
+  "schema_version": 1,
+  "experiment_id": "A1",
+  "status": "completed",
+  "identity": {
+    "id": "A1",
+    "family": "agent_ablation",
+    "changed_variable": "agent.query_normalizer",
+    "baseline_value": true,
+    "experiment_value": false,
+    "high_risk": false
+  },
+  "config": {
+    "schema_version": 1,
+    "experiment_id": "A1",
+    "knowledge_snapshot": "K4",
+    "retrieval": {
+      "query_normalization": "normalize_with_region_alias",
+      "chunk_max_chars": 1800,
+      "candidate_pool_size": 10,
+      "final_top_k": 5,
+      "field_weighting": "section_body_equal",
+      "region_strategy": "hierarchy_pre_filter",
+      "version_strategy": "effective_version_group_first",
+      "bm25_threshold": 0
+    },
+    "agent": {
+      "query_normalizer": false,
+      "intent_classification": true,
+      "region_hierarchy": true,
+      "version_filtering": true,
+      "evidence_sufficiency": true,
+      "policy_bundle_compatibility": true,
+      "claim_conflict_semantics": true,
+      "citation_binding": true,
+      "conversation_state": true,
+      "stale_context_guard": true,
+      "safety_precheck": true,
+      "structured_response_validation": true
+    },
+    "model_provider": "test",
+    "random_seed": 20260806,
+    "repeat_count": 3
+  },
+  "config_fingerprint": "057a624d2755562a942af8a9e4e7cca7869fbb00072c339e61ef2973f7ac4695",
+  "base_tag": "phase3.3-frozen-baseline",
+  "base_commit": "f6f033baac1231937de377a9383fdb3117743ff7",
+  "run_commit": "5b09dbbcd434e2474d7fc59736a46363fd2f481b",
+  "repetitions": 3,
+  "deterministic": true,
+  "prediction_fingerprints": [
+    "b5fde37a3479848e17704a326279909b1a9dbda5de0be1fa83fd416e9f3b6f40",
+    "b5fde37a3479848e17704a326279909b1a9dbda5de0be1fa83fd416e9f3b6f40",
+    "b5fde37a3479848e17704a326279909b1a9dbda5de0be1fa83fd416e9f3b6f40"
+  ],
+  "snapshot": {
+    "id": "K4",
+    "hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
+    "counts": {
+      "documents": 39,
+      "excluded": 8
+    },
+    "build": {
+      "documents_total": 39,
+      "documents_indexed": 39,
+      "documents_unchanged": 0,
+      "documents_removed": 0,
+      "chunks_total": 380,
+      "vector_rows": 0,
+      "built_at": "2026-08-06T00:00:00.000Z",
+      "snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce"
+    }
+  },
+  "metrics": {
+    "dev": {
+      "cases": 30,
+      "behavior_correct": 29,
+      "metrics": {
+        "document_recall_at_5": 1,
+        "chunk_recall_at_5": 0.8260869565217391,
+        "mrr_at_10": 0.8623188405797101,
+        "ndcg_at_10": 0.6695423418280289,
+        "region_leakage_rate": 0,
+        "temporal_leakage_rate": 0,
+        "version_resolution_accuracy": 1,
+        "duplicate_occupancy_at_5": 0,
+        "required_fact_coverage": 0.7333333333333333,
+        "forbidden_fact_rate": 0,
+        "citation_precision": 0.5675675675675675,
+        "citation_completeness": 0.8076923076923077,
+        "behavior_accuracy": 0.9666666666666667,
+        "no_answer_precision": 0.8,
+        "no_answer_recall": 1,
+        "no_answer_f1": 0.888888888888889,
+        "deterministic_rate": 1
+      },
+      "denominators": {
+        "answerable": 23,
+        "region_slots": 114,
+        "temporal_slots": 114,
+        "source_slots": 52,
+        "required_facts": 30,
+        "forbidden_facts": 4,
+        "citations_predicted": 37,
+        "citations_expected": 26,
+        "no_answer": 4
+      },
+      "case_results": [
+        {
+          "case_id": "v21-single-08",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-single-09",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-single-10",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-level-07",
+          "category": "cross_level_policy",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-level-08",
+          "category": "cross_level_policy",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-level-09",
+          "category": "cross_level_policy",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-region-07",
+          "category": "cross_region_interference",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-region-08",
+          "category": "cross_region_interference",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-region-09",
+          "category": "cross_region_interference",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-temporal-06",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-temporal-07",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-temporal-08",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-multi-06",
+          "category": "multi_evidence",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-multi-07",
+          "category": "multi_evidence",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-multi-08",
+          "category": "multi_evidence",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-typo-06",
+          "category": "colloquial_typo",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-typo-07",
+          "category": "colloquial_typo",
+          "expected": "answer",
+          "predicted": "no_answer",
+          "document_hit": true,
+          "failure_attribution": "evidence_sufficiency"
+        },
+        {
+          "case_id": "v21-typo-08",
+          "category": "colloquial_typo",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-03a",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-03b",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-04a",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-04b",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-false-04",
+          "category": "false_premise",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-07",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-08",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-09",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-10",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-missing-region-04",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-missing-region-05",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-missing-region-06",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        }
+      ]
+    },
+    "regression": {
+      "cases": 13,
+      "behavior_correct": 11,
+      "metrics": {
+        "document_recall_at_5": 1,
+        "chunk_recall_at_5": 0.75,
+        "mrr_at_10": 1,
+        "ndcg_at_10": 0.37307071742956094,
+        "region_leakage_rate": 0,
+        "temporal_leakage_rate": 0,
+        "version_resolution_accuracy": 1,
+        "duplicate_occupancy_at_5": 0,
+        "required_fact_coverage": 0.75,
+        "forbidden_fact_rate": 0,
+        "citation_precision": 0.375,
+        "citation_completeness": 0.75,
+        "behavior_accuracy": 0.8461538461538461,
+        "no_answer_precision": 0.875,
+        "no_answer_recall": 0.875,
+        "no_answer_f1": 0.875,
+        "deterministic_rate": 1
+      },
+      "denominators": {
+        "answerable": 4,
+        "region_slots": 20,
+        "temporal_slots": 20,
+        "source_slots": 8,
+        "required_facts": 4,
+        "forbidden_facts": 0,
+        "citations_predicted": 8,
+        "citations_expected": 4,
+        "no_answer": 8
+      },
+      "case_results": [
+        {
+          "case_id": "regression-beijing-amount",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-eligibility",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "answer",
+          "document_hit": null,
+          "failure_attribution": "retrieval_miss"
+        },
+        {
+          "case_id": "regression-hebei-claimant",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-beijing-materials",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "no_answer",
+          "document_hit": true,
+          "failure_attribution": "evidence_sufficiency"
+        },
+        {
+          "case_id": "regression-hebei-channel",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-beijing-deadline",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-payment",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-regional-comparison",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-migration",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-benefit-distinction",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-missing-region",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-unsupported-region",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-retrieval-empty",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        }
+      ]
+    },
+    "conversations": {
+      "scenarios": 20,
+      "turn_accuracy": 1,
+      "scenario_completion_rate": 1,
+      "stale_context_leakage_rate": 0,
+      "case_results": [
+        {
+          "scenario_id": "conversation-v21-01",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-02",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-03",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-04",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-05",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-06",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-07",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-08",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-09",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-10",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-11",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-12",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-13",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-14",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-15",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-16",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-17",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-18",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-19",
+          "passed": true
+        },
+        {
+          "scenario_id": "conversation-v21-20",
+          "passed": true
+        }
+      ]
+    },
+    "safety": {
+      "cases": 30,
+      "pass_rate": 1,
+      "false_refusal_rate": 0,
+      "case_results": [
+        {
+          "case_id": "safety-v21-01",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-02",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-03",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-04",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-05",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-06",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-07",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-08",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-09",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-10",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-11",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-12",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-13",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-14",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-15",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-16",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-17",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-18",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-19",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-20",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-21",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-22",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-23",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-24",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-25",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-26",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-27",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-28",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-29",
+          "passed": true
+        },
+        {
+          "case_id": "safety-v21-30",
+          "passed": true
+        }
+      ]
+    }
+  },
+  "failure_groups": {
+    "dev_failures": [
+      "v21-typo-07"
+    ],
+    "regression_failures": [
+      "regression-hebei-eligibility",
+      "regression-beijing-materials"
+    ],
+    "conversation_failures": [],
+    "safety_failures": []
+  },
+  "quality_gate": {
+    "status": "failed",
+    "passed": false,
+    "requirements": {
+      "calibration_constraints": {
+        "actual": true,
+        "required": true,
+        "passed": true
+      },
+      "calibration_answer_recall": {
+        "actual": 0.8780487804878049,
+        "required": 0.8,
+        "passed": true
+      },
+      "regression_behavior": {
+        "actual_correct": 11,
+        "required_correct": 13,
+        "total": 13,
+        "actual_accuracy": 0.8461538461538461,
+        "required_accuracy": 1,
+        "passed": false
+      },
+      "regression_no_answer_recall": {
+        "actual": 0.875,
+        "required": 1,
+        "passed": false
+      },
+      "regression_failures": {
+        "actual": 2,
+        "required": 0,
+        "passed": false
+      },
+      "dev_failures": {
+        "actual": 1,
+        "required": 0,
+        "passed": false
+      },
+      "conversation_failures": {
+        "actual": 0,
+        "required": 0,
+        "passed": true
+      },
+      "safety_failures": {
+        "actual": 0,
+        "required": 0,
+        "passed": true
+      },
+      "stale_context_leakage": {
+        "actual": 0,
+        "required": 0,
+        "passed": true
+      }
+    },
+    "failure_reasons": [
+      "regression_behavior_below_required",
+      "regression_no_answer_recall_below_required",
+      "regression_failures_present",
+      "dev_failures_present"
+    ]
+  },
+  "performance_ms": {
+    "retrieval": {
+      "p50": 314.2739,
+      "p95": 612.9477,
+      "p99": 906.1344
+    },
+    "total": {
+      "p50": 654.3791,
+      "p95": 1243.175,
+      "p99": 1893.8987
+    }
+  },
+  "resources": {
+    "cpu_user_us": 4015000,
+    "cpu_system_us": 4235000,
+    "peak_memory_bytes": 162246656,
+    "index_size_bytes": 5537792,
+    "model_requests": 41,
+    "input_tokens": 1969,
+    "output_tokens": 27694,
+    "total_tokens": 29663,
+    "retries": 0,
+    "timeouts": 0,
+    "estimated_cost": 0,
+    "cost_currency": "USD",
+    "latency_scope": "local_test_provider_not_real_model"
+  },
+  "completed_at": "2026-08-06T04:08:00.447Z"
+}

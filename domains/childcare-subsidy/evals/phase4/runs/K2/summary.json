@@ -1,0 +1,536 @@
+{
+  "schema_version": 1,
+  "experiment_id": "K2",
+  "status": "completed",
+  "identity": {
+    "id": "K2",
+    "family": "knowledge_governance",
+    "changed_variable": "knowledge_snapshot",
+    "baseline_value": "K4",
+    "experiment_value": "K2"
+  },
+  "config": {
+    "schema_version": 1,
+    "experiment_id": "K2",
+    "knowledge_snapshot": "K2",
+    "retrieval": {
+      "query_normalization": "normalize_with_region_alias",
+      "chunk_max_chars": 1800,
+      "candidate_pool_size": 10,
+      "final_top_k": 5,
+      "field_weighting": "section_body_equal",
+      "region_strategy": "hierarchy_pre_filter",
+      "version_strategy": "effective_version_group_first",
+      "bm25_threshold": 0
+    },
+    "agent": {
+      "query_normalizer": true,
+      "intent_classification": true,
+      "region_hierarchy": true,
+      "version_filtering": true,
+      "evidence_sufficiency": true,
+      "policy_bundle_compatibility": true,
+      "claim_conflict_semantics": true,
+      "citation_binding": true,
+      "conversation_state": true,
+      "stale_context_guard": true,
+      "safety_precheck": true,
+      "structured_response_validation": true
+    },
+    "model_provider": "test",
+    "random_seed": 20260806,
+    "repeat_count": 3
+  },
+  "config_fingerprint": "ca83e168c832cc6488b0076a6548bbdda3c9267f3a96b797b6d077fa7e2d44a9",
+  "base_tag": "phase3.3-frozen-baseline",
+  "base_commit": "f6f033baac1231937de377a9383fdb3117743ff7",
+  "run_commit": "0a88ad078af2e2b2e452927f44286f4d287b7b21",
+  "repetitions": 3,
+  "deterministic": true,
+  "prediction_fingerprints": [
+    "b62c5923fe6a280070adbad77ab6622262e46c0f301f55452b1dbf822a501453",
+    "b62c5923fe6a280070adbad77ab6622262e46c0f301f55452b1dbf822a501453",
+    "b62c5923fe6a280070adbad77ab6622262e46c0f301f55452b1dbf822a501453"
+  ],
+  "snapshot": {
+    "id": "K2",
+    "hash": "e1ef805453862afe1555d29e95f086cfb90e713f15107dbd54ffb0e7403d5ec7",
+    "counts": {
+      "documents": 41,
+      "excluded": 6
+    },
+    "build": {
+      "documents_total": 41,
+      "documents_indexed": 41,
+      "documents_unchanged": 0,
+      "documents_removed": 0,
+      "chunks_total": 449,
+      "vector_rows": 0,
+      "built_at": "2026-08-06T00:00:00.000Z",
+      "snapshot_hash": "e1ef805453862afe1555d29e95f086cfb90e713f15107dbd54ffb0e7403d5ec7"
+    }
+  },
+  "metrics": {
+    "dev": {
+      "cases": 30,
+      "behavior_correct": 25,
+      "metrics": {
+        "document_recall_at_5": 0.8913043478260869,
+        "chunk_recall_at_5": 0.6739130434782609,
+        "mrr_at_10": 0.758695652173913,
+        "ndcg_at_10": 0.5419578235524395,
+        "region_leakage_rate": 0,
+        "temporal_leakage_rate": 0,
+        "version_resolution_accuracy": 1,
+        "duplicate_occupancy_at_5": 0,
+        "required_fact_coverage": 0.5666666666666667,
+        "forbidden_fact_rate": 0,
+        "citation_precision": 0.43243243243243246,
+        "citation_completeness": 0.6153846153846154,
+        "behavior_accuracy": 0.8333333333333334,
+        "no_answer_precision": 0.4444444444444444,
+        "no_answer_recall": 1,
+        "no_answer_f1": 0.6153846153846153,
+        "deterministic_rate": 1
+      },
+      "denominators": {
+        "answerable": 23,
+        "region_slots": 114,
+        "temporal_slots": 114,
+        "source_slots": 75,
+        "required_facts": 30,
+        "forbidden_facts": 4,
+        "citations_predicted": 37,
+        "citations_expected": 26,
+        "no_answer": 4
+      },
+      "case_results": [
+        {
+          "case_id": "v21-single-08",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-single-09",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-single-10",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-level-07",
+          "category": "cross_level_policy",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-level-08",
+          "category": "cross_level_policy",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-level-09",
+          "category": "cross_level_policy",
+          "expected": "answer",
+          "predicted": "no_answer",
+          "document_hit": true,
+          "failure_attribution": "evidence_sufficiency"
+        },
+        {
+          "case_id": "v21-cross-region-07",
+          "category": "cross_region_interference",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-region-08",
+          "category": "cross_region_interference",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-region-09",
+          "category": "cross_region_interference",
+          "expected": "answer",
+          "predicted": "no_answer",
+          "document_hit": false,
+          "failure_attribution": "retrieval_miss"
+        },
+        {
+          "case_id": "v21-temporal-06",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-temporal-07",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-temporal-08",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-multi-06",
+          "category": "multi_evidence",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-multi-07",
+          "category": "multi_evidence",
+          "expected": "answer",
+          "predicted": "no_answer",
+          "document_hit": false,
+          "failure_attribution": "retrieval_miss"
+        },
+        {
+          "case_id": "v21-multi-08",
+          "category": "multi_evidence",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-typo-06",
+          "category": "colloquial_typo",
+          "expected": "answer",
+          "predicted": "no_answer",
+          "document_hit": true,
+          "failure_attribution": "evidence_sufficiency"
+        },
+        {
+          "case_id": "v21-typo-07",
+          "category": "colloquial_typo",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-typo-08",
+          "category": "colloquial_typo",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-03a",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-03b",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "no_answer",
+          "document_hit": true,
+          "failure_attribution": "evidence_sufficiency"
+        },
+        {
+          "case_id": "v21-para-04a",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-04b",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-false-04",
+          "category": "false_premise",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-07",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-08",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-09",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-10",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-missing-region-04",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-missing-region-05",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-missing-region-06",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        }
+      ]
+    },
+    "regression": {
+      "cases": 13,
+      "behavior_correct": 12,
+      "metrics": {
+        "document_recall_at_5": 1,
+        "chunk_recall_at_5": 1,
+        "mrr_at_10": 0.625,
+        "ndcg_at_10": 0.6230707174295609,
+        "region_leakage_rate": 0,
+        "temporal_leakage_rate": 0,
+        "version_resolution_accuracy": 1,
+        "duplicate_occupancy_at_5": 0,
+        "required_fact_coverage": 1,
+        "forbidden_fact_rate": 0,
+        "citation_precision": 0.16666666666666666,
+        "citation_completeness": 0.5,
+        "behavior_accuracy": 0.9230769230769231,
+        "no_answer_precision": 1,
+        "no_answer_recall": 0.875,
+        "no_answer_f1": 0.9333333333333333,
+        "deterministic_rate": 1
+      },
+      "denominators": {
+        "answerable": 4,
+        "region_slots": 20,
+        "temporal_slots": 20,
+        "source_slots": 14,
+        "required_facts": 4,
+        "forbidden_facts": 0,
+        "citations_predicted": 12,
+        "citations_expected": 4,
+        "no_answer": 8
+      },
+      "case_results": [
+        {
+          "case_id": "regression-beijing-amount",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-eligibility",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "answer",
+          "document_hit": null,
+          "failure_attribution": "retrieval_miss"
+        },
+        {
+          "case_id": "regression-hebei-claimant",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-beijing-materials",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-channel",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-beijing-deadline",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-payment",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-regional-comparison",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-migration",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-benefit-distinction",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-missing-region",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-unsupported-region",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-retrieval-empty",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        }
+      ]
+    },
+    "conversations": null,
+    "safety": null
+  },
+  "failure_groups": {
+    "dev_failures": [
+      "v21-cross-level-09",
+      "v21-cross-region-09",
+      "v21-multi-07",
+      "v21-typo-06",
+      "v21-para-03b"
+    ],
+    "regression_failures": [
+      "regression-hebei-eligibility"
+    ],
+    "conversation_failures": [],
+    "safety_failures": []
+  },
+  "quality_gate": null,
+  "performance_ms": {
+    "retrieval": {
+      "p50": 325.5722,
+      "p95": 972.8638,
+      "p99": 1533.6465
+    },
+    "total": {
+      "p50": 685.9617,
+      "p95": 2153.3564,
+      "p99": 3347.2805
+    }
+  },
+  "resources": {
+    "cpu_user_us": 3953000,
+    "cpu_system_us": 4062000,
+    "peak_memory_bytes": 128270336,
+    "index_size_bytes": 4640768,
+    "model_requests": 22,
+    "input_tokens": 876,
+    "output_tokens": 14099,
+    "total_tokens": 14975,
+    "retries": 0,
+    "timeouts": 0,
+    "estimated_cost": 0,
+    "cost_currency": "USD",
+    "latency_scope": "local_test_provider_not_real_model"
+  },
+  "completed_at": "2026-08-06T03:43:05.378Z"
+}

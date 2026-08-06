@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "base_tag": "phase3.3-frozen-baseline",
+  "base_commit": "f6f033baac1231937de377a9383fdb3117743ff7",
+  "repeat_count": 3,
+  "fixed_inputs": {
+    "gold": "domains/childcare-subsidy/evals/v2.1",
+    "knowledge_baseline": "K4",
+    "model_provider": "test",
+    "calibration_source": "retrieval.train.jsonl",
+    "quality_gate": "phase3.3-frozen"
+  },
+  "experiments": [
+    { "id": "K0", "family": "knowledge_governance", "changed_variable": "knowledge_snapshot", "baseline_value": "K4", "experiment_value": "K0", "config": "configs/k0.json" },
+    { "id": "K1", "family": "knowledge_governance", "changed_variable": "knowledge_snapshot", "baseline_value": "K4", "experiment_value": "K1", "config": "configs/k1.json" },
+    { "id": "K2", "family": "knowledge_governance", "changed_variable": "knowledge_snapshot", "baseline_value": "K4", "experiment_value": "K2", "config": "configs/k2.json" },
+    { "id": "K3", "family": "knowledge_governance", "changed_variable": "knowledge_snapshot", "baseline_value": "K4", "experiment_value": "K3", "config": "configs/k3.json" },
+    { "id": "K4", "family": "knowledge_governance", "changed_variable": "knowledge_snapshot", "baseline_value": "K4", "experiment_value": "K4", "config": "configs/k4.json" },
+    { "id": "R1", "family": "retrieval", "changed_variable": "retrieval.query_normalization", "baseline_value": "normalize_with_region_alias", "experiment_value": "raw", "config": "configs/r1.json" },
+    { "id": "R2", "family": "retrieval", "changed_variable": "retrieval.chunk_max_chars", "baseline_value": 1800, "experiment_value": 1000, "config": "configs/r2.json" },
+    { "id": "R3", "family": "retrieval", "changed_variable": "retrieval.final_top_k", "baseline_value": 5, "experiment_value": 3, "config": "configs/r3.json" },
+    { "id": "R4", "family": "retrieval", "changed_variable": "retrieval.field_weighting", "baseline_value": "section_body_equal", "experiment_value": "title_section_body", "config": "configs/r4.json" },
+    { "id": "R5", "family": "retrieval", "changed_variable": "retrieval.region_strategy", "baseline_value": "hierarchy_pre_filter", "experiment_value": "exact_region_pre_filter", "config": "configs/r5.json" },
+    { "id": "R6", "family": "retrieval", "changed_variable": "retrieval.version_strategy", "baseline_value": "effective_version_group_first", "experiment_value": "none", "config": "configs/r6.json" }
+  ],
+  "agent_ablations": "configs/agent-ablation.json"
+}

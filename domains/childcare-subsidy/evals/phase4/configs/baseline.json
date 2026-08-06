@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "experiment_id": "baseline",
+  "knowledge_snapshot": "K4",
+  "retrieval": {
+    "query_normalization": "normalize_with_region_alias",
+    "chunk_max_chars": 1800,
+    "candidate_pool_size": 10,
+    "final_top_k": 5,
+    "field_weighting": "section_body_equal",
+    "region_strategy": "hierarchy_pre_filter",
+    "version_strategy": "effective_version_group_first",
+    "bm25_threshold": 0
+  },
+  "agent": {
+    "query_normalizer": true,
+    "intent_classification": true,
+    "region_hierarchy": true,
+    "version_filtering": true,
+    "evidence_sufficiency": true,
+    "policy_bundle_compatibility": true,
+    "claim_conflict_semantics": true,
+    "citation_binding": true,
+    "conversation_state": true,
+    "stale_context_guard": true,
+    "safety_precheck": true,
+    "structured_response_validation": true
+  },
+  "model_provider": "test",
+  "random_seed": 20260806,
+  "repeat_count": 3
+}

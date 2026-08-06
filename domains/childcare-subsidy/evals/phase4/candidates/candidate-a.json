@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "candidate": "A",
+  "priority": "quality",
+  "selected": true,
+  "selection_source_commit": "dab87ecfab4446667084580f7c0c0d6538bcf7f0",
+  "id": "baseline",
+  "config": {
+    "schema_version": 1,
+    "experiment_id": "baseline",
+    "knowledge_snapshot": "K4",
+    "retrieval": {
+      "query_normalization": "normalize_with_region_alias",
+      "chunk_max_chars": 1800,
+      "candidate_pool_size": 10,
+      "final_top_k": 5,
+      "field_weighting": "section_body_equal",
+      "region_strategy": "hierarchy_pre_filter",
+      "version_strategy": "effective_version_group_first",
+      "bm25_threshold": 0
+    },
+    "agent": {
+      "query_normalizer": true,
+      "intent_classification": true,
+      "region_hierarchy": true,
+      "version_filtering": true,
+      "evidence_sufficiency": true,
+      "policy_bundle_compatibility": true,
+      "claim_conflict_semantics": true,
+      "citation_binding": true,
+      "conversation_state": true,
+      "stale_context_guard": true,
+      "safety_precheck": true,
+      "structured_response_validation": true
+    },
+    "model_provider": "test",
+    "random_seed": 20260806,
+    "repeat_count": 3
+  },
+  "config_hash": "430c85531c573a385e43efd78f6eb60f64d49afcca1cc0a6a4586a45101d991d",
+  "source_commit": "dab87ecfab4446667084580f7c0c0d6538bcf7f0",
+  "metrics": {
+    "document_recall_at_5": 1,
+    "chunk_recall_at_5": 0.9347826086956522,
+    "mrr_at_10": 0.8224637681159419,
+    "ndcg_at_10": 0.7288295630919888,
+    "region_leakage_rate": 0,
+    "temporal_leakage_rate": 0,
+    "version_resolution_accuracy": 1,
+    "duplicate_occupancy_at_5": 0,
+    "required_fact_coverage": 0.8,
+    "forbidden_fact_rate": 0,
+    "citation_precision": 0.55,
+    "citation_completeness": 0.8461538461538461,
+    "behavior_accuracy": 1,
+    "no_answer_precision": 1,
+    "no_answer_recall": 1,
+    "no_answer_f1": 1,
+    "deterministic_rate": 1
+  },
+  "performance_p95": 315.472,
+  "reason": "Phase 3.3 frozen baseline satisfies all hard gates and non-regression thresholds."
+}

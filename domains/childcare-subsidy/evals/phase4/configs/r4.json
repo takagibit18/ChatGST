@@ -1,0 +1,1 @@
+{ "schema_version": 1, "extends": "baseline.json", "experiment_id": "R4", "retrieval": { "field_weighting": "title_section_body" } }

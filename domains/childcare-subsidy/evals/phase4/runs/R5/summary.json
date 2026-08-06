@@ -1,0 +1,530 @@
+{
+  "schema_version": 1,
+  "experiment_id": "R5",
+  "status": "completed",
+  "identity": {
+    "id": "R5",
+    "family": "retrieval",
+    "changed_variable": "retrieval.region_strategy",
+    "baseline_value": "hierarchy_pre_filter",
+    "experiment_value": "exact_region_pre_filter"
+  },
+  "config": {
+    "schema_version": 1,
+    "experiment_id": "R5",
+    "knowledge_snapshot": "K4",
+    "retrieval": {
+      "query_normalization": "normalize_with_region_alias",
+      "chunk_max_chars": 1800,
+      "candidate_pool_size": 10,
+      "final_top_k": 5,
+      "field_weighting": "section_body_equal",
+      "region_strategy": "exact_region_pre_filter",
+      "version_strategy": "effective_version_group_first",
+      "bm25_threshold": 0
+    },
+    "agent": {
+      "query_normalizer": true,
+      "intent_classification": true,
+      "region_hierarchy": true,
+      "version_filtering": true,
+      "evidence_sufficiency": true,
+      "policy_bundle_compatibility": true,
+      "claim_conflict_semantics": true,
+      "citation_binding": true,
+      "conversation_state": true,
+      "stale_context_guard": true,
+      "safety_precheck": true,
+      "structured_response_validation": true
+    },
+    "model_provider": "test",
+    "random_seed": 20260806,
+    "repeat_count": 3
+  },
+  "config_fingerprint": "74b4399305d1bc134de483f7697a25d8e3cb617110ff3a91fda01e7ccf744752",
+  "base_tag": "phase3.3-frozen-baseline",
+  "base_commit": "f6f033baac1231937de377a9383fdb3117743ff7",
+  "run_commit": "0a88ad078af2e2b2e452927f44286f4d287b7b21",
+  "repetitions": 3,
+  "deterministic": true,
+  "prediction_fingerprints": [
+    "cd7cd5cc2081bdff565409e6e5caaf35a8301965685777669911614cbc009c26",
+    "cd7cd5cc2081bdff565409e6e5caaf35a8301965685777669911614cbc009c26",
+    "cd7cd5cc2081bdff565409e6e5caaf35a8301965685777669911614cbc009c26"
+  ],
+  "snapshot": {
+    "id": "K4",
+    "hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
+    "counts": {
+      "documents": 39,
+      "excluded": 8
+    },
+    "build": {
+      "documents_total": 39,
+      "documents_indexed": 39,
+      "documents_unchanged": 0,
+      "documents_removed": 0,
+      "chunks_total": 381,
+      "vector_rows": 0,
+      "built_at": "2026-08-06T00:00:00.000Z",
+      "snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce"
+    }
+  },
+  "metrics": {
+    "dev": {
+      "cases": 30,
+      "behavior_correct": 30,
+      "metrics": {
+        "document_recall_at_5": 1,
+        "chunk_recall_at_5": 0.8913043478260869,
+        "mrr_at_10": 0.8224637681159419,
+        "ndcg_at_10": 0.6731604271376171,
+        "region_leakage_rate": 0,
+        "temporal_leakage_rate": 0,
+        "version_resolution_accuracy": 1,
+        "duplicate_occupancy_at_5": 0,
+        "required_fact_coverage": 0.7666666666666667,
+        "forbidden_fact_rate": 0,
+        "citation_precision": 0.5365853658536586,
+        "citation_completeness": 0.8461538461538461,
+        "behavior_accuracy": 1,
+        "no_answer_precision": 1,
+        "no_answer_recall": 1,
+        "no_answer_f1": 1,
+        "deterministic_rate": 1
+      },
+      "denominators": {
+        "answerable": 23,
+        "region_slots": 114,
+        "temporal_slots": 114,
+        "source_slots": 50,
+        "required_facts": 30,
+        "forbidden_facts": 4,
+        "citations_predicted": 41,
+        "citations_expected": 26,
+        "no_answer": 4
+      },
+      "case_results": [
+        {
+          "case_id": "v21-single-08",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-single-09",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-single-10",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-level-07",
+          "category": "cross_level_policy",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-level-08",
+          "category": "cross_level_policy",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-level-09",
+          "category": "cross_level_policy",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-region-07",
+          "category": "cross_region_interference",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-region-08",
+          "category": "cross_region_interference",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-region-09",
+          "category": "cross_region_interference",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-temporal-06",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-temporal-07",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-temporal-08",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-multi-06",
+          "category": "multi_evidence",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-multi-07",
+          "category": "multi_evidence",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-multi-08",
+          "category": "multi_evidence",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-typo-06",
+          "category": "colloquial_typo",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-typo-07",
+          "category": "colloquial_typo",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-typo-08",
+          "category": "colloquial_typo",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-03a",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-03b",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-04a",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-04b",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-false-04",
+          "category": "false_premise",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-07",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-08",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-09",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-10",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-missing-region-04",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-missing-region-05",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-missing-region-06",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        }
+      ]
+    },
+    "regression": {
+      "cases": 13,
+      "behavior_correct": 12,
+      "metrics": {
+        "document_recall_at_5": 1,
+        "chunk_recall_at_5": 1,
+        "mrr_at_10": 0.75,
+        "ndcg_at_10": 0.7231973151785931,
+        "region_leakage_rate": 0,
+        "temporal_leakage_rate": 0,
+        "version_resolution_accuracy": 1,
+        "duplicate_occupancy_at_5": 0,
+        "required_fact_coverage": 1,
+        "forbidden_fact_rate": 0,
+        "citation_precision": 0.4444444444444444,
+        "citation_completeness": 1,
+        "behavior_accuracy": 0.9230769230769231,
+        "no_answer_precision": 1,
+        "no_answer_recall": 0.875,
+        "no_answer_f1": 0.9333333333333333,
+        "deterministic_rate": 1
+      },
+      "denominators": {
+        "answerable": 4,
+        "region_slots": 20,
+        "temporal_slots": 20,
+        "source_slots": 8,
+        "required_facts": 4,
+        "forbidden_facts": 0,
+        "citations_predicted": 9,
+        "citations_expected": 4,
+        "no_answer": 8
+      },
+      "case_results": [
+        {
+          "case_id": "regression-beijing-amount",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-eligibility",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "answer",
+          "document_hit": null,
+          "failure_attribution": "retrieval_miss"
+        },
+        {
+          "case_id": "regression-hebei-claimant",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-beijing-materials",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-channel",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-beijing-deadline",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-payment",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-regional-comparison",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-migration",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-benefit-distinction",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-missing-region",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-unsupported-region",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-retrieval-empty",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        }
+      ]
+    },
+    "conversations": null,
+    "safety": null
+  },
+  "failure_groups": {
+    "dev_failures": [],
+    "regression_failures": [
+      "regression-hebei-eligibility"
+    ],
+    "conversation_failures": [],
+    "safety_failures": []
+  },
+  "quality_gate": null,
+  "performance_ms": {
+    "retrieval": {
+      "p50": 368.8682,
+      "p95": 670.3791,
+      "p99": 1111.821
+    },
+    "total": {
+      "p50": 804.7272,
+      "p95": 1558.1657,
+      "p99": 2334.4557
+    }
+  },
+  "resources": {
+    "cpu_user_us": 3453000,
+    "cpu_system_us": 4078000,
+    "peak_memory_bytes": 88125440,
+    "index_size_bytes": 5537792,
+    "model_requests": 26,
+    "input_tokens": 876,
+    "output_tokens": 16342,
+    "total_tokens": 17218,
+    "retries": 0,
+    "timeouts": 0,
+    "estimated_cost": 0,
+    "cost_currency": "USD",
+    "latency_scope": "local_test_provider_not_real_model"
+  },
+  "completed_at": "2026-08-06T03:55:21.854Z"
+}

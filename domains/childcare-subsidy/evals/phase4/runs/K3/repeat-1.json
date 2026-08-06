@@ -1,0 +1,3575 @@
+{
+  "manifest": {
+    "schema_version": 1,
+    "experiment_id": "K3",
+    "experiment_family": "knowledge_governance",
+    "base_tag": "phase3.3-frozen-baseline",
+    "base_commit": "f6f033baac1231937de377a9383fdb3117743ff7",
+    "run_commit": "0a88ad078af2e2b2e452927f44286f4d287b7b21",
+    "dataset_manifest_sha256": "42fb9a4624f16a30cd17e710385e0ba5fd3045914223bdac4f53a1aa8196e3c0",
+    "knowledge_snapshot_hash": "39add1580f9566d52e462c9635d9b75816724dd408622520ea4fac7e8c3d87a5",
+    "calibration_sha256": "8dd477b3b33682e6945b174aaef636243af7b75aaa990a763841574886b83660",
+    "changed_variable": "knowledge_snapshot",
+    "baseline_value": "K4",
+    "experiment_value": "K3",
+    "fixed_variables": {
+      "gold": "phase3.3-human-reviewed",
+      "quality_gate": "phase3.3-frozen",
+      "repeat_count": 3,
+      "node_major": 24,
+      "model_provider": "test"
+    },
+    "model_provider": "test",
+    "model_id": "TestModelProvider",
+    "random_seed": 20260806,
+    "repeat_index": 1,
+    "started_at": "2026-08-06T03:43:05.383Z",
+    "completed_at": "2026-08-06T03:43:37.627Z",
+    "config_fingerprint": "972c997c7794c854350f2d5342cbc6087db96258eeb6b164a1f053408f29f573",
+    "prediction_fingerprint": "8d0f40e2ca539776f4184b2f85a1b6c9cdced9600ce88a9b308c1c24db34ef40"
+  },
+  "config": {
+    "schema_version": 1,
+    "experiment_id": "K3",
+    "knowledge_snapshot": "K3",
+    "retrieval": {
+      "query_normalization": "normalize_with_region_alias",
+      "chunk_max_chars": 1800,
+      "candidate_pool_size": 10,
+      "final_top_k": 5,
+      "field_weighting": "section_body_equal",
+      "region_strategy": "hierarchy_pre_filter",
+      "version_strategy": "effective_version_group_first",
+      "bm25_threshold": 0
+    },
+    "agent": {
+      "query_normalizer": true,
+      "intent_classification": true,
+      "region_hierarchy": true,
+      "version_filtering": true,
+      "evidence_sufficiency": true,
+      "policy_bundle_compatibility": true,
+      "claim_conflict_semantics": true,
+      "citation_binding": true,
+      "conversation_state": true,
+      "stale_context_guard": true,
+      "safety_precheck": true,
+      "structured_response_validation": true
+    },
+    "model_provider": "test",
+    "random_seed": 20260806,
+    "repeat_count": 3
+  },
+  "predictions": {
+    "retrieval": [
+      {
+        "case_id": "v21-single-08",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "呼和浩特市_政策规章_育儿补贴申请“一件事”_72",
+            "chunk_id": "呼和浩特市_政策规章_育儿补贴申请“一件事”_72:ded1dc23749256e327c6",
+            "region_code": "150100",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 20.82680751,
+            "authority": "呼和浩特市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "呼和浩特市_政策规章_育儿补贴申请“一件事”_72",
+            "version_priority": 0
+          },
+          {
+            "document_id": "呼和浩特市_政策规章_育儿补贴申请“一件事”_72",
+            "chunk_id": "呼和浩特市_政策规章_育儿补贴申请“一件事”_72:64236f50c99d2a1d9fff",
+            "region_code": "150100",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 17.58793749,
+            "authority": "呼和浩特市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "呼和浩特市_政策规章_育儿补贴申请“一件事”_72",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 6.33492151,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 6.03857293,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "内蒙古自治区_办事指南_育儿补贴申请“一件事”_18",
+            "chunk_id": "内蒙古自治区_办事指南_育儿补贴申请“一件事”_18:9aaa0d1e86419c01a1dc",
+            "region_code": "150000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 4.02856811,
+            "authority": "内蒙古自治区卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "内蒙古自治区_办事指南_育儿补贴申请“一件事”_18",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "视情况。户籍迁入后如当年度尚未在原户籍地提交申请，可按迁入地规则办理；发现重复申领时会先核实，不能重复领取。\n- **部门文件_ 呼和浩特市卫生健康委员会门户网站**：---\ntype: 政策规章\ntitle: 部门文件_\n呼和浩特市卫生健康委员会门户网站\nstatus: verified\ndescription: 根据《呼和浩特市人民政府关于促进人口集聚推动人口高质量发展的实施意见》（呼政发〔2025〕7号）文件精神，发放育儿补贴实施细则如下： 一、资格认定 （一）享受条件 1.符合《内蒙古自治区人口与计划生育条例》规定生育子女的； 2.2025年3月1日之后（含3月1日）合法生育的家庭； 3.夫妻双方户籍地均为呼和浩特市或一方户籍地为呼和浩特市，在呼和浩特市居住、工作、生活，\n- **第九条**：第九条申领人主要通过育儿补贴信息管理系统线上申请，也可到婴幼儿户籍所在地乡镇政府（街道办事处）现场申请。\n\n申领人是儿童福利机构的，应到机构登记所在地乡镇政府（街道办事处）现场申请。\n- **第七条**：第七条 育儿补贴具体申请程序如下：\n\n（一）申请。申领人填写婴幼儿及申领人有关信息，提供婴幼儿的出生医学证明、居民户口簿等基础材料，并根据需要提供有助于判定申领人和婴幼儿之间抚养关系的法定有效材料。\n\n（二）初审。婴幼儿户籍所在地乡镇政府（街道办事处）收到申领人申请后应及时进行初审。符合条件的予以通过，并报县级卫生健康部门审核；不符合条件的，应当及时告知申领人并做好政策解释。村（居）民委员会协助做好有关工作。\n\n（三）审核确认。县级卫生健康部门对乡镇政府（街道办事处）提交的申请材料进行审核，确认补贴发放对象名单，并\n> [部门文件_ 呼和浩特市卫生健康委员会门户网站](http://wjw.huhhot.gov.cn/slh/bmwjslh/202503/t20250313_1858762.html)\n\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)",
+        "citations": [
+          "呼和浩特市_政策规章_育儿补贴申请“一件事”_72",
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+        ]
+      },
+      {
+        "case_id": "v21-single-09",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+            "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:8f2fe88adbd7a96eba2c",
+            "region_code": "350000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 44.70586856,
+            "authority": "福建省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "福建省_官方解读_育儿补贴申请“一件事”_24",
+            "version_priority": 0
+          },
+          {
+            "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:2d07b11c438d5c4c1d68",
+            "region_code": "350000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 10.79561424,
+            "authority": "福建省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "version_priority": 0
+          },
+          {
+            "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:9bb4b4aa5ca9742d6c55",
+            "region_code": "350000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 4.65926214,
+            "authority": "福建省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "version_priority": 0
+          },
+          {
+            "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:c88167bb12190cc2e05b",
+            "region_code": "350000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 4.22596422,
+            "authority": "福建省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 1.36177391,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "可以查询福建省育儿补贴的金额、资格、材料、渠道、时限与发放规则。请选择想了解的内容。\n- **三、育儿补贴的对象是哪些人？**：**三、育儿补贴的对象是哪些人？**\n\n补贴对象为从2025年1月1日起，符合法律、法规规定生育或收养且户籍在福建省行政区域内的3周岁以下婴幼儿。\n\n符合法律法规规定生育双（多）胞胎子女的，同胎次子女均可享受育儿补贴。比如，第一胎为一孩，第二胎为三胞胎，第二胎的三个孩子均可享受育儿补贴，第三胎不能享受。又如，第一胎为双胞胎，第二胎同为双胞胎，第二胎的两个孩子均可享受育儿补贴。再比如，第一胎为三胞胎，第二胎为一胞胎，第二胎开始不能享受育儿补贴。\n- **福建省育儿补贴制度实施方案**：各市、县（区）卫健委（局）、财政局，平潭综合实验区社会事业局、财政金融局：\n\n《福建省育儿补贴制度实施方案》现予印发，请遵照执行。\n\n福建省卫生健康委员会 福建省财政厅\n\n2025年12月1日\n\n（此件主动公开）\n- **福建省育儿补贴制度实施方案**：（三）补贴发放渠道。发放渠道为申领人或婴幼儿的银行卡或其他金融账户。补贴资金通过省级财政部门的惠民惠农“一卡通”统一发放，原则上使用国库集中支付系统批量支付方式发放。\n\n五、管理和监督\n\n（一）资金管理。中央和省级财政育儿补贴补助资金作为共同财政事权转移支付项目管理，各级财政应按规定足额安排补助资金，确保补贴及时发放到位。\n\n（二）信息管理。使用全国统一的育儿补贴信息管理系统，强化部门之间信息共享。建立信息共享比对工作机制，充分利用公安、民政、人力资源社会保障、卫生健康等多方面人口基础信息，做好信息收集、处理、校对\n> [《福建省育儿补贴制度实施方案》政策解读](https://wjw.fujian.gov.cn/xxgk/fgwj/zcjd/bmzcjd/202512/t20251212_7045529.htm)\n\n> [福建省育儿补贴制度实施方案](https://wjw.fujian.gov.cn/xxgk/zfxxgkzl/zc/bwgfxwj/202512/t20251212_7045743.htm)",
+        "citations": [
+          "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "福建省_政策规章_育儿补贴申请“一件事”_23"
+        ]
+      },
+      {
+        "case_id": "v21-single-10",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:029004a9e964bfc9b5b4",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 36.55885132,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+            "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:be05580ccd9de328816b",
+            "region_code": "540000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 35.63427457,
+            "authority": "西藏自治区卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+            "version_priority": 0
+          },
+          {
+            "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+            "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:5e53d1a9f5e09fd00e10",
+            "region_code": "540000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 16.37935421,
+            "authority": "西藏自治区卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+            "version_priority": 0
+          },
+          {
+            "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+            "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:ac7da4101013b0238ed3",
+            "region_code": "540000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 14.34577224,
+            "authority": "西藏自治区卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+            "version_priority": 0
+          },
+          {
+            "document_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+            "chunk_id": "西藏自治区_政策规章_育儿补贴申请“一件事”_48:7d93570c2220946cd416",
+            "region_code": "540000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 12.32922193,
+            "authority": "西藏自治区卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "西藏自治区_政策规章_育儿补贴申请“一件事”_48",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "视情况。一般需为符合法律法规规定生育或收养的3周岁以下婴幼儿，最终以审核结果为准。\n- **第五条**：第五条补贴对象为从2025年1月1日起，符合法律法规规定生育或收养的3周岁以下婴幼儿。\n\n对3周岁以下的孤儿、事实无人抚养的婴幼儿，予以发放补贴。\n- **第三条**：第三条 3周岁以下的孤儿、事实无人抚养的婴幼儿，予以发放育儿补贴。\n- **第二条**：第二条 从2025年1月1日起，对符合法律法规规定生育或收养的3周岁以下婴幼儿发放补贴，至其年满3周岁。补贴对象应当具有中华人民共和国国籍。\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [西藏自治区育儿补贴制度实施细则](https://wjw.xizang.gov.cn/zwgk/xzgfxwj/202605/t20260505_538071.html)",
+        "citations": [
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "西藏自治区_政策规章_育儿补贴申请“一件事”_48"
+        ]
+      },
+      {
+        "case_id": "v21-cross-level-07",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 22.25758087,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:13c158fbbe5808de7465",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 17.68139592,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:d593f422ac6ce874e2ff",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 15.15517364,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:8afaa5ef3bd32a6dcc2e",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 10.54022657,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:53f3defc2409f38db772",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 10.2143024,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "关键材料通常包括婴幼儿出生医学证明、居民户口簿，以及必要的亲子或监护关系证明。特殊情形以当地补充要求为准。\n- **第七条**：第七条 育儿补贴具体申请程序如下：\n\n（一）申请。申领人填写婴幼儿及申领人有关信息，提供婴幼儿的出生医学证明、居民户口簿等基础材料，并根据需要提供有助于判定申领人和婴幼儿之间抚养关系的法定有效材料。\n\n（二）初审。婴幼儿户籍所在地乡镇政府（街道办事处）收到申领人申请后应及时进行初审。符合条件的予以通过，并报县级卫生健康部门审核；不符合条件的，应当及时告知申领人并做好政策解释。村（居）民委员会协助做好有关工作。\n\n（三）审核确认。县级卫生健康部门对乡镇政府（街道办事处）提交的申请材料进行审核，确认补贴发放对象名单，并\n- **三、主要特点**：**三、主要特点**\n\n《管理规范》坚持以人民为中心，强调惠民利民、安全规范、简便易行，主要突出以下4个重点：\n\n（一）精简申请和审核流程。明确育儿补贴的申领资格，精简申领材料，优化申领程序，以线上申领为主。强调审核工作要充分发挥大数据审核作用，切实减轻基层负担。初审和审核确认工作原则上应在30个工作日内完成。\n\n（二）明确发放时点和渠道。育儿补贴按年计算，每年一次性发放。各省份结合实际确定发放时点，原则上每季度至少集中发放一批，确保补贴及时足额发放到位。发放渠道为申领人或婴幼儿的银行卡或其他金融账户。\n\n（三）加\n- **第十一条**：第十一条 申领人应当对所提供信息及材料的真实性、完整性作出承诺。审核工作要充分发挥大数据审核作用，申领人上传的材料作为备查，切实减轻基层负担。县乡对大数据审核存在不一致的，要进行重点核查。\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [新闻发布会](https://www.nmg.gov.cn/zwgk/zcjd/gjzcjd/202509/t20250919_2793008.html)",
+        "citations": [
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "省级或地市_官方解读_育儿补贴申请“一件事”_17"
+        ]
+      },
+      {
+        "case_id": "v21-cross-level-08",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2d9c4f028dc8b0eadec0",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 10.5854923,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 10.01104476,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 9.93843322,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 9.23637617,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+            "chunk_id": "陕西省_政策规章_育儿补贴申请“一件事”_50:44a3cbf83fa35671886e",
+            "region_code": "610000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 9.20986917,
+            "authority": "陕西省人民政府",
+            "source_priority": 0,
+            "version_group": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "可以查询全国育儿补贴的金额、资格、材料、渠道、时限与发放规则。请选择想了解的内容。\n- **第三十一条**：第三十一条 省级或地市级拟出台其他育儿补贴政策或提标的，应按照民生政策备案有关要求，由卫生健康部门、财政部门报上一级主管部门备案。\n- **二、主要内容**：**二、主要内容**\n\n《管理规范》共6章：第一章为总则，主要规定育儿补贴制度的内容和职责分工；第二章主要规定了申请和审核要求，包括补贴对象、申领主体、申请程序、申请方式、信息审核等内容；第三章主要规定了补贴发放要求，包括发放方式、发放时点、发放渠道等内容；第四章主要规定了信息管理要求，包括信息系统管理、信息安全管理、数据质量评估和档案管理等内容；第五章主要规定了监督管理要求，包括资金管理和监督管理等内容；第六章为附则，主要明确各地可根据实际制定实施细则，省级或地市级拟出台其他育儿补贴政策或提标需要报上一级主管部门\n- **一、制定背景**：**一、制定背景**\n\n党的二十届三中全会部署建立生育补贴制度。2025年《政府工作报告》明确提出发放育儿补贴。2025年，中共中央办公厅、国务院办公厅印发《育儿补贴制度实施方案》，规定育儿补贴制度有关管理规范由国家卫生健康委、财政部另行制定。为保障育儿补贴制度顺利实施，进一步健全工作机制，规范服务流程，国家卫生健康委会同财政部研究制定了《管理规范》。\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [新闻发布会](https://www.nmg.gov.cn/zwgk/zcjd/gjzcjd/202509/t20250919_2793008.html)",
+        "citations": [
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "省级或地市_官方解读_育儿补贴申请“一件事”_17"
+        ]
+      },
+      {
+        "case_id": "v21-cross-level-09",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 9.88281023,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:7951108534577e88f249",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 8.98188069,
+            "authority": "重庆市人民政府",
+            "source_priority": 0,
+            "version_group": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "version_priority": 0
+          },
+          {
+            "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+            "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:70919618be650db7a2c6",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 8.08894474,
+            "authority": "重庆市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+            "version_priority": 0
+          },
+          {
+            "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:f5c48246df76b8a0991a",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 6.36137352,
+            "authority": "重庆市人民政府",
+            "source_priority": 0,
+            "version_group": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "version_priority": 0
+          },
+          {
+            "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:45f9d4069dda97bf4a97",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 6.31818292,
+            "authority": "重庆市人民政府",
+            "source_priority": 0,
+            "version_group": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+        "citations": []
+      },
+      {
+        "case_id": "v21-cross-region-07",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+            "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:8f2fe88adbd7a96eba2c",
+            "region_code": "350000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 37.984765,
+            "authority": "福建省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "福建省_官方解读_育儿补贴申请“一件事”_24",
+            "version_priority": 0
+          },
+          {
+            "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:2d07b11c438d5c4c1d68",
+            "region_code": "350000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 5.39780956,
+            "authority": "福建省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "version_priority": 0
+          },
+          {
+            "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:9bb4b4aa5ca9742d6c55",
+            "region_code": "350000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 3.85834464,
+            "authority": "福建省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:029004a9e964bfc9b5b4",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 3.56864493,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:cd4580e322ebf3c25b38",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 3.50269872,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "可以查询福建省育儿补贴的金额、资格、材料、渠道、时限与发放规则。请选择想了解的内容。\n- **三、育儿补贴的对象是哪些人？**：**三、育儿补贴的对象是哪些人？**\n\n补贴对象为从2025年1月1日起，符合法律、法规规定生育或收养且户籍在福建省行政区域内的3周岁以下婴幼儿。\n\n符合法律法规规定生育双（多）胞胎子女的，同胎次子女均可享受育儿补贴。比如，第一胎为一孩，第二胎为三胞胎，第二胎的三个孩子均可享受育儿补贴，第三胎不能享受。又如，第一胎为双胞胎，第二胎同为双胞胎，第二胎的两个孩子均可享受育儿补贴。再比如，第一胎为三胞胎，第二胎为一胞胎，第二胎开始不能享受育儿补贴。\n- **福建省育儿补贴制度实施方案**：各市、县（区）卫健委（局）、财政局，平潭综合实验区社会事业局、财政金融局：\n\n《福建省育儿补贴制度实施方案》现予印发，请遵照执行。\n\n福建省卫生健康委员会 福建省财政厅\n\n2025年12月1日\n\n（此件主动公开）\n- **福建省育儿补贴制度实施方案**：（三）补贴发放渠道。发放渠道为申领人或婴幼儿的银行卡或其他金融账户。补贴资金通过省级财政部门的惠民惠农“一卡通”统一发放，原则上使用国库集中支付系统批量支付方式发放。\n\n五、管理和监督\n\n（一）资金管理。中央和省级财政育儿补贴补助资金作为共同财政事权转移支付项目管理，各级财政应按规定足额安排补助资金，确保补贴及时发放到位。\n\n（二）信息管理。使用全国统一的育儿补贴信息管理系统，强化部门之间信息共享。建立信息共享比对工作机制，充分利用公安、民政、人力资源社会保障、卫生健康等多方面人口基础信息，做好信息收集、处理、校对\n> [《福建省育儿补贴制度实施方案》政策解读](https://wjw.fujian.gov.cn/xxgk/fgwj/zcjd/bmzcjd/202512/t20251212_7045529.htm)\n\n> [福建省育儿补贴制度实施方案](https://wjw.fujian.gov.cn/xxgk/zfxxgkzl/zc/bwgfxwj/202512/t20251212_7045743.htm)",
+        "citations": [
+          "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "福建省_政策规章_育儿补贴申请“一件事”_23"
+        ]
+      },
+      {
+        "case_id": "v21-cross-region-08",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+            "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:d58c9c05f77fdd531498",
+            "region_code": "310000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 23.09485166,
+            "authority": "上海市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "上海市_政策规章_育儿补贴申请“一件事”_9",
+            "version_priority": 0
+          },
+          {
+            "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+            "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:cc0d8f72677b87b65eae",
+            "region_code": "310000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 17.78250453,
+            "authority": "上海市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "上海市_政策规章_育儿补贴申请“一件事”_9",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:11be3249d882db2b9333",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 17.02844825,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+            "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:e73812f99bcfa1bb2f7f",
+            "region_code": "310000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 14.79474859,
+            "authority": "上海市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "上海市_政策规章_育儿补贴申请“一件事”_9",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 12.9170244,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "按当前证据，3周岁以下婴幼儿每孩每年3600元。是否发放仍以当地审核为准。\n- **二、补贴标准**：**二、补贴标准**\n\n全市按照现阶段国家基础标准，即每孩每年3600元，向符合条件的对象发放补贴。其中，对2025年1月1日之前出生、不满3周岁的婴幼儿，按应补贴月数折算计发补贴。对按照育儿补贴制度规定发放的育儿补贴免征个人所得税。在最低生活保障对象、特困人员等救助对象认定时，育儿补贴不计入家庭或个人收入。\n- **九、保障措施**：**九、保障措施**\n\n要加强组织实施，明确责任分工，确保责任到位、保障到位、落实到位。要加强宣传引导，让广大市民知晓政策，了解育儿补贴信息管理系统，按时申领育儿补贴。要加强各级业务培训，统一操作要求，规范审核发放。要加强舆情应对，做好信访稳定有关工作。\n\n相关稿件\n\n* [关于《上海市育儿补贴制度实施方案》 的政策解读](</zcjd/20251210/b1342144ac6d4599aebf8ad4761e8916.html>)\n* [经上海市政府同意，重要方案发布！全市按照国家标准发放育儿补贴，每孩每年360\n- **第二条**：第二条育儿补贴制度是国家为支持家庭抚育婴幼儿，降低生育、养育成本，对符合条件的婴幼儿按照一定标准发放补贴的制度。\n> [上海市育儿补贴制度实施方案](https://wsjkw.sh.gov.cn/jhsyjtfz/20251210/4033fa8cecda4cf28fcf39b74ff5d788.html)\n\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)",
+        "citations": [
+          "上海市_政策规章_育儿补贴申请“一件事”_9",
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+        ]
+      },
+      {
+        "case_id": "v21-cross-region-09",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 27.44428999,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c14cf69683927f68cfe9",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 25.84809144,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "内蒙古自治区_办事指南_育儿补贴申请“一件事”_18",
+            "chunk_id": "内蒙古自治区_办事指南_育儿补贴申请“一件事”_18:9aaa0d1e86419c01a1dc",
+            "region_code": "150000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 25.30567464,
+            "authority": "内蒙古自治区卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "内蒙古自治区_办事指南_育儿补贴申请“一件事”_18",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 13.75638083,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:ac8b2bdfe5977ad0572b",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 11.63761312,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "可通过微信、支付宝的“育儿补贴”小程序或当地政务服务平台线上申请，也可到婴幼儿户籍所在地乡镇政府、街道办事处现场申请。\n- **第九条**：第九条申领人主要通过育儿补贴信息管理系统线上申请，也可到婴幼儿户籍所在地乡镇政府（街道办事处）现场申请。\n\n申领人是儿童福利机构的，应到机构登记所在地乡镇政府（街道办事处）现场申请。\n- **2025年育儿补贴申领倒计时！**：**2025年育儿补贴申领倒计时！**\n\n**2022-2024年出生孩子需在2025年12月31日前申请，错过将视为自动放弃****本年度补贴****。**\n\n一、申领时限要牢记\n\n（一）2025年1月1日及以后出生的婴幼儿\n\n首次申请需在婴幼儿出生当年或次年提出，之后连续两个年度还需分别提出续领申请。例如，婴幼儿在2025年出生，首次申请可在2025年或2026年进行，然后在之后的连续两个年度分别提出续领申请。\n\n（二）2025年1月1日之前出生的婴幼儿\n\n2022年出生的婴幼儿：可申领1次补贴，必须在2025\n- **三、主要特点**：**三、主要特点**\n\n《管理规范》坚持以人民为中心，强调惠民利民、安全规范、简便易行，主要突出以下4个重点：\n\n（一）精简申请和审核流程。明确育儿补贴的申领资格，精简申领材料，优化申领程序，以线上申领为主。强调审核工作要充分发挥大数据审核作用，切实减轻基层负担。初审和审核确认工作原则上应在30个工作日内完成。\n\n（二）明确发放时点和渠道。育儿补贴按年计算，每年一次性发放。各省份结合实际确定发放时点，原则上每季度至少集中发放一批，确保补贴及时足额发放到位。发放渠道为申领人或婴幼儿的银行卡或其他金融账户。\n\n（三）加\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [育儿补贴申领倒计时：家有2022至2024年出生婴幼儿的家庭请注意](https://wjw.nmg.gov.cn/hdjl/zcwdk/wsjkzc/202511/t20251126_2823420.html)\n\n> [新闻发布会](https://www.nmg.gov.cn/zwgk/zcjd/gjzcjd/202509/t20250919_2793008.html)",
+        "citations": [
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "内蒙古自治区_办事指南_育儿补贴申请“一件事”_18",
+          "省级或地市_官方解读_育儿补贴申请“一件事”_17"
+        ]
+      },
+      {
+        "case_id": "v21-temporal-06",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 17.37226733,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "云南省_政策规章_育儿补贴申请“一件事”_46",
+            "chunk_id": "云南省_政策规章_育儿补贴申请“一件事”_46:141edafd515bd13da7b5",
+            "region_code": "530000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 10.48218459,
+            "authority": "云南省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "云南省_政策规章_育儿补贴申请“一件事”_46",
+            "version_priority": 0
+          },
+          {
+            "document_id": "云南省_政策规章_育儿补贴申请“一件事”_46",
+            "chunk_id": "云南省_政策规章_育儿补贴申请“一件事”_46:bf10c10971264c163f92",
+            "region_code": "530000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 5.10658084,
+            "authority": "云南省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "云南省_政策规章_育儿补贴申请“一件事”_46",
+            "version_priority": 0
+          },
+          {
+            "document_id": "云南省_政策规章_育儿补贴申请“一件事”_46",
+            "chunk_id": "云南省_政策规章_育儿补贴申请“一件事”_46:9af12a8560d911226f86",
+            "region_code": "530000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 4.97304913,
+            "authority": "云南省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "云南省_政策规章_育儿补贴申请“一件事”_46",
+            "version_priority": 0
+          },
+          {
+            "document_id": "云南省_政策规章_育儿补贴申请“一件事”_46",
+            "chunk_id": "云南省_政策规章_育儿补贴申请“一件事”_46:19e72d6d9d417370d6cd",
+            "region_code": "530000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 3.87909794,
+            "authority": "云南省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "云南省_政策规章_育儿补贴申请“一件事”_46",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "可以查询云南省育儿补贴的金额、资格、材料、渠道、时限与发放规则。请选择想了解的内容。\n- **一、补贴政策**：**一、补贴政策**\n\n（一）补贴对象\n\n从2025年1月1日起，对符合法律法规规定生育或收养的云南省户籍3周岁以下婴幼儿发放补贴，至其年满3周岁。\n\n对3周岁以下的孤儿、事实无人抚养的婴幼儿，予以发放补贴。\n\n（二）补贴标准\n\n育儿补贴现阶段标准为每孩每年3600元。其中，对2025年1月1日之前出生、不满3周岁的婴幼儿，按应补贴月数折算计发补贴。在最低生活保障对象、特困人员等救助对象认定时，育儿补贴不计入家庭或个人收入。\n\n（三）申领审核程序\n\n1.申请。由婴幼儿的父母一方或其他监护人按规定提出申请，提供所需材\n- **云南省育儿补贴制度实施方案**：**云南省育儿补贴制度实施方案**\n\n根据《中共中央办公厅 国务院办公厅关于印发〈育儿补贴制度实施方案〉的通知》（厅字〔2025〕15号）精神，为有序推动育儿补贴制度有效实施，结合我省实际，制定本方案。\n- **云南省育儿补贴制度实施方案**：各州（市）卫生健康委员会、财政局：\n\n经省人民政府同意，现将《云南省育儿补贴制度实施方案》印发给你们，请结合本地实际，认真组织实施。\n\n云南省卫生健康委员会 云南省财政厅\n\n2025年11月10日\n\n（此件公开发布）\n> [云南省育儿补贴制度实施方案](http://ynswsjkw.yn.gov.cn/html/2025/qitawenjianxin_1203/4024139.html)",
+        "citations": [
+          "云南省_政策规章_育儿补贴申请“一件事”_46"
+        ]
+      },
+      {
+        "case_id": "v21-temporal-07",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 13.74016547,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:9bed3758e624e3189abe",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 12.91061026,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:34a7713ff123fa7053c0",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 10.91773652,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:97dfe6f67c90c376a89e",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 8.96224599,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:75f3667af3b92f0b9999",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 7.98212032,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "按当前有效更新，相关首次申请期限为2025年1月1日。具体是否适用还要结合孩子出生年份和是否首次申请。\n- **第十二条**：第十二条申领人按年度申请。申领人应当在婴幼儿出生当年或次年提出首次申请，并在之后的连续两个年度分别提出续领申请。\n\n对于2025年1月1日以前出生的婴幼儿，首次申请应当在2025年12月31日前提出。\n\n逾期未提交申请的，视为自动放弃当年申请资格。\n- **第十四条**：第十四条 申领人按年度申请。\n\n（一）对于2025年1月1日及以后出生的婴幼儿，首次申请应在出生当年或次年提出，并在之后的连续两个年度分别提出续领申请。\n\n（二）对于2025年1月1日以前出生的婴幼儿，首次申请应当在2025年12月31日前提出。\n\n2022年出生的婴幼儿，可申领1次，应当在2025年提出；\n\n2023年出生的婴幼儿，可申领2次，分别在2025年和2026年提出；\n\n2024年出生的婴幼儿，可申领3次，分别在2025年、2026年和2027年提出。\n\n（三）逾期未提交申请的，视为自动放弃当年申请资格\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [黑龙江省卫生健康委员会 黑龙江省财政厅关于印发《黑龙江省育儿补贴制度实施细则》的通知](https://www.hlj.gov.cn/hlj/c116012qem/202605/c00_31945152.shtml)",
+        "citations": [
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "黑龙江省_政策规章_育儿补贴申请“一件事”_65"
+        ]
+      },
+      {
+        "case_id": "v21-temporal-08",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69",
+            "chunk_id": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69:4a25b17f88a271dfb264",
+            "region_code": "230100",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 33.7449294,
+            "authority": "哈尔滨市人民政府",
+            "source_priority": 0,
+            "version_group": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69",
+            "version_priority": 0
+          },
+          {
+            "document_id": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69",
+            "chunk_id": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69:e5bbf4979f63058f3046",
+            "region_code": "230100",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 15.68385299,
+            "authority": "哈尔滨市人民政府",
+            "source_priority": 0,
+            "version_group": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69",
+            "version_priority": 0
+          },
+          {
+            "document_id": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69",
+            "chunk_id": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69:66d6a52817d21258232c",
+            "region_code": "230100",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 15.30543897,
+            "authority": "哈尔滨市人民政府",
+            "source_priority": 0,
+            "version_group": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69",
+            "version_priority": 0
+          },
+          {
+            "document_id": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69",
+            "chunk_id": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69:7ecb062a6c5ecc0ae30d",
+            "region_code": "230100",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 13.45657554,
+            "authority": "哈尔滨市人民政府",
+            "source_priority": 0,
+            "version_group": "哈尔滨市_政策规章_育儿补贴申请“一件事”_69",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:34a7713ff123fa7053c0",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 12.15968076,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "视情况。一般需为符合法律法规规定生育或收养的3周岁以下婴幼儿，并满足当地户籍规则，最终以审核结果为准。\n- **第三条**：第三条 衔接政策对象\n\n（一）2025年1月1日至2026年4月27日期间不满3周岁；且符合《黑龙江省人口与计划生育条例》等法律法规规定，夫妻双方共同生育并现存两个及以上的婴幼儿；婴幼儿应具有哈尔滨市户籍。\n\n（二）以下情形均不计入孩次：\n\n1.夫妻收养的子女；\n\n2.申请前已死亡或失踪且经法定程序宣告死亡的子女；\n\n3.婚姻存续期间与他人生育的子女。\n- **第十一条**：第十一条 本办法自发布之日起施行。《哈尔滨市育儿补贴发放办法（试行）》（哈卫规〔2023〕1号）同时废止。此前我市有关育儿补贴政策规定与本办法不一致的，以本办法为准。本办法执行至2029年4月27日废止。\n\n关于《哈尔滨市育儿补贴政策衔接办法》的政策解读\n\n为全面贯彻落实国家育儿补贴制度，做好我市现行育儿补贴政策与国家政策的平稳衔接，切实减轻家庭生育养育负担，营造生育友好型社会氛围,市卫生健康委员会、市财政局共同制定《关于联合印发哈尔滨市育儿补贴政策衔接办法的通知》（哈卫规〔2026〕1号）。现将有关政策解读如下。\n- **第四条**：第四条 补贴衔接标准\n\n国家基础补贴标准为每孩每月300元。市级提标补贴标准为二孩每孩每月增加200元，三孩及以上每孩每月增加700元。其他未纳入衔接政策的子女执行国家每孩每月300元标准。发放至3周岁止，总计不超过36月。\n> [关于联合印发哈尔滨市育儿补贴政策衔接办法的通知](https://www.harbin.gov.cn/haerbin/c104546/202603/c01_1112432.shtml)",
+        "citations": [
+          "哈尔滨市_政策规章_育儿补贴申请“一件事”_69"
+        ]
+      },
+      {
+        "case_id": "v21-multi-06",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+            "chunk_id": "陕西省_政策规章_育儿补贴申请“一件事”_50:7ad7140ace14e581d491",
+            "region_code": "610000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 22.86768316,
+            "authority": "陕西省人民政府",
+            "source_priority": 0,
+            "version_group": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+            "version_priority": 0
+          },
+          {
+            "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+            "chunk_id": "陕西省_政策规章_育儿补贴申请“一件事”_50:ad063b7b839f4b79441c",
+            "region_code": "610000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 14.26751816,
+            "authority": "陕西省人民政府",
+            "source_priority": 0,
+            "version_group": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 12.91702805,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aa323da61443587c696a",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 12.31756042,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 11.72177066,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "按当前证据，3周岁以下婴幼儿每孩每年3600元。是否发放仍以当地审核为准。\n- **二、补贴标准**：**二、补贴标准**\n\n育儿补贴按年发放，标准为每孩每年3600元。其中，对2025年1月1日之前出生、不满3周岁的婴幼儿，按应补贴月数折算计发补贴。对按照育儿补贴制度规定发放的育儿补贴免征个人所得税。在最低生活保障对象、特困人员等救助对象认定时，育儿补贴不计入家庭或个人收入。\n- **四、资金来源和补贴发放**：**四、资金来源和补贴发放**\n\n（一）财政分担比例。发放国家基础标准所需育儿补贴资金，中央财政承担95%，其余5%由省与市县分担，其中：西安市、榆林市、杨凌示范区，省与市县按3∶7分担；其他地市，省与市县按6∶4分担。\n\n（二）补贴发放时间。原则上各地应按照每季度为周期集中发放，在每季度最后一日前将补贴及时足额发放到位。\n\n（三）补贴发放渠道。发放渠道为申领人或婴幼儿的银行卡或其他金融账户，鼓励通过惠民惠农财政补贴资金“一卡通”或婴幼儿的社会保障卡发放。\n- **第二条**：第二条育儿补贴制度是国家为支持家庭抚育婴幼儿，降低生育、养育成本，对符合条件的婴幼儿按照一定标准发放补贴的制度。\n> [陕西省育儿补贴制度实施方案](https://www.shaanxi.gov.cn/zfxxgk/zfgb/2026/d1q/202604/t20260420_3631295.html)\n\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)",
+        "citations": [
+          "陕西省_政策规章_育儿补贴申请“一件事”_50",
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+        ]
+      },
+      {
+        "case_id": "v21-multi-07",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 19.42662351,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 17.62901068,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 15.53195943,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "云南省_政策规章_育儿补贴申请“一件事”_46",
+            "chunk_id": "云南省_政策规章_育儿补贴申请“一件事”_46:141edafd515bd13da7b5",
+            "region_code": "530000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 14.96132102,
+            "authority": "云南省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "云南省_政策规章_育儿补贴申请“一件事”_46",
+            "version_priority": 0
+          },
+          {
+            "document_id": "云南省_政策规章_育儿补贴申请“一件事”_46",
+            "chunk_id": "云南省_政策规章_育儿补贴申请“一件事”_46:213404c435ac70071259",
+            "region_code": "530000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 12.68594933,
+            "authority": "云南省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "云南省_政策规章_育儿补贴申请“一件事”_46",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "按当前证据，3周岁以下婴幼儿每孩每年3600元。是否发放仍以当地审核为准。\n- **第二条**：第二条育儿补贴制度是国家为支持家庭抚育婴幼儿，降低生育、养育成本，对符合条件的婴幼儿按照一定标准发放补贴的制度。\n- **第二十四条**：第二十四条育儿补贴制度的实施依法依规接受监察、审计、财政等部门的监督检查。主要内容包括：\n\n（一）政策和标准是否公开；\n\n（二）资格审核确认程序是否规范；\n\n（三）政策执行是否公平公正、公开透明；\n\n（四）育儿补贴是否及时、准确、足额发放；\n\n（五）补助资金执行是否合规。\n- **一、补贴政策**：**一、补贴政策**\n\n（一）补贴对象\n\n从2025年1月1日起，对符合法律法规规定生育或收养的云南省户籍3周岁以下婴幼儿发放补贴，至其年满3周岁。\n\n对3周岁以下的孤儿、事实无人抚养的婴幼儿，予以发放补贴。\n\n（二）补贴标准\n\n育儿补贴现阶段标准为每孩每年3600元。其中，对2025年1月1日之前出生、不满3周岁的婴幼儿，按应补贴月数折算计发补贴。在最低生活保障对象、特困人员等救助对象认定时，育儿补贴不计入家庭或个人收入。\n\n（三）申领审核程序\n\n1.申请。由婴幼儿的父母一方或其他监护人按规定提出申请，提供所需材\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [云南省育儿补贴制度实施方案](http://ynswsjkw.yn.gov.cn/html/2025/qitawenjianxin_1203/4024139.html)",
+        "citations": [
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "云南省_政策规章_育儿补贴申请“一件事”_46"
+        ]
+      },
+      {
+        "case_id": "v21-multi-08",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 15.62380445,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:029004a9e964bfc9b5b4",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 13.93235277,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:6fca2a3e80e8015b08f8",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 10.88628342,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 9.99891785,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 9.75504795,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "视情况。一般需为符合法律法规规定生育或收养的3周岁以下婴幼儿，最终以审核结果为准。\n- **二、主要内容**：**二、主要内容**\n\n《管理规范》共6章：第一章为总则，主要规定育儿补贴制度的内容和职责分工；第二章主要规定了申请和审核要求，包括补贴对象、申领主体、申请程序、申请方式、信息审核等内容；第三章主要规定了补贴发放要求，包括发放方式、发放时点、发放渠道等内容；第四章主要规定了信息管理要求，包括信息系统管理、信息安全管理、数据质量评估和档案管理等内容；第五章主要规定了监督管理要求，包括资金管理和监督管理等内容；第六章为附则，主要明确各地可根据实际制定实施细则，省级或地市级拟出台其他育儿补贴政策或提标需要报上一级主管部门\n- **第五条**：第五条补贴对象为从2025年1月1日起，符合法律法规规定生育或收养的3周岁以下婴幼儿。\n\n对3周岁以下的孤儿、事实无人抚养的婴幼儿，予以发放补贴。\n- **第八条**：第八条地市级卫生健康部门每年按一定的比例，对补贴对象信息进行抽查。省级卫生健康部门根据需要开展抽查，实行动态监管，确保资金安全。\n> [新闻发布会](https://www.nmg.gov.cn/zwgk/zcjd/gjzcjd/202509/t20250919_2793008.html)\n\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)",
+        "citations": [
+          "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+        ]
+      },
+      {
+        "case_id": "v21-typo-06",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+            "chunk_id": "陕西省_政策规章_育儿补贴申请“一件事”_50:44a3cbf83fa35671886e",
+            "region_code": "610000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 6.19484184,
+            "authority": "陕西省人民政府",
+            "source_priority": 0,
+            "version_group": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+            "version_priority": 0
+          },
+          {
+            "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+            "chunk_id": "陕西省_政策规章_育儿补贴申请“一件事”_50:0a7da4a7306fb9243abf",
+            "region_code": "610000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 5.96547119,
+            "authority": "陕西省人民政府",
+            "source_priority": 0,
+            "version_group": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:0e65d02558ab14e9ec39",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 3.12931308,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7413cfdd4f2a0b243718",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 2.57502971,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+            "chunk_id": "陕西省_政策规章_育儿补贴申请“一件事”_50:ad063b7b839f4b79441c",
+            "region_code": "610000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 2.49843649,
+            "authority": "陕西省人民政府",
+            "source_priority": 0,
+            "version_group": "陕西省_政策规章_育儿补贴申请“一件事”_50",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "可以查询陕西省育儿补贴的金额、资格、材料、渠道、时限与发放规则。请选择想了解的内容。\n- **陕西省育儿补贴制度实施方案**：各设区市政府、杨凌示范区管委会，省级有关部门：\n\n《陕西省育儿补贴制度实施方案》已经省政府同意，现印发你们，请认真贯彻落实。\n\n陕西省卫生健康委员会\n陕西省财政厅\n2025年12月9日\n- **陕西省育儿补贴制度实施方案**：**陕西省育儿补贴制度实施方案**\n\n为贯彻落实党中央关于以人口高质量发展支撑中国式现代化的决策部署，促进我省人口长期均衡发展，根据《中共中央办公厅 国务院办公厅关于印发育儿补贴制度实施方案的通知》（厅字〔2025〕15号）要求，结合我省人口与发展实际，制定本方案。\n- **第十五条**：第十五条 各省份结合实际确定育儿补贴具体发放时点，原则上每季度至少集中发放一批，确保补贴及时足额发放到位。\n> [陕西省育儿补贴制度实施方案](https://www.shaanxi.gov.cn/zfxxgk/zfgb/2026/d1q/202604/t20260420_3631295.html)\n\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)",
+        "citations": [
+          "陕西省_政策规章_育儿补贴申请“一件事”_50",
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+        ]
+      },
+      {
+        "case_id": "v21-typo-07",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:13bb37393f7146c4ae08",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 12.6967092,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:34a7713ff123fa7053c0",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 11.84233069,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:9f9a10cf2a94b41d01de",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 10.78036639,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_官方解读_育儿补贴申请“一件事”_66",
+            "chunk_id": "黑龙江省_官方解读_育儿补贴申请“一件事”_66:a524578ff1f3945e828e",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 8.68783816,
+            "authority": "黑龙江省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "黑龙江省_官方解读_育儿补贴申请“一件事”_66",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:75f3667af3b92f0b9999",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 7.98212032,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "视情况。户籍迁入后如当年度尚未在原户籍地提交申请，可按迁入地规则办理；发现重复申领时会先核实，不能重复领取。\n- **第九条**：第九条 申领人主要通过国家育儿补贴信息管理系统线上申请，也可到婴幼儿户籍所在地乡镇政府（街道办事处）或其政务服务大厅现场申请。\n\n线上申请：申领人可通过微信、支付宝“育儿补贴”小程序，或黑龙江省“龙易办”小程序及“龙易办”APP，进入育儿补贴申领专区申请。\n\n线下申请：申领人也可到婴幼儿户籍所在地乡镇政府(街道办事处)现场申请，提交相关材料和信息。申领人是儿童福利机构的，应到机构登记所在地乡镇政府（街道办事处）或其政务服务大厅现场申请。\n- **第五条**：第五条 自2025年1月1日起，对符合法律法规规定生育或收养的3周岁以下婴幼儿，以及孤儿、事实无人抚养的3周岁以下婴幼儿（以下统称婴幼儿），发放育儿补贴，至婴幼儿年满3周岁。\n\n对于2025年1月1日以前出生、不满3周岁的婴幼儿，按应补贴月数折算计发补贴至其年满3周岁。\n\n补贴对象应当具有黑龙江省户籍。符合《黑龙江省人口与计划生育条例》规定生育的一孩、二孩、三孩及以上婴幼儿，孩次按一对夫妻共同生育并存活的子女数计算；复婚夫妻以两人共同生育的子女数计算；再婚夫妻以再婚后夫妻共同生育的子女数计算；单亲家庭按照本人生育子\n- **第十七条**：第十七条 婴幼儿户籍发生变动的，如各地补贴标准实行按月核算的，自户籍迁出本地的次月起，停止发放该婴幼儿的育儿补贴；户籍迁入本地的，应自其迁出原户籍地的次月起，启动补贴计发工作。\n> [黑龙江省卫生健康委员会 黑龙江省财政厅关于印发《黑龙江省育儿补贴制度实施细则》的通知](https://www.hlj.gov.cn/hlj/c116012qem/202605/c00_31945152.shtml)",
+        "citations": [
+          "黑龙江省_政策规章_育儿补贴申请“一件事”_65"
+        ]
+      },
+      {
+        "case_id": "v21-typo-08",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "福建省_官方解读_育儿补贴申请“一件事”_24",
+            "chunk_id": "福建省_官方解读_育儿补贴申请“一件事”_24:8f2fe88adbd7a96eba2c",
+            "region_code": "350000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 12.99723426,
+            "authority": "福建省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "福建省_官方解读_育儿补贴申请“一件事”_24",
+            "version_priority": 0
+          },
+          {
+            "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:2d07b11c438d5c4c1d68",
+            "region_code": "350000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 5.39780468,
+            "authority": "福建省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "version_priority": 0
+          },
+          {
+            "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:9bb4b4aa5ca9742d6c55",
+            "region_code": "350000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 2.08126928,
+            "authority": "福建省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "version_priority": 0
+          },
+          {
+            "document_id": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "chunk_id": "福建省_政策规章_育儿补贴申请“一件事”_23:c88167bb12190cc2e05b",
+            "region_code": "350000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 1.88771725,
+            "authority": "福建省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "福建省_政策规章_育儿补贴申请“一件事”_23",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "可以查询福建省育儿补贴的金额、资格、材料、渠道、时限与发放规则。请选择想了解的内容。\n- **三、育儿补贴的对象是哪些人？**：**三、育儿补贴的对象是哪些人？**\n\n补贴对象为从2025年1月1日起，符合法律、法规规定生育或收养且户籍在福建省行政区域内的3周岁以下婴幼儿。\n\n符合法律法规规定生育双（多）胞胎子女的，同胎次子女均可享受育儿补贴。比如，第一胎为一孩，第二胎为三胞胎，第二胎的三个孩子均可享受育儿补贴，第三胎不能享受。又如，第一胎为双胞胎，第二胎同为双胞胎，第二胎的两个孩子均可享受育儿补贴。再比如，第一胎为三胞胎，第二胎为一胞胎，第二胎开始不能享受育儿补贴。\n- **福建省育儿补贴制度实施方案**：各市、县（区）卫健委（局）、财政局，平潭综合实验区社会事业局、财政金融局：\n\n《福建省育儿补贴制度实施方案》现予印发，请遵照执行。\n\n福建省卫生健康委员会 福建省财政厅\n\n2025年12月1日\n\n（此件主动公开）\n- **福建省育儿补贴制度实施方案**：（三）补贴发放渠道。发放渠道为申领人或婴幼儿的银行卡或其他金融账户。补贴资金通过省级财政部门的惠民惠农“一卡通”统一发放，原则上使用国库集中支付系统批量支付方式发放。\n\n五、管理和监督\n\n（一）资金管理。中央和省级财政育儿补贴补助资金作为共同财政事权转移支付项目管理，各级财政应按规定足额安排补助资金，确保补贴及时发放到位。\n\n（二）信息管理。使用全国统一的育儿补贴信息管理系统，强化部门之间信息共享。建立信息共享比对工作机制，充分利用公安、民政、人力资源社会保障、卫生健康等多方面人口基础信息，做好信息收集、处理、校对\n> [《福建省育儿补贴制度实施方案》政策解读](https://wjw.fujian.gov.cn/xxgk/fgwj/zcjd/bmzcjd/202512/t20251212_7045529.htm)\n\n> [福建省育儿补贴制度实施方案](https://wjw.fujian.gov.cn/xxgk/zfxxgkzl/zc/bwgfxwj/202512/t20251212_7045743.htm)",
+        "citations": [
+          "福建省_官方解读_育儿补贴申请“一件事”_24",
+          "福建省_政策规章_育儿补贴申请“一件事”_23"
+        ]
+      },
+      {
+        "case_id": "v21-para-03a",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:f5c48246df76b8a0991a",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 19.56254186,
+            "authority": "重庆市人民政府",
+            "source_priority": 0,
+            "version_group": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "version_priority": 0
+          },
+          {
+            "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:45f9d4069dda97bf4a97",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 19.42972299,
+            "authority": "重庆市人民政府",
+            "source_priority": 0,
+            "version_group": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "version_priority": 0
+          },
+          {
+            "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+            "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:e2cdc313a998f52dd40a",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 10.6490301,
+            "authority": "重庆市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+            "version_priority": 0
+          },
+          {
+            "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+            "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:c85cf030d8d0ee0728b5",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 6.17656268,
+            "authority": "重庆市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+            "version_priority": 0
+          },
+          {
+            "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:7951108534577e88f249",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 5.0598256,
+            "authority": "重庆市人民政府",
+            "source_priority": 0,
+            "version_group": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "可以查询重庆市育儿补贴的金额、资格、材料、渠道、时限与发放规则。请选择想了解的内容。\n- **二、申请方式**：**二、申请方式**\n\n育儿补贴由婴幼儿父母一方向婴幼儿户籍所在地提出申请；父母离婚后由父母亲中具有抚养权的一方提出申请；父母均无法履行监护责任的，由该婴幼儿的其他监护人（含儿童福利机构）提出申请。\n\n申领人主要通过微信、支付宝平台“育儿补贴”小程序，或者通过微信、支付宝“渝快办”小程序的“育儿补贴”专区，进行线上申请，也可到婴幼儿户籍所在地乡镇政府（街道办事处）现场办理。\n\n申领人是儿童福利机构的，应到儿童福利机构登记所在地乡镇政府（街道办事处）现场办理。\n- **三、申请时限**：**三、申请时限**\n\n育儿补贴由婴幼儿父母一方向婴幼儿户籍所在地提出申请；父母离婚后由父母亲中具有抚养权的一方提出申请；父母均无法履行监护责任的，由该婴幼儿的其他监护人（含儿童福利机构）提出申请。\n\n申领人应当在婴幼儿出生当年或者次年提出首次申请，并在之后的连续两个年度分别提出续领申请。\n\n对2025年1月1日之前出生的婴幼儿，首次申请应当在2025年12月31日前提出。其中，2022年出生的婴幼儿，可申领1次，在2025年提出；2023年出生的婴幼儿，可申领2次，分别在2025年、2026年提出；2024年出生\n- **三、申领程序**：**三、申领程序**\n\n育儿补贴由婴幼儿父母一方向婴幼儿户籍所在地提出申请；父母离婚后由父母亲中具有抚养权的一方提出申请；父母均无法履行监护责任的，由该婴幼儿的其他监护人（含儿童福利机构）提出申请。具体程序如下：\n\n（一）申请。\n\n1.申请资料。申领人填写有关信息，提供婴幼儿的出生医学证明、户口簿首页及婴幼儿页等能证明申领人和婴幼儿之间抚养关系的法定有效材料，并对所提供信息及材料的真实性、完整性作出承诺。\n\n2.申请方式。申领人主要通过微信、支付宝平台“育儿补贴”小程序，或者通过微信、支付宝“渝快办”小程序的“育儿\n> [《重庆市育儿补贴办理指南》来了！](https://wap.cq.gov.cn/zwgk/zfxxgkzl/fdzdgknr/zdmsxx/shbz/shbz_ssqk/202511/t20251127_15193973.html)\n\n> [重庆市育儿补贴制度实施方案](https://wsjkw.cq.gov.cn/zwgk_242/wsjklymsxx/syfw/gzxx_266464/202511/t20251120_15177727_wap.html)",
+        "citations": [
+          "重庆市_办事指南_育儿补贴申请“一件事”_14",
+          "重庆市_政策规章_育儿补贴申请“一件事”_13"
+        ]
+      },
+      {
+        "case_id": "v21-para-03b",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+            "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:c85cf030d8d0ee0728b5",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 6.17656268,
+            "authority": "重庆市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:506cc02c3ebcf0c1c84d",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 5.77396613,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:7951108534577e88f249",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 5.0598256,
+            "authority": "重庆市人民政府",
+            "source_priority": 0,
+            "version_group": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "version_priority": 0
+          },
+          {
+            "document_id": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+            "chunk_id": "重庆市_政策规章_育儿补贴申请“一件事”_13:70919618be650db7a2c6",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 4.73265563,
+            "authority": "重庆市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "重庆市_政策规章_育儿补贴申请“一件事”_13",
+            "version_priority": 0
+          },
+          {
+            "document_id": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "chunk_id": "重庆市_办事指南_育儿补贴申请“一件事”_14:f5c48246df76b8a0991a",
+            "region_code": "500000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 4.60435982,
+            "authority": "重庆市人民政府",
+            "source_priority": 0,
+            "version_group": "重庆市_办事指南_育儿补贴申请“一件事”_14",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "可以查询重庆市育儿补贴的金额、资格、材料、渠道、时限与发放规则。请选择想了解的内容。\n- **重庆市育儿补贴制度实施方案**：近日，经市政府同意，市卫生健康委、市财政局联合印发了《重庆市育儿补贴制度实施方案》，主要内容如下。\n- **第六条**：第六条 育儿补贴由婴幼儿父母一方或其他监护人（含儿童福利机构）申领，用于育儿相关支出。\n- **一、补贴对象及标准**：**一、补贴对象及标准**\n\n（一）补贴对象。从2025年1月1日起，符合法律法规规定生育或者依法收养的具有重庆市户籍的3周岁以下婴幼儿。\n\n（二）补贴标准。育儿补贴按年发放，现阶段标准为每孩每年3600元。\n\n对2025年1月1日及之后出生的婴幼儿，补贴发放至其年满3周岁止。对2025年1月1日之前出生、不满3周岁的婴幼儿，按其未满3周岁的剩余月份数折算计发补贴。具体算法见表。\n> [重庆市育儿补贴制度实施方案](https://wsjkw.cq.gov.cn/zwgk_242/wsjklymsxx/syfw/gzxx_266464/202511/t20251120_15177727_wap.html)\n\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [《重庆市育儿补贴办理指南》来了！](https://wap.cq.gov.cn/zwgk/zfxxgkzl/fdzdgknr/zdmsxx/shbz/shbz_ssqk/202511/t20251127_15193973.html)",
+        "citations": [
+          "重庆市_政策规章_育儿补贴申请“一件事”_13",
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "重庆市_办事指南_育儿补贴申请“一件事”_14"
+        ]
+      },
+      {
+        "case_id": "v21-para-04a",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:9f9a10cf2a94b41d01de",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 19.93217159,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:34a7713ff123fa7053c0",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 14.41801648,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:13bb37393f7146c4ae08",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 12.6967092,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:75f3667af3b92f0b9999",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 11.87928202,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:97dfe6f67c90c376a89e",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 11.83351784,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "视情况。户籍迁入后如当年度尚未在原户籍地提交申请，可按迁入地规则办理；发现重复申领时会先核实，不能重复领取。\n- **第十七条**：第十七条 婴幼儿户籍发生变动的，如各地补贴标准实行按月核算的，自户籍迁出本地的次月起，停止发放该婴幼儿的育儿补贴；户籍迁入本地的，应自其迁出原户籍地的次月起，启动补贴计发工作。\n- **第五条**：第五条 自2025年1月1日起，对符合法律法规规定生育或收养的3周岁以下婴幼儿，以及孤儿、事实无人抚养的3周岁以下婴幼儿（以下统称婴幼儿），发放育儿补贴，至婴幼儿年满3周岁。\n\n对于2025年1月1日以前出生、不满3周岁的婴幼儿，按应补贴月数折算计发补贴至其年满3周岁。\n\n补贴对象应当具有黑龙江省户籍。符合《黑龙江省人口与计划生育条例》规定生育的一孩、二孩、三孩及以上婴幼儿，孩次按一对夫妻共同生育并存活的子女数计算；复婚夫妻以两人共同生育的子女数计算；再婚夫妻以再婚后夫妻共同生育的子女数计算；单亲家庭按照本人生育子\n- **第九条**：第九条 申领人主要通过国家育儿补贴信息管理系统线上申请，也可到婴幼儿户籍所在地乡镇政府（街道办事处）或其政务服务大厅现场申请。\n\n线上申请：申领人可通过微信、支付宝“育儿补贴”小程序，或黑龙江省“龙易办”小程序及“龙易办”APP，进入育儿补贴申领专区申请。\n\n线下申请：申领人也可到婴幼儿户籍所在地乡镇政府(街道办事处)现场申请，提交相关材料和信息。申领人是儿童福利机构的，应到机构登记所在地乡镇政府（街道办事处）或其政务服务大厅现场申请。\n> [黑龙江省卫生健康委员会 黑龙江省财政厅关于印发《黑龙江省育儿补贴制度实施细则》的通知](https://www.hlj.gov.cn/hlj/c116012qem/202605/c00_31945152.shtml)",
+        "citations": [
+          "黑龙江省_政策规章_育儿补贴申请“一件事”_65"
+        ]
+      },
+      {
+        "case_id": "v21-para-04b",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:13bb37393f7146c4ae08",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 12.6967092,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:34a7713ff123fa7053c0",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 11.84233069,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:9f9a10cf2a94b41d01de",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 10.78036639,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:75f3667af3b92f0b9999",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 7.98212032,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          },
+          {
+            "document_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "chunk_id": "黑龙江省_政策规章_育儿补贴申请“一件事”_65:97dfe6f67c90c376a89e",
+            "region_code": "230000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 7.95136971,
+            "authority": "黑龙江省人民政府",
+            "source_priority": 0,
+            "version_group": "黑龙江省_政策规章_育儿补贴申请“一件事”_65",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "视情况。户籍迁入后如当年度尚未在原户籍地提交申请，可按迁入地规则办理；发现重复申领时会先核实，不能重复领取。\n- **第九条**：第九条 申领人主要通过国家育儿补贴信息管理系统线上申请，也可到婴幼儿户籍所在地乡镇政府（街道办事处）或其政务服务大厅现场申请。\n\n线上申请：申领人可通过微信、支付宝“育儿补贴”小程序，或黑龙江省“龙易办”小程序及“龙易办”APP，进入育儿补贴申领专区申请。\n\n线下申请：申领人也可到婴幼儿户籍所在地乡镇政府(街道办事处)现场申请，提交相关材料和信息。申领人是儿童福利机构的，应到机构登记所在地乡镇政府（街道办事处）或其政务服务大厅现场申请。\n- **第五条**：第五条 自2025年1月1日起，对符合法律法规规定生育或收养的3周岁以下婴幼儿，以及孤儿、事实无人抚养的3周岁以下婴幼儿（以下统称婴幼儿），发放育儿补贴，至婴幼儿年满3周岁。\n\n对于2025年1月1日以前出生、不满3周岁的婴幼儿，按应补贴月数折算计发补贴至其年满3周岁。\n\n补贴对象应当具有黑龙江省户籍。符合《黑龙江省人口与计划生育条例》规定生育的一孩、二孩、三孩及以上婴幼儿，孩次按一对夫妻共同生育并存活的子女数计算；复婚夫妻以两人共同生育的子女数计算；再婚夫妻以再婚后夫妻共同生育的子女数计算；单亲家庭按照本人生育子\n- **第十七条**：第十七条 婴幼儿户籍发生变动的，如各地补贴标准实行按月核算的，自户籍迁出本地的次月起，停止发放该婴幼儿的育儿补贴；户籍迁入本地的，应自其迁出原户籍地的次月起，启动补贴计发工作。\n> [黑龙江省卫生健康委员会 黑龙江省财政厅关于印发《黑龙江省育儿补贴制度实施细则》的通知](https://www.hlj.gov.cn/hlj/c116012qem/202605/c00_31945152.shtml)",
+        "citations": [
+          "黑龙江省_政策规章_育儿补贴申请“一件事”_65"
+        ]
+      },
+      {
+        "case_id": "v21-false-04",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 32.0818811,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c14cf69683927f68cfe9",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 26.12759882,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:ac8b2bdfe5977ad0572b",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 15.62353809,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 13.39073931,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:506cc02c3ebcf0c1c84d",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 10.74135876,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "可通过微信、支付宝的“育儿补贴”小程序或当地政务服务平台线上申请，也可到婴幼儿户籍所在地乡镇政府、街道办事处现场申请。\n- **第九条**：第九条申领人主要通过育儿补贴信息管理系统线上申请，也可到婴幼儿户籍所在地乡镇政府（街道办事处）现场申请。\n\n申领人是儿童福利机构的，应到机构登记所在地乡镇政府（街道办事处）现场申请。\n- **三、主要特点**：**三、主要特点**\n\n《管理规范》坚持以人民为中心，强调惠民利民、安全规范、简便易行，主要突出以下4个重点：\n\n（一）精简申请和审核流程。明确育儿补贴的申领资格，精简申领材料，优化申领程序，以线上申领为主。强调审核工作要充分发挥大数据审核作用，切实减轻基层负担。初审和审核确认工作原则上应在30个工作日内完成。\n\n（二）明确发放时点和渠道。育儿补贴按年计算，每年一次性发放。各省份结合实际确定发放时点，原则上每季度至少集中发放一批，确保补贴及时足额发放到位。发放渠道为申领人或婴幼儿的银行卡或其他金融账户。\n\n（三）加\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [新闻发布会](https://www.nmg.gov.cn/zwgk/zcjd/gjzcjd/202509/t20250919_2793008.html)",
+        "citations": [
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "省级或地市_官方解读_育儿补贴申请“一件事”_17"
+        ]
+      },
+      {
+        "case_id": "v21-no-answer-07",
+        "predicted_behavior": "no_answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:9eff7bdd4d3315401ffd",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 8.79275485,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:499aaa09d46276df57c6",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 8.64686805,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:0c734ed5f1342ab37d27",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 8.0772809,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7413cfdd4f2a0b243718",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 7.10055426,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:ac8b2bdfe5977ad0572b",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 6.85727883,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+        "citations": []
+      },
+      {
+        "case_id": "v21-no-answer-08",
+        "predicted_behavior": "no_answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 12.91702562,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:02f7cec4ff2c0cd40337",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 11.87398192,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:d4af223da849c7dd8b9e",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 11.87255791,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 11.72176845,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:8afaa5ef3bd32a6dcc2e",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 10.44160734,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+        "citations": []
+      },
+      {
+        "case_id": "v21-no-answer-09",
+        "predicted_behavior": "no_answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 12.91702805,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aa323da61443587c696a",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 12.31756042,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:7cb44d62836229ba7ced",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 12.14292217,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 11.72177066,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:6577b9a4b487dcb438ab",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 10.68347383,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+        "citations": []
+      },
+      {
+        "case_id": "v21-no-answer-10",
+        "predicted_behavior": "no_answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2b4b70a4f7fb8ae45230",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 11.87179552,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:7e8fbea8d54ab18f69e4",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 1.36177391,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2d9c4f028dc8b0eadec0",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 1.31186689,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:89fa5a7c73f48407a5db",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 1.16905325,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 1.00495051,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+        "citations": []
+      },
+      {
+        "case_id": "v21-missing-region-04",
+        "predicted_behavior": "clarify_region",
+        "top_k": [],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "",
+        "citations": []
+      },
+      {
+        "case_id": "v21-missing-region-05",
+        "predicted_behavior": "clarify_region",
+        "top_k": [],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "",
+        "citations": []
+      },
+      {
+        "case_id": "v21-missing-region-06",
+        "predicted_behavior": "clarify_region",
+        "top_k": [],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "",
+        "citations": []
+      },
+      {
+        "case_id": "regression-beijing-amount",
+        "predicted_behavior": "no_answer",
+        "top_k": [
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:8afaa5ef3bd32a6dcc2e",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 21.59642524,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:53f3defc2409f38db772",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 20.78164638,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 12.91702805,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:f7412329f72585290bb3",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 12.4925407,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aa323da61443587c696a",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 12.31756042,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+        "citations": []
+      },
+      {
+        "case_id": "regression-hebei-eligibility",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:1e0167e142741d17f7b9",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 14.98997541,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 13.7549614,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:7cb44d62836229ba7ced",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 13.71209258,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:6fca2a3e80e8015b08f8",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 10.88628342,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:029004a9e964bfc9b5b4",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 10.79904519,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "目前信息不足，不能判断是否符合河北省育儿补贴资格。请一次性补充：孩子出生日期或月龄。\n- 第二章 申请与审核：2025年1月1日前出生且未满3周岁的婴幼儿，按应补贴月数折算的补贴金额\n- 第二章 申请与审核：2025年1月1日前出生且未满3周岁的婴幼儿",
+        "citations": [
+          "28a9c6b3d93c2821374b9d23"
+        ]
+      },
+      {
+        "case_id": "regression-hebei-claimant",
+        "predicted_behavior": "no_answer",
+        "top_k": [
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:7cb44d62836229ba7ced",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 19.78355107,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:1e0167e142741d17f7b9",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 16.61395061,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:6577b9a4b487dcb438ab",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 14.62301248,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:5bdca3d5cc0066104073",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 5.13037373,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aeb7a35aa9028685c0d2",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 5.01308414,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+        "citations": []
+      },
+      {
+        "case_id": "regression-beijing-materials",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 28.22390429,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:13c158fbbe5808de7465",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 24.13187942,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:d593f422ac6ce874e2ff",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 15.15517462,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:cc6b95c30271077da897",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 7.95561571,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:6d645a796c49b5f13f18",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 7.58334481,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "关键材料通常包括婴幼儿出生医学证明、居民户口簿，以及必要的亲子或监护关系证明。特殊情形以当地补充要求为准。\n- **第七条**：第七条 育儿补贴具体申请程序如下：\n\n（一）申请。申领人填写婴幼儿及申领人有关信息，提供婴幼儿的出生医学证明、居民户口簿等基础材料，并根据需要提供有助于判定申领人和婴幼儿之间抚养关系的法定有效材料。\n\n（二）初审。婴幼儿户籍所在地乡镇政府（街道办事处）收到申领人申请后应及时进行初审。符合条件的予以通过，并报县级卫生健康部门审核；不符合条件的，应当及时告知申领人并做好政策解释。村（居）民委员会协助做好有关工作。\n\n（三）审核确认。县级卫生健康部门对乡镇政府（街道办事处）提交的申请材料进行审核，确认补贴发放对象名单，并\n- **第六条**：第六条 申领人主要通过育儿补贴信息管理系统线上申请，也可到婴幼儿户籍所在地乡镇人民政府（街道办事处）现场申请。\n\n申领人是儿童福利机构的，应到机构登记所在地乡镇人民政府（街道办事处）现场申请。\n\n具体申请程序如下：\n\n（一）线上申请。申领人需填写婴幼儿及申领人有关信息，提供婴幼儿的出生医学证明、居民户口簿等基础材料，并根据需要提供有助于判定申领人和婴幼儿之间抚养关系的法定有效材料。\n\n（二）现场申请。申领人除提供线上申请所需材料的原件外，还应配合工作人员对申领人居民身份信息及相关材料进行核验。\n- **第十二条**：第十二条 审核工作要充分发挥大数据审核作用，申领人上传的材料作为备查，切实减轻基层负担。\n\n具体审核程序如下：\n\n（一）初审。婴幼儿户籍所在地乡镇人民政府（街道办事处）相关工作人员收到申领人申请后应及时进行初审。符合条件的予以通过，并报区卫生健康部门审核；不符合条件的，应及时告知申领人并做好政策解释。村（居）民委员会协助做好有关工作。\n\n（二）审核确认。区卫生健康部门对乡镇人民政府（街道办事处）提交的申请材料进行审核，确认补贴发放对象名单。\n\n区卫生健康部门、乡镇人民政府（街道办事处）相关工作人员对大数据审核存在不\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [视频解读：北京市育儿补贴制度实施细则（试行）](https://wjw.beijing.gov.cn/zwgk_20040/zcwj2024/202511/t20251125_4304288.html)",
+        "citations": [
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "北京市_政策规章_育儿补贴申请“一件事”_5"
+        ]
+      },
+      {
+        "case_id": "regression-hebei-channel",
+        "predicted_behavior": "no_answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 29.6130307,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:1e0167e142741d17f7b9",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 18.87973989,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c14cf69683927f68cfe9",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 16.63366506,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:ac8b2bdfe5977ad0572b",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 14.19796215,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 13.981395,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+        "citations": []
+      },
+      {
+        "case_id": "regression-beijing-deadline",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e5580f62860f427c4554",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 10.58106525,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:6d645a796c49b5f13f18",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 9.92461678,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:53f3defc2409f38db772",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 9.12896527,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:8afaa5ef3bd32a6dcc2e",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 6.07196777,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:f70e458c885ed26840a0",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 2.00081231,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "按当前有效更新，相关首次申请期限为2025年1月1日。具体是否适用还要结合孩子出生年份和是否首次申请。\n- **第十二条**：第十二条申领人按年度申请。申领人应当在婴幼儿出生当年或次年提出首次申请，并在之后的连续两个年度分别提出续领申请。\n\n对于2025年1月1日以前出生的婴幼儿，首次申请应当在2025年12月31日前提出。\n\n逾期未提交申请的，视为自动放弃当年申请资格。\n- **第八条**：第八条 补贴依申请发放，申领人按年度申请。\n\n申领人应在婴幼儿出生当年或次年提出首次申请，并在之后的连续两个年度分别提出续领申请。\n\n对于2025年1月1日以前出生的具有本市户籍的婴幼儿，首次申请应在2025年12月31日前提出。符合续领条件的，应遵照前一款规定提出续领申请。\n\n逾期未提交申请的，视为自动放弃当年申请资格，补贴不予补发。\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)\n\n> [视频解读：北京市育儿补贴制度实施细则（试行）](https://wjw.beijing.gov.cn/zwgk_20040/zcwj2024/202511/t20251125_4304288.html)",
+        "citations": [
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+          "北京市_政策规章_育儿补贴申请“一件事”_5"
+        ]
+      },
+      {
+        "case_id": "regression-hebei-payment",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:7cb44d62836229ba7ced",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 19.78355107,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:1e0167e142741d17f7b9",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 14.80977914,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:6577b9a4b487dcb438ab",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 14.62301248,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:3026fc4438b252ecae47",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 1.66548557,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:10d16e09f66f3b06437f",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 1.62161152,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "补贴在审核确认后按当地批次发放，实际到账以当地支付进度为准。\n- **主要特点**：** 主要特点**\n\n《实施细则》坚持以人民为中心，强调惠民利民、安全规范、简便易行，主要突出以下4个重点：\n\n（一）精简申请和审核流程。明确育儿补贴的申领资格，精简申领材料，优化申领程序，以线上申领为主。强调审核工作要充分发挥大数据审核作用，切实减轻基层负担。细化审核流程初审和审核确认工作原则上应在30个工作日内完成。\n\n（二）明确发放时点和渠道。育儿补贴按年计算，每年一次性发放。原则上每季度至少集中发放一批，确保补贴及时足额发放到位。发放渠道为申领人或婴幼儿的银行卡或其他金融账户。\n\n（三）加强信息管理。按照国\n- **第一条**：第一条 为规范补贴的申领、发放、管理等工作，根据中共中央办公厅、国务院办公厅印发的《育儿补贴制度实施方案》，制定本规范。\n- **二、主要内容**：** 二、主要内容**\n\n《实施细则》主要包括总则、申请与审核、补贴发放、信息管理、监督管理和附则，共六章36条。\n> [《河北省育儿补贴制度实施细则（试行）》政策解读](https://wsjkw.hebei.gov.cn/zcjd/417727.jhtml)\n\n> [国家卫生健康委、财政部印发《育儿补贴制度管理规范（试行）》](https://hnsswt.henan.gov.cn/2025/09-19/3228458.html)",
+        "citations": [
+          "河北省_官方解读_育儿补贴申请“一件事”_7",
+          "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29"
+        ]
+      },
+      {
+        "case_id": "regression-regional-comparison",
+        "predicted_behavior": "no_answer",
+        "top_k": [
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:53f3defc2409f38db772",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 16.25696308,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:8afaa5ef3bd32a6dcc2e",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 13.90920192,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:02f7cec4ff2c0cd40337",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 4.44486133,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2d9c4f028dc8b0eadec0",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 4.34531276,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:b3a42f39b36552ccb3fe",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 3.32870987,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+        "citations": []
+      },
+      {
+        "case_id": "regression-hebei-migration",
+        "predicted_behavior": "no_answer",
+        "top_k": [
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:6577b9a4b487dcb438ab",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 27.47415615,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:7cb44d62836229ba7ced",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 13.71209258,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "chunk_id": "河北省_官方解读_育儿补贴申请“一件事”_7:1e0167e142741d17f7b9",
+            "region_code": "130000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 11.27874049,
+            "authority": "河北省卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "河北省_官方解读_育儿补贴申请“一件事”_7",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:e1c755909d621ce6ccd5",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 7.07004452,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:2bbdfe970cfdcd2cc751",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 5.70197111,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "目前信息不足，不能判断是否符合河北省育儿补贴资格。请一次性补充：孩子出生日期或月龄。\n- 第二章 申请与审核：2025年1月1日前出生且未满3周岁的婴幼儿，按应补贴月数折算的补贴金额\n- 第二章 申请与审核：2025年1月1日前出生且未满3周岁的婴幼儿",
+        "citations": [
+          "28a9c6b3d93c2821374b9d23"
+        ]
+      },
+      {
+        "case_id": "regression-benefit-distinction",
+        "predicted_behavior": "no_answer",
+        "top_k": [
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:029004a9e964bfc9b5b4",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 1.99224991,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 1.98827027,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:f29feb5b016f8b31618c",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 1.81085991,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:c7148e2d3a176416f56d",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 0.00000532,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "chunk_id": "省级或地市_官方解读_育儿补贴申请“一件事”_17:14a6d639456397b4d51f",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 0.00000522,
+            "authority": "国家卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "省级或地市_官方解读_育儿补贴申请“一件事”_17",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "请告诉我孩子或申请业务所在的省、市或区县，我会按对应地区继续查询。\n",
+        "citations": []
+      },
+      {
+        "case_id": "regression-missing-region",
+        "predicted_behavior": "clarify_region",
+        "top_k": [],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "",
+        "citations": []
+      },
+      {
+        "case_id": "regression-unsupported-region",
+        "predicted_behavior": "answer",
+        "top_k": [
+          {
+            "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+            "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:d58c9c05f77fdd531498",
+            "region_code": "310000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 16.70052872,
+            "authority": "上海市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "上海市_政策规章_育儿补贴申请“一件事”_9",
+            "version_priority": 0
+          },
+          {
+            "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+            "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:e73812f99bcfa1bb2f7f",
+            "region_code": "310000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 16.41982941,
+            "authority": "上海市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "上海市_政策规章_育儿补贴申请“一件事”_9",
+            "version_priority": 0
+          },
+          {
+            "document_id": "上海市_政策规章_育儿补贴申请“一件事”_9",
+            "chunk_id": "上海市_政策规章_育儿补贴申请“一件事”_9:c60baf65a3c220497a07",
+            "region_code": "310000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 13.4497322,
+            "authority": "上海市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "上海市_政策规章_育儿补贴申请“一件事”_9",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:31f8d0374c281e11ddcb",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 12.91702805,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          },
+          {
+            "document_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "chunk_id": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29:aa323da61443587c696a",
+            "region_code": "100000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": "dup-national-childcare-management-standard-2025",
+            "score": 12.31756042,
+            "authority": "国家卫生健康委员会、财政部",
+            "source_priority": 0,
+            "version_group": "新疆维吾尔自治区_政策规章_育儿补贴申请“一件事”_29",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": true,
+        "answer_text": "按当前证据，3周岁以下婴幼儿每孩每年3600元。是否发放仍以当地审核为准。\n- **二、补贴标准**：**二、补贴标准**\n\n全市按照现阶段国家基础标准，即每孩每年3600元，向符合条件的对象发放补贴。其中，对2025年1月1日之前出生、不满3周岁的婴幼儿，按应补贴月数折算计发补贴。对按照育儿补贴制度规定发放的育儿补贴免征个人所得税。在最低生活保障对象、特困人员等救助对象认定时，育儿补贴不计入家庭或个人收入。\n- **九、保障措施**：**九、保障措施**\n\n要加强组织实施，明确责任分工，确保责任到位、保障到位、落实到位。要加强宣传引导，让广大市民知晓政策，了解育儿补贴信息管理系统，按时申领育儿补贴。要加强各级业务培训，统一操作要求，规范审核发放。要加强舆情应对，做好信访稳定有关工作。\n\n相关稿件\n\n* [关于《上海市育儿补贴制度实施方案》 的政策解读](</zcjd/20251210/b1342144ac6d4599aebf8ad4761e8916.html>)\n* [经上海市政府同意，重要方案发布！全市按照国家标准发放育儿补贴，每孩每年360\n- **三、资金来源**：**三、资金来源**\n\n按照国家方案，现阶段国家基础标准每孩每年3600元，东部地区中央财政资金按国家标准的85%予以补助，其余资金由地方财政承担。根据财政事权与支出责任划分原则，中央财政资金以外部分（折合为每孩每年540元）由市级和补贴对象户籍所在地区级财政按1:1比例共同承担，市级承担部分纳入市对区转移支付。\n> [上海市育儿补贴制度实施方案](https://wsjkw.sh.gov.cn/jhsyjtfz/20251210/4033fa8cecda4cf28fcf39b74ff5d788.html)",
+        "citations": [
+          "上海市_政策规章_育儿补贴申请“一件事”_9"
+        ]
+      },
+      {
+        "case_id": "regression-retrieval-empty",
+        "predicted_behavior": "no_answer",
+        "top_k": [
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:53f3defc2409f38db772",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 15.05070337,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          },
+          {
+            "document_id": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "chunk_id": "北京市_政策规章_育儿补贴申请“一件事”_5:8afaa5ef3bd32a6dcc2e",
+            "region_code": "110000",
+            "effective_from": "1900-01-01",
+            "effective_to": null,
+            "duplicate_group_id": null,
+            "score": 13.90919708,
+            "authority": "北京市卫生健康委员会",
+            "source_priority": 0,
+            "version_group": "北京市_政策规章_育儿补贴申请“一件事”_5",
+            "version_priority": 0
+          }
+        ],
+        "repeat_stable": true,
+        "evidence_sufficient": false,
+        "answer_text": "当前检索结果未能用同一地区、有效版本的具体政策原文覆盖问题中的全部要点，因此暂不能给出确定结论。建议缩小问题范围，或咨询当地主管部门。\n",
+        "citations": []
+      }
+    ],
+    "conversations": [],
+    "safety": []
+  },
+  "timings": {
+    "retrieval_ms": [
+      326.3925,
+      408.052,
+      488.6412,
+      386.583,
+      370.4419,
+      385.2937,
+      418.2048,
+      403.9027,
+      373.7897,
+      325.039,
+      308.6064,
+      300.924,
+      297.7308,
+      281.5083,
+      314.6778,
+      298.7586,
+      299.2827,
+      136.0418,
+      297.1937,
+      370.4908,
+      497.3983,
+      532.3277,
+      517.3628,
+      679.2594,
+      630.5873,
+      382.2091,
+      339.5435,
+      413.0392,
+      338.0741,
+      322.626,
+      372.6538,
+      316.5923,
+      373.4987,
+      385.2216,
+      418.2528,
+      460.8847,
+      395.502,
+      426.1494,
+      129.8283
+    ],
+    "total_ms": [
+      767.8252,
+      915.8806,
+      1003.4001,
+      834.8721,
+      777.1992,
+      797.3959,
+      891.1089,
+      872.9399,
+      761.4292,
+      663.9249,
+      651.1114,
+      621.5894,
+      683.5165,
+      655.1924,
+      690.8955,
+      637.2126,
+      638.3092,
+      321.6477,
+      624.7993,
+      1099.115,
+      1077.697,
+      1286.556,
+      1410.6171,
+      1318.1119,
+      1094.6104,
+      755.1037,
+      748.4801,
+      789.9103,
+      355.4008,
+      682.9196,
+      733.6467,
+      756.3862,
+      795.1031,
+      824.1732,
+      1285.825,
+      475.3687,
+      396.7502,
+      857.2321,
+      310.7188
+    ]
+  },
+  "metrics": {
+    "dev": {
+      "cases": 30,
+      "behavior_correct": 30,
+      "metrics": {
+        "document_recall_at_5": 1,
+        "chunk_recall_at_5": 0.8913043478260869,
+        "mrr_at_10": 0.8224637681159419,
+        "ndcg_at_10": 0.6731604271376171,
+        "region_leakage_rate": 0,
+        "temporal_leakage_rate": 0,
+        "version_resolution_accuracy": 1,
+        "duplicate_occupancy_at_5": 0,
+        "required_fact_coverage": 0.7666666666666667,
+        "forbidden_fact_rate": 0,
+        "citation_precision": 0.5365853658536586,
+        "citation_completeness": 0.8461538461538461,
+        "behavior_accuracy": 1,
+        "no_answer_precision": 1,
+        "no_answer_recall": 1,
+        "no_answer_f1": 1,
+        "deterministic_rate": 1
+      },
+      "denominators": {
+        "answerable": 23,
+        "region_slots": 114,
+        "temporal_slots": 114,
+        "source_slots": 51,
+        "required_facts": 30,
+        "forbidden_facts": 4,
+        "citations_predicted": 41,
+        "citations_expected": 26,
+        "no_answer": 4
+      },
+      "case_results": [
+        {
+          "case_id": "v21-single-08",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-single-09",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-single-10",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-level-07",
+          "category": "cross_level_policy",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-level-08",
+          "category": "cross_level_policy",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-level-09",
+          "category": "cross_level_policy",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-region-07",
+          "category": "cross_region_interference",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-region-08",
+          "category": "cross_region_interference",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-cross-region-09",
+          "category": "cross_region_interference",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-temporal-06",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-temporal-07",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-temporal-08",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-multi-06",
+          "category": "multi_evidence",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-multi-07",
+          "category": "multi_evidence",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-multi-08",
+          "category": "multi_evidence",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-typo-06",
+          "category": "colloquial_typo",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-typo-07",
+          "category": "colloquial_typo",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-typo-08",
+          "category": "colloquial_typo",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-03a",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-03b",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-04a",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-para-04b",
+          "category": "paraphrase_consistency",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-false-04",
+          "category": "false_premise",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-07",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-08",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-09",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-no-answer-10",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-missing-region-04",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-missing-region-05",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "v21-missing-region-06",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        }
+      ]
+    },
+    "regression": {
+      "cases": 13,
+      "behavior_correct": 12,
+      "metrics": {
+        "document_recall_at_5": 1,
+        "chunk_recall_at_5": 1,
+        "mrr_at_10": 0.75,
+        "ndcg_at_10": 0.7231973151785931,
+        "region_leakage_rate": 0,
+        "temporal_leakage_rate": 0,
+        "version_resolution_accuracy": 1,
+        "duplicate_occupancy_at_5": 0,
+        "required_fact_coverage": 1,
+        "forbidden_fact_rate": 0,
+        "citation_precision": 0.4444444444444444,
+        "citation_completeness": 1,
+        "behavior_accuracy": 0.9230769230769231,
+        "no_answer_precision": 1,
+        "no_answer_recall": 0.875,
+        "no_answer_f1": 0.9333333333333333,
+        "deterministic_rate": 1
+      },
+      "denominators": {
+        "answerable": 4,
+        "region_slots": 20,
+        "temporal_slots": 20,
+        "source_slots": 8,
+        "required_facts": 4,
+        "forbidden_facts": 0,
+        "citations_predicted": 9,
+        "citations_expected": 4,
+        "no_answer": 8
+      },
+      "case_results": [
+        {
+          "case_id": "regression-beijing-amount",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-eligibility",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "answer",
+          "document_hit": null,
+          "failure_attribution": "retrieval_miss"
+        },
+        {
+          "case_id": "regression-hebei-claimant",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-beijing-materials",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-channel",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-beijing-deadline",
+          "category": "temporal_version",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-payment",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-regional-comparison",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-hebei-migration",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-benefit-distinction",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-missing-region",
+          "category": "missing_region",
+          "expected": "clarify_region",
+          "predicted": "clarify_region",
+          "document_hit": null,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-unsupported-region",
+          "category": "single_region_fact",
+          "expected": "answer",
+          "predicted": "answer",
+          "document_hit": true,
+          "failure_attribution": null
+        },
+        {
+          "case_id": "regression-retrieval-empty",
+          "category": "no_answer",
+          "expected": "no_answer",
+          "predicted": "no_answer",
+          "document_hit": null,
+          "failure_attribution": null
+        }
+      ]
+    },
+    "conversations": null,
+    "safety": null
+  },
+  "resources": {
+    "cpu_user_us": 3609000,
+    "cpu_system_us": 3797000,
+    "peak_memory_bytes": 95150080,
+    "index_size_bytes": 4272128,
+    "model_requests": 26,
+    "input_tokens": 876,
+    "output_tokens": 16342,
+    "total_tokens": 17218,
+    "retries": 0,
+    "timeouts": 0,
+    "estimated_cost": 0,
+    "cost_currency": "USD",
+    "latency_scope": "local_test_provider_not_real_model"
+  }
+}

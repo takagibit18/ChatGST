@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "experiment_id": "K0",
+  "status": "blocked_missing_frozen_source",
+  "reason": "K0 six-document source corpus was never committed; manifest-only evidence cannot be used as a retrieval run.",
+  "base_tag": "phase3.3-frozen-baseline",
+  "base_commit": "f6f033baac1231937de377a9383fdb3117743ff7",
+  "snapshot_hash": "5cb48acc7cf21eb923d94cad259c7c2581a6b1621000530994ff3f3cff46541a",
+  "repeats_completed": 0
+}

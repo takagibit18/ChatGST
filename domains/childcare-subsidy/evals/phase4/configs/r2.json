@@ -1,0 +1,1 @@
+{ "schema_version": 1, "extends": "baseline.json", "experiment_id": "R2", "retrieval": { "chunk_max_chars": 1000 } }

@@ -1,0 +1,1 @@
+{ "schema_version": 1, "extends": "baseline.json", "experiment_id": "R6", "retrieval": { "version_strategy": "effective_only" } }

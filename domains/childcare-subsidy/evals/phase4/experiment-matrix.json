@@ -21,7 +21,7 @@
     { "id": "R3", "family": "retrieval", "changed_variable": "retrieval.final_top_k", "baseline_value": 5, "experiment_value": 3, "config": "configs/r3.json" },
     { "id": "R4", "family": "retrieval", "changed_variable": "retrieval.field_weighting", "baseline_value": "section_body_equal", "experiment_value": "title_section_body", "config": "configs/r4.json" },
     { "id": "R5", "family": "retrieval", "changed_variable": "retrieval.region_strategy", "baseline_value": "hierarchy_pre_filter", "experiment_value": "exact_region_pre_filter", "config": "configs/r5.json" },
-    { "id": "R6", "family": "retrieval", "changed_variable": "retrieval.version_strategy", "baseline_value": "effective_version_group_first", "experiment_value": "effective_only", "config": "configs/r6.json" }
+    { "id": "R6", "family": "retrieval", "changed_variable": "retrieval.version_strategy", "baseline_value": "effective_version_group_first", "experiment_value": "none", "config": "configs/r6.json" }
   ],
   "agent_ablations": "configs/agent-ablation.json"
 }

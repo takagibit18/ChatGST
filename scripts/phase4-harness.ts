@@ -61,7 +61,7 @@ type RetrievalConfig = {
   final_top_k: number;
   field_weighting: "section_body_equal" | "title_section_body";
   region_strategy: "hierarchy_pre_filter" | "exact_region_pre_filter";
-  version_strategy: "effective_version_group_first" | "effective_only";
+  version_strategy: "effective_version_group_first" | "none";
   bm25_threshold: number;
 };
 type AgentConfig = Record<
@@ -246,7 +246,7 @@ class Phase4RetrievalProvider implements RetrievalProvider {
         || this.config.agent.region_hierarchy === false
         ? [...new Set([input.region, "全国"])] : hierarchy;
       const placeholders = regions.map(() => "?").join(", ");
-      const useVersion = this.config.retrieval.version_strategy !== "effective_only" && this.config.agent.version_filtering !== false;
+      const useVersion = this.config.retrieval.version_strategy !== "none" && this.config.agent.version_filtering !== false;
       const versionClause = useVersion ? "AND pd.effective_from <> 'unknown' AND pd.effective_from <= ? AND (pd.effective_to IS NULL OR (pd.effective_to <> 'unknown' AND pd.effective_to >= ?))" : "";
       const parameters: unknown[] = [query, ...regions];
       if (useVersion) parameters.push(input.effective_date, input.effective_date);
@@ -284,7 +284,7 @@ class Phase4RetrievalProvider implements RetrievalProvider {
   async getSource(id: string): Promise<PolicySource | null> { return this.base.getSource(id); }
   async getMetadata(id: string) { return this.base.getMetadata(id); }
   async resolvePolicyVersion(input: { region: string; policy_type: string; reference_date: string }): Promise<PolicyVersionResolution> {
-    if (this.config.retrieval.version_strategy === "effective_only" || this.config.agent.version_filtering === false) return { status: "not_found", policies: [] };
+    if (this.config.retrieval.version_strategy === "none" || this.config.agent.version_filtering === false) return { status: "not_found", policies: [] };
     return this.base.resolvePolicyVersion(input);
   }
   getStats() { return this.base.getStats(); }
@@ -299,7 +299,11 @@ function evidenceDecision(question: string, intent: ReturnType<typeof normalizeP
   const evaluated = evaluateEvidenceSufficiency(question, intent, hits, regionCode, { effectiveDate, comparisonRegions });
   const bundleTypes = new Set(["disconnected_policy_bundle", "mixed_policy_lineage", "incompatible_policy_bundle"]);
   const conflicts = evaluated.conflicts.filter((conflict) => config.agent.policy_bundle_compatibility ? true : !bundleTypes.has(conflict.type));
-  return { ...evaluated, conflicts, sufficient: config.agent.evidence_sufficiency ? evaluated.missing_claims.length === 0 && conflicts.length === 0 : hits.length > 0 };
+  const sufficient = !config.agent.evidence_sufficiency ? hits.length > 0
+    : !config.agent.policy_bundle_compatibility
+      ? evaluated.required_claims.length > 0 && evaluated.missing_claims.length === 0 && conflicts.length === 0
+      : evaluated.sufficient;
+  return { ...evaluated, conflicts, sufficient };
 }
 
 async function runRetrievalCase(provider: Phase4RetrievalProvider, runtime: ReturnType<typeof createDefaultPolicyRuntime>["runtime"], item: RetrievalEvalCaseV21,

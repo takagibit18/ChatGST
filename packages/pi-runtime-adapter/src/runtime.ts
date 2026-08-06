@@ -479,7 +479,10 @@ export class PolicyAgentRuntime {
           conflicts: effectiveConflicts,
           sufficient: ablation.evidence_sufficiency === false
             ? rankedHits.length > 0
-            : evaluatedEvidenceSufficiency.missing_claims.length === 0 && effectiveConflicts.length === 0,
+            : ablation.policy_bundle_compatibility === false
+              ? evaluatedEvidenceSufficiency.required_claims.length > 0
+                && evaluatedEvidenceSufficiency.missing_claims.length === 0 && effectiveConflicts.length === 0
+              : evaluatedEvidenceSufficiency.sufficient,
         };
         monitor("step", {
           step: "evidence_sufficiency",

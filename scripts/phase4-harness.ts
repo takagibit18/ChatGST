@@ -303,13 +303,13 @@ function evidenceDecision(question: string, intent: ReturnType<typeof normalizeP
 }
 
 async function runRetrievalCase(provider: Phase4RetrievalProvider, runtime: ReturnType<typeof createDefaultPolicyRuntime>["runtime"], item: RetrievalEvalCaseV21,
-  config: Phase4Config, repeat: number): Promise<Phase4RetrievalPrediction> {
+  config: Phase4Config, repeat: number): Promise<{ prediction: Phase4RetrievalPrediction; usage: { model_calls: number; input_tokens: number; output_tokens: number } }> {
   let normalized = normalizePolicyQuery(item.question, null);
   if (!config.agent.query_normalizer || config.retrieval.query_normalization === "raw") normalized = { ...normalized, retrievalQuery: item.question.trim() };
   if (!config.agent.intent_classification) normalized = { ...normalized, intent: "unknown", intentConfidence: "low" };
   const region = item.user_region ?? (normalized.region === "对比" ? null : normalized.region);
-  if (!region) return { case_id: item.id, predicted_behavior: "clarify_region", top_k: [], retrieval_ms: [], total_ms: [], repeat_stable: true,
-    evidence_sufficient: false, answer_text: "", citations: [] };
+  if (!region) return { prediction: { case_id: item.id, predicted_behavior: "clarify_region", top_k: [], retrieval_ms: [], total_ms: [], repeat_stable: true,
+    evidence_sufficient: false, answer_text: "", citations: [] }, usage: { model_calls: 0, input_tokens: 0, output_tokens: 0 } };
   const start = performance.now();
   const hits = await provider.search({ query: normalized.retrievalQuery, region, effective_date: item.effective_date, top_k: config.retrieval.candidate_pool_size });
   const retrievalMs = performance.now() - start;
@@ -319,12 +319,13 @@ async function runRetrievalCase(provider: Phase4RetrievalProvider, runtime: Retu
   const runtimeResult = await runtime.answer({ conversationId: `${config.experiment_id}-${repeat}-${item.id}`, message: item.question, effectiveDate: item.effective_date });
   const answerText = `${runtimeResult.response.answer_markdown}\n${runtimeResult.response.collapsibles.map((part) => part.content_markdown).join("\n")}`;
   const predicted = sufficiency.sufficient && hits.length > 0 && hits[0]!.retrieval_score >= config.retrieval.bm25_threshold ? "answer" : "no_answer";
-  return { case_id: item.id, predicted_behavior: predicted, top_k: hits.map((hit) => ({ document_id: hit.document_id, chunk_id: hit.chunk_id,
+  return { prediction: { case_id: item.id, predicted_behavior: predicted, top_k: hits.map((hit) => ({ document_id: hit.document_id, chunk_id: hit.chunk_id,
     region_code: hit.metadata.region_code ?? "100000", effective_from: hit.effective_from, effective_to: hit.effective_to,
     duplicate_group_id: hit.metadata.duplicate_group_id ?? null, score: hit.retrieval_score, authority: hit.metadata.authority,
     source_priority: hit.metadata.source_priority ?? 0, version_group: hit.metadata.version_group ?? "unknown", version_priority: hit.metadata.version_priority ?? 0 })),
     retrieval_ms: [Number(retrievalMs.toFixed(6))], total_ms: [Number((performance.now() - start).toFixed(6))], repeat_stable: true,
-    evidence_sufficient: sufficiency.sufficient, answer_text: answerText, citations: runtimeResult.response.sources.map((source) => source.document_id) };
+    evidence_sufficient: sufficiency.sufficient, answer_text: answerText, citations: runtimeResult.response.sources.map((source) => source.document_id) },
+    usage: { model_calls: runtimeResult.usage.modelCalls, input_tokens: runtimeResult.usage.inputTokens, output_tokens: runtimeResult.usage.outputTokens } };
 }
 
 async function runExperiment(identity: ExperimentIdentity, config: Phase4Config, includeAgentSuites: boolean) {
@@ -351,10 +352,16 @@ async function runExperiment(identity: ExperimentIdentity, config: Phase4Config,
     const { runtime } = createDefaultPolicyRuntime(runtimeConfig, { retrievalProvider: provider, experimentalAblation: ablationOptions(config) });
     const cpuStart = process.cpuUsage();
     const retrievalPredictions: Phase4RetrievalPrediction[] = [];
-    for (const item of [...datasets.dev, ...datasets.regression]) retrievalPredictions.push(await runRetrievalCase(provider, runtime, item, config, repeat));
+    let usage = { model_requests: 0, input_tokens: 0, output_tokens: 0, total_tokens: 0, retries: 0, timeouts: 0 };
+    for (const item of [...datasets.dev, ...datasets.regression]) {
+      const execution = await runRetrievalCase(provider, runtime, item, config, repeat);
+      retrievalPredictions.push(execution.prediction);
+      usage.model_requests += execution.usage.model_calls;
+      usage.input_tokens += execution.usage.input_tokens;
+      usage.output_tokens += execution.usage.output_tokens;
+    }
     const conversationPredictions: Phase4ConversationPrediction[] = [];
     const safetyPredictions: Phase4SafetyPrediction[] = [];
-    let usage = { model_requests: 0, input_tokens: 0, output_tokens: 0, total_tokens: 0, retries: 0, timeouts: 0 };
     if (includeAgentSuites) {
       for (const scenario of datasets.conversations) {
         const turns: Phase4ConversationPrediction["turns"] = [];
@@ -392,7 +399,9 @@ async function runExperiment(identity: ExperimentIdentity, config: Phase4Config,
       model_provider: "test", model_id: "TestModelProvider", random_seed: config.random_seed, repeat_index: repeat, started_at: started, completed_at: new Date().toISOString(),
       config_fingerprint: configFingerprint, prediction_fingerprint: predictionFingerprint,
     };
-    const row = { manifest, config, predictions: stablePredictions, metrics: { dev: devScore, regression: regressionScore, conversations, safety },
+    const row = { manifest, config, predictions: stablePredictions,
+      timings: { retrieval_ms: retrievalPredictions.flatMap((item) => item.retrieval_ms), total_ms: retrievalPredictions.flatMap((item) => item.total_ms) },
+      metrics: { dev: devScore, regression: regressionScore, conversations, safety },
       resources: { cpu_user_us: cpu.user, cpu_system_us: cpu.system, peak_memory_bytes: peakMemory, index_size_bytes: index.index_size_bytes, ...usage, estimated_cost: 0,
         cost_currency: "USD", latency_scope: "local_test_provider_not_real_model" } };
     repeatRows.push(row);
@@ -411,12 +420,14 @@ async function runExperiment(identity: ExperimentIdentity, config: Phase4Config,
     regressionNoAnswerRecall: metrics.regression.metrics.no_answer_recall, failureGroups,
     staleContextLeakageRate: metrics.conversations?.stale_context_leakage_rate ?? 0,
     calibrationPassed: calibration.calibration_status === "passed", calibrationAnswerRecall: calibration.selected?.answer_recall ?? 0 }) : null;
-  const allTimings = repeatRows.flatMap((row) => ((row.predictions as { retrieval: Phase4RetrievalPrediction[] }).retrieval)).flatMap((item) => item.retrieval_ms);
+  const allTimings = repeatRows.flatMap((row) => (row.timings as { retrieval_ms: number[] }).retrieval_ms);
+  const allTotals = repeatRows.flatMap((row) => (row.timings as { total_ms: number[] }).total_ms);
   const summary = { schema_version: 1, experiment_id: identity.id, status: "completed", identity, config, config_fingerprint: configFingerprint,
     base_tag: BASE_TAG, base_commit: BASE_COMMIT, run_commit: runCommit, repetitions: repeatRows.length, deterministic: new Set(fingerprints).size === 1,
     prediction_fingerprints: fingerprints, snapshot: { id: index.snapshot.snapshot_id, hash: index.snapshot.snapshot_hash, counts: index.snapshot.counts, build: index.build },
     metrics, failure_groups: failureGroups, quality_gate: qualityGate,
-    performance_ms: { retrieval: { p50: percentile(allTimings, 0.5), p95: percentile(allTimings, 0.95), p99: percentile(allTimings, 0.99) } },
+    performance_ms: { retrieval: { p50: percentile(allTimings, 0.5), p95: percentile(allTimings, 0.95), p99: percentile(allTimings, 0.99) },
+      total: { p50: percentile(allTotals, 0.5), p95: percentile(allTotals, 0.95), p99: percentile(allTotals, 0.99) } },
     resources: (first.resources as Record<string, unknown>), completed_at: new Date().toISOString() };
   await writeFile(resolve(PHASE4_ROOT, "runs", identity.id, "summary.json"), `${JSON.stringify(summary, null, 2)}\n`, "utf8");
   return summary;

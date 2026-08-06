@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "dataset_id": "phase4-frozen-test-v1",
+  "tag": "phase4-frozen-test",
+  "review_status": "machine_validated_unreviewed",
+  "generation_commit": "d5f37d3f7282accbe5c842b1ac04e888dc37a8cd",
+  "knowledge_snapshot_hash": "041f724f04893f821bdfdb23cc76d9faa3fd10233920489e5111edafc6cb34ce",
+  "annotations_sha256": "96f588898001b3e439b0aeb826f301db63821c0ccbf4f4662763b50217148896",
+  "test_sha256": "7b04cfc1ae703d5d3055e56b778c2de2341196267b2f53b46b37374550a47e73",
+  "manifest_sha256": "9985e911144002ce70e1d550854e13dc21a9213f63da8722cfa785fcb6186568",
+  "candidate_files": {
+    "A": {
+      "file_sha256": "0eea2758926a028406d5023588ded3698a1132628c19bb23e2feda59725ea64a",
+      "config_hash": "430c85531c573a385e43efd78f6eb60f64d49afcca1cc0a6a4586a45101d991d"
+    },
+    "B": {
+      "file_sha256": "94a611017e3a83f7a5700a136972353f3b94f5901814c683e5e84d2252f29ab9",
+      "config_hash": null,
+      "selected": false
+    }
+  },
+  "tuning_after_freeze": false
+}
